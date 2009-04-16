@@ -144,7 +144,7 @@
 		if ([url.path isEqualToString:@"/__/item/create"]) {
 			
 			// get query variables...
-			NSMutableDictionary *vars = [self getQueryVariables:nil escapePercentages:NO];
+			NSMutableDictionary *vars = [self getQueryVariables:nil escapePercentages:YES];
 			// check to see if this folder already exists.
 			NSString *itemPath = [self getRelativePath:[NSString stringWithFormat:@"%@%@", [vars objectForKey:@"path"], [vars objectForKey:@"name"]]];
 			if ([[NSFileManager defaultManager] fileExistsAtPath:itemPath]) {
