@@ -122,11 +122,16 @@
 {
 	NSURL *url = [NSURL URLWithString:uri];
 	
+	NSLog(@"%@", url.path);
+	
 	if ([method isEqualToString:@"GET"]) { // GET requests
 		
-		if ([url.path hasPrefix:@"/storage"]) {
+		if ([url.path hasPrefix:@"/__/storage"]) {
 			
-			NSData *JSON = [[self getDirectoryItems:url.path] dataUsingEncoding:NSUTF8StringEncoding];
+			NSLog(@"trying to get files");
+			
+			// strip __;
+			NSData *JSON = [[self getDirectoryItems:[url.path substringFromIndex:3]] dataUsingEncoding:NSUTF8StringEncoding];
 			return [[[HTTPDataResponse alloc] initWithData:JSON] autorelease];
 			
 		} else { // default response
@@ -226,6 +231,8 @@
 
 - (NSString *)getDirectoryItems:(NSString *)path
 {
+	
+	NSLog(@"%@", path);
 	path = [self getRelativePath:path];
 	NSArray *directoryContents = [[NSFileManager defaultManager] directoryContentsAtPath:path];
 	
