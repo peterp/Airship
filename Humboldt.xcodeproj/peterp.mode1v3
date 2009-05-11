@@ -278,7 +278,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>20</integer>
+									<integer>22</integer>
 									<integer>16</integer>
 									<integer>0</integer>
 								</array>
@@ -303,7 +303,7 @@
 							<real>258</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>30 123 1288 724 0 0 1440 878 </string>
+						<string>91 131 1288 724 0 0 1440 878 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -321,7 +321,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>RootViewController.m</string>
+								<string>StorageHTTPConnection.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -329,11 +329,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>RootViewController.m</string>
+										<string>StorageHTTPConnection.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>CE9227AD0FB76B0E009911C8</string>
+										<string>CE228C310FB8C30000C40A7C</string>
 										<key>history</key>
 										<array>
 											<string>CE99F2910F7984E30078E219</string>
@@ -345,12 +345,14 @@
 											<string>CE8A65B40F968EAE00EA1AFB</string>
 											<string>CE8A65B50F968EAE00EA1AFB</string>
 											<string>CE8A65B60F968EAE00EA1AFB</string>
-											<string>CE1C83230FB0EE6700EEA601</string>
-											<string>CE9227100FB75AE0009911C8</string>
 											<string>CE9227360FB75F22009911C8</string>
 											<string>CE9227920FB768A0009911C8</string>
-											<string>CE9227930FB768A0009911C8</string>
-											<string>CE9227940FB768A0009911C8</string>
+											<string>CE228C170FB8C2D000C40A7C</string>
+											<string>CE228C180FB8C2D000C40A7C</string>
+											<string>CE228C1A0FB8C2D000C40A7C</string>
+											<string>CE228C2D0FB8C30000C40A7C</string>
+											<string>CE228C2E0FB8C30000C40A7C</string>
+											<string>CE1C83230FB0EE6700EEA601</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -367,33 +369,24 @@
 											<string>CE784DC10F6C505500F27AD0</string>
 											<string>CEDD5DEA0F6EFBE400D2C149</string>
 											<string>CE99F2940F7984E30078E219</string>
-											<string>CE9227140FB75AE0009911C8</string>
-											<string>CE9227150FB75AE0009911C8</string>
-											<string>CE9227160FB75AE0009911C8</string>
-											<string>CE9227170FB75AE0009911C8</string>
-											<string>CE9227180FB75AE0009911C8</string>
-											<string>CE9227190FB75AE0009911C8</string>
-											<string>CE92271A0FB75AE0009911C8</string>
-											<string>CE92271B0FB75AE0009911C8</string>
-											<string>CE92271C0FB75AE0009911C8</string>
-											<string>CE92271D0FB75AE0009911C8</string>
-											<string>CE92271E0FB75AE0009911C8</string>
-											<string>CE92271F0FB75AE0009911C8</string>
-											<string>CE9227200FB75AE0009911C8</string>
-											<string>CE9227210FB75AE0009911C8</string>
-											<string>CE9227220FB75AE0009911C8</string>
 											<string>CE9227230FB75AE0009911C8</string>
-											<string>CE9227240FB75AE0009911C8</string>
-											<string>CE9227250FB75AE0009911C8</string>
-											<string>CE9227260FB75AE0009911C8</string>
-											<string>CE9227270FB75AE0009911C8</string>
-											<string>CE9227320FB75EFD009911C8</string>
-											<string>CE9227370FB75F22009911C8</string>
 											<string>CE9227380FB75F22009911C8</string>
-											<string>CE9227390FB75F22009911C8</string>
-											<string>CE9227950FB768A0009911C8</string>
-											<string>CE9227960FB768A0009911C8</string>
-											<string>CE9227970FB768A0009911C8</string>
+											<string>CE228C1C0FB8C2D000C40A7C</string>
+											<string>CE228C1D0FB8C2D000C40A7C</string>
+											<string>CE228C1E0FB8C2D000C40A7C</string>
+											<string>CE228C1F0FB8C2D000C40A7C</string>
+											<string>CE228C200FB8C2D000C40A7C</string>
+											<string>CE228C210FB8C2D000C40A7C</string>
+											<string>CE228C220FB8C2D000C40A7C</string>
+											<string>CE228C230FB8C2D000C40A7C</string>
+											<string>CE228C240FB8C2D000C40A7C</string>
+											<string>CE228C250FB8C2D000C40A7C</string>
+											<string>CE228C260FB8C2D000C40A7C</string>
+											<string>CE228C270FB8C2D000C40A7C</string>
+											<string>CE228C280FB8C2D000C40A7C</string>
+											<string>CE228C290FB8C2D000C40A7C</string>
+											<string>CE228C2F0FB8C30000C40A7C</string>
+											<string>CE228C300FB8C30000C40A7C</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -407,7 +400,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {1008, 678}}</string>
 								<key>RubberWindowFrame</key>
-								<string>30 123 1288 724 0 0 1440 878 </string>
+								<string>91 131 1288 724 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -427,7 +420,7 @@
 								<key>Frame</key>
 								<string>{{0, 683}, {1008, 0}}</string>
 								<key>RubberWindowFrame</key>
-								<string>30 123 1288 724 0 0 1440 878 </string>
+								<string>91 131 1288 724 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
@@ -451,9 +444,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>CE9227290FB75AE0009911C8</string>
+				<string>CE228C2B0FB8C2D000C40A7C</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>CE92272A0FB75AE0009911C8</string>
+				<string>CE228C2C0FB8C2D000C40A7C</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -587,13 +580,12 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>1C78EAAD065D492600B07095</string>
-		<string>1CD10A99069EF8BA00B06720</string>
 		<string>CE2B3ACC0F3CCF090039B355</string>
+		<string>1CD10A99069EF8BA00B06720</string>
 		<string>/Volumes/Storage/Development/apps/Humboldt/Humboldt.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>30 123 1288 724 0 0 1440 878 </string>
+	<string>91 131 1288 724 0 0 1440 878 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>
@@ -609,12 +601,14 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>HumboldtAppDelegate.m</string>
+								<string>StorageController.m</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -631,8 +625,6 @@
 							<string>350pt</string>
 						</dict>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -672,7 +664,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>CE2B3ACC0F3CCF090039B355</string>
-				<string>CE9226EC0FB75981009911C8</string>
+				<string>CE228C0E0FB8C29400C40A7C</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -792,13 +784,13 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>CE9226ED0FB75981009911C8</string>
+				<string>CE228C0F0FB8C29400C40A7C</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>CE9226EE0FB75981009911C8</string>
-				<string>CE9226EF0FB75981009911C8</string>
-				<string>CE9226F00FB75981009911C8</string>
-				<string>CE9226F10FB75981009911C8</string>
-				<string>CE9226F20FB75981009911C8</string>
+				<string>CE228C100FB8C29400C40A7C</string>
+				<string>CE228C110FB8C29400C40A7C</string>
+				<string>CE228C120FB8C29400C40A7C</string>
+				<string>CE228C130FB8C29400C40A7C</string>
+				<string>CE228C140FB8C29400C40A7C</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>

@@ -1,48 +1,80 @@
 //
-//  RootViewController.m
+//  StorageViewController.m
 //  Humboldt
 //
-//  Created by Peter Pistorius on 2009/05/10.
+//  Created by Peter Pistorius on 2009/05/11.
 //  Copyright 2009 __MyCompanyName__. All rights reserved.
 //
 
-#import "RootViewController.h"
+#import "StorageViewController.h"
 
 
-@implementation RootViewController
+@implementation StorageViewController
 
-
+/*
 - (id)initWithStyle:(UITableViewStyle)style {
     // Override initWithStyle: if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
     if (self = [super initWithStyle:style]) {
     }
     return self;
 }
-
+*/
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	self.title = @"Humboldt";
+	self.title = @"Storage";
 	
+	items = [[NSMutableArray alloc] init];
+
+	[self openDirectory:@"/Storage"];
 	
-	storageItems = [[NSMutableArray alloc] init];
+	NSLog(@"%@", items);
 	
-	[storageItems addObject:@"1"];
-	[storageItems addObject:@"2"];
-	[storageItems addObject:@"3"];
-	[storageItems addObject:@"4"];
-	[storageItems addObject:@"5"];
-	[storageItems addObject:@"6"];
-	[storageItems addObject:@"7"];
-	[storageItems addObject:@"8"];
-	[storageItems addObject:@"9"];
-	[storageItems addObject:@"10"];
+
 	
-	
-	
+
+    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
+
+
+- (void)openDirectory:(NSString *)atPath {
+	
+	
+	NSString *documentRoot = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+	NSString *path = [documentRoot stringByAppendingString:atPath];
+	NSArray *directoryComponents = [[NSFileManager defaultManager] directoryContentsAtPath:path];
+	
+	for (NSString *name in directoryComponents) {
+		[items addObject:name];
+	}
+	
+//	NSString *p = [NSString stringWithFormat:@"%@%@", documentRoot, atPath];
+//	
+//	NSArray *directoryContents = [[NSFileManager defaultManager] directoryContentsAtPath:p];
+//	
+//	NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+//	[dateFormat setDateFormat:@"MMM dd yyyy, HH:mm"];
+//	
+//	NSMutableArray *items = [NSMutableArray array];
+//	for (NSString *name in directoryContents) {
+//		NSDictionary *attr = [[NSFileManager defaultManager] fileAttributesAtPath:[p stringByAppendingPathComponent:name] traverseLink:NO];
+//		
+//		[items addObject:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:
+//															  name, 
+//															  [dateFormat stringFromDate:[attr objectForKey:NSFileModificationDate]],
+//															  [NSString stringWithFormat:@"%1.0f", [[attr objectForKey:NSFileSize] floatValue] / 1024],
+//															  [[attr objectForKey:NSFileType] isEqualToString: @"NSFileTypeDirectory"] ? @"folder" : @"file",
+//															  nil] 
+//													 forKeys:[NSArray arrayWithObjects:@"name", @"date", @"size", @"type", nil]]];
+//	}
+//	[dateFormat release];
+//	
+//	return items;
+}
+
 
 
 /*
@@ -96,7 +128,7 @@
 
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return [storageItems count];
+    return [items count];
 }
 
 
@@ -111,7 +143,8 @@
     }
     
     // Set up the cell...
-	cell.text = @"sadsadsad";
+	
+	cell.text = [items objectAtIndex:indexPath.row];
 	
     return cell;
 }
@@ -166,7 +199,8 @@
 
 
 - (void)dealloc {
-	[storageItems release];
+	[items release];
+	
     [super dealloc];
 }
 

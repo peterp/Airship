@@ -9,24 +9,32 @@
 #import "HumboldtAppDelegate.h"
 #import "HTTPServer.h"
 #import "StorageHTTPConnection.h"
-#import "RootViewController.h"
+#import "StorageViewController.h"
+
+
 
 @implementation HumboldtAppDelegate
 
-@synthesize window;
-@synthesize navigationController;
+@synthesize window,
+			navigationController;
 
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
 	
-	RootViewController *rootViewController = [[RootViewController alloc] initWithStyle:UITableViewStylePlain];
-	UINavigationController *aNavigationController = [[UINavigationController alloc] initWithRootViewController:rootViewController];
-	self.navigationController = aNavigationController;
+	
+	StorageViewController *storageViewController = [[StorageViewController alloc] initWithStyle:UITableViewStylePlain];
+	
+	UINavigationController *initNavigationController = [[UINavigationController alloc] initWithRootViewController:storageViewController];
+	self.navigationController = initNavigationController;
 	
 	[window addSubview:navigationController.view];
-    [window makeKeyAndVisible];
+	[window makeKeyAndVisible];
+	[storageViewController release];
+	[initNavigationController release];
 	
-	// Get the document root
+	
+	
+	// launch the HTTP server.
 	NSString *documentRoot = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, 
 																  NSUserDomainMask, 
 																  YES) objectAtIndex:0];
@@ -42,8 +50,7 @@
 		NSLog(@"Error starting HTTPServer: %@", httpError);
 	}
 	
-	[rootViewController release];
-	[aNavigationController release];
+	
 }
 
 
