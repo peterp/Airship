@@ -9,15 +9,21 @@
 #import "HumboldtAppDelegate.h"
 #import "HTTPServer.h"
 #import "StorageHTTPConnection.h"
+#import "RootViewController.h"
 
 @implementation HumboldtAppDelegate
 
 @synthesize window;
+@synthesize navigationController;
 
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
-
-    // Override point for customization after application launch
+	
+	RootViewController *rootViewController = [[RootViewController alloc] initWithStyle:UITableViewStylePlain];
+	UINavigationController *aNavigationController = [[UINavigationController alloc] initWithRootViewController:rootViewController];
+	self.navigationController = aNavigationController;
+	
+	[window addSubview:navigationController.view];
     [window makeKeyAndVisible];
 	
 	// Get the document root
@@ -35,6 +41,9 @@
 	if (![httpServer start:&httpError]) {
 		NSLog(@"Error starting HTTPServer: %@", httpError);
 	}
+	
+	[rootViewController release];
+	[aNavigationController release];
 }
 
 

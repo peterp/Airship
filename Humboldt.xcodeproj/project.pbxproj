@@ -23,6 +23,7 @@
 		CE3EC6A00F6BBB2A00D25101 /* HTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3EC6980F6BBB2A00D25101 /* HTTPConnection.m */; };
 		CE3EC6A10F6BBB2A00D25101 /* HTTPAuthenticationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3EC6990F6BBB2A00D25101 /* HTTPAuthenticationRequest.m */; };
 		CE3EC6A20F6BBB2A00D25101 /* HTTPServer.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3EC69D0F6BBB2A00D25101 /* HTTPServer.m */; };
+		CE9226F90FB759CC009911C8 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9226F80FB759CC009911C8 /* RootViewController.m */; };
 		CEC10D610F890BCC0055F839 /* NSCharacterSet_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC10D530F890BCC0055F839 /* NSCharacterSet_Extensions.m */; };
 		CEC10D620F890BCC0055F839 /* CDataScanner_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC10D550F890BCC0055F839 /* CDataScanner_Extensions.m */; };
 		CEC10D630F890BCC0055F839 /* NSDictionary_JSONExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC10D570F890BCC0055F839 /* NSDictionary_JSONExtensions.m */; };
@@ -62,6 +63,8 @@
 		CE3EC69C0F6BBB2A00D25101 /* HTTPServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPServer.h; sourceTree = "<group>"; };
 		CE3EC69D0F6BBB2A00D25101 /* HTTPServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPServer.m; sourceTree = "<group>"; };
 		CE3EC69E0F6BBB2A00D25101 /* HTTPAuthenticationRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPAuthenticationRequest.h; sourceTree = "<group>"; };
+		CE9226F70FB759CC009911C8 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
+		CE9226F80FB759CC009911C8 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		CEC10D520F890BCC0055F839 /* NSCharacterSet_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCharacterSet_Extensions.h; sourceTree = "<group>"; };
 		CEC10D530F890BCC0055F839 /* NSCharacterSet_Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCharacterSet_Extensions.m; sourceTree = "<group>"; };
 		CEC10D540F890BCC0055F839 /* CDataScanner_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDataScanner_Extensions.h; sourceTree = "<group>"; };
@@ -98,6 +101,8 @@
 			children = (
 				1D3623240D0F684500981E51 /* HumboldtAppDelegate.h */,
 				1D3623250D0F684500981E51 /* HumboldtAppDelegate.m */,
+				CE9226F70FB759CC009911C8 /* RootViewController.h */,
+				CE9226F80FB759CC009911C8 /* RootViewController.m */,
 				CE2B3B0D0F3CD72B0039B355 /* StorageHTTPConnection.h */,
 				CE2B3B0E0F3CD72B0039B355 /* StorageHTTPConnection.m */,
 			);
@@ -294,6 +299,7 @@
 				CEC10D650F890BCC0055F839 /* CJSONSerializer.m in Sources */,
 				CEC10D660F890BCC0055F839 /* CJSONDeserializer.m in Sources */,
 				CEC10D670F890BCC0055F839 /* CDataScanner.m in Sources */,
+				CE9226F90FB759CC009911C8 /* RootViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -76,7 +76,7 @@
 						postBits = [[postBits objectAtIndex:1] componentsSeparatedByString:@"\\"];
 						
 						// create "storage" folder
-						NSString *filePath = [[[server documentRoot] path] stringByAppendingPathComponent:@"storage"];
+						NSString *filePath = [[[server documentRoot] path] stringByAppendingPathComponent:@"Storage"];
 						[[NSFileManager defaultManager] createDirectoryAtPath:filePath attributes:nil];
 						
 						// create filename with range.
@@ -126,7 +126,7 @@
 	
 	if ([method isEqualToString:@"GET"]) { // GET requests
 		
-		if ([url.path hasPrefix:@"/__/storage"]) {
+		if ([url.path hasPrefix:@"/__/Storage"]) {
 			
 			NSLog(@"trying to get files");
 			
