@@ -24,31 +24,31 @@
 	
 	StorageViewController *storageViewController = [[StorageViewController alloc] initWithStyle:UITableViewStylePlain];
 	
-	UINavigationController *initNavigationController = [[UINavigationController alloc] initWithRootViewController:storageViewController];
-	self.navigationController = initNavigationController;
+	UINavigationController *aNavigationController = [[UINavigationController alloc] initWithRootViewController:storageViewController];
+	self.navigationController = aNavigationController;
 	
 	[window addSubview:navigationController.view];
 	[window makeKeyAndVisible];
 	[storageViewController release];
-	[initNavigationController release];
+	[aNavigationController release];
 	
 	
 	
 	// launch the HTTP server.
-	NSString *documentRoot = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, 
-																  NSUserDomainMask, 
-																  YES) objectAtIndex:0];
-	httpServer = [HTTPServer new];
-	[httpServer setType:@"_http._tcp."];
-	[httpServer setConnectionClass:[StorageHTTPConnection class]];
-	[httpServer setDocumentRoot:[NSURL fileURLWithPath:documentRoot]];
-	[httpServer setPort:8000];
-	
-	// Start the HTTP server
-	NSError *httpError;
-	if (![httpServer start:&httpError]) {
-		NSLog(@"Error starting HTTPServer: %@", httpError);
-	}
+//	NSString *documentRoot = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, 
+//																  NSUserDomainMask, 
+//																  YES) objectAtIndex:0];
+//	httpServer = [HTTPServer new];
+//	[httpServer setType:@"_http._tcp."];
+//	[httpServer setConnectionClass:[StorageHTTPConnection class]];
+//	[httpServer setDocumentRoot:[NSURL fileURLWithPath:documentRoot]];
+//	[httpServer setPort:8000];
+//	
+//	// Start the HTTP server
+//	NSError *httpError;
+//	if (![httpServer start:&httpError]) {
+//		NSLog(@"Error starting HTTPServer: %@", httpError);
+//	}
 	
 	
 }

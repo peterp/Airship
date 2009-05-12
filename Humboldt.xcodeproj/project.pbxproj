@@ -31,6 +31,7 @@
 		CEC10D650F890BCC0055F839 /* CJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC10D5C0F890BCC0055F839 /* CJSONSerializer.m */; };
 		CEC10D660F890BCC0055F839 /* CJSONDeserializer.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC10D5E0F890BCC0055F839 /* CJSONDeserializer.m */; };
 		CEC10D670F890BCC0055F839 /* CDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC10D600F890BCC0055F839 /* CDataScanner.m */; };
+		CEEC071F0FBA334C00101745 /* FileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEC071D0FBA334C00101745 /* FileManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,6 +80,8 @@
 		CEC10D5E0F890BCC0055F839 /* CJSONDeserializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONDeserializer.m; sourceTree = "<group>"; };
 		CEC10D5F0F890BCC0055F839 /* CDataScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDataScanner.h; sourceTree = "<group>"; };
 		CEC10D600F890BCC0055F839 /* CDataScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDataScanner.m; sourceTree = "<group>"; };
+		CEEC071D0FBA334C00101745 /* FileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileManager.m; sourceTree = "<group>"; };
+		CEEC071E0FBA334C00101745 /* FileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileManager.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +108,8 @@
 				CE2B3B0E0F3CD72B0039B355 /* StorageHTTPConnection.m */,
 				CE228C3C0FB8C3C800C40A7C /* StorageViewController.h */,
 				CE228C3D0FB8C3C800C40A7C /* StorageViewController.m */,
+				CEEC071E0FBA334C00101745 /* FileManager.h */,
+				CEEC071D0FBA334C00101745 /* FileManager.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -300,6 +305,7 @@
 				CEC10D660F890BCC0055F839 /* CJSONDeserializer.m in Sources */,
 				CEC10D670F890BCC0055F839 /* CDataScanner.m in Sources */,
 				CE228C3E0FB8C3C800C40A7C /* StorageViewController.m in Sources */,
+				CEEC071F0FBA334C00101745 /* FileManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

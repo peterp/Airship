@@ -7,14 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+@class FileManager;
 
 
 @interface StorageViewController : UITableViewController {
-	
-	NSMutableArray *items;
+	FileManager *fileManager;
 }
-
-
-- (void)openDirectory:(NSString *)atPath;
 
 @end

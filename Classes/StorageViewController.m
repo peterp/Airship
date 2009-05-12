@@ -7,6 +7,7 @@
 //
 
 #import "StorageViewController.h"
+#import "FileManager.h";
 
 
 @implementation StorageViewController
@@ -26,54 +27,14 @@
 	
 	self.title = @"Storage";
 	
-	items = [[NSMutableArray alloc] init];
-
-	[self openDirectory:@"/Storage"];
-	
-	NSLog(@"%@", items);
-	
-
-	
-
+	fileManager = [[FileManager alloc] initWithPath:@"/Storage"];
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 
-- (void)openDirectory:(NSString *)atPath {
+
 	
-	
-	NSString *documentRoot = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-	NSString *path = [documentRoot stringByAppendingString:atPath];
-	NSArray *directoryComponents = [[NSFileManager defaultManager] directoryContentsAtPath:path];
-	
-	for (NSString *name in directoryComponents) {
-		[items addObject:name];
-	}
-	
-//	NSString *p = [NSString stringWithFormat:@"%@%@", documentRoot, atPath];
-//	
-//	NSArray *directoryContents = [[NSFileManager defaultManager] directoryContentsAtPath:p];
-//	
-//	NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-//	[dateFormat setDateFormat:@"MMM dd yyyy, HH:mm"];
-//	
-//	NSMutableArray *items = [NSMutableArray array];
-//	for (NSString *name in directoryContents) {
-//		NSDictionary *attr = [[NSFileManager defaultManager] fileAttributesAtPath:[p stringByAppendingPathComponent:name] traverseLink:NO];
-//		
-//		[items addObject:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:
-//															  name, 
-//															  [dateFormat stringFromDate:[attr objectForKey:NSFileModificationDate]],
-//															  [NSString stringWithFormat:@"%1.0f", [[attr objectForKey:NSFileSize] floatValue] / 1024],
-//															  [[attr objectForKey:NSFileType] isEqualToString: @"NSFileTypeDirectory"] ? @"folder" : @"file",
-//															  nil] 
-//													 forKeys:[NSArray arrayWithObjects:@"name", @"date", @"size", @"type", nil]]];
-//	}
-//	[dateFormat release];
-//	
-//	return items;
-}
 
 
 
@@ -128,7 +89,7 @@
 
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [items count];
+	return [fileManager count];
 }
 
 
@@ -141,16 +102,32 @@
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
+	
+	
+	NSDictionary *item = [fileManager getDictionaryAtIndex:indexPath.row];
+	cell.text = [item objectForKey:@"name"];
+	
     
     // Set up the cell...
 	
-	cell.text = [items objectAtIndex:indexPath.row];
+
 	
     return cell;
 }
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	
+	UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+
+	// update the fileManger...
+	[fileManager changeCurrentPath:cell.text];
+	[tableView reloadData];
+	
+	
+	
+	
+	
     // Navigation logic may go here. Create and push another view controller.
 	// AnotherViewController *anotherViewController = [[AnotherViewController alloc] initWithNibName:@"AnotherView" bundle:nil];
 	// [self.navigationController pushViewController:anotherViewController];
@@ -199,7 +176,7 @@
 
 
 - (void)dealloc {
-	[items release];
+	[fileManager release];
 	
     [super dealloc];
 }
