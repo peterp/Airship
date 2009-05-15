@@ -27,6 +27,27 @@
 	
 	self.title = @"Storage";
 	
+	self.tableView.rowHeight = 100;
+//	self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//	self.tableView.backgroundColor = [UIColor brownColor];
+//	
+	//
+    // Create a header view. Wrap it in a container to allow us to position
+    // it better.
+    //
+//    UIView *containerView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 60)] autorelease];
+//    UILabel *headerLabel =	[[[UILabel alloc] initWithFrame:CGRectMake(10, 20, 300, 40)] autorelease];
+//	
+//    headerLabel.text = @"Test.";
+//    headerLabel.textColor = [UIColor whiteColor];
+//    headerLabel.shadowColor = [UIColor blackColor];
+//    headerLabel.shadowOffset = CGSizeMake(0, 1);
+//    headerLabel.font = [UIFont boldSystemFontOfSize:22];
+//    headerLabel.backgroundColor = [UIColor clearColor];
+//    [containerView addSubview:headerLabel];
+//    self.tableView.tableHeaderView = containerView;
+	
+	
 	fileManager = [[FileManager alloc] initWithPath:@"/Storage"];
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
@@ -95,17 +116,47 @@
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	
+	const NSInteger TOP_LABEL_TAG = 1001;
+	const NSInteger BOTTOM_LABEL_TAG = 1002;
+	UILabel *topLabel;
+	UILabel *bottomLabel;
+	
     
     static NSString *CellIdentifier = @"Cell";
-    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+		
+		cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:CellIdentifier] autorelease];
+		
+		
+		
+		// Create the label for the top row of text
+		topLabel = [[[UILabel alloc] initWithFrame: CGRectMake(50,0,200,50)] autorelease];
+		[cell.contentView addSubview:topLabel];
+		// Configure the properties for the text that are the same on every row
+		topLabel.tag = TOP_LABEL_TAG;
+		topLabel.backgroundColor = [UIColor greenColor];
+		topLabel.textColor = [UIColor colorWithRed:0.25 green:0.0 blue:0.0 alpha:1.0];
+		topLabel.highlightedTextColor = [UIColor colorWithRed:1.0 green:1.0 blue:0.9 alpha:1.0];
+		topLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize]];
+		
+		bottomLabel = [[[UILabel alloc] initWithFrame:CGRectMake(50, 50, 200, 50)] autorelease];
+		[cell.contentView addSubview:bottomLabel];
+		// Configure the properties for the text that are the same on every row
+		bottomLabel.tag = BOTTOM_LABEL_TAG;
+		bottomLabel.backgroundColor = [UIColor redColor];
+		bottomLabel.textColor = [UIColor colorWithRed:0.25 green:0.0 blue:0.0 alpha:1.0];
+		bottomLabel.highlightedTextColor = [UIColor colorWithRed:1.0 green:1.0 blue:0.9 alpha:1.0];
+		bottomLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize] - 2];
+		
+		
     }
 	
-	
 	NSDictionary *item = [fileManager getDictionaryAtIndex:indexPath.row];
-	cell.text = [item objectForKey:@"name"];
+	
+	topLabel.text = [item objectForKey:@"name"];
+	bottomLabel.text = [item objectForKey:@"date"];
 	
     
     // Set up the cell...
@@ -118,11 +169,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	
-	UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+//	UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
 
 	// update the fileManger...
-	[fileManager changeCurrentPath:cell.text];
-	[tableView reloadData];
+//	[fileManager changeCurrentPath:cell.text];
+//	[tableView reloadData];
 	
 	
 	
