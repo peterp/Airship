@@ -27,7 +27,7 @@
 	
 	self.title = @"Storage";
 	
-	self.tableView.rowHeight = 100;
+	self.tableView.rowHeight = 80;
 //	self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 //	self.tableView.backgroundColor = [UIColor brownColor];
 //	
@@ -132,26 +132,28 @@
 		
 		
 		// Create the label for the top row of text
-		topLabel = [[[UILabel alloc] initWithFrame: CGRectMake(50,0,200,50)] autorelease];
+		topLabel = [[[UILabel alloc] initWithFrame: CGRectMake(50, 0, 200, 40)] autorelease];
 		[cell.contentView addSubview:topLabel];
 		// Configure the properties for the text that are the same on every row
 		topLabel.tag = TOP_LABEL_TAG;
-		topLabel.backgroundColor = [UIColor greenColor];
-		topLabel.textColor = [UIColor colorWithRed:0.25 green:0.0 blue:0.0 alpha:1.0];
-		topLabel.highlightedTextColor = [UIColor colorWithRed:1.0 green:1.0 blue:0.9 alpha:1.0];
-		topLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize]];
+//		topLabel.backgroundColor = [UIColor greenColor];
+//		topLabel.textColor = [UIColor colorWithRed:0.25 green:0.0 blue:0.0 alpha:1.0];
+//		topLabel.highlightedTextColor = [UIColor colorWithRed:1.0 green:1.0 blue:0.9 alpha:1.0];
+		topLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize] - 1];
 		
-		bottomLabel = [[[UILabel alloc] initWithFrame:CGRectMake(50, 50, 200, 50)] autorelease];
+		bottomLabel = [[[UILabel alloc] initWithFrame:CGRectMake(50, 40, 200, 40)] autorelease];
 		[cell.contentView addSubview:bottomLabel];
 		// Configure the properties for the text that are the same on every row
 		bottomLabel.tag = BOTTOM_LABEL_TAG;
-		bottomLabel.backgroundColor = [UIColor redColor];
-		bottomLabel.textColor = [UIColor colorWithRed:0.25 green:0.0 blue:0.0 alpha:1.0];
-		bottomLabel.highlightedTextColor = [UIColor colorWithRed:1.0 green:1.0 blue:0.9 alpha:1.0];
-		bottomLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize] - 2];
+//		bottomLabel.backgroundColor = [UIColor redColor];
+//		bottomLabel.textColor = [UIColor colorWithRed:0.25 green:0.0 blue:0.0 alpha:1.0];
+//		bottomLabel.highlightedTextColor = [UIColor colorWithRed:1.0 green:1.0 blue:0.9 alpha:1.0];
+		bottomLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize] - 3];
 		
 		
-    }
+    } else {
+		// grab the elements...
+	}
 	
 	NSDictionary *item = [fileManager getDictionaryAtIndex:indexPath.row];
 	
@@ -159,9 +161,6 @@
 	bottomLabel.text = [item objectForKey:@"date"];
 	
     
-    // Set up the cell...
-	
-
 	
     return cell;
 }

@@ -104,10 +104,10 @@
 			children = (
 				1D3623240D0F684500981E51 /* HumboldtAppDelegate.h */,
 				1D3623250D0F684500981E51 /* HumboldtAppDelegate.m */,
-				CE2B3B0D0F3CD72B0039B355 /* StorageHTTPConnection.h */,
-				CE2B3B0E0F3CD72B0039B355 /* StorageHTTPConnection.m */,
 				CE228C3C0FB8C3C800C40A7C /* StorageViewController.h */,
 				CE228C3D0FB8C3C800C40A7C /* StorageViewController.m */,
+				CE2B3B0D0F3CD72B0039B355 /* StorageHTTPConnection.h */,
+				CE2B3B0E0F3CD72B0039B355 /* StorageHTTPConnection.m */,
 				CEEC071E0FBA334C00101745 /* FileManager.h */,
 				CEEC071D0FBA334C00101745 /* FileManager.m */,
 			);

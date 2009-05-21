@@ -34,33 +34,35 @@
 
 - (void)getContentsOfCurrentPath {
 
-	NSArray *directoryContents = [fileManager directoryContentsAtPath:[fileManager currentDirectoryPath]];
+	// empty out the contents before adding new files.
 	[contents removeAllObjects];
-	
+	// create a date formatter, in the same style that finder uses.
 	NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
 	[dateFormat setDateFormat:@"MMM dd yyy, HH:mm"];
 	
-	for (NSString *name in directoryContents) {
-		
-		NSDictionary *att = [fileManager fileAttributesAtPath:[[fileManager currentDirectoryPath] stringByAppendingPathComponent:name] traverseLink:NO];
+	for (NSString *name in [fileManager directoryContentsAtPath:[fileManager currentDirectoryPath]]) 
+	{
+		NSDictionary *attributes = 
+			[fileManager fileAttributesAtPath:[[fileManager currentDirectoryPath] stringByAppendingPathComponent:name]
+								 traverseLink:NO];
 		[contents addObject:
-		 [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:
-											  name,
-											  [dateFormat stringFromDate:[att objectForKey:NSFileModificationDate]],
-											  [att objectForKey:NSFileSize],
-											  [att objectForKey:NSFileType],
-											  @"none",
-											  nil]
-									 forKeys:[NSArray arrayWithObjects:@"name", @"date", @"size", @"type", @"kind", nil]]];
+		 [NSDictionary dictionaryWithObjectsAndKeys:
+		  name, @"name",
+		  [dateFormat stringFromDate:[attributes objectForKey:NSFileModificationDate]], @"date",
+		  [attributes objectForKey:NSFileSize], @"size",
+		  [attributes objectForKey:NSFileType], @"type",
+		  @"na", @"kind",
+		  nil]
+		];
 	}
-	NSLog(@"%@", contents);
-	
-	
 	[dateFormat release];
 }
 
+
+
 -(void) changeCurrentPath:(NSString *)aPath {
-	[fileManager changeCurrentDirectoryPath:[[fileManager currentDirectoryPath] stringByAppendingPathComponent:aPath]];
+	[fileManager changeCurrentDirectoryPath:
+	 [[fileManager currentDirectoryPath] stringByAppendingPathComponent:aPath]];
 	[self getContentsOfCurrentPath];
 }
 
