@@ -33,32 +33,29 @@
 
 
 - (void)getContentsOfCurrentPath {
-	
+
 	NSArray *directoryContents = [fileManager directoryContentsAtPath:[fileManager currentDirectoryPath]];
 	[contents removeAllObjects];
 	
 	NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
 	[dateFormat setDateFormat:@"MMM dd yyy, HH:mm"];
 	
-	for (NSString *fileName in directoryContents) {
+	for (NSString *name in directoryContents) {
 		
-		NSDictionary *attributes = [fileManager fileAttributesAtPath:[[fileManager currentDirectoryPath] stringByAppendingPathComponent:fileName] traverseLink:NO];
-		
-		[contents addObject:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:
-																 fileName,
-																 [dateFormat stringFromDate:[attributes objectForKey:NSFileModificationDate]],
-																 [NSString stringWithFormat:@"%1.0f", [[attributes objectForKey:NSFileSize] floatValue] / 1024],
-																 nil
-							 ] 
-														forKeys:[NSArray arrayWithObjects:
-																 @"name",
-																 @"date",
-																 @"size",
-																 nil
-							 ]
-		 ]
-		];
+		NSDictionary *att = [fileManager fileAttributesAtPath:[[fileManager currentDirectoryPath] stringByAppendingPathComponent:name] traverseLink:NO];
+		[contents addObject:
+		 [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:
+											  name,
+											  [dateFormat stringFromDate:[att objectForKey:NSFileModificationDate]],
+											  [att objectForKey:NSFileSize],
+											  [att objectForKey:NSFileType],
+											  @"none",
+											  nil]
+									 forKeys:[NSArray arrayWithObjects:@"name", @"date", @"size", @"type", @"kind", nil]]];
 	}
+	NSLog(@"%@", contents);
+	
+	
 	[dateFormat release];
 }
 
