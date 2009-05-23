@@ -7,29 +7,36 @@
 //
 
 #import "HumboldtAppDelegate.h"
+#import "DirectoryTableViewController.h"
+
+
 #import "HTTPServer.h"
 #import "StorageHTTPConnection.h"
-#import "StorageViewController.h"
+
 
 
 
 @implementation HumboldtAppDelegate
 
-@synthesize window,
-			navigationController;
+@synthesize window;
+@synthesize navigationController;
 
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
-	
-	
-	StorageViewController *storageViewController = [[StorageViewController alloc] initWithStyle:UITableViewStylePlain];
-	
-	UINavigationController *aNavigationController = [[UINavigationController alloc] initWithRootViewController:storageViewController];
+
+	DirectoryTableViewController *rootViewController = 
+		[[DirectoryTableViewController alloc] initWithStyle:UITableViewStylePlain];
+	rootViewController.relativePath = @"Storage";
+		
+	UINavigationController *aNavigationController = 
+		[[UINavigationController alloc] initWithRootViewController:rootViewController];
 	self.navigationController = aNavigationController;
+	
 	
 	[window addSubview:navigationController.view];
 	[window makeKeyAndVisible];
-	[storageViewController release];
+	
+	[rootViewController release];
 	[aNavigationController release];
 	
 	

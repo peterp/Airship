@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-@class FileManager;
+@class AFStorageManager;
 
 
-@interface StorageViewController : UITableViewController {
-	FileManager *fileManager;
+@interface StorageTableViewController : UITableViewController {
+	AFStorageManager *storage;
 }
 
 @end

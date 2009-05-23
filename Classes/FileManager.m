@@ -33,29 +33,6 @@
 
 
 - (void)getContentsOfCurrentPath {
-
-	// empty out the contents before adding new files.
-	[contents removeAllObjects];
-	// create a date formatter, in the same style that finder uses.
-	NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-	[dateFormat setDateFormat:@"MMM dd yyy, HH:mm"];
-	
-	for (NSString *name in [fileManager directoryContentsAtPath:[fileManager currentDirectoryPath]]) 
-	{
-		NSDictionary *attributes = 
-			[fileManager fileAttributesAtPath:[[fileManager currentDirectoryPath] stringByAppendingPathComponent:name]
-								 traverseLink:NO];
-		[contents addObject:
-		 [NSDictionary dictionaryWithObjectsAndKeys:
-		  name, @"name",
-		  [dateFormat stringFromDate:[attributes objectForKey:NSFileModificationDate]], @"date",
-		  [attributes objectForKey:NSFileSize], @"size",
-		  [attributes objectForKey:NSFileType], @"type",
-		  @"na", @"kind",
-		  nil]
-		];
-	}
-	[dateFormat release];
 }
 
 
