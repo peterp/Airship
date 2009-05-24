@@ -7,16 +7,19 @@
 //
 
 #import "DirectoryTableViewController.h"
+#import "DetailViewController.h";
 
 
 @implementation DirectoryTableViewController
 
 
 @synthesize relativePath;
+@synthesize absolutePath;
 @synthesize directoryContents;
 
 - (void)dealloc {
 	[relativePath release];
+	[absolutePath release];
 	[directoryContents release];
 	[super dealloc];
 }
@@ -25,21 +28,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
+	// custom the tableview a tad.
+	self.tableView.rowHeight = 80;
+	
 	// create the fileManager.
-	fileManager = [NSFileManager defaultManager];
-	[fileManager changeCurrentDirectoryPath:
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+	self.absolutePath = 
 		[[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]
-			stringByAppendingPathComponent:relativePath]];
-
+			stringByAppendingPathComponent:relativePath];
+			
 	// date formatter for the directory items
 	NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
 	[dateFormat setDateFormat:@"MMM dd yyy, HH:mm"];
 			
 	self.directoryContents = [NSMutableArray array];
-	for (NSString *name in [fileManager directoryContentsAtPath:[fileManager currentDirectoryPath]]) {
-		
+	for (NSString *name in [fileManager directoryContentsAtPath:absolutePath]) {
+	
 		NSDictionary *attr = [fileManager fileAttributesAtPath:
-			[[fileManager currentDirectoryPath] stringByAppendingPathComponent:name]
+			[absolutePath stringByAppendingPathComponent:name]
 				traverseLink:NO];
 	
 		[directoryContents addObject:
@@ -48,7 +54,7 @@
 				[dateFormat stringFromDate:[attr objectForKey:NSFileModificationDate]], @"date",
 				[attr objectForKey:NSFileSize], @"size",
 				[attr objectForKey:NSFileType], @"type",
-				@"none", @"kind",
+				@"uiwebview", @"open",
 				nil
 			]
 		];
@@ -96,34 +102,73 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *CellIdentifier = @"Cell";
+	const NSInteger NAME_LABEL_TAG = 1001;
+	const NSInteger META_LABEL_TAG = 1002;
+	static NSString *CellIdentifier = @"Cell";
+	
+	UILabel *nameLabel;
+	UILabel *metaLabel;
+
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-    }
+	
+		cell = 
+			[[[UITableViewCell alloc] 
+				initWithFrame:CGRectZero 
+				reuseIdentifier:CellIdentifier] 
+			autorelease];
+		
+		nameLabel = [[[UILabel alloc] initWithFrame:CGRectMake(40, 0, 250, 40)] autorelease];
+		nameLabel.tag = NAME_LABEL_TAG;
+		nameLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize] - 1];
+		[cell.contentView addSubview:nameLabel];
+		
+		metaLabel = [[[UILabel alloc] initWithFrame:CGRectMake(40, 40, 250, 40)] autorelease];
+		metaLabel.tag = META_LABEL_TAG;
+		metaLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize] - 4];
+		metaLabel.textColor = [UIColor grayColor];
+		[cell.contentView addSubview:metaLabel];
+
+			
+			
+			
+    } else {
+		nameLabel = (UILabel *)[cell viewWithTag:NAME_LABEL_TAG];
+		metaLabel = (UILabel *)[cell viewWithTag:META_LABEL_TAG];
+	}
     
     // Set up the cell...
 	NSDictionary *item = [directoryContents objectAtIndex:indexPath.row];
-	cell.text = [item objectForKey:@"name"];
+	nameLabel.text = [item objectForKey:@"name"];
+	metaLabel.text = [item objectForKey:@"date"];
 	
     return cell;
 }
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	
+
 	NSDictionary *item = [directoryContents objectAtIndex:indexPath.row];
 	if ([[item objectForKey:@"type"] isEqualToString:@"NSFileTypeDirectory"]) {
+
 		// this is a directory... Push another view onto the navigation stack.
 		DirectoryTableViewController *directoryTableView = 
 			[[DirectoryTableViewController alloc] 
 				initWithNibName:nil bundle:[NSBundle mainBundle]];
 		directoryTableView.relativePath = 
 			[self.relativePath stringByAppendingPathComponent:[item objectForKey:@"name"]];
-		
+
 		[self.navigationController pushViewController:directoryTableView animated:YES];
 		[directoryTableView release];
+	} else {
+	
+		DetailViewController *detailViewController = [[DetailViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
+		
+		[detailViewController openFile:[absolutePath stringByAppendingPathComponent:[item objectForKey:@"name"]]];
+		
+		[self.navigationController pushViewController:detailViewController animated:YES];
+		[detailViewController release];
 	}
 }
 

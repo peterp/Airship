@@ -12,12 +12,13 @@
 @interface DirectoryTableViewController : UITableViewController {
 
 	NSString *relativePath;
+	NSString *absolutePath;
 	
-	NSFileManager  *fileManager;
 	NSMutableArray *directoryContents;
 }
 
 @property (nonatomic, retain) NSString *relativePath;
+@property (nonatomic, retain) NSString *absolutePath;
 @property (nonatomic, retain) NSMutableArray *directoryContents;
 
 
