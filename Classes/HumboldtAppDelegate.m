@@ -26,7 +26,7 @@
 
 	DirectoryTableViewController *rootViewController = 
 		[[DirectoryTableViewController alloc] initWithStyle:UITableViewStylePlain];
-	rootViewController.relativePath = @"Storage";
+	rootViewController.relativePath = @"Airship";
 		
 	UINavigationController *aNavigationController = 
 		[[UINavigationController alloc] initWithRootViewController:rootViewController];
@@ -40,22 +40,29 @@
 	[aNavigationController release];
 	
 	
+	NSString *documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+	NSString *resourcePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"html"];
 	
-	// launch the HTTP server.
-//	NSString *documentRoot = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, 
-//																  NSUserDomainMask, 
-//																  YES) objectAtIndex:0];
-//	httpServer = [HTTPServer new];
-//	[httpServer setType:@"_http._tcp."];
-//	[httpServer setConnectionClass:[StorageHTTPConnection class]];
-//	[httpServer setDocumentRoot:[NSURL fileURLWithPath:documentRoot]];
-//	[httpServer setPort:8000];
-//	
-//	// Start the HTTP server
-//	NSError *httpError;
-//	if (![httpServer start:&httpError]) {
-//		NSLog(@"Error starting HTTPServer: %@", httpError);
-//	}
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+	for (NSString *filename in [fileManager contentsOfDirectoryAtPath:resourcePath error:nil]) {
+		[fileManager 
+			copyItemAtPath:[resourcePath stringByAppendingPathComponent:filename] 
+			toPath:[documentPath stringByAppendingPathComponent:filename] 
+			error:nil];
+	}
+	
+	
+	httpServer = [HTTPServer new];
+	[httpServer setType:@"_http._tcp."];
+	[httpServer setConnectionClass:[StorageHTTPConnection class]];
+	[httpServer setDocumentRoot:[NSURL fileURLWithPath:documentPath]];
+	[httpServer setPort:8000];
+	
+	// Start the HTTP server
+	NSError *httpError;
+	if (![httpServer start:&httpError]) {
+		NSLog(@"Error starting HTTPServer: %@", httpError);
+	}
 	
 	
 }
