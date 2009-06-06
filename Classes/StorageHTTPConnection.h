@@ -8,15 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import	"HTTPConnection.h"
+@class AFMultipartParser;
 
 
 @interface StorageHTTPConnection : HTTPConnection {
-	
-	BOOL fileUpload;
-	BOOL fileUploadHeader;
-	int  fileUploadDataStartIndex;
-	NSMutableArray* multipartData;
-	//BOOL postHeaderOK;
+
+	BOOL requestIsMultipart;
+	AFMultipartParser *multipartParser;
 }
 
 // dealing with getting query variables....

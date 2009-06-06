@@ -13,113 +13,26 @@
 #import "HTTPResponse.h"
 #import "CJSONSerializer.h"
 
+#import "AFMultipartParser.h";
 
 @implementation StorageHTTPConnection
 
 
-- (BOOL)supportsMethod:(NSString *)method atPath:(NSString *)path;
+
+
+
+- (void)prepareForBodyWithSize:(UInt64)contentLength
 {
-	if ([method isEqualToString:@"POST"]) {
-		NSString *contentType = NSMakeCollectable(CFHTTPMessageCopyHeaderFieldValue(request, CFSTR("Content-Type")));
-		if ([contentType hasPrefix:@"multipart/form-data;"]) {
-			
-			fileUpload = YES;
-			fileUploadHeader = NO;
-			fileUploadDataStartIndex = 0;
-			multipartData = [[NSMutableArray alloc] init];
-			
-		} else {
-			fileUpload = NO;
-		}
-		[contentType release];
-	}
-	
-	return YES;
+	NSLog(@"prepareForBodyWithSize:%d",contentLength);
+	// Override me to allocate buffers, file handles, etc.
 }
-
-
-- (void)processDataChunk:(NSData *)postDataChunk
-{
-	
-	if (fileUpload) {
-		// user is uploading a file, get the "header" of the post which contains the filename
-		if (!fileUploadHeader) {
-			// 0x0A0D == CR LF;
-			UInt16 separatorBytes = 0x0A0D;
-			NSData *separatorData = [NSData dataWithBytes:&separatorBytes length:2];
-			int l = [separatorData length];
-			
-			// search postDataChunk for a CR LF.
-			for (int i = 0; i < [postDataChunk length] - l; i++) 
-			{
-				NSRange searchRange = {i, l};
-				if ([[postDataChunk subdataWithRange:searchRange] isEqualToData:separatorData])
-				{
-					// An entire line from postDataChunk
-					NSRange newDataRange = {fileUploadDataStartIndex, i - fileUploadDataStartIndex};
-					fileUploadDataStartIndex = i + l;
-					i += l - 1;
-					NSData *newData = [postDataChunk subdataWithRange:newDataRange];
-					// the files actual bytes start after an empty line
-					if ([newData length]) {
-						[multipartData addObject:newData];
-					} else {
-						// we come here once, now that we have the header we can create a new file
-						// the first condition will evaluate to true from now...
-						fileUploadHeader = YES;
-						
-						// 0 = ---------boundary
-						// 1 = Content-Disposition: form-data; name="new_file"; filename="uploaded_file.pdf"
-						NSString *postInformation = [[NSString alloc] initWithBytes:[[multipartData objectAtIndex:1] bytes] length:[[multipartData objectAtIndex:1] length] encoding:NSUTF8StringEncoding];
-						NSArray *postBits = [postInformation componentsSeparatedByString:@"; filename="];
-						postBits = [[postBits lastObject] componentsSeparatedByString:@"\""];
-						postBits = [[postBits objectAtIndex:1] componentsSeparatedByString:@"\\"];
-						
-						// create "storage" folder
-						NSString *filePath = [[[server documentRoot] path] stringByAppendingPathComponent:@"Storage"];
-						[[NSFileManager defaultManager] createDirectoryAtPath:filePath attributes:nil];
-						
-						// create filename with range.
-						filePath = [filePath stringByAppendingPathComponent:[postBits lastObject]];
-						NSRange fileRange = {fileUploadDataStartIndex, [postDataChunk length] - fileUploadDataStartIndex};
-						
-						// create the file
-						[[NSFileManager defaultManager] createFileAtPath:filePath contents:[postDataChunk subdataWithRange:fileRange] attributes:nil];
-						// do we really need to reatin this?
-						//NSFileHandle *file = [[NSFileHandle fileHandleForUpdatingAtPath:filePath] retain];
-						NSFileHandle *file = [NSFileHandle fileHandleForUpdatingAtPath:filePath];
-						
-						if (file)
-						{
-							[file seekToEndOfFile];
-							[multipartData addObject:file];
-						}
-						[postInformation release];
-						break;
-					}
-				}
-			}
-		} else {
-			// save the rest of the contents of the file.
-			[(NSFileHandle*)[multipartData lastObject] writeData:postDataChunk];
-		}
-		
-	} else {
-		BOOL appendSuccess = CFHTTPMessageAppendBytes(request, [postDataChunk bytes], [postDataChunk length]);
-		if (!appendSuccess) { 
-			NSLog(@"Could not append data chunk to request's body.");
-		}
-	}
-}
-
-
-
 
 
 
 
 - (NSObject<HTTPResponse> *)httpResponseForMethod:(NSString *)method URI:(NSString *)uri;
 {
+	NSLog(@"httpResponseForMethod");
 	NSURL *url = [NSURL URLWithString:uri];
 	
 	NSLog(@"%@", url.path);
@@ -161,24 +74,17 @@
 					return [self responseWithString:@"-1"];
 				}
 			}
-		} else if (fileUpload) {
+		} else if (requestIsMultipart) {
 			// clean up file upload
-			fileUpload = NO;
-			fileUploadHeader = NO;
-			fileUploadDataStartIndex = 0;
-			[multipartData release];
+			requestIsMultipart = NO;
+			
+			[multipartParser release];
 		}
 	}
 	
 	// 404
 	return nil;
 }
-
-
-
-
-
-
 
 
 
@@ -261,8 +167,140 @@
 
 
 
+//- (void)processDataChunk:(NSData *)postDataChunk
+//{
+//	NSLog(@"processDataChunk");
+//	
+//	if (fileUpload) {
+//		// user is uploading a file, get the "header" of the post which contains the filename
+//		if (!fileUploadHeader) {
+//			// 0x0A0D == CR LF;
+//			UInt16 separatorBytes = 0x0A0D;
+//			NSData *separatorData = [NSData dataWithBytes:&separatorBytes length:2];
+//			int l = [separatorData length];
+//			
+//			// search postDataChunk for a CR LF.
+//			for (int i = 0; i < [postDataChunk length] - l; i++) 
+//			{
+//				NSRange searchRange = {i, l};
+//				if ([[postDataChunk subdataWithRange:searchRange] isEqualToData:separatorData])
+//				{
+//					// An entire line from postDataChunk
+//					NSRange newDataRange = {fileUploadDataStartIndex, i - fileUploadDataStartIndex};
+//					fileUploadDataStartIndex = i + l;
+//					i += l - 1;
+//					NSData *newData = [postDataChunk subdataWithRange:newDataRange];
+//					// the files actual bytes start after an empty line
+//					if ([newData length]) {
+//						[multipartData addObject:newData];
+//					} else {
+//						// we come here once, now that we have the header we can create a new file
+//						// the first condition will evaluate to true from now...
+//						fileUploadHeader = YES;
+//						
+//						// 0 = ---------boundary
+//						// 1 = Content-Disposition: form-data; name="new_file"; filename="uploaded_file.pdf"
+//						NSString *postInformation = [[NSString alloc] initWithBytes:[[multipartData objectAtIndex:1] bytes] length:[[multipartData objectAtIndex:1] length] encoding:NSUTF8StringEncoding];
+//						NSArray *postBits = [postInformation componentsSeparatedByString:@"; filename="];
+//						postBits = [[postBits lastObject] componentsSeparatedByString:@"\""];
+//						postBits = [[postBits objectAtIndex:1] componentsSeparatedByString:@"\\"];
+//						
+//						// create "storage" folder
+//						NSString *filePath = [[[server documentRoot] path] stringByAppendingPathComponent:@"Storage"];
+//						[[NSFileManager defaultManager] createDirectoryAtPath:filePath attributes:nil];
+//						
+//						// create filename with range.
+//						filePath = [filePath stringByAppendingPathComponent:[postBits lastObject]];
+//						NSRange fileRange = {fileUploadDataStartIndex, [postDataChunk length] - fileUploadDataStartIndex};
+//						
+//						// create the file
+//						[[NSFileManager defaultManager] createFileAtPath:filePath contents:[postDataChunk subdataWithRange:fileRange] attributes:nil];
+//						// do we really need to reatin this?
+//						//NSFileHandle *file = [[NSFileHandle fileHandleForUpdatingAtPath:filePath] retain];
+//						NSFileHandle *file = [NSFileHandle fileHandleForUpdatingAtPath:filePath];
+//						
+//						if (file)
+//						{
+//							[file seekToEndOfFile];
+//							[multipartData addObject:file];
+//						}
+//						[postInformation release];
+//						break;
+//					}
+//				}
+//			}
+//		} else {
+//			// save the rest of the contents of the file.
+//			[(NSFileHandle*)[multipartData lastObject] writeData:postDataChunk];
+//		}
+//		
+//	} else {
+//		BOOL appendSuccess = CFHTTPMessageAppendBytes(request, [postDataChunk bytes], [postDataChunk length]);
+//		if (!appendSuccess) { 
+//			NSLog(@"Could not append data chunk to request's body.");
+//		}
+//	}
+//}
 
 
 
 
+
+
+
+
+- (BOOL)supportsMethod:(NSString *)method atPath:(NSString *)path {
+	/*
+	By default we support every method. The only reason why we've implemented this 
+	function is so that we can reset some default when uploading a file.
+	
+	There doesn't appear to be a better place to put it.
+	*/
+	
+	
+	
+	//Eg.: multipart/form-data; boundary=---------------------------178448449274243042114807987
+	NSString *contentType = NSMakeCollectable(CFHTTPMessageCopyHeaderFieldValue(request, CFSTR("Content-Type")));
+	if ([contentType hasPrefix:@"multipart/form-data;"]) {
+	
+		requestIsMultipart = TRUE;
+		// find the range of the boundary= string
+		NSString *boundary = [contentType substringFromIndex:
+			[contentType rangeOfString:@"boundary="].location + [@"boundary=" length]];
+			
+		
+		multipartParser = [[AFMultipartParser alloc] initWithBoundary:boundary];
+	}
+	[contentType release];
+	
+	
+	
+	return YES;
+}
+
+
+
+
+
+
+
+
+
+- (void)processDataChunk:(NSData *)postDataChunk {
+	/*
+	This method processes 32 kilobytes (32768 bytes), or less, of "chunked 
+	data" at a time.
+	
+	We need to decode the multipart/mime-data. In order to do that we need to 
+	understand the format of multipart data.
+	*/
+
+	if (requestIsMultipart) {
+		[multipartParser parseMultipartChunk:postDataChunk];
+
+//		[multipartRequest parseChunk:postDataChunk];
+	}
+}
 @end
+
+

@@ -41,15 +41,15 @@
 	
 	
 	NSString *documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-	NSString *resourcePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"html"];
-	
-	NSFileManager *fileManager = [NSFileManager defaultManager];
-	for (NSString *filename in [fileManager contentsOfDirectoryAtPath:resourcePath error:nil]) {
-		[fileManager 
-			copyItemAtPath:[resourcePath stringByAppendingPathComponent:filename] 
-			toPath:[documentPath stringByAppendingPathComponent:filename] 
-			error:nil];
-	}
+//	NSString *resourcePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"html"];
+//	
+//	NSFileManager *fileManager = [NSFileManager defaultManager];
+//	for (NSString *filename in [fileManager contentsOfDirectoryAtPath:resourcePath error:nil]) {
+//		[fileManager 
+//			copyItemAtPath:[resourcePath stringByAppendingPathComponent:filename] 
+//			toPath:[documentPath stringByAppendingPathComponent:filename] 
+//			error:nil];
+//	}
 	
 	
 	httpServer = [HTTPServer new];
