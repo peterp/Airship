@@ -10,20 +10,26 @@
 
 
 @interface AFMultipartParser : NSObject {
+
+	
+	NSData *postDataChunk;
+
+
 	NSData *nextBoundary;
 	NSData *lastBoundary;
 	
 	int lineStartIndex;
+	int bodyStartIndex;
 	
 	NSMutableArray *headers;
 	NSMutableArray *parts;
 	
-	int dataStartIndex;
-	int dataEndIndex;
 	
 	
 	NSData *CRLF;
 }
+
+@property (nonatomic, retain) NSData *postDataChunk;
 
 
 @property (nonatomic, retain) NSData *nextBoundary;
@@ -34,7 +40,11 @@
 
 
 - (id)initWithBoundary:(NSString *)boundary;
-- (void)parseMultipartChunk:(NSData *)postDataChunk;
+
+
+- (void)parseMultipartChunk:(NSData *)data;
+- (void)subPostDataChunkWithRange:(NSRange)range forPart:(NSMutableDictionary *)part;
+
 
 - (NSString *)dataToString:(NSData *)data;
 

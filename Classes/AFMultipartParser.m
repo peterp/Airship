@@ -11,28 +11,33 @@
 
 @implementation AFMultipartParser
 
-@synthesize nextBoundary,
-			lastBoundary,
-			headers,
+@synthesize postDataChunk,
+			nextBoundary,
+			lastBoundary;
+
+@synthesize headers,
 			parts;
 
 - (id)initWithBoundary:(NSString *)boundary {
 
 	if ([super init]) {
-	
-		// create the next and last part boundaries
+		/* 
+		Create the next/ last part boundaries from the original boundary 
+		found in the header.
+		*/
 		self.nextBoundary = [[NSString stringWithFormat:@"--%@", boundary] 
 			dataUsingEncoding:NSUTF8StringEncoding];
 		self.lastBoundary = [[NSString stringWithFormat:@"--%@--", boundary] 
 			dataUsingEncoding:NSUTF8StringEncoding];
 		
+		// This index is used to mark the start of the data we want to slice.
 		lineStartIndex = 0;
+		bodyStartIndex = -1;
+		
 		
 		self.headers = [NSMutableArray array];
 		self.parts = [NSMutableArray array];
 		
-		dataStartIndex = -1;
-		dataEndIndex = -1;
 
 		UInt16 CRLFBytes = 0x0A0D;
 		CRLF = [[NSData alloc] initWithBytes:&CRLFBytes length:2];
@@ -43,8 +48,10 @@
 
 - (void) dealloc
 {
-	[nextBoundary release];
-	[lastBoundary release];
+	self.nextBoundary  = nil;
+	self.lastBoundary  = nil;
+	self.postDataChunk = nil;
+
 	
 	[headers release];
 	[parts release];
@@ -57,18 +64,24 @@
 
 
 
-- (void)parseMultipartChunk:(NSData *)postDataChunk {
+- (void)parseMultipartChunk:(NSData *)data {
+
+	/**
+	The "data" needs to be an instance variable because we're going to be 
+	slicing bits out of it with other methods.
+	**/
+	self.postDataChunk = data;
 	
 	NSLog(@"---------- new chunk ----------");
 	
 	for (int i = 0; i < postDataChunk.length; i++) {
 	
-	
+		// matching the last boundary.
 		if (postDataChunk.length >= i + lastBoundary.length) {
 		
 			if ([[postDataChunk subdataWithRange:NSMakeRange(i, lastBoundary.length)] isEqualToData:lastBoundary]) {
 			
-				dataEndIndex = i;
+				int dataEndIndex = i;
 				NSLog(@"->->-> data save");
 			
 				NSLog(@"-> part end (last boundary)");
@@ -79,33 +92,26 @@
 		
 		}
 	
+	
+		// matching "next" boundary
 		if (postDataChunk.length >= i + nextBoundary.length) {
-			
-			
-			// search for a boundary including the EOL.
-			// that means that the index + the boundary length is the entire
-			// line, so the next bit of data been searched is starting on the next line.
 			if ([[postDataChunk subdataWithRange:NSMakeRange(i, nextBoundary.length)] isEqualToData:nextBoundary]) {
 			
-				if (dataStartIndex > 0) {
-					NSLog(@"->->-> data save");
+				/**
+				If you find a new boundary and bodyStartIndex has a positive
+				value. This marks the "end" of a part, and because this is a
+				"nextBoundary" the start of another part.
+				*/
 				
-					// we'll do this atleast three times, be DRY.
-					dataEndIndex = i - CRLF.length;
+				
+				if (bodyStartIndex > 0) {
+					NSLog(@"->->-> data SAVE");
 					
-					NSDictionary *part = [parts lastObject];
+					[self subPostDataChunkWithRange:
+						NSMakeRange(bodyStartIndex, (i - bodyStartIndex) - CRLF.length)
+						forPart:[parts lastObject]];
 					
-					if ([part objectForKey:@"filename"]) {
-						// this is a filename, figure out how to deal with this
-						// a bit later...
-					} else {
-						// ordinary text data. store.
-						 NSString *value = [self dataToString:[postDataChunk 
-							subdataWithRange:NSMakeRange(dataStartIndex, dataEndIndex - dataStartIndex)]];
-						[part setValue:value forKey:@"value"];
-						[value release];
-					}
-					NSLog(@"-> part end");
+					NSLog(@"-> part END");
 				}
 				
 				
@@ -118,15 +124,14 @@
 				// add object to deal with raw headers
 				[headers addObject:[NSMutableArray array]];
 				
-				dataStartIndex = -1;
-				dataEndIndex = -1;
+				bodyStartIndex = -1;
 								
 				i += nextBoundary.length + CRLF.length;
 				lineStartIndex = i;
 			}
 		}
 		
-		if (dataStartIndex < 0 && postDataChunk.length >= i + CRLF.length) {
+		if (bodyStartIndex < 0 && postDataChunk.length >= i + CRLF.length) {
 		
 			// searching for newlines.
 			if ([[postDataChunk subdataWithRange:NSMakeRange(i, CRLF.length)] isEqualToData:CRLF]) {
@@ -141,7 +146,7 @@
 				// indicates the end of header
 				if (line.length == 0) {
 					NSLog(@"->-> header stop");
-					dataStartIndex = lineStartIndex;
+					bodyStartIndex = lineStartIndex;
 				} else {
 					NSLog(@"->->-> header save");
 					
@@ -166,12 +171,37 @@
 		}
 	}
 	
-	NSLog(@"%@", parts);
+
 }
+
+
+
 
 - (NSString *)dataToString:(NSData *)data {
 	return [[NSString alloc] initWithBytes:[data bytes] length:[data length] encoding:NSUTF8StringEncoding];
 }
+
+
+- (void)subPostDataChunkWithRange:(NSRange)range forPart:(NSMutableDictionary *)part {
+	/**
+	Check the part dictionary to see if this method is saving a string value or
+	streaming an upload to a file.
+	*/
+	
+	NSString *filename = [part objectForKey:@"filename"];
+	if (filename) {
+	} else {
+		// extract and place this value in to the "part" dictionary.
+		
+		
+
+		NSString *value = [self dataToString:[postDataChunk subdataWithRange:range]];
+		[part setValue:value forKey:@"value"];
+		[value release];
+		
+		NSLog(@"part: %@", part);
+	}
+};
 
 
 
