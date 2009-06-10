@@ -77,7 +77,7 @@
 		} else if (requestIsMultipart) {
 			// clean up file upload
 			requestIsMultipart = NO;
-			
+			NSLog(@"\n\n------ PARTS ------:\n\n%@", multipartParser.parts);
 			[multipartParser release];
 		}
 	}
@@ -167,87 +167,6 @@
 
 
 
-//- (void)processDataChunk:(NSData *)postDataChunk
-//{
-//	NSLog(@"processDataChunk");
-//	
-//	if (fileUpload) {
-//		// user is uploading a file, get the "header" of the post which contains the filename
-//		if (!fileUploadHeader) {
-//			// 0x0A0D == CR LF;
-//			UInt16 separatorBytes = 0x0A0D;
-//			NSData *separatorData = [NSData dataWithBytes:&separatorBytes length:2];
-//			int l = [separatorData length];
-//			
-//			// search postDataChunk for a CR LF.
-//			for (int i = 0; i < [postDataChunk length] - l; i++) 
-//			{
-//				NSRange searchRange = {i, l};
-//				if ([[postDataChunk subdataWithRange:searchRange] isEqualToData:separatorData])
-//				{
-//					// An entire line from postDataChunk
-//					NSRange newDataRange = {fileUploadDataStartIndex, i - fileUploadDataStartIndex};
-//					fileUploadDataStartIndex = i + l;
-//					i += l - 1;
-//					NSData *newData = [postDataChunk subdataWithRange:newDataRange];
-//					// the files actual bytes start after an empty line
-//					if ([newData length]) {
-//						[multipartData addObject:newData];
-//					} else {
-//						// we come here once, now that we have the header we can create a new file
-//						// the first condition will evaluate to true from now...
-//						fileUploadHeader = YES;
-//						
-//						// 0 = ---------boundary
-//						// 1 = Content-Disposition: form-data; name="new_file"; filename="uploaded_file.pdf"
-//						NSString *postInformation = [[NSString alloc] initWithBytes:[[multipartData objectAtIndex:1] bytes] length:[[multipartData objectAtIndex:1] length] encoding:NSUTF8StringEncoding];
-//						NSArray *postBits = [postInformation componentsSeparatedByString:@"; filename="];
-//						postBits = [[postBits lastObject] componentsSeparatedByString:@"\""];
-//						postBits = [[postBits objectAtIndex:1] componentsSeparatedByString:@"\\"];
-//						
-//						// create "storage" folder
-//						NSString *filePath = [[[server documentRoot] path] stringByAppendingPathComponent:@"Storage"];
-//						[[NSFileManager defaultManager] createDirectoryAtPath:filePath attributes:nil];
-//						
-//						// create filename with range.
-//						filePath = [filePath stringByAppendingPathComponent:[postBits lastObject]];
-//						NSRange fileRange = {fileUploadDataStartIndex, [postDataChunk length] - fileUploadDataStartIndex};
-//						
-//						// create the file
-//						[[NSFileManager defaultManager] createFileAtPath:filePath contents:[postDataChunk subdataWithRange:fileRange] attributes:nil];
-//						// do we really need to reatin this?
-//						//NSFileHandle *file = [[NSFileHandle fileHandleForUpdatingAtPath:filePath] retain];
-//						NSFileHandle *file = [NSFileHandle fileHandleForUpdatingAtPath:filePath];
-//						
-//						if (file)
-//						{
-//							[file seekToEndOfFile];
-//							[multipartData addObject:file];
-//						}
-//						[postInformation release];
-//						break;
-//					}
-//				}
-//			}
-//		} else {
-//			// save the rest of the contents of the file.
-//			[(NSFileHandle*)[multipartData lastObject] writeData:postDataChunk];
-//		}
-//		
-//	} else {
-//		BOOL appendSuccess = CFHTTPMessageAppendBytes(request, [postDataChunk bytes], [postDataChunk length]);
-//		if (!appendSuccess) { 
-//			NSLog(@"Could not append data chunk to request's body.");
-//		}
-//	}
-//}
-
-
-
-
-
-
-
 
 - (BOOL)supportsMethod:(NSString *)method atPath:(NSString *)path {
 	/*
@@ -268,7 +187,6 @@
 		NSString *boundary = [contentType substringFromIndex:
 			[contentType rangeOfString:@"boundary="].location + [@"boundary=" length]];
 			
-		
 		multipartParser = [[AFMultipartParser alloc] initWithBoundary:boundary];
 	}
 	[contentType release];
@@ -297,8 +215,8 @@
 
 	if (requestIsMultipart) {
 		[multipartParser parseMultipartChunk:postDataChunk];
-
-//		[multipartRequest parseChunk:postDataChunk];
+		
+		
 	}
 }
 @end

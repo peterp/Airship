@@ -23,7 +23,6 @@
 		CE3EC6A00F6BBB2A00D25101 /* HTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3EC6980F6BBB2A00D25101 /* HTTPConnection.m */; };
 		CE3EC6A10F6BBB2A00D25101 /* HTTPAuthenticationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3EC6990F6BBB2A00D25101 /* HTTPAuthenticationRequest.m */; };
 		CE3EC6A20F6BBB2A00D25101 /* HTTPServer.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3EC69D0F6BBB2A00D25101 /* HTTPServer.m */; };
-		CE7F90740FD6E9E000ED1F83 /* MultipartRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7F90730FD6E9E000ED1F83 /* MultipartRequest.m */; };
 		CE8504220FC757D800F591EB /* DirectoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8504210FC757D800F591EB /* DirectoryTableViewController.m */; };
 		CEC10D610F890BCC0055F839 /* NSCharacterSet_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC10D530F890BCC0055F839 /* NSCharacterSet_Extensions.m */; };
 		CEC10D620F890BCC0055F839 /* CDataScanner_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC10D550F890BCC0055F839 /* CDataScanner_Extensions.m */; };
@@ -67,8 +66,6 @@
 		CE3EC69C0F6BBB2A00D25101 /* HTTPServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPServer.h; sourceTree = "<group>"; };
 		CE3EC69D0F6BBB2A00D25101 /* HTTPServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPServer.m; sourceTree = "<group>"; };
 		CE3EC69E0F6BBB2A00D25101 /* HTTPAuthenticationRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPAuthenticationRequest.h; sourceTree = "<group>"; };
-		CE7F90720FD6E9E000ED1F83 /* MultipartRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultipartRequest.h; sourceTree = "<group>"; };
-		CE7F90730FD6E9E000ED1F83 /* MultipartRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultipartRequest.m; sourceTree = "<group>"; };
 		CE8504200FC757D800F591EB /* DirectoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectoryTableViewController.h; sourceTree = "<group>"; };
 		CE8504210FC757D800F591EB /* DirectoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectoryTableViewController.m; sourceTree = "<group>"; };
 		CEC10D520F890BCC0055F839 /* NSCharacterSet_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCharacterSet_Extensions.h; sourceTree = "<group>"; };
@@ -118,8 +115,6 @@
 				CEC586110FC98AE500326D27 /* DetailViewController.m */,
 				CE2B3B0D0F3CD72B0039B355 /* StorageHTTPConnection.h */,
 				CE2B3B0E0F3CD72B0039B355 /* StorageHTTPConnection.m */,
-				CE7F90720FD6E9E000ED1F83 /* MultipartRequest.h */,
-				CE7F90730FD6E9E000ED1F83 /* MultipartRequest.m */,
 				CEE04E9D0FD9E82E00C32900 /* AFMultipartParser.h */,
 				CEE04E9E0FD9E82E00C32900 /* AFMultipartParser.m */,
 			);
@@ -328,7 +323,6 @@
 				CEC10D670F890BCC0055F839 /* CDataScanner.m in Sources */,
 				CE8504220FC757D800F591EB /* DirectoryTableViewController.m in Sources */,
 				CEC586130FC98AE500326D27 /* DetailViewController.m in Sources */,
-				CE7F90740FD6E9E000ED1F83 /* MultipartRequest.m in Sources */,
 				CEE04E9F0FD9E82E00C32900 /* AFMultipartParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

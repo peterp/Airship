@@ -11,36 +11,44 @@
 
 @implementation AFMultipartParser
 
-@synthesize postDataChunk,
-			nextBoundary,
-			lastBoundary;
 
-@synthesize headers,
-			parts;
 
+@synthesize crlf;
+@synthesize postDataChunk;
+@synthesize	nextBoundary;
+@synthesize	lastBoundary;
+@synthesize parts;
+@synthesize fileHandler;
+			
+
+/**
+ * The boundary is obtained from the headers of the HTTP request. This method 
+ * creates the next/ last part boundaries.
+ **/
 - (id)initWithBoundary:(NSString *)boundary {
 
 	if ([super init]) {
-		/* 
-		Create the next/ last part boundaries from the original boundary 
-		found in the header.
-		*/
+	
+		// Create the next and last part boundaries as bytes, it's easier to 
+		// match against the postDataChunk bytes.
 		self.nextBoundary = [[NSString stringWithFormat:@"--%@", boundary] 
 			dataUsingEncoding:NSUTF8StringEncoding];
 		self.lastBoundary = [[NSString stringWithFormat:@"--%@--", boundary] 
 			dataUsingEncoding:NSUTF8StringEncoding];
-		
-		// This index is used to mark the start of the data we want to slice.
+			
+		// These index are used to mark the start of data that we are going to 
+		// slice.
 		lineStartIndex = 0;
 		bodyStartIndex = -1;
 		
+		// this dictionary will hold all the information about the various parts.
+		self.parts = [NSMutableDictionary dictionary];
 		
-		self.headers = [NSMutableArray array];
-		self.parts = [NSMutableArray array];
-		
-
-		UInt16 CRLFBytes = 0x0A0D;
-		CRLF = [[NSData alloc] initWithBytes:&CRLFBytes length:2];
+		// when parsing headers we'll be searching them line-by-line, we create
+		// the \r\n here instead of having to tear it up and break it down on
+		// each loop.
+		UInt16 crlfBytes = 0x0A0D;
+		self.crlf = [[NSData alloc] initWithBytes:&crlfBytes length:2];
 	}
 	return self;
 	
@@ -51,155 +59,215 @@
 	self.nextBoundary  = nil;
 	self.lastBoundary  = nil;
 	self.postDataChunk = nil;
-
 	
-	[headers release];
-	[parts release];
-	
-	[CRLF release];
+	self.parts = nil;
+	self.crlf = nil;
+	self.fileHandler = nil;
 
 	[super dealloc];
 }
 
 
-
-
+/**
+ * This method searches the postDataChunk's byte-for-byte... Skipping over some
+ * sections when it can.
+ * The run down of how the class operates is as such:
+ * - search for boundary
+ * - search for headers/ parse headers
+ * - search for end of headers/ mark location of data start
+ * - search for boundary (save data)
+ *
+ * Because it's dealing with chunked data it needs to make provision for saving
+ * data and state over many calls.
+ */
 - (void)parseMultipartChunk:(NSData *)data {
 
 	/**
 	The "data" needs to be an instance variable because we're going to be 
 	slicing bits out of it with other methods.
 	**/
+
+	// I'm not actually sure if setting it to nil is neccessary.
+	self.postDataChunk = nil;
 	self.postDataChunk = data;
 	
 	NSLog(@"---------- new chunk ----------");
 	
+	// Start looping through the bytes of data.
 	for (int i = 0; i < postDataChunk.length; i++) {
 	
-		// matching the last boundary.
+		// Enough bytes left to match the lastBoundary?
 		if (postDataChunk.length >= i + lastBoundary.length) {
-		
-			if ([[postDataChunk subdataWithRange:NSMakeRange(i, lastBoundary.length)] isEqualToData:lastBoundary]) {
-			
-				int dataEndIndex = i;
-				NSLog(@"->->-> data save");
-			
-				NSLog(@"-> part end (last boundary)");
+			if ([[postDataChunk subdataWithRange:
+				NSMakeRange(i, lastBoundary.length)] isEqualToData:lastBoundary]) {
+
+				// Since this is the last boundary that pretty much means that
+				// we're done.
+				[self bodyForPostDataChunkWithRange:
+					NSMakeRange(bodyStartIndex, (i - bodyStartIndex)) 
+					forPart:[parts lastObject]];
+				NSLog(@". part END (last)");
 				
+				// Reset the slice range to defaults.
+				bodyStartIndex = -1;
 				break;
 			}
-			
-		
 		}
 	
 	
-		// matching "next" boundary
+		// Enough bytes left to match the nextBoundary?
 		if (postDataChunk.length >= i + nextBoundary.length) {
-			if ([[postDataChunk subdataWithRange:NSMakeRange(i, nextBoundary.length)] isEqualToData:nextBoundary]) {
-			
-				/**
-				If you find a new boundary and bodyStartIndex has a positive
-				value. This marks the "end" of a part, and because this is a
-				"nextBoundary" the start of another part.
-				*/
+			if ([[postDataChunk subdataWithRange:
+				NSMakeRange(i, nextBoundary.length)] isEqualToData:nextBoundary]) {
 				
 				
-				if (bodyStartIndex > 0) {
-					NSLog(@"->->-> data SAVE");
+				// If bodyStartIndex >= 0 it means that we're tracking a part, so
+				// save it.
+				if (bodyStartIndex >= 0) {
+					NSLog(@"... data SAVE (next)");
 					
-					[self subPostDataChunkWithRange:
-						NSMakeRange(bodyStartIndex, (i - bodyStartIndex) - CRLF.length)
+					[self bodyForPostDataChunkWithRange:
+						NSMakeRange(bodyStartIndex, (i - bodyStartIndex))
 						forPart:[parts lastObject]];
 					
-					NSLog(@"-> part END");
+					NSLog(@". part END (next)");
 				}
 				
+				NSLog(@". part START (next)");
+				NSLog(@".. header START");
 				
-				// reset for next part...
-				NSLog(@"-> part start");
-				NSLog(@"->-> header start");
-				
-				
-
-				// add object to deal with raw headers
-				[headers addObject:[NSMutableArray array]];
-				
+				// Reset the slice range, we're looking for headers now.
 				bodyStartIndex = -1;
-								
-				i += nextBoundary.length + CRLF.length;
+
+				// Shift the index and line slice range ahead to skip this
+				// boundary.
+				i += nextBoundary.length + crlf.length;
 				lineStartIndex = i;
 			}
 		}
 		
-		if (bodyStartIndex < 0 && postDataChunk.length >= i + CRLF.length) {
+		/**
+		 * If we're not searching for any part's slice range then we're looking
+		 * for headers. The end of headers indicate the start of a parts body.
+		 */
+		if (bodyStartIndex < 0 && postDataChunk.length >= i + crlf.length) {
 		
-			// searching for newlines.
-			if ([[postDataChunk subdataWithRange:NSMakeRange(i, CRLF.length)] isEqualToData:CRLF]) {
+			if ([[postDataChunk subdataWithRange:NSMakeRange(i, crlf.length)] isEqualToData:crlf]) {
 				
-				NSData *line = [postDataChunk subdataWithRange:NSMakeRange(lineStartIndex, i - lineStartIndex)];
+				// Extract a single line of bytes.
+				NSData *lineData = [postDataChunk subdataWithRange:
+					NSMakeRange(lineStartIndex, i - lineStartIndex)];
 				
-				lineStartIndex = i + CRLF.length;
-				i += (CRLF.length - 1); 
-
+				// Shift hte index and line slice range ahead so that we don't 
+				// search over the bytes we've just cut.
+				lineStartIndex = i + crlf.length;
+				i += (crlf.length - 1); 
 				
 				
-				// indicates the end of header
-				if (line.length == 0) {
-					NSLog(@"->-> header stop");
+				// If this line is empty it indicates the end of the header
+				// and the start of the new body.
+				if (lineData.length == 0) {
+					NSLog(@".. header STOP");
 					bodyStartIndex = lineStartIndex;
 				} else {
-					NSLog(@"->->-> header save");
+				
+					NSLog(@"... header PARSE");
 					
-					NSMutableArray *header = [headers lastObject];
-					NSString *lineText  = [self dataToString:line];
-					[header addObject:lineText];
+					// Header bytes into header string!
+					NSString *line = [self stringFromData:lineData];
 					
-					// this first line of the header contains valuable information!
-					if ([lineText rangeOfString:@"Content-Disposition: form-data;"].location != NSNotFound) {
-					
-						NSArray *c = [lineText componentsSeparatedByString:@"\""];
-						NSMutableDictionary *part = [NSMutableDictionary dictionaryWithObject:[c objectAtIndex:1] forKey:@"name"];
-						if ([c count] == 5) {
-							[part setValue:[c objectAtIndex:3] forKey:@"filename"];
+					// The very first line of the header contains the field's name
+					// as well as the filename.
+					if ([line rangeOfString:@"Content-Disposition: form-data;"].location != NSNotFound) {
+						
+						// Extract the juicy information and create a new mutable
+						// array... 
+						NSArray *bits = [line componentsSeparatedByString:@"\""];
+						
+						// Is this a file upload part?
+						if ([bits count] == 5) {
+							[parts setValue:[NSMutableDictionary 
+									dictionaryWithObject:[bits objectAtIndex:3] 
+									forKey:@"filename"] 
+								forKey:[bits objectAtIndex:1]];
+								
+							NSLog(@"%@", [parts ]);
+						} else {
+							[parts setValue:[NSMutableDictionary dictionary] 
+								forKey:[bits objectAtIndex:1]];
 						}
-						[parts addObject:part];
 					}
 					
-					[lineText release];
+					[line release];
 				}
 			}
 		}
 	}
 	
-
+	/**
+	 * Oh no! We haven't found the end of this parts body. It probably means
+	 * that this is spanning over many chunked bytes.
+	 */
+	if (bodyStartIndex >= 0) {
+	
+		NSLog(@"... data SAVE (chunk)");
+		[self bodyForPostDataChunkWithRange:
+			NSMakeRange(bodyStartIndex, (postDataChunk.length - bodyStartIndex))
+				forPart:[parts lastObject]];
+				
+		
+		// Since we're still searching for the rest of this parts body set the
+		// slice range to the very first byte of the next chunk.
+		bodyStartIndex = 0;
+	}
 }
 
 
 
 
-- (NSString *)dataToString:(NSData *)data {
+- (NSString *)stringFromData:(NSData *)data {
 	return [[NSString alloc] initWithBytes:[data bytes] length:[data length] encoding:NSUTF8StringEncoding];
 }
 
 
-- (void)subPostDataChunkWithRange:(NSRange)range forPart:(NSMutableDictionary *)part {
-	/**
-	Check the part dictionary to see if this method is saving a string value or
-	streaming an upload to a file.
-	*/
-	
-	NSString *filename = [part objectForKey:@"filename"];
+/**
+ * This method saves the data/ chunked or not for a part. It's always the last
+ * part, so I don't know why I really bother passing it through. Anyway.
+ */
+- (void)bodyForPostDataChunkWithRange:(NSRange)range forPart:(NSMutableDictionary *)part {
+
+
+	NSString *filename = [part valueForKey:@"filename"];
 	if (filename) {
+	
+		// Check to see if we've created a temporary file to store this damn
+		// thing.
+		
+		NSString *tmpFilePath = [part valueForKey:@"tmpFilePath"];
+		if (!tmpFilePath) {
+			// Create a temporary file for this part.
+			tmpFilePath = [NSTemporaryDirectory() stringByAppendingPathComponent:
+				[NSString stringWithFormat:@"%.0f_%@", [NSDate timeIntervalSinceReferenceDate] * 100, filename]];
+			[part setObject:tmpFilePath forKey:@"tmpFilePath"];
+			
+			[[NSFileManager defaultManager] createFileAtPath:tmpFilePath 
+				contents:nil attributes:nil];
+				
+			// create a file handle as welll.
+			self.fileHandler = nil;
+			self.fileHandler = [NSFileHandle fileHandleForWritingAtPath:tmpFilePath];
+		}
+		NSLog(@"..... path: %@", tmpFilePath);
+		
+		
+		[fileHandler seekToEndOfFile];
+		[fileHandler writeData:[postDataChunk subdataWithRange:range]];
 	} else {
 		// extract and place this value in to the "part" dictionary.
-		
-		
 
-		NSString *value = [self dataToString:[postDataChunk subdataWithRange:range]];
+		NSString *value = [self stringFromData:[postDataChunk subdataWithRange:range]];
 		[part setValue:value forKey:@"value"];
 		[value release];
-		
-		NSLog(@"part: %@", part);
 	}
 };
 

@@ -8,44 +8,48 @@
 
 #import <Foundation/Foundation.h>
 
+	// todo, save the last part key.
+	// fetch the objects for the last part
+	// create an accessor to get the parts.
+
 
 @interface AFMultipartParser : NSObject {
 
+
 	
+	NSFileHandle *fileHandler;
 	NSData *postDataChunk;
 
-
+	NSData *crlf;
 	NSData *nextBoundary;
 	NSData *lastBoundary;
 	
 	int lineStartIndex;
 	int bodyStartIndex;
 	
-	NSMutableArray *headers;
+	
 	NSMutableArray *parts;
-	
-	
-	
-	NSData *CRLF;
+	NSString *lastPartKey;
 }
 
+@property (nonatomic, retain) NSFileHandle *fileHandler;
 @property (nonatomic, retain) NSData *postDataChunk;
 
-
+@property (nonatomic, retain) NSData *crlf;
 @property (nonatomic, retain) NSData *nextBoundary;
 @property (nonatomic, retain) NSData *lastBoundary;
 
-@property (nonatomic, retain) NSMutableArray *headers;
 @property (nonatomic, retain) NSMutableArray *parts;
+@property (nonatomic, retain) NSString *lastPartKey;
+
+
 
 
 - (id)initWithBoundary:(NSString *)boundary;
-
-
 - (void)parseMultipartChunk:(NSData *)data;
-- (void)subPostDataChunkWithRange:(NSRange)range forPart:(NSMutableDictionary *)part;
+- (void)bodyForPostDataChunkWithRange:(NSRange)range forPart:(NSMutableDictionary *)part;
 
 
-- (NSString *)dataToString:(NSData *)data;
+- (NSString *)stringFromData:(NSData *)data;
 
 @end
