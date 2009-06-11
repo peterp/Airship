@@ -13,12 +13,17 @@
 
 
 
-@synthesize crlf;
+
+@synthesize fileHandler;
 @synthesize postDataChunk;
+
+@synthesize crlf;
 @synthesize	nextBoundary;
 @synthesize	lastBoundary;
+
 @synthesize parts;
-@synthesize fileHandler;
+@synthesize lastPartKey;
+
 			
 
 /**
@@ -87,11 +92,9 @@
 	slicing bits out of it with other methods.
 	**/
 
-	// I'm not actually sure if setting it to nil is neccessary.
-	self.postDataChunk = nil;
 	self.postDataChunk = data;
 	
-	NSLog(@"---------- new chunk ----------");
+	////NSLog(@"---------- new chunk ----------");
 	
 	// Start looping through the bytes of data.
 	for (int i = 0; i < postDataChunk.length; i++) {
@@ -104,9 +107,9 @@
 				// Since this is the last boundary that pretty much means that
 				// we're done.
 				[self bodyForPostDataChunkWithRange:
-					NSMakeRange(bodyStartIndex, (i - bodyStartIndex)) 
-					forPart:[parts lastObject]];
-				NSLog(@". part END (last)");
+					NSMakeRange(bodyStartIndex, (i - bodyStartIndex) - crlf.length) 
+					forPart:[parts valueForKey:lastPartKey]];
+				//NSLog(@". part END (last)");
 				
 				// Reset the slice range to defaults.
 				bodyStartIndex = -1;
@@ -124,17 +127,17 @@
 				// If bodyStartIndex >= 0 it means that we're tracking a part, so
 				// save it.
 				if (bodyStartIndex >= 0) {
-					NSLog(@"... data SAVE (next)");
+					//NSLog(@"... data SAVE (next)");
 					
 					[self bodyForPostDataChunkWithRange:
-						NSMakeRange(bodyStartIndex, (i - bodyStartIndex))
-						forPart:[parts lastObject]];
+						NSMakeRange(bodyStartIndex, (i - bodyStartIndex) - crlf.length)
+						forPart:[parts valueForKey:lastPartKey]];
 					
-					NSLog(@". part END (next)");
+					//NSLog(@". part END (next)");
 				}
 				
-				NSLog(@". part START (next)");
-				NSLog(@".. header START");
+				//NSLog(@". part START (next)");
+				//NSLog(@".. header START");
 				
 				// Reset the slice range, we're looking for headers now.
 				bodyStartIndex = -1;
@@ -167,11 +170,11 @@
 				// If this line is empty it indicates the end of the header
 				// and the start of the new body.
 				if (lineData.length == 0) {
-					NSLog(@".. header STOP");
+					//NSLog(@".. header STOP");
 					bodyStartIndex = lineStartIndex;
 				} else {
 				
-					NSLog(@"... header PARSE");
+					//NSLog(@"... header PARSE");
 					
 					// Header bytes into header string!
 					NSString *line = [self stringFromData:lineData];
@@ -184,6 +187,8 @@
 						// array... 
 						NSArray *bits = [line componentsSeparatedByString:@"\""];
 						
+						self.lastPartKey = [bits objectAtIndex:1];
+						
 						// Is this a file upload part?
 						if ([bits count] == 5) {
 							[parts setValue:[NSMutableDictionary 
@@ -191,7 +196,6 @@
 									forKey:@"filename"] 
 								forKey:[bits objectAtIndex:1]];
 								
-							NSLog(@"%@", [parts ]);
 						} else {
 							[parts setValue:[NSMutableDictionary dictionary] 
 								forKey:[bits objectAtIndex:1]];
@@ -210,10 +214,11 @@
 	 */
 	if (bodyStartIndex >= 0) {
 	
-		NSLog(@"... data SAVE (chunk)");
+		//NSLog(@"... data SAVE (chunk)");
 		[self bodyForPostDataChunkWithRange:
 			NSMakeRange(bodyStartIndex, (postDataChunk.length - bodyStartIndex))
-				forPart:[parts lastObject]];
+				forPart:[parts valueForKey:lastPartKey]];
+				
 				
 		
 		// Since we're still searching for the rest of this parts body set the
@@ -257,7 +262,7 @@
 			self.fileHandler = nil;
 			self.fileHandler = [NSFileHandle fileHandleForWritingAtPath:tmpFilePath];
 		}
-		NSLog(@"..... path: %@", tmpFilePath);
+		//NSLog(@"..... path: %@", tmpFilePath);
 		
 		
 		[fileHandler seekToEndOfFile];

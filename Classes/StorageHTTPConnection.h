@@ -17,14 +17,13 @@
 	AFMultipartParser *multipartParser;
 }
 
-// dealing with getting query variables....
-- (NSMutableDictionary *)getQueryVariables:(NSString *)query escapePercentages:(BOOL)escape;
-- (NSObject *)responseWithString:(NSString *)responseString;
 
 
-// dealing with files...
-- (NSString *)getRelativePath:(NSString *)path;
-- (NSString *)getDirectoryItems:(NSString *)path;
+- (NSData *)dataForContentsOfDirectory:(NSString *)path;
+
+
+
+- (NSString *)absolutePathForURL:(NSString *)url;
 
 
 @end

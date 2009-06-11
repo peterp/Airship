@@ -26,7 +26,7 @@
 
 	DirectoryTableViewController *rootViewController = 
 		[[DirectoryTableViewController alloc] initWithStyle:UITableViewStylePlain];
-	rootViewController.relativePath = @"Airship";
+	rootViewController.relativePath = @"Storage";
 		
 	UINavigationController *aNavigationController = 
 		[[UINavigationController alloc] initWithRootViewController:rootViewController];

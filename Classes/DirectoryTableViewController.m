@@ -60,6 +60,8 @@
 		];
 	}
 	
+	NSLog(@"%@", absolutePath);
+	
 	[dateFormat release];
 }
 

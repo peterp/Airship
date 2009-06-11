@@ -8,15 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-	// todo, save the last part key.
-	// fetch the objects for the last part
-	// create an accessor to get the parts.
-
-
 @interface AFMultipartParser : NSObject {
-
-
-	
 	NSFileHandle *fileHandler;
 	NSData *postDataChunk;
 
@@ -41,8 +33,6 @@
 
 @property (nonatomic, retain) NSMutableArray *parts;
 @property (nonatomic, retain) NSString *lastPartKey;
-
-
 
 
 - (id)initWithBoundary:(NSString *)boundary;
