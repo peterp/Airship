@@ -39,6 +39,7 @@
 	[rootViewController release];
 	[aNavigationController release];
 	
+
 	
 	NSString *documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
 //	NSString *resourcePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"html"];

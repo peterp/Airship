@@ -7,7 +7,6 @@
 //
 
 
-
 #import "StorageHTTPConnection.h"
 #import "HTTPServer.h"
 #import "HTTPResponse.h"
@@ -53,6 +52,7 @@
 	if ([method isEqualToString:@"GET"]) {
 		
 		if ([[url query] isEqualToString:@"format=json"]) {
+
 			// requesting a JSON response of the contents of this path...
 			return [[[HTTPDataResponse alloc] 
 				initWithData:[self dataForContentsOfDirectory:url.path]] 
@@ -62,25 +62,38 @@
 		// Default response, return file at request path
 		return [[[HTTPFileResponse alloc] 
 			initWithFilePath:[self absolutePathForURL:url.path]] autorelease];
+			
+			
+			
+		
 		
 	} else if ([method isEqualToString:@"POST"]) {
 		
 		if (requestIsMultipart) {
 			// Oooh! A fileupload.
 			
-			NSString *tmpPath = [[multipartParser.parts valueForKey:@"new_file"] valueForKey:@"tmpFilePath"];
-			NSString *filename = [[multipartParser.parts valueForKey:@"new_file"] valueForKey:@"filename"];
-			NSString *upload_to = [[multipartParser.parts valueForKey:@"upload_to"] valueForKey:@"value"];
-			NSString *path = [[self absolutePathForURL:upload_to] stringByAppendingPathComponent:filename];
-			
+			NSString *tmpFilePath = [[multipartParser.parts
+				valueForKey:@"new_file"] valueForKey:@"tmpFilePath"];
+			NSString *filename = [[multipartParser.parts 
+				valueForKey:@"new_file"] valueForKey:@"filename"];
+			NSString *relative_path = [[multipartParser.parts 
+				valueForKey:@"relative_path"] valueForKey:@"value"];
+				
+			NSString *path = [[self absolutePathForURL:relative_path] 
+				stringByAppendingPathComponent:filename];
 			
 			NSError *error;
-			[[NSFileManager defaultManager] moveItemAtPath:tmpPath toPath:path error:&error];
-			
-			//NSLog(@"%@", error);
-			
-			NSLog(@"%@\n%@", path, tmpPath);
-			
+			[[NSFileManager defaultManager] moveItemAtPath:tmpFilePath 
+				toPath:path error:&error];
+				
+			// reload the view to display the new files...
+			[[NSNotificationCenter defaultCenter] 
+				postNotificationName:@"fileUploadCompleted" object:nil 
+				userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+					relative_path, @"relativePath", 
+					path, @"absolutePath", 
+					filename, @"filename",
+					nil]];
 			
 			[multipartParser release];
 		}
