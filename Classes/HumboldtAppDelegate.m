@@ -18,25 +18,29 @@
 
 @implementation HumboldtAppDelegate
 
-@synthesize window;
-@synthesize navigationController;
+
+@synthesize window, navigationController;
+
+# pragma mark -
+# pragma mark Application setup
+- (void)applicationDidFinishLaunching:(UIApplication *)application 
+{
 
 
-- (void)applicationDidFinishLaunching:(UIApplication *)application {
-
-	DirectoryTableViewController *rootViewController = 
-		[[DirectoryTableViewController alloc] initWithStyle:UITableViewStylePlain];
-	rootViewController.relativePath = @"Storage";
+	// Directory view
+	DirectoryTableViewController *directoryTableViewController = [[DirectoryTableViewController alloc] initWithStyle:UITableViewStylePlain];
+	directoryTableViewController.relativePath = @"Storage";
+	
 		
 	UINavigationController *aNavigationController = 
-		[[UINavigationController alloc] initWithRootViewController:rootViewController];
+		[[UINavigationController alloc] initWithRootViewController:directoryTableViewController];
 	self.navigationController = aNavigationController;
 	
 	
 	[window addSubview:navigationController.view];
 	[window makeKeyAndVisible];
 	
-	[rootViewController release];
+	[directoryTableViewController release];
 	[aNavigationController release];
 	
 
@@ -71,8 +75,8 @@
 
 - (void)dealloc {
 	[httpServer release];
-    [window release];
-    [super dealloc];
+  [window release];
+  [super dealloc];
 }
 
 

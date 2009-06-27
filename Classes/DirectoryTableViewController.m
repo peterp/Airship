@@ -2,198 +2,94 @@
 //  DirectoryTableViewController.m
 //  Humboldt
 //
-//  Created by Peter Pistorius on 2009/05/22.
-//  Copyright 2009 __MyCompanyName__. All rights reserved.
+//  Created by Peter Pistorius on 2009/06/27.
+//  Copyright 2009 appfactory. All rights reserved.
 //
 
 #import "DirectoryTableViewController.h"
-#import "DetailViewController.h";
+#import "DirectoryItem.h"
 
 
 @implementation DirectoryTableViewController
 
-@synthesize absolutePath, relativePath, data, directoryContents, filteredDirectoryContents, filteredData;
+@synthesize relativePath, absolutePath, directoryItems, filteredDirectoryItems;
 
-#pragma mark - 
-#pragma mark Lifecycle methods
+
+
+# pragma mark -
+# pragma mark Setup / Tear down
 
 - (void)viewDidLoad 
 {
+	[super viewDidLoad];
+	
+	// TableView setup
+	self.title = self.relativePath;
+	self.tableView.rowHeight = 44;
 
-	// Cache these objects, used with files.
-	fileManager = [[NSFileManager defaultManager] retain];
-	dateFormat = [[NSDateFormatter alloc] init];
-	[dateFormat setDateFormat:@"MMM dd yyyy, HH:mm"];
 
-	// The *actual* path to this directory
-	self.absolutePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:self.relativePath];
-	self.directoryContents = [NSMutableArray array];
-	for (NSString *name in [fileManager directoryContentsAtPath:self.absolutePath]) {
-		// Add items to our data source
+	// Data source
+	NSArray *directoryContents = [[NSFileManager defaultManager] directoryContentsAtPath:self.absolutePath];
+	self.directoryItems = [NSMutableArray arrayWithCapacity:[directoryContents count]];
+	for (NSString *name in directoryContents) {
 		if (![name isEqualToString:@".DS_Store"]) {
-			[directoryContents addObject:[NSMutableDictionary dictionaryWithObject:name forKey:@"name"]];
+			// Create DirectoryItem
+			[self.directoryItems addObject:[DirectoryItem initWithName:name atPath:self.absolutePath]];
 		}
 	}
 	
-	
-	// Table defaults
-	self.tableView.rowHeight = 44;
-	self.title = self.relativePath;
-
-
 	// Search
 	searchBar = [[UISearchBar alloc] initWithFrame:self.tableView.bounds];
 	searchBar.delegate = self;
 	searchBar.placeholder	= [@"Search " stringByAppendingString:self.relativePath];
-	searchBar.showsScopeBar = NO;
-	searchBar.scopeButtonTitles = [NSArray arrayWithObjects:@"All", @"Docus", @"Media", @"Pictures", nil];
 	[searchBar sizeToFit];
 	self.tableView.tableHeaderView = searchBar;
-	
-	// Search Display
 	searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
 	searchDisplayController.searchResultsDelegate = self;
 	searchDisplayController.searchResultsDataSource = self;
 	searchDisplayController.delegate = self;
+	self.filteredDirectoryItems = [NSMutableArray arrayWithCapacity:[self.directoryItems count]];
 	
-	// Search results
-	self.filteredDirectoryContents = [NSMutableArray arrayWithCapacity:[self.directoryContents count]];
-
-	
-
-	// Notifications
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fileUploadCompleted:) name:@"fileUploadCompleted" object:nil];
-
 }
 
 
 - (void)dealloc 
 {
-
 	self.absolutePath = nil;
 	self.relativePath = nil;
-	
-	self.directoryContents = nil;
-	self.filteredDirectoryContents = nil;
-	
-	self.data = nil;
-	self.filteredData = nil;
-	
-
-	[searchBar release];
-	[searchDisplayController release];
+	self.directoryItems = nil;
+	self.filteredDirectoryItems = nil;
 	
 	[super dealloc];
 }
-
-
-/**
- * This method is called in every table view when a file is uploaded, 
- * it checks to see if uploaded files path matches this file's path...
- * This is so that we can update the table view with new content once it 
- * arrives.
- */
-- (void) fileUploadCompleted:(NSNotification *)notification {
-
-	// Is this update for this table view?
-	if (![[notification.userInfo valueForKey:@"relativePath"] 
-		isEqualToString:relativePath]) {
-		return;
-	}
-
-	// figure out where to inser this item in the items array as well as the
-	// tableview
-	NSString *filename = [notification.userInfo valueForKey:@"filename"];
-	int indexRow = - 1;
-	for (int i = 0; i < [data count]; i++) {
-
-		if ([filename compare:[data objectAtIndex:i] options:NSCaseInsensitiveSearch] < 1) {
-			indexRow = i;
-		}
-		
-		if (i == [data count] - 1 && indexRow < 0) {
-			indexRow = i + 1;
-		}
-		
-		if (indexRow > 0) {
-			// We need to insert this right at the back...
-			[data insertObject:filename atIndex:indexRow];
-			
-			[self.tableView beginUpdates];
-			[self.tableView insertRowsAtIndexPaths:[NSArray
-				arrayWithObject:[NSIndexPath indexPathForRow:indexRow inSection:0]]
-				withRowAnimation:UITableViewRowAnimationRight];
-			[self.tableView endUpdates];
-			break;
-		}
-	}
-}
-
-
-
-
-
-- (void)attributesForItem:(NSDictionary *)item 
-{
-	
-	// Item's attributes
-	NSDictionary *attrs = [fileManager attributesOfItemAtPath:[absolutePath stringByAppendingPathComponent:[item objectForKey:@"name"]] error:nil];
-	
-	if ([[attrs fileType] isEqualToString:NSFileTypeDirectory]) {
-		[item setValue:@"folder" forKey:@"type"];
-	} else {
-	
-		NSString *ext = [[item objectForKey:@"name"] pathExtension];
-
-		NSArray *pictures  = [NSArray arrayWithObjects:@"jpg", @"jpeg", @"gif", @"tiff", @"png", nil];
-		NSArray *documents = [NSArray arrayWithObjects:@"doc", @"docx", @"htm", @"html", @"key", @"numbers", @"pages", @"pdf", @"ppt", @"pptx", @"txt", @"rtf", @"xls", @"xlsx", nil];
-		//NSArray *audio		 = [NSArray arrayWithObjects:@"aac", @"mp3", @"aiff", @"wav"];
-		//NSArray *video		 = [NSArray arrayWithObjects:@"m4v", @"mp4", @"mov"];
-		
-		if ([pictures containsObject:ext]) {
-			[item setValue:@"image" forKey:@"type"];
-		} else if ([documents containsObject:ext]) {
-			[item setValue:@"document" forKey:@"type"];
-		} else {
-			[item setValue:@"unknown" forKey:@"type"];
-		}
-	}
-	
-	[item setValue:[dateFormat stringFromDate:[attrs fileModificationDate]] forKey:@"date"];
-}
-
-
-
-
-
-
 
 
 
 #pragma mark -
 #pragma mark UITableView data source and delegate methods
 
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView 
 {
-	
 	if (tableView == self.searchDisplayController.searchResultsTableView) {
-		return [self.filteredDirectoryContents count];
-  } else {
-		return [self.directoryContents count];
-	}
+		return 1;
+	} else {
+		return 1;
+	}	
 }
 
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView 
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
 {
-    return 1;
+	if (tableView == self.searchDisplayController.searchResultsTableView) {
+		return [self.filteredDirectoryItems count];
+	} else {
+		return [self.directoryItems count];
+	}
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-	
 	// Custom labels
 	UILabel *nameLabel;
 	UILabel *metaLabel;
@@ -211,7 +107,7 @@
 		[cell.contentView addSubview:nameLabel];
 		
 		// Meta
-		metaLabel = [[[UILabel alloc] initWithFrame:CGRectMake(40, 22, 250, 22)] autorelease];
+		metaLabel = [[[UILabel alloc] initWithFrame:CGRectMake(40, 22, 120, 22)] autorelease];
 		metaLabel.tag = 1002;
 		metaLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize] - 4];
 		metaLabel.textColor = [UIColor grayColor];
@@ -223,96 +119,58 @@
 		metaLabel = (UILabel *)[cell viewWithTag:1002];
 	}
 	
-	// Grab item
-	NSDictionary *item = nil;
+	// Item
+	DirectoryItem *item = nil;
 	if (tableView == self.searchDisplayController.searchResultsTableView) {
-		item = [self.filteredDirectoryContents objectAtIndex:indexPath.row];
+		item = [self.filteredDirectoryItems objectAtIndex:indexPath.row];
 	}	else {
-		item = [self.directoryContents objectAtIndex:indexPath.row];
+		item = [self.directoryItems objectAtIndex:indexPath.row];
 	}
-	
-	
-	
-	
-	// Grab & cache item's attribute information
-	if (![item objectForKey:@"type"]) {
-		// Cache these items
-		[self attributesForItem:item];
-	}
-	
-	[cell.imageView initWithImage:[UIImage imageNamed:[[item objectForKey:@"type"] stringByAppendingString:@".png"]]];
-
-	nameLabel.text = [item objectForKey:@"name"];
-	metaLabel.text = [item objectForKey:@"date"];
+	[cell.imageView initWithImage:[UIImage imageNamed:[item.type stringByAppendingPathExtension:@"png"]]];
+	nameLabel.text = item.name;
+	metaLabel.text = item.date;
 
 	return cell;
 }
 
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
+{
+
+}
 
 
 
+#pragma mark -
+#pragma mark Content Filtering
 
-
-
-
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-
-	NSDictionary *item = [data objectAtIndex:indexPath.row];
-	if ([[item objectForKey:@"type"] isEqualToString:@"NSFileTypeDirectory"]) {
-
-		// this is a directory... Push another view onto the navigation stack.
-		DirectoryTableViewController *directoryTableView = 
-			[[DirectoryTableViewController alloc] 
-				initWithNibName:nil bundle:[NSBundle mainBundle]];
-		directoryTableView.relativePath = 
-			[self.relativePath stringByAppendingPathComponent:[item objectForKey:@"name"]];
-
-		[self.navigationController pushViewController:directoryTableView animated:YES];
-		[directoryTableView release];
-	} else {
+- (void)filterContentForSearchText:(NSString*)searchText
+{
+	[self.filteredDirectoryItems removeAllObjects];
 	
-		DetailViewController *detailViewController = [[DetailViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
-		
-		[detailViewController openFile:[absolutePath stringByAppendingPathComponent:[item objectForKey:@"name"]]];
-		
-		[self.navigationController pushViewController:detailViewController animated:YES];
-		[detailViewController release];
+	for (DirectoryItem *item in self.directoryItems) {
+		// Compare
+		NSComparisonResult result = [item.name compare:searchText options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [searchText length])];
+		if (result == NSOrderedSame) {
+			[self.filteredDirectoryItems addObject:item];
+		}
 	}
 }
 
 
 
+#pragma mark -
+#pragma mark UISearchDisplayController Delegate Methods
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-- (void)didReceiveMemoryWarning {
-	// Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-	
-	// Release any cached data, images, etc that aren't in use.
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString 
+{
+	[self filterContentForSearchText:searchString];
+	return YES;
 }
 
-- (void)viewDidUnload {
-	// Release any retained subviews of the main view.
-	// e.g. self.myOutlet = nil;
-}
+
+
+
 
 
 
@@ -365,17 +223,24 @@
 }
 */
 
-/*
-- (id)initWithStyle:(UITableViewStyle)style {
-    // Override initWithStyle: if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-    if (self = [super initWithStyle:style]) {
-    }
-    return self;
-}
-*/
+# pragma mark - 
+# pragma mark Getters, setters, and helper methods
 
-/*
-*/
+
+
+- (void)setRelativePath:(NSString *)path
+{
+	// Absolute path is based on relative path
+	relativePath = path;
+	self.absolutePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:path];
+}
+
+
+
+
+
+
+
 
 /*
 - (void)viewWillAppear:(BOOL)animated {
@@ -406,48 +271,18 @@
 }
 */
 
-
-
-#pragma mark -
-#pragma mark Content Filtering
-
-- (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope 
-{
-	[self.filteredData removeAllObjects];
+- (void)didReceiveMemoryWarning {
+	// Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
 	
-	for (NSDictionary *item in self.data) {
-	
-		NSComparisonResult result = [[item objectForKey:@"name"] compare:searchText options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [searchText length])];
-		if (result == NSOrderedSame) {
-			[self.filteredData addObject:item];
-		}
-	}
+	// Release any cached data, images, etc that aren't in use.
 }
 
-#pragma mark -
-#pragma mark UISearchDisplayController Delegate Methods
-
-- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
-	
-
-	[self filterContentForSearchText:searchString scope:nil];
-    return YES;
+- (void)viewDidUnload {
+	// Release any retained subviews of the main view.
+	// e.g. self.myOutlet = nil;
 }
-
-- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption {
-//    [self filterContentForSearchText:[self.searchDisplayController.searchBar text] scope:
-//			[[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:searchOption]];
-    
-    // Return YES to cause the search result table view to be reloaded.
-    return YES;
-}
-
-
-
 
 
 @end
-
-
-
 

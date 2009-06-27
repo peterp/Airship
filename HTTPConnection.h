@@ -32,11 +32,14 @@
 	
 	UInt64 requestContentLength;
 	UInt64 requestContentLengthReceived;
+	
+	NSMutableArray *responseDataSizes;
 }
 
 - (id)initWithAsyncSocket:(AsyncSocket *)newSocket forServer:(HTTPServer *)myServer;
 
 - (BOOL)supportsMethod:(NSString *)method atPath:(NSString *)path;
+- (BOOL)expectsRequestBodyFromMethod:(NSString *)method atPath:(NSString *)relativePath;
 
 - (BOOL)isSecureServer;
 - (NSArray *)sslIdentityAndCertificates;
@@ -64,4 +67,8 @@
 
 - (void)die;
 
+@end
+
+@interface HTTPConnection (AsynchronousHTTPResponse)
+- (void)responseHasAvailableData;
 @end

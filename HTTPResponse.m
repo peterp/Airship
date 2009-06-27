@@ -5,10 +5,20 @@
 
 - (id)initWithFilePath:(NSString *)filePathParam
 {
-	if(self = [super init])
+	if((self = [super init]))
 	{
 		filePath = [filePathParam copy];
 		fileHandle = [[NSFileHandle fileHandleForReadingAtPath:filePath] retain];
+		
+		if(fileHandle == nil)
+		{
+			[self release];
+			return nil;
+		}
+		
+		NSDictionary *fileAttributes = [[NSFileManager defaultManager] fileAttributesAtPath:filePath traverseLink:NO];
+		NSNumber *fileSize = [fileAttributes objectForKey:NSFileSize];
+		fileLength = (UInt64)[fileSize unsignedLongLongValue];
 	}
 	return self;
 }
@@ -23,11 +33,7 @@
 
 - (UInt64)contentLength
 {
-	NSDictionary *fileAttributes = [[NSFileManager defaultManager] fileAttributesAtPath:filePath traverseLink:NO];
-	
-	NSNumber *fileSize = [fileAttributes objectForKey:NSFileSize];
-	
-	return (UInt64)[fileSize unsignedLongLongValue];
+	return fileLength;
 }
 
 - (UInt64)offset
@@ -45,6 +51,11 @@
 	return [fileHandle readDataOfLength:length];
 }
 
+- (BOOL)isDone
+{
+	return ([fileHandle offsetInFile] == fileLength);
+}
+
 - (NSString *)filePath
 {
 	return filePath;
@@ -60,7 +71,7 @@
 
 - (id)initWithData:(NSData *)dataParam
 {
-	if(self = [super init])
+	if((self = [super init]))
 	{
 		offset = 0;
 		data = [dataParam retain];
@@ -99,6 +110,11 @@
 	offset += length;
 	
 	return [NSData dataWithBytesNoCopy:bytes length:length freeWhenDone:NO];
+}
+
+- (BOOL)isDone
+{
+	return (offset == [data length]);
 }
 
 @end
