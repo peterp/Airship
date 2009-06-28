@@ -24,8 +24,7 @@
 	if ([contentType hasPrefix:@"multipart/form-data;"]) {
 	
 		requestIsMultipart = TRUE;
-		NSString *boundary = [contentType substringFromIndex:
-			[contentType rangeOfString:@"boundary="].location + [@"boundary=" length]];
+		NSString *boundary = [contentType substringFromIndex:[contentType rangeOfString:@"boundary="].location + [@"boundary=" length]];
 		multipartParser = [[AFMultipartParser alloc] initWithBoundary:boundary];
 	}
 	[contentType release];
@@ -88,11 +87,11 @@
 				
 			// reload the view to display the new files...
 			[[NSNotificationCenter defaultCenter] 
-				postNotificationName:@"fileUploadCompleted" object:nil 
+				postNotificationName:@"newFileUploaded" object:nil 
 				userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
 					relative_path, @"relativePath", 
 					path, @"absolutePath", 
-					filename, @"filename",
+					filename, @"name",
 					nil]];
 			
 			[multipartParser release];

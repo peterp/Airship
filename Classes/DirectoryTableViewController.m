@@ -24,11 +24,11 @@
 	[super viewDidLoad];
 	
 	// TableView setup
-	self.title = self.relativePath;
+	self.title = [self.relativePath lastPathComponent];
 	self.tableView.rowHeight = 44;
 
-
 	// Data source
+	self.absolutePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:self.relativePath];
 	NSArray *directoryContents = [[NSFileManager defaultManager] directoryContentsAtPath:self.absolutePath];
 	self.directoryItems = [NSMutableArray arrayWithCapacity:[directoryContents count]];
 	for (NSString *name in directoryContents) {
@@ -41,7 +41,7 @@
 	// Search
 	searchBar = [[UISearchBar alloc] initWithFrame:self.tableView.bounds];
 	searchBar.delegate = self;
-	searchBar.placeholder	= [@"Search " stringByAppendingString:self.relativePath];
+	searchBar.placeholder	= [@"Search " stringByAppendingString:self.title];
 	[searchBar sizeToFit];
 	self.tableView.tableHeaderView = searchBar;
 	searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
@@ -50,6 +50,8 @@
 	searchDisplayController.delegate = self;
 	self.filteredDirectoryItems = [NSMutableArray arrayWithCapacity:[self.directoryItems count]];
 	
+	// Notifications
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newFileUploaded:) name:@"newFileUploaded" object:nil];
 }
 
 
@@ -136,6 +138,18 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
+	
+	DirectoryItem *item = [self.directoryItems objectAtIndex:indexPath.row];
+	if ([item.type isEqualToString:@"directory"]) {
+		// Directory
+		DirectoryTableViewController *directoryTableViewController = [[DirectoryTableViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
+		directoryTableViewController.relativePath = [self.relativePath stringByAppendingPathComponent:item.name];
+		[self.navigationController pushViewController:directoryTableViewController animated:YES];
+		[directoryTableViewController release];
+		
+	} else {
+		
+	}
 
 }
 
@@ -228,11 +242,46 @@
 
 
 
-- (void)setRelativePath:(NSString *)path
+//- (void)setRelativePath:(NSString *)path
+//{
+//	// Absolute path is based on relative path
+//	relativePath = path;
+//	NSLog(@"setRelativePath: %@", relativePath);
+//	
+//}
+
+
+- (void)newFileUploaded:(NSNotification *)notification 
 {
-	// Absolute path is based on relative path
-	relativePath = path;
-	self.absolutePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:path];
+	// Not for this view, return;
+	if (![[notification.userInfo valueForKey:@"relativePath"] isEqualToString:self.relativePath]) {
+		return;
+	}
+
+	NSString *name = [notification.userInfo valueForKey:@"name"];
+	int indexRow = - 1;
+	for (int i = 0; i < [self.directoryItems count]; i++) {
+		
+		DirectoryItem *item = [self.directoryItems objectAtIndex:i];
+	
+		if ([name compare:item.name options:NSCaseInsensitiveSearch] < 1) {
+			indexRow = i;
+			break;
+		}
+		
+		if (i == [self.directoryItems count] - 1 && indexRow < 0) {
+			indexRow = i + 1;
+			break;
+		}
+	}
+	// Insert
+	if (indexRow > 0) {
+		[self.directoryItems insertObject:[DirectoryItem initWithName:name atPath:self.absolutePath] atIndex:indexRow];
+		
+		[self.tableView beginUpdates];
+		[self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:indexRow inSection:0]]	withRowAnimation:UITableViewRowAnimationRight];
+		[self.tableView endUpdates];
+	}
 }
 
 

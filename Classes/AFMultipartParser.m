@@ -17,7 +17,6 @@
 @synthesize fileHandler;
 @synthesize postDataChunk;
 
-@synthesize crlf;
 @synthesize	nextBoundary;
 @synthesize	lastBoundary;
 
@@ -36,10 +35,8 @@
 	
 		// Create the next and last part boundaries as bytes, it's easier to 
 		// match against the postDataChunk bytes.
-		self.nextBoundary = [[NSString stringWithFormat:@"--%@", boundary] 
-			dataUsingEncoding:NSUTF8StringEncoding];
-		self.lastBoundary = [[NSString stringWithFormat:@"--%@--", boundary] 
-			dataUsingEncoding:NSUTF8StringEncoding];
+		self.nextBoundary = [[NSString stringWithFormat:@"--%@", boundary] dataUsingEncoding:NSUTF8StringEncoding];
+		self.lastBoundary = [[NSString stringWithFormat:@"--%@--", boundary] dataUsingEncoding:NSUTF8StringEncoding];
 			
 		// These index are used to mark the start of data that we are going to 
 		// slice.
@@ -52,8 +49,12 @@
 		// when parsing headers we'll be searching them line-by-line, we create
 		// the \r\n here instead of having to tear it up and break it down on
 		// each loop.
+		
+		// For some reason this cannot be a property. It leaks if we set it to nil
 		UInt16 crlfBytes = 0x0A0D;
-		self.crlf = [[NSData alloc] initWithBytes:&crlfBytes length:2];
+		crlf = [[NSData alloc] initWithBytes:&crlfBytes length:2];
+		NSLog(@"crlf retain: %i", [crlf retainCount]);
+		
 	}
 	return self;
 	
@@ -66,11 +67,15 @@
 	self.postDataChunk = nil;
 	
 	self.parts = nil;
-	self.crlf = nil;
+	
 	self.fileHandler = nil;
+	self.lastPartKey = nil;
+	
+	[crlf release];
 
 	[super dealloc];
 }
+
 
 
 /**

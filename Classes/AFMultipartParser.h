@@ -27,7 +27,6 @@
 @property (nonatomic, retain) NSFileHandle *fileHandler;
 @property (nonatomic, retain) NSData *postDataChunk;
 
-@property (nonatomic, retain) NSData *crlf;
 @property (nonatomic, retain) NSData *nextBoundary;
 @property (nonatomic, retain) NSData *lastBoundary;
 
