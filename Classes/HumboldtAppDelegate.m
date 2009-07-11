@@ -9,10 +9,8 @@
 #import "HumboldtAppDelegate.h"
 #import "DirectoryTableViewController.h"
 
-
 #import "HTTPServer.h"
 #import "StorageHTTPConnection.h"
-
 
 
 
@@ -31,31 +29,20 @@
 	DirectoryTableViewController *directoryTableViewController = [[DirectoryTableViewController alloc] initWithStyle:UITableViewStylePlain];
 	directoryTableViewController.relativePath = @"Storage";
 	
-		
-	UINavigationController *aNavigationController = 
-		[[UINavigationController alloc] initWithRootViewController:directoryTableViewController];
+	// Navigation
+	UINavigationController *aNavigationController = [[UINavigationController alloc] initWithRootViewController:directoryTableViewController];
 	self.navigationController = aNavigationController;
-	
-	
 	[window addSubview:navigationController.view];
 	[window makeKeyAndVisible];
-	
+
+	// Releas
 	[directoryTableViewController release];
 	[aNavigationController release];
-	
 
-	
+
+	// Copy HTML Data
 	NSString *documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-//	NSString *resourcePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"html"];
-//	
-//	NSFileManager *fileManager = [NSFileManager defaultManager];
-//	for (NSString *filename in [fileManager contentsOfDirectoryAtPath:resourcePath error:nil]) {
-//		[fileManager 
-//			copyItemAtPath:[resourcePath stringByAppendingPathComponent:filename] 
-//			toPath:[documentPath stringByAppendingPathComponent:filename] 
-//			error:nil];
-//	}
-	
+	[self copyWWWDataToPath:documentPath];	
 	
 	httpServer = [HTTPServer new];
 	[httpServer setType:@"_http._tcp."];
@@ -68,16 +55,37 @@
 	if (![httpServer start:&httpError]) {
 		NSLog(@"Error starting HTTPServer: %@", httpError);
 	}
-	
-	
 }
 
 
-- (void)dealloc {
+- (void)dealloc 
+{
 	[httpServer release];
   [window release];
   [super dealloc];
 }
+
+
+
+- (void)copyWWWDataToPath:(NSString *)documentPath
+{
+	
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+	NSString *resourcePath = [[NSBundle mainBundle] resourcePath];
+	
+	if (![fileManager fileExistsAtPath:[documentPath stringByAppendingPathComponent:@"wwwroot"]]) {
+		NSError *error;
+		[fileManager copyItemAtPath:[resourcePath stringByAppendingPathComponent:@"wwwroot"] toPath:[documentPath stringByAppendingPathComponent:@"wwwroot"] error:&error];
+		NSLog(@"error: %@", error);
+	}
+	
+	// Create document path.
+	if (![fileManager fileExistsAtPath:[documentPath stringByAppendingPathComponent:@"Storage"]]) {
+		[fileManager createDirectoryAtPath:[documentPath stringByAppendingPathComponent:@"Storage"] attributes:nil];
+	}
+}
+
+
 
 
 @end

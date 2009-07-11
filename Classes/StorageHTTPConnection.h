@@ -15,6 +15,8 @@
 
 	BOOL requestIsMultipart;
 	AFMultipartParser *multipartParser;
+	
+	int start;
 }
 
 

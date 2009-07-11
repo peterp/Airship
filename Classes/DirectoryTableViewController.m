@@ -30,8 +30,8 @@
 	// Data source
 	self.absolutePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:self.relativePath];
 	NSArray *directoryContents = [[NSFileManager defaultManager] directoryContentsAtPath:self.absolutePath];
-	self.directoryItems = [NSMutableArray arrayWithCapacity:[directoryContents count]];
-	for (NSString *name in directoryContents) {
+	self.directoryItems = [NSMutableArray array];
+	for (NSString *name in [directoryContents sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)]) {
 		if (![name isEqualToString:@".DS_Store"]) {
 			// Create DirectoryItem
 			[self.directoryItems addObject:[DirectoryItem initWithName:name atPath:self.absolutePath]];
@@ -48,7 +48,7 @@
 	searchDisplayController.searchResultsDelegate = self;
 	searchDisplayController.searchResultsDataSource = self;
 	searchDisplayController.delegate = self;
-	self.filteredDirectoryItems = [NSMutableArray arrayWithCapacity:[self.directoryItems count]];
+	self.filteredDirectoryItems = [NSMutableArray array];
 	
 	// Notifications
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newFileUploaded:) name:@"newFileUploaded" object:nil];
@@ -147,10 +147,8 @@
 		[self.navigationController pushViewController:directoryTableViewController animated:YES];
 		[directoryTableViewController release];
 		
-	} else {
-		
+	} else {	
 	}
-
 }
 
 
@@ -161,7 +159,6 @@
 - (void)filterContentForSearchText:(NSString*)searchText
 {
 	[self.filteredDirectoryItems removeAllObjects];
-	
 	for (DirectoryItem *item in self.directoryItems) {
 		// Compare
 		NSComparisonResult result = [item.name compare:searchText options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [searchText length])];
@@ -253,35 +250,40 @@
 
 - (void)newFileUploaded:(NSNotification *)notification 
 {
+
 	// Not for this view, return;
 	if (![[notification.userInfo valueForKey:@"relativePath"] isEqualToString:self.relativePath]) {
 		return;
 	}
+	
+
 
 	NSString *name = [notification.userInfo valueForKey:@"name"];
-	int indexRow = - 1;
-	for (int i = 0; i < [self.directoryItems count]; i++) {
+	int indexRow = 0;
+	for (int i = 0; [self.directoryItems count] > i; i++) {
+	
 		
 		DirectoryItem *item = [self.directoryItems objectAtIndex:i];
 	
-		if ([name compare:item.name options:NSCaseInsensitiveSearch] < 1) {
+		if ([name compare:item.name options:NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch] < 1) {
 			indexRow = i;
 			break;
 		}
 		
-		if (i == [self.directoryItems count] - 1 && indexRow < 0) {
+		if (i == [self.directoryItems count] - 1) {
+			// Place at end
 			indexRow = i + 1;
+			
 			break;
 		}
 	}
-	// Insert
-	if (indexRow > 0) {
-		[self.directoryItems insertObject:[DirectoryItem initWithName:name atPath:self.absolutePath] atIndex:indexRow];
-		
-		[self.tableView beginUpdates];
-		[self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:indexRow inSection:0]]	withRowAnimation:UITableViewRowAnimationRight];
-		[self.tableView endUpdates];
-	}
+	
+	// No other files to compare against.
+	[self.directoryItems insertObject:[DirectoryItem initWithName:name atPath:self.absolutePath] atIndex:indexRow];
+	[self.tableView beginUpdates];
+	[self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:indexRow inSection:0]]	withRowAnimation:UITableViewRowAnimationRight];
+	[self.tableView endUpdates];
+	
 }
 
 

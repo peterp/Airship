@@ -13,6 +13,9 @@
 #import "CJSONSerializer.h"
 #import "AFMultipartParser.h"
 
+#import "time.h"
+
+
 @implementation StorageHTTPConnection
 
 
@@ -23,8 +26,15 @@
 	NSString *contentType = NSMakeCollectable(CFHTTPMessageCopyHeaderFieldValue(request, CFSTR("Content-Type")));
 	if ([contentType hasPrefix:@"multipart/form-data;"]) {
 	
-		requestIsMultipart = TRUE;
+		
+		
+		requestIsMultipart = YES;
 		NSString *boundary = [contentType substringFromIndex:[contentType rangeOfString:@"boundary="].location + [@"boundary=" length]];
+		
+		NSLog(@"boundary: %@", boundary);
+		
+		start = clock();
+		
 		multipartParser = [[AFMultipartParser alloc] initWithBoundary:boundary];
 	}
 	[contentType release];
@@ -59,8 +69,7 @@
 		}
 		
 		// Default response, return file at request path
-		return [[[HTTPFileResponse alloc] 
-			initWithFilePath:[self absolutePathForURL:url.path]] autorelease];
+		return [[[HTTPFileResponse alloc] initWithFilePath:[self absolutePathForURL:url.path]] autorelease];
 			
 			
 			
@@ -69,32 +78,27 @@
 	} else if ([method isEqualToString:@"POST"]) {
 		
 		if (requestIsMultipart) {
-			// Oooh! A fileupload.
 			
-			NSString *tmpFilePath = [[multipartParser.parts
-				valueForKey:@"new_file"] valueForKey:@"tmpFilePath"];
-			NSString *filename = [[multipartParser.parts 
-				valueForKey:@"new_file"] valueForKey:@"filename"];
-			NSString *relative_path = [[multipartParser.parts 
-				valueForKey:@"relative_path"] valueForKey:@"value"];
-				
-			NSString *path = [[self absolutePathForURL:relative_path] 
-				stringByAppendingPathComponent:filename];
+			NSString *tmpFilePath = [[multipartParser.parts valueForKey:@"Filedata"] valueForKey:@"tmpFilePath"];
+			NSString *filename = [[multipartParser.parts valueForKey:@"Filedata"] valueForKey:@"filename"];
+			NSString *relativePath = [[multipartParser.parts valueForKey:@"relativePath"] valueForKey:@"value"];
 			
+			NSString *path = [[self absolutePathForURL:relativePath] stringByAppendingPathComponent:filename];
 			NSError *error;
-			[[NSFileManager defaultManager] moveItemAtPath:tmpFilePath 
-				toPath:path error:&error];
-				
-			// reload the view to display the new files...
-			[[NSNotificationCenter defaultCenter] 
-				postNotificationName:@"newFileUploaded" object:nil 
-				userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-					relative_path, @"relativePath", 
-					path, @"absolutePath", 
-					filename, @"name",
-					nil]];
+			[[NSFileManager defaultManager] moveItemAtPath:tmpFilePath toPath:path error:&error];
 			
+			
+			[[NSNotificationCenter defaultCenter] postNotificationName:@"newFileUploaded" object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+				relativePath, @"relativePath",
+				path, @"absolutePath",
+				filename, @"name",
+				nil
+				]];
+
 			[multipartParser release];
+			
+			int time_taken_millis = (int)((clock()-start)*1E3/CLOCKS_PER_SEC);
+			NSLog(@"~~~~~  %i", time_taken_millis);
 		}
 	}
 	
@@ -151,11 +155,14 @@
 /***
  * Converts a URL path to an absolute filesystem path.
  */
-- (NSString *)absolutePathForURL:(NSString *)url {
+- (NSString *)absolutePathForURL:(NSString *)url 
+{
+	// DirectoryIndex is index.html.
 	if ([url isEqualToString:@"/"]) {
-		url = @"/index.html";
+		url = @"index.html";
 	}
-	return [[[server documentRoot] path] stringByAppendingPathComponent:url];
+	
+	return [[server.documentRoot.path stringByAppendingPathComponent:@"wwwroot"] stringByAppendingPathComponent:url];
 }
 
 

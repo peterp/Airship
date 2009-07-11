@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+	"http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<title>Upload | airship</title>
+		<link rel="stylesheet" href="/media/base.css" type="text/css" media="screen" title="" charset="utf-8">
+		
+		
+		
+		<script src="/media/js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+		
+			$(function() {
+				
+				var relative_path = window.location.search.split('=')[1];
+				var directory = relative_path.split('/');
+				directory = directory[directory.length - 1];
+				$('#upload-directory').html(directory);
+				
+				$('input[name=relativePath]').val(relative_path);
+				
+				
+			});
+		</script>
+	</head>
+	<body>
+		<form action="/upload" method="post" enctype="multipart/form-data" id="upload-form">
+			
+			<p><input type="file" name="Filedata"/></p>
+	
+			<h2>Choose file to upload to "<span id="upload-directory"></span>"</h2>
+	
+			<p>
+				<input type="hidden" name="relativePath" value="Storage"/>
+				<input type="submit" value="Upload"/>
+			</p>
+		</form>
+	</body>
+</html>

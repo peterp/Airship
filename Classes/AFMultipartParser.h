@@ -1,42 +1,38 @@
 //
 //  AFMultipartParser.h
-//  Humboldt
-//
-//  Created by Peter Pistorius on 2009/06/06.
-//  Copyright 2009 __MyCompanyName__. All rights reserved.
-//
 
 #import <Foundation/Foundation.h>
 
-@interface AFMultipartParser : NSObject {
-	NSFileHandle *fileHandler;
-	NSData *postDataChunk;
 
-	NSData *crlf;
-	NSData *nextBoundary;
-	NSData *lastBoundary;
+@interface AFMultipartParser : NSObject {
+
+	NSFileHandle *fileHandler;
+
 	
+	// We search for these
+
+	Byte *nextBoundaryBytes;
+	Byte *lastBoundaryBytes;
+	
+	int nextBoundaryLength;
+	int lastBoundaryLength;
+	
+	// We need to store these indexes.
 	int lineStartIndex;
 	int bodyStartIndex;
 	
-	
-	NSMutableArray *parts;
-	NSString *lastPartKey;
+	NSMutableDictionary *parts;
+	NSString *lastPartName;
 }
 
 @property (nonatomic, retain) NSFileHandle *fileHandler;
-@property (nonatomic, retain) NSData *postDataChunk;
-
-@property (nonatomic, retain) NSData *nextBoundary;
-@property (nonatomic, retain) NSData *lastBoundary;
-
-@property (nonatomic, retain) NSMutableArray *parts;
-@property (nonatomic, retain) NSString *lastPartKey;
+@property (nonatomic, retain) NSMutableDictionary *parts;
+@property (nonatomic, copy) NSString *lastPartName;
 
 
 - (id)initWithBoundary:(NSString *)boundary;
-- (void)parseMultipartChunk:(NSData *)data;
-- (void)bodyForPostDataChunkWithRange:(NSRange)range forPart:(NSMutableDictionary *)part;
+- (void)parseMultipartChunk:(NSData *)postDataChunk;
+- (void)bodyForPostDataChunk:(NSData *)data withRange:(NSRange)range;
 
 
 - (NSString *)stringFromData:(NSData *)data;

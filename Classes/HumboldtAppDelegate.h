@@ -20,4 +20,6 @@
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) UINavigationController *navigationController;
 
+- (void)copyWWWDataToPath:(NSString *)path;
+
 @end

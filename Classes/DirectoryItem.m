@@ -28,6 +28,9 @@
 		self.path = [itemPath stringByAppendingPathComponent:itemName];
 		self.name = itemName;
 		
+		
+		NSLog(@"%@", self.path);
+		
 		// Attributes
 		NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:self.path error:nil];
 		// Date
