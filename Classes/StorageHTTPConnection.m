@@ -20,39 +20,35 @@
 
 
 
-- (BOOL)supportsMethod:(NSString *)method atPath:(NSString *)path {
-
+- (BOOL)supportsMethod:(NSString *)method atPath:(NSString *)path 
+{
 	// Searching for multipart/form-data
 	NSString *contentType = NSMakeCollectable(CFHTTPMessageCopyHeaderFieldValue(request, CFSTR("Content-Type")));
 	if ([contentType hasPrefix:@"multipart/form-data;"]) {
 	
-		
-		
 		requestIsMultipart = YES;
 		NSString *boundary = [contentType substringFromIndex:[contentType rangeOfString:@"boundary="].location + [@"boundary=" length]];
-		
-		NSLog(@"boundary: %@", boundary);
-		
-		start = clock();
-		
 		multipartParser = [[AFMultipartParser alloc] initWithBoundary:boundary];
+		// Debug.
+		start = clock();
 	}
 	[contentType release];
-	
+
 	return YES;
 }
 
 
-- (void)processDataChunk:(NSData *)postDataChunk {
+- (void)processDataChunk:(NSData *)postDataChunk 
+{
+	
 	if (requestIsMultipart) {
-		// This is a file upload, move the file to the location
-		// specified...
 		[multipartParser parseMultipartChunk:postDataChunk];
 	}
 }
 
 
-- (NSObject<HTTPResponse> *)httpResponseForMethod:(NSString *)method URI:(NSString *)uri {
+- (NSObject<HTTPResponse> *)httpResponseForMethod:(NSString *)method URI:(NSString *)uri 
+{
 
 	// NSURL is a bit easier to extract information out of than a string.
 	NSURL *url = [NSURL URLWithString:uri];
@@ -61,39 +57,37 @@
 	if ([method isEqualToString:@"GET"]) {
 		
 		if ([[url query] isEqualToString:@"format=json"]) {
-
 			// requesting a JSON response of the contents of this path...
-			return [[[HTTPDataResponse alloc] 
-				initWithData:[self dataForContentsOfDirectory:url.path]] 
-				autorelease];
+			return [[[HTTPDataResponse alloc] initWithData:[self dataForContentsOfDirectory:url.path]] autorelease];
 		}
-		
+
 		// Default response, return file at request path
 		return [[[HTTPFileResponse alloc] initWithFilePath:[self absolutePathForURL:url.path]] autorelease];
-			
-			
-			
-		
 		
 	} else if ([method isEqualToString:@"POST"]) {
+		// POST 
 		
 		if (requestIsMultipart) {
 			
-			NSString *tmpFilePath = [[multipartParser.parts valueForKey:@"Filedata"] valueForKey:@"tmpFilePath"];
+			NSLog(@"%@", multipartParser.parts);
+			
+		
+			NSString *fromPath = [[multipartParser.parts valueForKey:@"Filedata"] valueForKey:@"tmpFilePath"];
 			NSString *filename = [[multipartParser.parts valueForKey:@"Filedata"] valueForKey:@"filename"];
 			NSString *relativePath = [[multipartParser.parts valueForKey:@"relativePath"] valueForKey:@"value"];
+			NSString *destPath = [[server.documentRoot.path stringByAppendingPathComponent:relativePath] stringByAppendingPathComponent:filename];
 			
-			NSString *path = [[self absolutePathForURL:relativePath] stringByAppendingPathComponent:filename];
 			NSError *error;
-			[[NSFileManager defaultManager] moveItemAtPath:tmpFilePath toPath:path error:&error];
+			[[NSFileManager defaultManager] moveItemAtPath:fromPath toPath:destPath error:&error];
 			
-			
-			[[NSNotificationCenter defaultCenter] postNotificationName:@"newFileUploaded" object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-				relativePath, @"relativePath",
-				path, @"absolutePath",
-				filename, @"name",
-				nil
-				]];
+			[[NSNotificationCenter defaultCenter] postNotificationName:@"newFileUploaded" object:nil userInfo:
+				[NSDictionary dictionaryWithObjectsAndKeys:
+					relativePath, @"relativePath",
+					destPath, @"absolutePath",
+					filename, @"name",
+					nil
+				]
+			];
 
 			[multipartParser release];
 			
@@ -102,7 +96,7 @@
 		}
 	}
 	
-	// 404 response
+	// 404
 	return nil;
 }
 

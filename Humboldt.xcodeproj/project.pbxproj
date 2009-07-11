@@ -55,7 +55,6 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* Humboldt_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Humboldt_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CE1A66C10FF9330800DE66E5 /* AFMultipartParser.m.backup */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AFMultipartParser.m.backup; sourceTree = "<group>"; };
 		CE2B3AD40F3CCF5A0039B355 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		CE2B3B0D0F3CD72B0039B355 /* StorageHTTPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StorageHTTPConnection.h; sourceTree = "<group>"; };
 		CE2B3B0E0F3CD72B0039B355 /* StorageHTTPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StorageHTTPConnection.m; sourceTree = "<group>"; };
@@ -99,7 +98,6 @@
 		CE8627E510013D400063F8F6 /* wwwroot */ = {isa = PBXFileReference; lastKnownFileType = folder; path = wwwroot; sourceTree = "<group>"; };
 		CEC586100FC98AE500326D27 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		CEC586110FC98AE500326D27 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
-		CEE04E9D0FD9E82E00C32900 /* AFMultipartParser.h.backup */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AFMultipartParser.h.backup; sourceTree = "<group>"; };
 		CEE04E9E0FD9E82E00C32900 /* AFMultipartParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFMultipartParser.m; sourceTree = "<group>"; };
 		CEE291BF0FEECC6A00D5E0A4 /* movie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = movie.png; sourceTree = "<group>"; };
 		CEE291C00FEECC6A00D5E0A4 /* directory.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = directory.png; sourceTree = "<group>"; };
@@ -140,8 +138,6 @@
 				CEE04E9E0FD9E82E00C32900 /* AFMultipartParser.m */,
 				CEF21BB20FF432810042E698 /* DirectoryItem.h */,
 				CEF21BB30FF432810042E698 /* DirectoryItem.m */,
-				CEE04E9D0FD9E82E00C32900 /* AFMultipartParser.h.backup */,
-				CE1A66C10FF9330800DE66E5 /* AFMultipartParser.m.backup */,
 			);
 			path = Classes;
 			sourceTree = "<group>";

@@ -35,7 +35,7 @@
 	[window addSubview:navigationController.view];
 	[window makeKeyAndVisible];
 
-	// Releas
+	// Release
 	[directoryTableViewController release];
 	[aNavigationController release];
 
@@ -44,13 +44,12 @@
 	NSString *documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
 	[self copyWWWDataToPath:documentPath];	
 	
+	// Setup & Start HTTP server
 	httpServer = [HTTPServer new];
 	[httpServer setType:@"_http._tcp."];
 	[httpServer setConnectionClass:[StorageHTTPConnection class]];
 	[httpServer setDocumentRoot:[NSURL fileURLWithPath:documentPath]];
 	[httpServer setPort:8000];
-	
-	// Start the HTTP server
 	NSError *httpError;
 	if (![httpServer start:&httpError]) {
 		NSLog(@"Error starting HTTPServer: %@", httpError);

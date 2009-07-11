@@ -28,9 +28,6 @@
 		self.path = [itemPath stringByAppendingPathComponent:itemName];
 		self.name = itemName;
 		
-		
-		NSLog(@"%@", self.path);
-		
 		// Attributes
 		NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:self.path error:nil];
 		// Date
@@ -59,7 +56,7 @@
 	NSArray *img = [NSArray arrayWithObjects:@"jpg", @"jpeg", @"gif", @"tiff", @"png", nil];
 	NSArray *doc = [NSArray arrayWithObjects:@"doc", @"docx", @"htm", @"html", @"key", @"numbers", @"pages", @"pdf", @"ppt", @"pptx", @"txt", @"rtf", @"xls", @"xlsx", nil];
 	
-	NSString *ext = [self.name pathExtension];
+	NSString *ext = [[self.name pathExtension] lowercaseString];
 	if ([img containsObject:ext]) {
 		// Image
 		self.type = @"image";

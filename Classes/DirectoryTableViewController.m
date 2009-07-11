@@ -9,6 +9,8 @@
 #import "DirectoryTableViewController.h"
 #import "DirectoryItem.h"
 
+#import "DetailViewController.h"
+
 
 @implementation DirectoryTableViewController
 
@@ -147,7 +149,13 @@
 		[self.navigationController pushViewController:directoryTableViewController animated:YES];
 		[directoryTableViewController release];
 		
-	} else {	
+	} else {
+		// File
+		
+		// Create a new detail view controller
+		DetailViewController *detailViewController = [[DetailViewController alloc] initWithNibName:nil bundle:
+				
+		
 	}
 }
 
@@ -255,8 +263,6 @@
 	if (![[notification.userInfo valueForKey:@"relativePath"] isEqualToString:self.relativePath]) {
 		return;
 	}
-	
-
 
 	NSString *name = [notification.userInfo valueForKey:@"name"];
 	int indexRow = 0;
@@ -273,7 +279,6 @@
 		if (i == [self.directoryItems count] - 1) {
 			// Place at end
 			indexRow = i + 1;
-			
 			break;
 		}
 	}
