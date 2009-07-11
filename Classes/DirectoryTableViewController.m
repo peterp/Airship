@@ -153,9 +153,11 @@
 		// File
 		
 		// Create a new detail view controller
-		DetailViewController *detailViewController = [[DetailViewController alloc] initWithNibName:nil bundle:
-				
+		DetailViewController *detailViewController = [[DetailViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
+		[detailViewController openFile:item];
+		[self.navigationController pushViewController:detailViewController animated:YES];
 		
+		[detailViewController release];
 	}
 }
 

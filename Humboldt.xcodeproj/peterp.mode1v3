@@ -277,7 +277,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>6</integer>
+									<integer>10</integer>
 									<integer>4</integer>
 									<integer>0</integer>
 								</array>
@@ -320,7 +320,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>HumboldtAppDelegate.m</string>
+								<string>DetailViewController.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -328,11 +328,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>HumboldtAppDelegate.m</string>
+										<string>DetailViewController.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>CE9430AC10090E27006EE65D</string>
+										<string>CE9430FA1009115B006EE65D</string>
 										<key>history</key>
 										<array>
 											<string>CEEA55820FCC873700363AED</string>
@@ -367,11 +367,11 @@
 											<string>CE94308710090C67006EE65D</string>
 											<string>CE94308D10090C8F006EE65D</string>
 											<string>CE94309D10090E27006EE65D</string>
-											<string>CE94309E10090E27006EE65D</string>
-											<string>CE94309F10090E27006EE65D</string>
-											<string>CE9430A010090E27006EE65D</string>
-											<string>CE9430A110090E27006EE65D</string>
-											<string>CE9430A210090E27006EE65D</string>
+											<string>CE9430AD10090E5B006EE65D</string>
+											<string>CE9430BF10090F1F006EE65D</string>
+											<string>CE9430F110091116006EE65D</string>
+											<string>CE9430F210091116006EE65D</string>
+											<string>CE9430F310091116006EE65D</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -431,6 +431,29 @@
 											<string>CE9430A910090E27006EE65D</string>
 											<string>CE9430AA10090E27006EE65D</string>
 											<string>CE9430AB10090E27006EE65D</string>
+											<string>CE9430AF10090E5B006EE65D</string>
+											<string>CE9430B710090EBF006EE65D</string>
+											<string>CE9430B810090EBF006EE65D</string>
+											<string>CE9430B910090EBF006EE65D</string>
+											<string>CE9430C210090F1F006EE65D</string>
+											<string>CE9430C310090F1F006EE65D</string>
+											<string>CE9430C410090F1F006EE65D</string>
+											<string>CE9430C510090F1F006EE65D</string>
+											<string>CE9430CB10090F3C006EE65D</string>
+											<string>CE9430D910090FC8006EE65D</string>
+											<string>CE9430DA10090FC8006EE65D</string>
+											<string>CE9430DB10090FC8006EE65D</string>
+											<string>CE9430DC10090FC8006EE65D</string>
+											<string>CE9430DD10090FC8006EE65D</string>
+											<string>CE9430DE10090FC8006EE65D</string>
+											<string>CE9430DF10090FC8006EE65D</string>
+											<string>CE9430E510090FDF006EE65D</string>
+											<string>CE9430E610090FDF006EE65D</string>
+											<string>CE9430F410091116006EE65D</string>
+											<string>CE9430F510091116006EE65D</string>
+											<string>CE9430F610091116006EE65D</string>
+											<string>CE9430F710091116006EE65D</string>
+											<string>CE9430F810091116006EE65D</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -624,10 +647,10 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>1C78EAAD065D492600B07095</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>CE2B3ACC0F3CCF090039B355</string>
 		<string>/Volumes/Storage/Development/apps/Humboldt/Humboldt.xcodeproj</string>
-		<string>1C78EAAD065D492600B07095</string>
 	</array>
 	<key>WindowString</key>
 	<string>390 76 1505 980 0 0 1920 1058 </string>

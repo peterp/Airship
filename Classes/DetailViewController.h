@@ -7,15 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class DirectoryItem;
 
 @interface DetailViewController : UIViewController {
 
-	UIWebView *aWebView;
+	DirectoryItem *file;
+	UIWebView *webView;
 
 }
 
-- (void)openFile:(NSString *)atPath;
+@property (nonatomic, retain) DirectoryItem *file;
+@property (nonatomic, retain) UIWebView *webView;
+
+- (void)openFile:(DirectoryItem *)item;
 
 
 @end

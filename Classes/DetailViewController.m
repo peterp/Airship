@@ -7,50 +7,44 @@
 //
 
 #import "DetailViewController.h"
+#import "DirectoryItem.h"
 
 
 @implementation DetailViewController
 
-- (void)viewDidLoad {
+@synthesize file;
+@synthesize webView;
+
+- (void)viewDidLoad 
+{
     [super viewDidLoad];
 }
 
-
-- (void)openFile:(NSString *)atPath {
+- (void) dealloc
+{
+	self.file = nil;
+	self.webView = nil;
 	
-	
-	aWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 416)];
-	
-	aWebView.scalesPageToFit = YES;
-	
-//	aWebView.autoresizesSubviews = YES;
-//	aWebView.autoresizingMask=(UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
+	[super dealloc];
+}
 
 
-	
-	NSURL *url = [NSURL fileURLWithPath:atPath];
-	NSURLRequest *request = [NSURLRequest requestWithURL:url];
-	
-	[aWebView loadRequest:request];
-	
-	[self.view addSubview:aWebView];
-	[aWebView release];
-	
-//	//Create a URL object.
-//NSURL *url = [NSURL URLWithString:urlAddress];
-//
-////URL Requst Object
-//NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
-//
-////load the URL into the web view.
-//[aWebView loadRequest:requestObj];
-//
-////add the web view to the content view
-//[self addSubview:aWebView];
 
+- (void)openFile:(DirectoryItem *)item 
+{
+	self.file = item;
+	self.title = file.name;
 	
+	
+	if ([file.type isEqualToString:@"document"]) {
+		// Document file, open with UIWebView
+		self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 416)];
+		webView.scalesPageToFit = YES;
 
-	NSLog(@"%@", atPath);
+		[webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:file.path]]];
+		[self.view addSubview:webView];
+		[webView release];
+	}
 }
 
 
@@ -86,10 +80,6 @@
 	// e.g. self.myOutlet = nil;
 }
 
-
-- (void)dealloc {
-    [super dealloc];
-}
 
 
 @end

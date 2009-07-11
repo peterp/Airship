@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-
 @interface DirectoryTableViewController : UITableViewController <UISearchBarDelegate, UISearchDisplayDelegate>
 {
 	// Search
