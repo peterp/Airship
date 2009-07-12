@@ -12,19 +12,19 @@
 		
 			$(function() {
 				
-				var relative_path = window.location.search.split('=')[1];
-				var directory = relative_path.split('/');
+				var relativePath = window.location.search.split('=')[1];
+				var directory = relativePath.split('/');
 				directory = directory[directory.length - 1];
 				$('#upload-directory').html(directory);
 				
-				$('input[name=relativePath]').val(relative_path);
+				$('input[name=relativePath]').val(relativePath);
 				
 				
 			});
 		</script>
 	</head>
 	<body>
-		<form action="/upload" method="post" enctype="multipart/form-data" id="upload-form">
+		<form action="/__/file/upload" method="post" enctype="multipart/form-data" id="upload-form">
 			
 			<p><input type="file" name="Filedata"/></p>
 	

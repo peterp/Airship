@@ -72,6 +72,38 @@ caption {background:#eee;}
     text-align:left;
 }
 
+.item-container {
+    width:620px;
+    height:430px;
+    border:1px #333 solid;
+}
+.item-container ul {
+    margin:0;
+    line-height:29px;
+    height:29px;
+    background:#eee;
+    clear:left;
+    border-bottom:1px #333 solid;
+}
+.item-container ul.lh {
+    background:#999;
+}
+.item-container li {
+    float:left;
+    list-style:none;
+    margin:0 10px 0 0;
+    display:block;
+    height:29px;
+}
 
+li.type { width:36px; }
+li.name { width:300px; }
+li.date { width:120px; }
+li.size { width:50px; }
+
+#item-list {
+    overflow:auto;
+    height:400px;
+}
 
 

@@ -29,7 +29,7 @@
 @property (nonatomic, retain) NSMutableArray *directoryItems;
 @property (nonatomic, retain) NSMutableArray *filteredDirectoryItems;
 
-- (void)newFileUploaded:(NSNotification *)notification;
+- (void)newItem:(NSNotification *)notification;
 
 
 @end

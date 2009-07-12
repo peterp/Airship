@@ -20,12 +20,9 @@
 }
 
 
+- (NSData *)directoryContentsAtURL:(NSString *)url;
+- (NSMutableDictionary *)variablesForPostRequest;
 
-- (NSData *)dataForContentsOfDirectory:(NSString *)path;
-
-
-
-- (NSString *)absolutePathForURL:(NSString *)url;
 
 
 @end

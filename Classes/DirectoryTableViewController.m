@@ -53,7 +53,7 @@
 	self.filteredDirectoryItems = [NSMutableArray array];
 	
 	// Notifications
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newFileUploaded:) name:@"newFileUploaded" object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newItem:) name:@"newItem" object:nil];
 }
 
 
@@ -140,8 +140,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
+
+	DirectoryItem *item = nil;
+	if (tableView == self.searchDisplayController.searchResultsTableView) {
+		item = [self.filteredDirectoryItems objectAtIndex:indexPath.row];
+	}	else {
+		item = [self.directoryItems objectAtIndex:indexPath.row];
+	}
 	
-	DirectoryItem *item = [self.directoryItems objectAtIndex:indexPath.row];
 	if ([item.type isEqualToString:@"directory"]) {
 		// Directory
 		DirectoryTableViewController *directoryTableViewController = [[DirectoryTableViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
@@ -258,7 +264,7 @@
 //}
 
 
-- (void)newFileUploaded:(NSNotification *)notification 
+- (void)newItem:(NSNotification *)notification 
 {
 
 	// Not for this view, return;
