@@ -51,13 +51,11 @@
 		// POST METHODS
 		
 		if ([url.path isEqualToString:@"/__/directory/create"]) {
-		
-			// Use the data within to createa a directory! Margle!s
-			NSDictionary *variables = [self variablesForPostRequest];
 			
-			NSLog(@"%@", variables);
-		
-		
+			// Grab variables, check that we've received input.
+			NSDictionary *vars = [self variablesForPostRequest];
+			return [[[HTTPDataResponse alloc] initWithData:[self createDirectory:[vars valueForKey:@"directoryName"] atPath:[vars valueForKey:@"relativePath"]]] autorelease];
+
 		} else if (requestIsMultipart) {
 			
 			
@@ -73,13 +71,13 @@
 			[[NSNotificationCenter defaultCenter] postNotificationName:@"newItem" object:nil userInfo:
 				[NSDictionary dictionaryWithObjectsAndKeys:
 					relativePath, @"relativePath",
-					destPath, @"absolutePath",
 					filename, @"name",
 					nil
 				]
 			];
-
+			
 			[multipartParser release];
+			requestIsMultipart = NO;
 		}
 	}
 	
@@ -100,26 +98,6 @@
 # pragma mark -
 # pragma mark Utility classes
 
-- (NSData *)directoryContentsAtURL:(NSString *)url
-{
-
-	NSString *path = [server.documentRoot.path stringByAppendingPathComponent:url];
-	
-	NSArray *directoryContents = [[NSFileManager defaultManager] directoryContentsAtPath:path];
-	NSMutableArray *directoryItems = [NSMutableArray array];
-	for (NSString *name in [directoryContents sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)]) {
-		if (![name isEqualToString:@".DS_Store"]) {
-
-			// Create DirectoryItem
-			DirectoryItem *item = [DirectoryItem initWithName:name atPath:path];
-			[directoryItems addObject:[NSDictionary dictionaryWithObjectsAndKeys:name, @"name", item.type, @"type", item.date, @"date", nil]];
-			[item release];
-		}
-	}
-
-	return [[[CJSONSerializer serializer] serializeObject:directoryItems] dataUsingEncoding:NSUTF8StringEncoding];
-}
-
 
 - (NSMutableDictionary *)variablesForPostRequest
 {
@@ -137,6 +115,76 @@
 	[postBody release];
 	
 	return variables;
+}
+
+
+
+
+
+
+
+# pragma mark -
+# pragma mark Requestions actions with response objects
+
+
+- (NSData *)createDirectory:(NSString *)name atPath:(NSString *)path
+{
+	NSString *response = @"0;";
+	NSString *absPath = [server.documentRoot.path stringByAppendingPathComponent:path];
+	
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+	BOOL isDir;
+
+	if ([fileManager fileExistsAtPath:absPath isDirectory:&isDir] && isDir) {
+		if ([name hasPrefix:@"."]) {
+			response = @"-2;You cannot use a name that begins with a \".,\" because those names are reserved for the system.";
+		} else {
+			absPath = [absPath stringByAppendingPathComponent:name];
+			if ([fileManager fileExistsAtPath:absPath]) {
+				response = [NSString stringWithFormat:@"-3;The name \"%@\" is already taken. Please choose a different name.", name];
+			} else {
+				if ([fileManager createDirectoryAtPath:absPath attributes:nil]) {
+					response = @"1;";
+					[[NSNotificationCenter defaultCenter] postNotificationName:@"newItem" object:nil userInfo:
+						[NSDictionary dictionaryWithObjectsAndKeys:
+							path, @"relativePath",
+							name, @"name",
+							nil
+						]
+					];
+				} else {
+					// I have no idea why it would fail here?
+					response = [NSString stringWithFormat:@"-3;\"%@\" could not be created."];
+				}
+			}
+		}
+	} else {
+		// base path does not exist, return an error
+		response = [NSString stringWithFormat:@"-1;\"%@\" could not be created, because it's parent directory doesn't exist. (Anymore?)", name];
+	}
+	
+	// return a data response that the webserver can use directly.
+	return [response dataUsingEncoding:NSUTF8StringEncoding];
+}
+
+
+- (NSData *)directoryContentsAtURL:(NSString *)url
+{
+
+	NSString *path = [server.documentRoot.path stringByAppendingPathComponent:url];
+	
+	NSArray *directoryContents = [[NSFileManager defaultManager] directoryContentsAtPath:path];
+	NSMutableArray *directoryItems = [NSMutableArray array];
+	for (NSString *name in [directoryContents sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)]) {
+		if (![name isEqualToString:@".DS_Store"]) {
+
+			// Create DirectoryItem
+			DirectoryItem *item = [DirectoryItem initWithName:name atPath:path];
+			[directoryItems addObject:[NSDictionary dictionaryWithObjectsAndKeys:name, @"name", item.type, @"type", item.date, @"date", nil]];
+		}
+	}
+
+	return [[[CJSONSerializer serializer] serializeObject:directoryItems] dataUsingEncoding:NSUTF8StringEncoding];
 }
 
 
@@ -171,6 +219,11 @@
 		CFHTTPMessageAppendBytes(request, [postDataChunk bytes], [postDataChunk length]);
 	}
 }
+
+
+
+
+
 @end
 
 
