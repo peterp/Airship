@@ -14,6 +14,7 @@
 				
 				var relativePath = window.location.search.split('=')[1];
 				var directory = relativePath.split('/');
+				console.log(directory);
 				directory = directory[directory.length - 1];
 				$('#upload-directory').html(directory);
 				
