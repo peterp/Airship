@@ -74,7 +74,7 @@
  */
 - (void)parseMultipartChunk:(NSData *)postDataChunk {
 
-	NSLog(@"~~~ CHUNK ~~~");
+	//NSLog(@"~~~ CHUNK ~~~");
 	
 	// Cache the "bytes" function call and length.
 	int postDataChunkLength = postDataChunk.length;
@@ -85,8 +85,8 @@
 		// Search for last boundary
 		if (postDataChunkBytes[i] == lastBoundaryBytes[0]) {
 			if (memcmp(lastBoundaryBytes, postDataChunkBytes + i, lastBoundaryLength) == 0) {
-				NSLog(@". part END (last)");
-				NSLog(@"... data SAVE (last)");
+				//NSLog(@". part END (last)");
+				//NSLog(@"... data SAVE (last)");
 				
 				[self bodyForPostDataChunk:postDataChunk withRange:NSMakeRange(bodyStartIndex, (i - bodyStartIndex) - 2)];
 				bodyStartIndex = -1;
@@ -100,13 +100,13 @@
 				
 				// We're already tracking a body. Save the data.
 				if (bodyStartIndex >= 0) {
-					NSLog(@"... data SAVE (next)");
+					//NSLog(@"... data SAVE (next)");
 					[self bodyForPostDataChunk:postDataChunk withRange:NSMakeRange(bodyStartIndex, (i - bodyStartIndex) - 2)];
-					NSLog(@". part END (next)");
+					//NSLog(@". part END (next)");
 				}
 				
-				NSLog(@". part START (next)");
-				NSLog(@".. header START");
+				//NSLog(@". part START (next)");
+				//NSLog(@".. header START");
 				
 				// Reset search range, looking for headers now
 				bodyStartIndex = -1;
@@ -123,10 +123,10 @@
 			
 				int lineLength = (i - lineStartIndex);
 				if (lineLength == 0) {
-					NSLog(@".. header STOP");
+					//NSLog(@".. header STOP");
 					bodyStartIndex = i + 2;
 				} else {
-					NSLog(@"... header PARSE");
+					//NSLog(@"... header PARSE");
 					
 					NSData *lineData = [postDataChunk subdataWithRange:NSMakeRange(lineStartIndex, i - lineStartIndex)];
 					NSString *line = [self stringFromData:lineData];
@@ -161,7 +161,7 @@
 	 */
 	if (bodyStartIndex >= 0) {
 	
-		NSLog(@"... data SAVE (chunk)");
+		//NSLog(@"... data SAVE (chunk)");
 		[self bodyForPostDataChunk:postDataChunk withRange:NSMakeRange(bodyStartIndex, postDataChunkLength - bodyStartIndex)];
 		// Since we're still searching for the rest of this parts body set the
 		// slice range to the very first byte of the next chunk.
@@ -204,7 +204,7 @@
 		}
 		
 		// Write
-		NSLog(@"..... write to path: %@", tmpFilePath);
+		//NSLog(@"..... write to path: %@", tmpFilePath);
 		[fileHandler seekToEndOfFile];
 		[fileHandler writeData:[data subdataWithRange:range]];
 	} else {
@@ -241,7 +241,7 @@
 //			self.fileHandler = nil;
 //			self.fileHandler = [NSFileHandle fileHandleForWritingAtPath:tmpFilePath];
 //		}
-//		NSLog(@"..... path: %@", tmpFilePath);
+//		//NSLog(@"..... path: %@", tmpFilePath);
 //		
 //		
 //		[fileHandler seekToEndOfFile];

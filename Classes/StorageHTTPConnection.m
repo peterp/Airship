@@ -31,9 +31,8 @@
 		// GET METHODS
 	
 		if ([[url query] isEqualToString:@"format=json"]) {
-			// JSON 
+			// JSON response of files at directory.
 			return [[[HTTPDataResponse alloc] initWithData:[self directoryContentsAtURL:url.path]] autorelease];
-			
 			
 		} else {
 			// Default Response
@@ -58,26 +57,8 @@
 
 		} else if (requestIsMultipart) {
 			
-			
-		
-			NSString *fromPath = [[multipartParser.parts valueForKey:@"Filedata"] valueForKey:@"tmpFilePath"];
-			NSString *filename = [[multipartParser.parts valueForKey:@"Filedata"] valueForKey:@"filename"];
-			NSString *relativePath = [[multipartParser.parts valueForKey:@"relativePath"] valueForKey:@"value"];
-			NSString *destPath = [[server.documentRoot.path stringByAppendingPathComponent:relativePath] stringByAppendingPathComponent:filename];
-			
-			NSError *error;
-			[[NSFileManager defaultManager] moveItemAtPath:fromPath toPath:destPath error:&error];
-			
-			[[NSNotificationCenter defaultCenter] postNotificationName:@"newItem" object:nil userInfo:
-				[NSDictionary dictionaryWithObjectsAndKeys:
-					relativePath, @"relativePath",
-					filename, @"name",
-					nil
-				]
-			];
-			
-			[multipartParser release];
-			requestIsMultipart = NO;
+			// File upload is complete, move the file to it's proper directory and release all used resources.
+			[self fileUploadComplete];
 		}
 	}
 	
@@ -144,17 +125,13 @@
 				response = [NSString stringWithFormat:@"-3;The name \"%@\" is already taken. Please choose a different name.", name];
 			} else {
 				if ([fileManager createDirectoryAtPath:absPath attributes:nil]) {
+					
 					response = @"1;";
-					[[NSNotificationCenter defaultCenter] postNotificationName:@"newItem" object:nil userInfo:
-						[NSDictionary dictionaryWithObjectsAndKeys:
-							path, @"relativePath",
-							name, @"name",
-							nil
-						]
-					];
+					[[NSNotificationCenter defaultCenter] postNotificationName:@"newItem" object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:path, @"relativePath", name, @"name", nil]];
+					
 				} else {
 					// I have no idea why it would fail here?
-					response = [NSString stringWithFormat:@"-3;\"%@\" could not be created."];
+					response = [NSString stringWithFormat:@"-3;The directory \"%@\" could not be created."];
 				}
 			}
 		}
@@ -190,7 +167,7 @@
 
 
 # pragma mark -
-# pragma mark Multipart/form-data POST requests
+# pragma mark Multipart/form-data and generic POST requests
 
 - (BOOL)supportsMethod:(NSString *)method atPath:(NSString *)path 
 {
@@ -201,8 +178,9 @@
 		requestIsMultipart = YES;
 		NSString *boundary = [contentType substringFromIndex:[contentType rangeOfString:@"boundary="].location + [@"boundary=" length]];
 		multipartParser = [[AFMultipartParser alloc] initWithBoundary:boundary];
-	
 		//start = clock();
+	} else {
+		requestIsMultipart = NO;
 	}
 	[contentType release];
 
@@ -218,6 +196,23 @@
 		// Append post body to request object.
 		CFHTTPMessageAppendBytes(request, [postDataChunk bytes], [postDataChunk length]);
 	}
+}
+
+
+- (void)fileUploadComplete
+{
+	NSString *fromPath = [[multipartParser.parts valueForKey:@"Filedata"] valueForKey:@"tmpFilePath"];
+	NSString *filename = [[multipartParser.parts valueForKey:@"Filedata"] valueForKey:@"filename"];
+	NSString *relativePath = [[multipartParser.parts valueForKey:@"relativePath"] valueForKey:@"value"];
+	NSString *destPath = [[server.documentRoot.path stringByAppendingPathComponent:relativePath] stringByAppendingPathComponent:filename];
+			
+	NSError *error;
+	[[NSFileManager defaultManager] moveItemAtPath:fromPath toPath:destPath error:&error];
+			
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"newItem" object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:relativePath, @"relativePath",filename, @"name", nil]];
+			
+	[multipartParser release];
+	requestIsMultipart = NO;
 }
 
 

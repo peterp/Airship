@@ -23,6 +23,7 @@
 - (NSData *)directoryContentsAtURL:(NSString *)url;
 - (NSMutableDictionary *)variablesForPostRequest;
 - (NSData *)createDirectory:(NSString *)name atPath:(NSString *)path;
+- (void)fileUploadComplete;
 
 
 
