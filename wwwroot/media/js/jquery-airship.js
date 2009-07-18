@@ -22,22 +22,11 @@
         });
     };
     
-    function mkdir(name)
+    function mkdir(name, callback)
     {
         var params = { 'directoryName': name, 'relativePath': relativePath };
         $.post('/__/directory/create/', params, function(r) {
-            var r = r.split(';');
-            if (r.length == 0) {
-                // error;
-                return;
-            }
-
-            if (parseInt(r, 10) > 0) {
-                // success
-            } else {
-                // error!
-                alert(r[1]);
-            }
+            callback(r);
         });
     };
     
@@ -80,18 +69,21 @@
         
         // create folder
         $('#action-directory-create').click(function() {
-            // var d = new Date()
-            // var ul = createItemRow('directory', 'untitled folder', 'Today, ' + d.getHours + ':' + d.getMinutes(), '--');
-            // $('#item-list').append(ul);
-            // renameItem(ul);
+            
+            var d = new Date();
+            var ul = createItemRow('directory', 'untitled folder', 'Today, ' + d.getHours() + ':' + d.getMinutes(), '--', 'pseudo');
+            $('#item-list').append(ul);
+            renameItem(ul);
+            
+            return false;
         });
         
         
         // load up the "Storage" directory.
-        loadDirectoryItems('Storage');
+        loadDirectoryItems('Storage/');
     };
     
-    var loadDirectoryItems = function(atPath)
+    function loadDirectoryItems(atPath)
     {
         currentRelativePath = atPath;
         fileManager = $().fileManager(atPath);
@@ -101,52 +93,119 @@
         
         fileManager.ls(function(r) {
             $(r).each(function(i) {
+                
                 list.append(createItemRow(this.type, this.name, this.date, this.size));
+                list.find('.name').click(openItemRow);
             });
+        });
+        
+        // update the path bar... at the top or at the bottom?
+        updatePathBreadcrumbs();
+    };
+    
+    
+    function updatePathBreadcrumbs()
+    {
+        var bc = $('#path-breadcrumbs');
+        bc.html('');
+
+        var path = ''
+        var paths = currentRelativePath.split('/');
+        paths.pop();
+        $(paths).each(function(i) {
+            path += this + '/';
+            var a = $('<a href="#' + path + '">' + this + '</a>').click(function() {
+                
+                // this might be different in different browsers?
+                loadDirectoryItems($(this).attr('href').substr(1));
+            });
+            bc.append(a);
+            if (i < paths.length - 1) {
+                $('<span>&gt;<span>').appendTo(bc);
+            }
         });
     };
     
     
     // given the parameters it returns the appropriate row with 
     // the proper events attached.
-    var createItemRow = function(type, name, date, size, mode)
+    function createItemRow(type, name, date, size, mode)
     {
-        var ul = $('<ul/>');
+        var ul = $('<ul/>').addClass(mode);
         $('<li class="type"></li>').appendTo(ul).addClass(type);
-        $('<li class="name"></li>').appendTo(ul).html(name);
+        $('<li class="name"></li>').appendTo(ul).html('<a href="#' + currentRelativePath + name + '/">' + name + '</a>');
         $('<li class="date"></li>').appendTo(ul).html(date);
         $('<li class="size"></li>').appendTo(ul).html(size);
-        
         return ul;
     };
-    //   
-    //   var createItemRow = function(type, name, date, size)
-    //   {
-    //       var ul = $('<ul></ul>')
-    //           .append('<li class="type ' + type + '"></li>')
-    //           .append('<li class="name">' + name + '</li>')
-    //           .append('<li class="date">' + date + '</li>')
-    //           .append('<li class="size">' + size + '</li>');
-    //           
-    //       ul.find('.name').click(openItem);
-    //   };
-    //   
-    //   
-    //   var openItem = function()
-    //   {
-    //       // figure out what type this is?
-    //       var r = $(this).parent();
-    //       var type = r.find('.type')[0].className.split(' ')[1];
-    //       var name = r.find('.name').text();
-    //       
-    //       if (type == 'directory') {
-    //           // change the directory path...
-    //           // reload the thingum....
-    //           directoryContentsAtPath(relativePath + '/' + name);
-    //       }
-    //       
-    //       return false;
-    //   };
+    
+    
+    function openItemRow(e)
+    {
+        var r = $(this).parent();
+        var type = r.find('.type')[0].className.split(' ')[1];
+        var name = r.find('.name').text();
+
+
+        if (type == 'directory') {
+            loadDirectoryItems(currentRelativePath + name + '/');
+        } else {
+            // opening a file...
+            
+        }
+    };
+    
+    function renameItem(ul)
+    {
+        var pseudoMode = ul.hasClass('pseudo');
+        var cachedName = ul.find('.name').text();
+        
+        var input = $('<input type="text" value="' + cachedName + '">')
+            .keydown(function(e) {
+                if (e.keyCode == 27) {
+                    // check the mode...
+                    if (pseudoMode) {
+                        $(this).parent().parent().remove();
+                    } else {
+                        // revert.
+                    }
+                } else if (e.keyCode == 13) {
+                    $(this).blur();
+                }
+            })
+            .blur(function() {
+                fileManager = $().fileManager(currentRelativePath);
+
+                if (pseudoMode) {
+                    fileManager.mkdir($(this).val(), function(r) {
+                        
+                        var r = r.split(';');
+                        if (r.length == 0) {
+                            // error;
+                            return;
+                        }
+                      
+                        if (parseInt(r, 10) > 0) {
+                            // success, revert back to textmode.
+                            // console.log(input.parent());
+                            // input.parent().click(openItem);
+                            // input.parent().html(input.val());
+        
+                        } else {
+                            // error!
+                            alert(r[1]);
+                        }
+                        // what do we do with the response?
+                        console.log(r);
+                    });
+                } else {
+                    // move...
+                }
+            });
+
+        ul.find('.name').html('').append(input);
+        input.select().focus();
+    };
     //   
     //   var renameItem = function(row)
     //   {

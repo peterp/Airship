@@ -97,7 +97,19 @@ caption {background:#eee;}
     height:29px;
 }
 
-li.type { width:36px; }
+ul.pseudo { background:#fff; }
+
+
+li.type { 
+    width:36px; 
+    background:transparent url() no-repeat 50% 50%;
+}
+li.directory { background-image: url(/media/gfx/directory.png); }
+li.document  { background-image: url(/media/gfx/document.png); }
+li.image { background-image: url(/media/gfx/image.png); }
+li.sound { background-image: url(/media/gfx/sound.png); }
+
+
 li.name { width:300px; }
 li.date { width:120px; }
 li.size { width:50px; }
