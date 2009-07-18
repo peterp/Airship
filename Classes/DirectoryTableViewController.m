@@ -267,6 +267,8 @@
 - (void)newItem:(NSNotification *)notification 
 {
 
+	NSLog(@"%@, %@", self.relativePath, notification.userInfo);
+
 	// Not for this view, return;
 	if (![[notification.userInfo valueForKey:@"relativePath"] isEqualToString:self.relativePath]) {
 		return;

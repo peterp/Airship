@@ -195,6 +195,7 @@
 			CEB64EEA0FF3DAD2002133E6 = CEB64EEA0FF3DAD2002133E6 /* PBXTextBookmark */;
 			CEB64EEB0FF3DAD2002133E6 = CEB64EEB0FF3DAD2002133E6 /* PBXTextBookmark */;
 			CEB72B401012435D001BBCDA /* PBXTextBookmark */ = CEB72B401012435D001BBCDA /* PBXTextBookmark */;
+			CEB72B4510128A94001BBCDA /* PBXTextBookmark */ = CEB72B4510128A94001BBCDA /* PBXTextBookmark */;
 			CEC5862F0FC994F400326D27 = CEC5862F0FC994F400326D27 /* PBXTextBookmark */;
 			CEDD5DEA0F6EFBE400D2C149 = CEDD5DEA0F6EFBE400D2C149 /* PBXTextBookmark */;
 			CEE04D2D0FD9AE7300C32900 = CEE04D2D0FD9AE7300C32900 /* PBXTextBookmark */;
@@ -291,9 +292,9 @@
 	};
 	CE2B3B0E0F3CD72B0039B355 /* StorageHTTPConnection.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1188, 3776}}";
-			sepNavSelRange = "{495, 0}";
-			sepNavVisRange = "{337, 1391}";
+			sepNavIntBoundsRect = "{{0, 0}, {1510, 3776}}";
+			sepNavSelRange = "{3449, 13}";
+			sepNavVisRange = "{2503, 1655}";
 			sepNavWindowFrame = "{{699, 59}, {969, 807}}";
 		};
 	};
@@ -601,16 +602,16 @@
 	};
 	CE6C9EEB0FF6AFC5009CCC45 /* DirectoryTableViewController.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1094, 824}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1141, 722}}";
 			sepNavSelRange = "{764, 0}";
 			sepNavVisRange = "{0, 804}";
 		};
 	};
 	CE6C9EEC0FF6AFC5009CCC45 /* DirectoryTableViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1209, 5648}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1209, 5776}}";
 			sepNavSelRange = "{2088, 3}";
-			sepNavVisRange = "{7389, 1276}";
+			sepNavVisRange = "{7389, 1074}";
 		};
 	};
 	CE6C9F2D0FF6B85D009CCC45 /* PBXTextBookmark */ = {
@@ -970,6 +971,16 @@
 		rType = 0;
 		vrLen = 1391;
 		vrLoc = 337;
+	};
+	CEB72B4510128A94001BBCDA /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE2B3B0E0F3CD72B0039B355 /* StorageHTTPConnection.m */;
+		name = "StorageHTTPConnection.m: 24";
+		rLen = 0;
+		rLoc = 377;
+		rType = 0;
+		vrLen = 1353;
+		vrLoc = 377;
 	};
 	CEC10D540F890BCC0055F839 /* CDataScanner_Extensions.h */ = {
 		isa = PBXFileReference;
