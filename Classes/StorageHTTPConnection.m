@@ -126,7 +126,7 @@
 			} else {
 				if ([fileManager createDirectoryAtPath:absPath attributes:nil]) {
 					
-					response = @"1;";
+					response = [NSString stringWithFormat:@"1;%@", name];
 					[[NSNotificationCenter defaultCenter] postNotificationName:@"newItem" object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:path, @"relativePath", name, @"name", nil]];
 					
 				} else {

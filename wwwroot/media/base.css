@@ -98,6 +98,9 @@ caption {background:#eee;}
 }
 
 ul.pseudo { background:#fff; }
+ul.selected {
+    background:#a5abaa;
+}
 
 
 li.type { 

@@ -70,6 +70,10 @@
         // create folder
         $('#action-directory-create').click(function() {
             
+            if ($('#item-list').find('input').length > 0) {
+                return;
+            }
+            
             var d = new Date();
             var ul = createItemRow('directory', 'untitled folder', 'Today, ' + d.getHours() + ':' + d.getMinutes(), '--', 'pseudo');
             $('#item-list').append(ul);
@@ -95,7 +99,30 @@
             $(r).each(function(i) {
                 
                 list.append(createItemRow(this.type, this.name, this.date, this.size));
-                list.find('.name').click(openItemRow);
+            });
+            
+            // attach events...
+            list.find('ul').mousedown(function(e) {
+                
+                
+                list.find('.selected').removeClass('selected');
+                
+                $(this).addClass('selected');
+            })
+            .mouseup(function(e) {
+                
+                var row = $(this);
+                
+                if (e.detail == 1) {
+                    // set a timeout...
+                    timeoutID = setTimeout(function() {
+                        openItemRow(row);
+                    }, 250);
+                } else if (e.detail == 2) {
+                    // cancel the timer...
+                    clearTimeout(timeoutID);
+                    renameItem(row);
+                }
             });
         });
         
@@ -126,9 +153,7 @@
         });
     };
     
-    
-    // given the parameters it returns the appropriate row with 
-    // the proper events attached.
+    // given the parameters it returns the appropriate row 
     function createItemRow(type, name, date, size, mode)
     {
         var ul = $('<ul/>').addClass(mode);
@@ -140,23 +165,22 @@
     };
     
     
-    function openItemRow(e)
+    function openItemRow(row)
     {
-        var r = $(this).parent();
-        var type = r.find('.type')[0].className.split(' ')[1];
-        var name = r.find('.name').text();
-
+        var row = $(row);
+        var type = row.find('.type')[0].className.split(' ')[1];
+        var name = row.find('.name').text();
 
         if (type == 'directory') {
             loadDirectoryItems(currentRelativePath + name + '/');
         } else {
-            // opening a file...
             
         }
     };
     
     function renameItem(ul)
     {
+        // we don't want the user to create more than 1 row...
         var pseudoMode = ul.hasClass('pseudo');
         var cachedName = ul.find('.name').text();
         
@@ -167,7 +191,8 @@
                     if (pseudoMode) {
                         $(this).parent().parent().remove();
                     } else {
-                        // revert.
+
+                        revertFromRenameToDefault($(this).parent(), cachedName);
                     }
                 } else if (e.keyCode == 13) {
                     $(this).blur();
@@ -178,7 +203,6 @@
 
                 if (pseudoMode) {
                     fileManager.mkdir($(this).val(), function(r) {
-                        
                         var r = r.split(';');
                         if (r.length == 0) {
                             // error;
@@ -186,11 +210,8 @@
                         }
                       
                         if (parseInt(r, 10) > 0) {
-                            // success, revert back to textmode.
-                            // console.log(input.parent());
-                            // input.parent().click(openItem);
-                            // input.parent().html(input.val());
-        
+                            // it worked, go back to normal mode, so the user can click.
+                            revertFromRenameToDefault(ul.find('.name'), r[1]);
                         } else {
                             // error!
                             alert(r[1]);
@@ -206,51 +227,12 @@
         ul.find('.name').html('').append(input);
         input.select().focus();
     };
-    //   
-    //   var renameItem = function(row)
-    //   {
-    //       // conver the items name into a input.
-    //       row.find('.name').unbind('click').
-    //       
-    //       
-    //       // find the input element in this row
-    //       var input = row.find('input[type=text]');
-    //       if (input.length) {
-    //           // creating a new file.
-    //           var action = 'create';
-    //       } else {
-    //           // editing an existing file.
-    //           var action = 'rename';
-    //       }
-    //       
-    //       input.blur(function() {
-    //           // save on blur.
-    //           
-    //           $.post('/__/directory/' + action + '/', {'directoryName': input.val(), 'relativePath': relativePath}, function(r) {
-    //               
-    //               var r = r.split(';');
-    //               if (r.length == 0) {
-    //                   // error;
-    //                   return;
-    //               }
-    //               
-    //               if (parseInt(r, 10) > 0) {
-    //                   // success, revert back to textmode.
-    //                   console.log(input.parent());
-    //                   input.parent().click(openItem);
-    //                   input.parent().html(input.val());
-    // 
-    //               } else {
-    //                   // error!
-    //                   alert(r[1]);
-    //               }
-    //           });
-    //       }).keydown(function(e) {
-    //           if (e.keyCode == 27) {
-    //               $(this).parent().parent().remove();
-    //           } else if (e.keyCode == 13) {
-    //               $(this).blur();
-    //           }
-    //       });
-    //   };
+    
+    function revertFromRenameToDefault(nameColumn, name)
+    {
+        console.log(nameColumn)
+        
+        nameColumn.html($('<a href="#' + currentRelativePath + name + '/">' + name + '</a>'));
+    };
+    
 }(jQuery));
