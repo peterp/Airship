@@ -27,7 +27,7 @@
 
 	// Directory view
 	DirectoryTableViewController *directoryTableViewController = [[DirectoryTableViewController alloc] initWithStyle:UITableViewStylePlain];
-	directoryTableViewController.relativePath = @"Storage/";
+	directoryTableViewController.relativePath = @"Storage";
 	
 	// Navigation
 	UINavigationController *aNavigationController = [[UINavigationController alloc] initWithRootViewController:directoryTableViewController];

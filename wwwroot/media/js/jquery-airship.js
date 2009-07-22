@@ -62,7 +62,7 @@
             'hideOnContentClick': false,
             'padding': 18,
             'callbackOnStart': function() {
-                var href = 'upload.html?relativePath=' + relativePath;
+                var href = 'upload.html?relativePath=' + currentRelativePath;
                 $('#action-file-upload').attr('href', href);
             }
         });
@@ -84,7 +84,7 @@
         
         
         // load up the "Storage" directory.
-        loadDirectoryItems('Storage/');
+        loadDirectoryItems('Storage');
     };
     
     function loadDirectoryItems(atPath)
@@ -101,29 +101,6 @@
                 list.append(createItemRow(this.type, this.name, this.date, this.size));
             });
             
-            // attach events...
-            list.find('ul').mousedown(function(e) {
-                
-                
-                list.find('.selected').removeClass('selected');
-                
-                $(this).addClass('selected');
-            })
-            .mouseup(function(e) {
-                
-                var row = $(this);
-                
-                if (e.detail == 1) {
-                    // set a timeout...
-                    timeoutID = setTimeout(function() {
-                        openItemRow(row);
-                    }, 250);
-                } else if (e.detail == 2) {
-                    // cancel the timer...
-                    clearTimeout(timeoutID);
-                    renameItem(row);
-                }
-            });
         });
         
         // update the path bar... at the top or at the bottom?
@@ -135,22 +112,31 @@
     {
         var bc = $('#path-breadcrumbs');
         bc.html('');
-
-        var path = ''
-        var paths = currentRelativePath.split('/');
-        paths.pop();
-        $(paths).each(function(i) {
-            path += this + '/';
-            var a = $('<a href="#' + path + '">' + this + '</a>').click(function() {
-                
-                // this might be different in different browsers?
-                loadDirectoryItems($(this).attr('href').substr(1));
-            });
-            bc.append(a);
-            if (i < paths.length - 1) {
-                $('<span>&gt;<span>').appendTo(bc);
+        
+        var dirPath = ''
+        var dirTree = currentRelativePath.split('/');
+        
+        
+        for (i = 0; i < dirTree.length; i++) {
+            
+            console.log(i);
+            
+            if (i > 0) {
+                 dirPath += '/';
             }
-        });
+            dirPath += dirTree[i];
+            
+            var a = $('<a href="#' + dirPath + '">' + dirTree[i] + '</a>').click(function() {
+                // might be different in diff browsers.
+                loadDirectoryItems($(this).attr('href').substr(1));
+            }).appendTo(bc);
+            
+            if (i < dirTree.length - 1) {
+            
+                $('<span>&gt;</span>').appendTo(bc);
+            }
+            
+        }
     };
     
     // given the parameters it returns the appropriate row 
@@ -158,9 +144,30 @@
     {
         var ul = $('<ul/>').addClass(mode);
         $('<li class="type"></li>').appendTo(ul).addClass(type);
-        $('<li class="name"></li>').appendTo(ul).html('<a href="#' + currentRelativePath + name + '/">' + name + '</a>');
+        $('<li class="name"></li>').appendTo(ul).html('<a href="#' + currentRelativePath + '/' + name + '">' + name + '</a>');
         $('<li class="date"></li>').appendTo(ul).html(date);
         $('<li class="size"></li>').appendTo(ul).html(size);
+        
+        ul.mousedown(function(e) {
+            $('#item-list').find('.selected').removeClass('selected');
+                
+            $(this).addClass('selected');
+        })
+        .mouseup(function(e) {
+                
+            var row = $(this);
+        
+            if (e.detail == 1) {
+                // set a timeout...
+                timeoutID = setTimeout(function() {
+                    openItemRow(row);
+                }, 250);
+            } else if (e.detail == 2) {
+                // cancel the timer...
+                clearTimeout(timeoutID);
+                renameItem(row);
+            }
+        });
         return ul;
     };
     
@@ -172,8 +179,9 @@
         var name = row.find('.name').text();
 
         if (type == 'directory') {
-            loadDirectoryItems(currentRelativePath + name + '/');
+            loadDirectoryItems(currentRelativePath + '/' + name);
         } else {
+            // view/ preview a file.
             
         }
     };

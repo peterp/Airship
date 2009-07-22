@@ -36,7 +36,7 @@
 	self.title = file.name;
 	
 	
-//	if ([file.type isEqualToString:@"document"]) {
+	if ([file.type isEqualToString:@"document"]) {
 		// Document file, open with UIWebView
 		self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 416)];
 		webView.scalesPageToFit = YES;
@@ -44,7 +44,10 @@
 		[webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:file.path]]];
 		[self.view addSubview:webView];
 		[webView release];
-//	}
+		
+		
+	}
+	
 }
 
 
