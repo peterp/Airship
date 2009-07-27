@@ -10,6 +10,8 @@
 #import "DirectoryItem.h"
 
 #import "DetailViewController.h"
+#import "DocumentViewController.h"
+#import "MediaViewController.h"
 
 
 @implementation DirectoryTableViewController
@@ -155,6 +157,20 @@
 		[self.navigationController pushViewController:directoryTableViewController animated:YES];
 		[directoryTableViewController release];
 		
+	} else if ([item.type isEqualToString:@"document"]) {
+		
+		DocumentViewController *documentViewController = [[DocumentViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
+		[self.navigationController pushViewController:documentViewController animated:YES];
+		[documentViewController openFile:item];
+		[documentViewController release];
+	
+	} else if ([item.type isEqualToString:@"video"]) {
+	
+		MediaViewController *mediaViewController= [[MediaViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
+		[self.navigationController pushViewController:mediaViewController animated:YES];
+		[mediaViewController openFile:item];
+		[mediaViewController release];
+	
 	} else {
 		// File
 		

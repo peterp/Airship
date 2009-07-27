@@ -9,15 +9,13 @@
 #import <UIKit/UIKit.h>
 @class DirectoryItem;
 
+
 @interface DetailViewController : UIViewController {
 
 	DirectoryItem *file;
-	UIWebView *webView;
-
 }
 
 @property (nonatomic, retain) DirectoryItem *file;
-@property (nonatomic, retain) UIWebView *webView;
 
 - (void)openFile:(DirectoryItem *)item;
 

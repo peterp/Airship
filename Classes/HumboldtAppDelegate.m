@@ -24,6 +24,10 @@
 - (void)applicationDidFinishLaunching:(UIApplication *)application 
 {
 
+	// Copy HTML Data
+	NSString *documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+	[self copyWWWDataToPath:documentPath];	
+
 
 	// Directory view
 	DirectoryTableViewController *directoryTableViewController = [[DirectoryTableViewController alloc] initWithStyle:UITableViewStylePlain];
@@ -40,10 +44,7 @@
 	[aNavigationController release];
 
 
-	// Copy HTML Data
-	NSString *documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-	[self copyWWWDataToPath:documentPath];	
-	
+
 	// Setup & Start HTTP server
 	httpServer = [HTTPServer new];
 	[httpServer setType:@"_http._tcp."];
@@ -54,6 +55,8 @@
 	if (![httpServer start:&httpError]) {
 		NSLog(@"Error starting HTTPServer: %@", httpError);
 	}
+	
+	
 }
 
 
@@ -75,11 +78,12 @@
 	if (![fileManager fileExistsAtPath:[documentPath stringByAppendingPathComponent:@"wwwroot"]]) {
 		NSError *error;
 		[fileManager copyItemAtPath:[resourcePath stringByAppendingPathComponent:@"wwwroot"] toPath:[documentPath stringByAppendingPathComponent:@"wwwroot"] error:&error];
-		NSLog(@"error: %@", error);
+	//	NSLog(@"error: %@", error);
 	}
-	
-	// Create document path.
+//	
+//	// Create document path.
 	if (![fileManager fileExistsAtPath:[documentPath stringByAppendingPathComponent:@"Storage"]]) {
+	
 		[fileManager createDirectoryAtPath:[documentPath stringByAppendingPathComponent:@"Storage"] attributes:nil];
 	}
 }

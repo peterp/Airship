@@ -9,11 +9,9 @@
 #import "DetailViewController.h"
 #import "DirectoryItem.h"
 
-
 @implementation DetailViewController
 
 @synthesize file;
-@synthesize webView;
 
 - (void)viewDidLoad 
 {
@@ -23,8 +21,6 @@
 - (void) dealloc
 {
 	self.file = nil;
-	self.webView = nil;
-	
 	[super dealloc];
 }
 
@@ -37,14 +33,21 @@
 	
 	
 	if ([file.type isEqualToString:@"document"]) {
-		// Document file, open with UIWebView
-		self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 416)];
-		webView.scalesPageToFit = YES;
-
-		[webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:file.path]]];
-		[self.view addSubview:webView];
-		[webView release];
-		
+	
+	//	AFWebView *webView = [[AFWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 416)];
+//		webView.scalesPageToFit = YES;
+//		
+//	
+//	
+//		
+//		// Document file, open with UIWebView
+//		//self.webView = [[UIWebView alloc] initWithFrame:];
+////		webView.scalesPageToFit = YES;
+////
+//		[webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:file.path]]];
+//		[self.view addSubview:webView];
+//		[webView release];
+//		
 		
 	}
 	
