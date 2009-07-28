@@ -34,9 +34,11 @@
 		CE38A3BC0FF6AE3000E93C29 /* NSScanner_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = CE38A3B80FF6AE3000E93C29 /* NSScanner_Extensions.m */; };
 		CE3D50D51019065700DF3783 /* DocumentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3D50D31019065700DF3783 /* DocumentViewController.m */; };
 		CE3D50D61019065700DF3783 /* DocumentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE3D50D41019065700DF3783 /* DocumentViewController.xib */; };
+		CE4FFB3B101E40B0003E968A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE4FFB3A101E40B0003E968A /* AVFoundation.framework */; };
+		CE4FFBBF101E4A52003E968A /* MediaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE4FFBBE101E4A52003E968A /* MediaViewController.xib */; };
 		CE6C9EED0FF6AFC5009CCC45 /* DirectoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6C9EEC0FF6AFC5009CCC45 /* DirectoryTableViewController.m */; };
 		CE8627E910013D400063F8F6 /* wwwroot in Resources */ = {isa = PBXBuildFile; fileRef = CE8627E510013D400063F8F6 /* wwwroot */; };
-		CE94311110092418006EE65D /* sound.png in Resources */ = {isa = PBXBuildFile; fileRef = CE94311010092418006EE65D /* sound.png */; };
+		CE94311110092418006EE65D /* audio.png in Resources */ = {isa = PBXBuildFile; fileRef = CE94311010092418006EE65D /* audio.png */; };
 		CEC144E1101D03FB000DA2AE /* MediaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC144E0101D03FB000DA2AE /* MediaViewController.m */; };
 		CEC14570101D0DCB000DA2AE /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC1456F101D0DCB000DA2AE /* MediaPlayer.framework */; };
 		CEC586130FC98AE500326D27 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC586110FC98AE500326D27 /* DetailViewController.m */; };
@@ -101,11 +103,13 @@
 		CE3D50D21019065700DF3783 /* DocumentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DocumentViewController.h; sourceTree = "<group>"; };
 		CE3D50D31019065700DF3783 /* DocumentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DocumentViewController.m; sourceTree = "<group>"; };
 		CE3D50D41019065700DF3783 /* DocumentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DocumentViewController.xib; path = Classes/DocumentViewController.xib; sourceTree = "<group>"; };
+		CE4FFB3A101E40B0003E968A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		CE4FFBBE101E4A52003E968A /* MediaViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MediaViewController.xib; sourceTree = "<group>"; };
 		CE6C9EEB0FF6AFC5009CCC45 /* DirectoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectoryTableViewController.h; sourceTree = "<group>"; };
 		CE6C9EEC0FF6AFC5009CCC45 /* DirectoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectoryTableViewController.m; sourceTree = "<group>"; };
 		CE70DA090FFABC0400D606B3 /* AFMultipartParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFMultipartParser.h; sourceTree = "<group>"; };
 		CE8627E510013D400063F8F6 /* wwwroot */ = {isa = PBXFileReference; lastKnownFileType = folder; path = wwwroot; sourceTree = "<group>"; };
-		CE94311010092418006EE65D /* sound.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sound.png; sourceTree = "<group>"; };
+		CE94311010092418006EE65D /* audio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = audio.png; sourceTree = "<group>"; };
 		CEC144DF101D03FB000DA2AE /* MediaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaViewController.h; sourceTree = "<group>"; };
 		CEC144E0101D03FB000DA2AE /* MediaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaViewController.m; sourceTree = "<group>"; };
 		CEC1456F101D0DCB000DA2AE /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -133,6 +137,7 @@
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
 				CE2B3AD50F3CCF5A0039B355 /* CFNetwork.framework in Frameworks */,
 				CEC14570101D0DCB000DA2AE /* MediaPlayer.framework in Frameworks */,
+				CE4FFB3B101E40B0003E968A /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,6 +199,7 @@
 				CE26A2150FEE79DC00345AE8 /* icons */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				CE3D50D41019065700DF3783 /* DocumentViewController.xib */,
+				CE4FFBBE101E4A52003E968A /* MediaViewController.xib */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 			);
 			name = Resources;
@@ -202,6 +208,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CE4FFB3A101E40B0003E968A /* AVFoundation.framework */,
 				CEC1456F101D0DCB000DA2AE /* MediaPlayer.framework */,
 				CE2B3AD40F3CCF5A0039B355 /* CFNetwork.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
@@ -214,7 +221,7 @@
 		CE26A2150FEE79DC00345AE8 /* icons */ = {
 			isa = PBXGroup;
 			children = (
-				CE94311010092418006EE65D /* sound.png */,
+				CE94311010092418006EE65D /* audio.png */,
 				CEE291BF0FEECC6A00D5E0A4 /* video.png */,
 				CEE291C00FEECC6A00D5E0A4 /* directory.png */,
 				CEE291C10FEECC6A00D5E0A4 /* unknown.png */,
@@ -361,8 +368,9 @@
 				CEE291C70FEECC6A00D5E0A4 /* image.png in Resources */,
 				CEE291C80FEECC6A00D5E0A4 /* document.png in Resources */,
 				CE8627E910013D400063F8F6 /* wwwroot in Resources */,
-				CE94311110092418006EE65D /* sound.png in Resources */,
+				CE94311110092418006EE65D /* audio.png in Resources */,
 				CE3D50D61019065700DF3783 /* DocumentViewController.xib in Resources */,
+				CE4FFBBF101E4A52003E968A /* MediaViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

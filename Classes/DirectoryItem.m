@@ -65,7 +65,7 @@
 		self.type = @"document";
 	} else if ([snd containsObject:ext]) {
 		// Sound
-		self.type = @"sound";
+		self.type = @"audio";
 	} else if ([vid containsObject:ext]) {
 		// Video
 		self.type = @"video";

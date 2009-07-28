@@ -8,6 +8,7 @@
 
 #import "MediaViewController.h"
 #import <MediaPlayer/MediaPlayer.h>
+#import <AVFoundation/AVFoundation.h>
 #import "DirectoryItem.h"
 
 
@@ -21,8 +22,6 @@
 
 - (void)openFile:(DirectoryItem *)file
 {
-	self.title = file.name;
-	
 	// Init the movie player...
 	
 	if ([file.type isEqualToString:@"video"]) {
@@ -34,6 +33,14 @@
 		// register the playback finished notification.
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayerFinishedCallback:) name:MPMoviePlayerPlaybackDidFinishNotification object:moviePlayer];
 		[moviePlayer play];
+	} else if ([file.type isEqualToString:@"audio"]) {
+	
+		
+		AVAudioPlayer *audioPlayer =  [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:file.path] error:NULL];
+//		[audioPlayer setDelegate:self];
+		[audioPlayer prepareToPlay];
+		BOOL plays = [audioPlayer play];
+
 	}
 }
 

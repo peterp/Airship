@@ -164,7 +164,7 @@
 		[documentViewController openFile:item];
 		[documentViewController release];
 	
-	} else if ([item.type isEqualToString:@"video"]) {
+	} else if ([item.type isEqualToString:@"video"] || [item.type isEqualToString:@"audio"]) {
 	
 		MediaViewController *mediaViewController= [[MediaViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
 		[self.navigationController pushViewController:mediaViewController animated:YES];
