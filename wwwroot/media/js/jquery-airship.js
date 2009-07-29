@@ -16,16 +16,14 @@
     
     function ls(callback)
     {
-        $.getJSON('/' + relativePath + '?format=json', function(r) {
-            // run the callback function...
+        $.post('/__/directory/open/', {'relativePath': relativePath}, function(r) {
             callback(r);
-        });
+        }, 'json');
     };
     
     function mkdir(name, callback)
     {
-        var params = { 'directoryName': name, 'relativePath': relativePath };
-        $.post('/__/directory/create/', params, function(r) {
+        $.post('/__/directory/create/', {'directoryName': name, 'relativePath': relativePath}, function(r) {
             callback(r);
         });
     };
@@ -62,7 +60,7 @@
             'hideOnContentClick': false,
             'padding': 18,
             'callbackOnStart': function() {
-                var href = 'upload.html?relativePath=' + currentRelativePath;
+                var href = 'upload.html?currentRelativePath=' + encodeURIComponent(currentRelativePath);
                 $('#action-file-upload').attr('href', href);
             }
         });
@@ -96,11 +94,15 @@
         list.html('');
         
         fileManager.ls(function(r) {
+            
+            if (r.length == 0) {
+                // empty
+                return;
+            }
+            
             $(r).each(function(i) {
-                
                 list.append(createItemRow(this.type, this.name, this.date, this.size));
             });
-            
         });
         
         // update the path bar... at the top or at the bottom?
@@ -118,8 +120,6 @@
         
         
         for (i = 0; i < dirTree.length; i++) {
-            
-            console.log(i);
             
             if (i > 0) {
                  dirPath += '/';
@@ -225,7 +225,6 @@
                             alert(r[1]);
                         }
                         // what do we do with the response?
-                        console.log(r);
                     });
                 } else {
                     // move...
@@ -238,7 +237,6 @@
     
     function revertFromRenameToDefault(nameColumn, name)
     {
-        console.log(nameColumn)
         
         nameColumn.html($('<a href="#' + currentRelativePath + name + '/">' + name + '</a>'));
     };

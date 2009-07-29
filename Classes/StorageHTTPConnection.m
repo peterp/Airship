@@ -24,25 +24,26 @@
 
 - (NSObject<HTTPResponse> *)httpResponseForMethod:(NSString *)method URI:(NSString *)uri 
 {
+
+	NSLog(@"httpResponseForMethod: URI:%@", uri);
 	
 	NSURL *url = [NSURL URLWithString:uri];
 	
 	if ([method isEqualToString:@"GET"]) {
 		// GET METHODS
-	
-		if ([[url query] isEqualToString:@"format=json"]) {
-			// JSON response of files at directory.
-			return [[[HTTPDataResponse alloc] initWithData:[self directoryContentsAtURL:url.path]] autorelease];
+		
+		
+		
+		
 			
-		} else {
-			// Default Response
+
+
 			NSString *path = url.path;
 			if ([url.path isEqualToString:@"/"]) {
 				path = @"index.html";
 			}
 			path = [[server.documentRoot.path stringByAppendingPathComponent:@"wwwroot"] stringByAppendingPathComponent:path];
 			return [[[HTTPFileResponse alloc] initWithFilePath:path] autorelease];
-		}
 		
 		
 		
@@ -50,16 +51,23 @@
 		// POST METHODS
 		
 		if ([url.path isEqualToString:@"/__/directory/create"]) {
-			
 			// Grab variables, check that we've received input.
 			NSDictionary *vars = [self variablesForPostRequest];
 			return [[[HTTPDataResponse alloc] initWithData:[self createDirectory:[vars valueForKey:@"directoryName"] atPath:[vars valueForKey:@"relativePath"]]] autorelease];
 
-		} else if (requestIsMultipart) {
+		} else if ([url.path isEqualToString:@"/__/directory/open"]) {
+			// Open a directory
+			NSDictionary *vars = [self variablesForPostRequest];
+			return [[[HTTPDataResponse alloc] initWithData:[self directoryContentsAtURL:[vars valueForKey:@"relativePath"]]] autorelease];
 			
+		} else if (requestIsMultipart) {
 			// File upload is complete, move the file to it's proper directory and release all used resources.
 			[self fileUploadComplete];
+			
+			
+			return [[[HTTPDataResponse alloc] initWithData:[@"1" dataUsingEncoding:NSUTF8StringEncoding]] autorelease];
 		}
+		
 	}
 	
 	return nil;
@@ -147,6 +155,7 @@
 
 - (NSData *)directoryContentsAtURL:(NSString *)url
 {
+	NSLog(@"directoryContentsAtURL:%@", url);
 
 	NSString *path = [server.documentRoot.path stringByAppendingPathComponent:url];
 	
@@ -201,6 +210,8 @@
 
 - (void)fileUploadComplete
 {
+	NSLog(@"%@", multipartParser.parts);
+
 	NSString *fromPath = [[multipartParser.parts valueForKey:@"Filedata"] valueForKey:@"tmpFilePath"];
 	NSString *filename = [[multipartParser.parts valueForKey:@"Filedata"] valueForKey:@"filename"];
 	NSString *relativePath = [[multipartParser.parts valueForKey:@"relativePath"] valueForKey:@"value"];
