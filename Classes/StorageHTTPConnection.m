@@ -210,8 +210,6 @@
 
 - (void)fileUploadComplete
 {
-	NSLog(@"%@", multipartParser.parts);
-
 	NSString *fromPath = [[multipartParser.parts valueForKey:@"Filedata"] valueForKey:@"tmpFilePath"];
 	NSString *filename = [[multipartParser.parts valueForKey:@"Filedata"] valueForKey:@"filename"];
 	NSString *relativePath = [[multipartParser.parts valueForKey:@"relativePath"] valueForKey:@"value"];

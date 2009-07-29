@@ -283,7 +283,7 @@
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 0}, {268, 214}}</string>
+							<string>{{0, 0}, {268, 914}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -295,14 +295,14 @@
 					<key>GeometryConfiguration</key>
 					<dict>
 						<key>Frame</key>
-						<string>{{0, 0}, {285, 232}}</string>
+						<string>{{0, 0}, {285, 932}}</string>
 						<key>GroupTreeTableConfiguration</key>
 						<array>
 							<string>MainColumn</string>
 							<real>268</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>20 781 1364 273 0 0 1920 1058 </string>
+						<string>20 81 1451 973 0 0 1920 1058 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -332,7 +332,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>CEA527751020E48900E8B383</string>
+										<string>CEA527761020E62B00E8B383</string>
 										<key>history</key>
 										<array>
 											<string>CEEA55820FCC873700363AED</string>
@@ -436,14 +436,14 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {1074, 227}}</string>
+								<string>{{0, 0}, {1161, 927}}</string>
 								<key>RubberWindowFrame</key>
-								<string>20 781 1364 273 0 0 1920 1058 </string>
+								<string>20 81 1451 973 0 0 1920 1058 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
 							<key>Proportion</key>
-							<string>227pt</string>
+							<string>927pt</string>
 						</dict>
 						<dict>
 							<key>ContentConfiguration</key>
@@ -456,9 +456,9 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 232}, {1074, 0}}</string>
+								<string>{{0, 932}, {1161, 0}}</string>
 								<key>RubberWindowFrame</key>
-								<string>20 781 1364 273 0 0 1920 1058 </string>
+								<string>20 81 1451 973 0 0 1920 1058 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
@@ -467,7 +467,7 @@
 						</dict>
 					</array>
 					<key>Proportion</key>
-					<string>1074pt</string>
+					<string>1161pt</string>
 				</dict>
 			</array>
 			<key>Name</key>
@@ -618,13 +618,13 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>1C78EAAD065D492600B07095</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>CE2B3ACC0F3CCF090039B355</string>
 		<string>/Volumes/Storage/Development/apps/Humboldt/Humboldt.xcodeproj</string>
-		<string>1C78EAAD065D492600B07095</string>
 	</array>
 	<key>WindowString</key>
-	<string>20 781 1364 273 0 0 1920 1058 </string>
+	<string>20 81 1451 973 0 0 1920 1058 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>
