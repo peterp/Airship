@@ -97,6 +97,11 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
 {
 	// Custom labels
+	
+	const int NAME_TAG = 1001;
+	const int META_TAG = 1002;
+	
+	
 	UILabel *nameLabel;
 	UILabel *metaLabel;
     
@@ -107,22 +112,22 @@
 		
 		// Name 
 		nameLabel = [[[UILabel alloc] initWithFrame:CGRectMake(40, 0, 250, 22)] autorelease];
-		nameLabel.tag = 1001;
+		nameLabel.tag = NAME_TAG;
 		nameLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize] - 2];
 		nameLabel.textColor = [UIColor blackColor];
 		[cell.contentView addSubview:nameLabel];
 		
 		// Meta
 		metaLabel = [[[UILabel alloc] initWithFrame:CGRectMake(40, 22, 120, 22)] autorelease];
-		metaLabel.tag = 1002;
+		metaLabel.tag = META_TAG;
 		metaLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize] - 4];
 		metaLabel.textColor = [UIColor grayColor];
 		[cell.contentView addSubview:metaLabel];
 			
 	} else {
 		// Restore cell
-		nameLabel = (UILabel *)[cell viewWithTag:1001];
-		metaLabel = (UILabel *)[cell viewWithTag:1002];
+		nameLabel = (UILabel *)[cell viewWithTag:NAME_TAG];
+		metaLabel = (UILabel *)[cell viewWithTag:META_TAG];
 	}
 	
 	// Item
@@ -132,7 +137,8 @@
 	}	else {
 		item = [self.directoryItems objectAtIndex:indexPath.row];
 	}
-	[cell.imageView initWithImage:[UIImage imageNamed:[item.type stringByAppendingPathExtension:@"png"]]];
+	
+	[cell.imageView setImage:[UIImage imageNamed:[item.type stringByAppendingPathExtension:@"png"]]];
 	nameLabel.text = item.name;
 	metaLabel.text = item.date;
 
