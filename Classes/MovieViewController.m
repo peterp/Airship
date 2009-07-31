@@ -6,9 +6,8 @@
 //  Copyright 2009 __MyCompanyName__. All rights reserved.
 //
 
-#import "MediaViewController.h"
+#import "MovieViewController.h"
 #import <MediaPlayer/MediaPlayer.h>
-#import <AVFoundation/AVFoundation.h>
 #import "DirectoryItem.h"
 
 
@@ -19,38 +18,32 @@
 	[super dealloc];
 }
 
+- (void)viewDidLoad 
+{
+	[super viewDidLoad];
+	self.view.backgroundColor = [UIColor blackColor];
+}
+
 
 - (void)openFile:(DirectoryItem *)file
 {
 	// Init the movie player...
-	
-	if ([file.type isEqualToString:@"video"]) {
-		
 		MPMoviePlayerController *moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:[NSURL fileURLWithPath:file.path]];
 		moviePlayer.scalingMode = MPMovieScalingModeAspectFill;
 		moviePlayer.movieControlMode = MPMovieControlModeDefault;
-		
-		// register the playback finished notification.
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayerFinishedCallback:) name:MPMoviePlayerPlaybackDidFinishNotification object:moviePlayer];
 		[moviePlayer play];
-	} else if ([file.type isEqualToString:@"audio"]) {
-	
-		
-		AVAudioPlayer *audioPlayer =  [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:file.path] error:NULL];
-//		[audioPlayer setDelegate:self];
-		[audioPlayer prepareToPlay];
-		BOOL plays = [audioPlayer play];
-
-	}
 }
 
 // When the movie is done,release the controller. 
 -(void)moviePlayerFinishedCallback:(NSNotification*)aNotification 
 {
-	MPMoviePlayerController *moviePlayer= [aNotification object]; 
+	MPMoviePlayerController *moviePlayer= [aNotification object];
+	// must be some simpler code to remove this.
   [[NSNotificationCenter defaultCenter] removeObserver:self name:MPMoviePlayerPlaybackDidFinishNotification object:moviePlayer]; 
-  [moviePlayer release];
 	
+	[moviePlayer stop];
+  [moviePlayer release];
 	[self.navigationController popViewControllerAnimated:YES];
 }
 

@@ -211,20 +211,22 @@
 
                 if (pseudoMode) {
                     fileManager.mkdir($(this).val(), function(r) {
-                        var r = r.split(';');
-                        if (r.length == 0) {
+                            
+                        if (r.length <= 0) {
                             // error;
+                            alert('no return value')
                             return;
                         }
-                      
-                        if (parseInt(r, 10) > 0) {
-                            // it worked, go back to normal mode, so the user can click.
-                            revertFromRenameToDefault(ul.find('.name'), r[1]);
+                        
+                        var c = parseInt(r[0], 10);
+                        if (c <= 0) {
+                            // something bad happended dude.
+                            alert(r.split(';')[1]);
+                        } else if (c == 1) {
+                            revertFromRenameToDefault(ul.find('.name'), r.substr(2));
                         } else {
-                            // error!
-                            alert(r[1]);
+                            alert('not a valid return...');
                         }
-                        // what do we do with the response?
                     });
                 } else {
                     // move...

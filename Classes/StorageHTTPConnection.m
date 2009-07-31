@@ -51,20 +51,28 @@
 		// POST METHODS
 		
 		if ([url.path isEqualToString:@"/__/directory/create"]) {
-			// Grab variables, check that we've received input.
+
+			// Create a directory
 			NSDictionary *vars = [self variablesForPostRequest];
-			return [[[HTTPDataResponse alloc] initWithData:[self createDirectory:[vars valueForKey:@"directoryName"] atPath:[vars valueForKey:@"relativePath"]]] autorelease];
+			return [[[HTTPDataResponse alloc] initWithData:[[self createDirectory:[vars valueForKey:@"directoryName"] atPath:[vars valueForKey:@"relativePath"]] dataUsingEncoding:NSUTF8StringEncoding]] autorelease];
 
 		} else if ([url.path isEqualToString:@"/__/directory/open"]) {
+
 			// Open a directory
 			NSDictionary *vars = [self variablesForPostRequest];
 			return [[[HTTPDataResponse alloc] initWithData:[self directoryContentsAtURL:[vars valueForKey:@"relativePath"]]] autorelease];
 			
 		} else if (requestIsMultipart) {
+		
+			// check to see if the fileupload was correctly done?
+			if ([[[multipartParser.parts valueForKey:@"Filedata"] valueForKey:@"filename"] length] <= 0) {
+				// Bad upload, cleanup.
+				[multipartParser release];
+				requestIsMultipart = NO;
+				return [[[HTTPDataResponse alloc] initWithData:[@"0" dataUsingEncoding:NSUTF8StringEncoding]] autorelease];
+			}
 			// File upload is complete, move the file to it's proper directory and release all used resources.
 			[self fileUploadComplete];
-			
-			
 			return [[[HTTPDataResponse alloc] initWithData:[@"1" dataUsingEncoding:NSUTF8StringEncoding]] autorelease];
 		}
 		
@@ -116,40 +124,46 @@
 # pragma mark Requestions actions with response objects
 
 
-- (NSData *)createDirectory:(NSString *)name atPath:(NSString *)path
+- (NSString *)createDirectory:(NSString *)name atPath:(NSString *)path
 {
-	NSString *response = @"0;";
 	NSString *absPath = [server.documentRoot.path stringByAppendingPathComponent:path];
 	
 	NSFileManager *fileManager = [NSFileManager defaultManager];
 	BOOL isDir;
+	
+	
+	// don't allow empty file names
+	if (name.length <= 0) {
+		return @"0;You have to give your folder a name.";
+	}
+	
+	// does the parent directory still exist?
+	if ([fileManager fileExistsAtPath:absPath isDirectory:&isDir] == NO && isDir == NO) {
+		return	[NSString stringWithFormat:@"0;\"%@\" could not be created, because its parent folder doesn't exist. (Anymore?)", name];
+	}
+	
+	// cannot create hidden folders.
+	if ([name hasPrefix:@"."]) {
+		return @"0;You cannot use a name that begins with a \".,\" because those names are reserved for the system.";
+	}
 
-	if ([fileManager fileExistsAtPath:absPath isDirectory:&isDir] && isDir) {
-		if ([name hasPrefix:@"."]) {
-			response = @"-2;You cannot use a name that begins with a \".,\" because those names are reserved for the system.";
-		} else {
-			absPath = [absPath stringByAppendingPathComponent:name];
-			if ([fileManager fileExistsAtPath:absPath]) {
-				response = [NSString stringWithFormat:@"-3;The name \"%@\" is already taken. Please choose a different name.", name];
-			} else {
-				if ([fileManager createDirectoryAtPath:absPath attributes:nil]) {
-					
-					response = [NSString stringWithFormat:@"1;%@", name];
-					[[NSNotificationCenter defaultCenter] postNotificationName:@"newItem" object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:path, @"relativePath", name, @"name", nil]];
-					
-				} else {
-					// I have no idea why it would fail here?
-					response = [NSString stringWithFormat:@"-3;The directory \"%@\" could not be created."];
-				}
-			}
-		}
+	// Does a folder of this name already exist?
+	absPath = [absPath stringByAppendingPathComponent:name];
+	if ([fileManager fileExistsAtPath:absPath]) {
+		return [NSString stringWithFormat:@"-3;The name \"%@\" is already taken. Please choose a different name.", name];
+	}
+	
+	// Create the directory
+	if ([fileManager createDirectoryAtPath:absPath attributes:nil]) {
+	
+		[[NSNotificationCenter defaultCenter] postNotificationName:@"newItem" object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:path, @"relativePath", name, @"name", nil]];
+		return [NSString stringWithFormat:@"1;%@", name];
 	} else {
-		// base path does not exist, return an error
-		response = [NSString stringWithFormat:@"-1;\"%@\" could not be created, because it's parent directory doesn't exist. (Anymore?)", name];
+		return [NSString stringWithFormat:@"0;The folder \"%@\" could not be created."];
 	}
 	
 	// return a data response that the webserver can use directly.
-	return [response dataUsingEncoding:NSUTF8StringEncoding];
+	return @"0;";
 }
 
 
@@ -214,7 +228,7 @@
 	NSString *filename = [[multipartParser.parts valueForKey:@"Filedata"] valueForKey:@"filename"];
 	NSString *relativePath = [[multipartParser.parts valueForKey:@"relativePath"] valueForKey:@"value"];
 	NSString *destPath = [[server.documentRoot.path stringByAppendingPathComponent:relativePath] stringByAppendingPathComponent:filename];
-			
+	
 	NSError *error;
 	[[NSFileManager defaultManager] moveItemAtPath:fromPath toPath:destPath error:&error];
 			

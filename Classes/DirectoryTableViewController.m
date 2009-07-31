@@ -11,7 +11,7 @@
 
 #import "DetailViewController.h"
 #import "DocumentViewController.h"
-#import "MediaViewController.h"
+#import "MovieViewController.h"
 
 
 @implementation DirectoryTableViewController
@@ -170,7 +170,7 @@
 		[documentViewController openFile:item];
 		[documentViewController release];
 	
-	} else if ([item.type isEqualToString:@"video"] || [item.type isEqualToString:@"audio"]) {
+	} else if ([item.type isEqualToString:@"video"]) {
 	
 		MediaViewController *mediaViewController= [[MediaViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
 		[self.navigationController pushViewController:mediaViewController animated:YES];
