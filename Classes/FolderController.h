@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DirectoryTableViewController : UITableViewController <UISearchBarDelegate, UISearchDisplayDelegate>
+@interface FolderController : UITableViewController <UISearchBarDelegate, UISearchDisplayDelegate>
 {
 	// Search
 	UISearchBar *searchBar;
@@ -25,10 +25,12 @@
 }
 
 @property (nonatomic, copy) NSString *relativePath, *absolutePath;
-
 @property (nonatomic, retain) NSMutableArray *directoryItems;
 @property (nonatomic, retain) NSMutableArray *filteredDirectoryItems;
 
+
+
++ (id)initWithPath:(NSString *)path;
 - (void)newItem:(NSNotification *)notification;
 
 

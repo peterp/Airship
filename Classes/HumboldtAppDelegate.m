@@ -7,86 +7,56 @@
 //
 
 #import "HumboldtAppDelegate.h"
-#import "DirectoryTableViewController.h"
+#import "FolderController.h"
+#import "ServerController.h"
 
-#import "HTTPServer.h"
-#import "StorageHTTPConnection.h"
+
 
 
 
 @implementation HumboldtAppDelegate
 
 
-@synthesize window, navigationController;
-
-# pragma mark -
-# pragma mark Application setup
-- (void)applicationDidFinishLaunching:(UIApplication *)application 
-{
-
-	// Copy HTML Data
-	NSString *documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-	[self copyWWWDataToPath:documentPath];	
-
-
-	// Directory view
-	DirectoryTableViewController *directoryTableViewController = [[DirectoryTableViewController alloc] initWithStyle:UITableViewStylePlain];
-	directoryTableViewController.relativePath = @"Storage";
-	
-	// Navigation
-	UINavigationController *aNavigationController = [[UINavigationController alloc] initWithRootViewController:directoryTableViewController];
-	self.navigationController = aNavigationController;
-	[window addSubview:navigationController.view];
-	[window makeKeyAndVisible];
-
-	// Release
-	[directoryTableViewController release];
-	[aNavigationController release];
-
-
-
-	// Setup & Start HTTP server
-	httpServer = [HTTPServer new];
-	[httpServer setType:@"_http._tcp."];
-	[httpServer setConnectionClass:[StorageHTTPConnection class]];
-	[httpServer setDocumentRoot:[NSURL fileURLWithPath:documentPath]];
-	[httpServer setPort:8000];
-	NSError *httpError;
-	if (![httpServer start:&httpError]) {
-		NSLog(@"Error starting HTTPServer: %@", httpError);
-	}
-	
-	
-}
-
+@synthesize window;//, navigationController;
 
 - (void)dealloc 
 {
-	[httpServer release];
   [window release];
   [super dealloc];
 }
 
 
+# pragma mark -
+# pragma mark Application setup
 
-- (void)copyWWWDataToPath:(NSString *)documentPath
+
+- (void)applicationDidFinishLaunching:(UIApplication *)application 
 {
+	application.statusBarStyle = UIStatusBarStyleBlackOpaque;
+
+	// Folder Controller
+	FolderController *folderController = [FolderController initWithPath:@"Storage"];
+	// Navigation Controller....
+	UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:folderController];
+	navigationController.navigationBar.tintColor = [UIColor darkGrayColor];
+	[folderController release];
 	
-	NSFileManager *fileManager = [NSFileManager defaultManager];
-	NSString *resourcePath = [[NSBundle mainBundle] resourcePath];
 	
-	if (![fileManager fileExistsAtPath:[documentPath stringByAppendingPathComponent:@"wwwroot"]]) {
-		NSError *error;
-		[fileManager copyItemAtPath:[resourcePath stringByAppendingPathComponent:@"wwwroot"] toPath:[documentPath stringByAppendingPathComponent:@"wwwroot"] error:&error];
-	//	NSLog(@"error: %@", error);
-	}
-//	
-//	// Create document path.
-	if (![fileManager fileExistsAtPath:[documentPath stringByAppendingPathComponent:@"Storage"]]) {
+	// Server view controller...
+	ServerController *serverController = [[ServerController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
 	
-		[fileManager createDirectoryAtPath:[documentPath stringByAppendingPathComponent:@"Storage"] attributes:nil];
-	}
+	// Tab bar controller
+	UITabBarController *tabBarController = [[UITabBarController alloc] init];
+	tabBarController.viewControllers  = [NSArray arrayWithObjects:navigationController, serverController, nil];
+	[navigationController release];
+	[serverController release];
+
+	
+	[window addSubview:tabBarController.view];
+	[window makeKeyAndVisible];
 }
+
+
 
 
 

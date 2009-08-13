@@ -6,17 +6,40 @@
 //  Copyright 2009 appfactory. All rights reserved.
 //
 
-#import "DirectoryTableViewController.h"
+#import "FolderController.h"
+
 #import "DirectoryItem.h"
 
 #import "DetailViewController.h"
 #import "DocumentViewController.h"
 #import "MovieViewController.h"
+#import "ImageViewController.h"
+#import "AudioViewController.h"
 
 
-@implementation DirectoryTableViewController
+@implementation FolderController
 
 @synthesize relativePath, absolutePath, directoryItems, filteredDirectoryItems;
+
+
+- (void)dealloc 
+{
+	self.absolutePath = nil;
+	self.relativePath = nil;
+	self.directoryItems = nil;
+	self.filteredDirectoryItems = nil;
+	
+	[super dealloc];
+}
+
+
++ (id)initWithPath:(NSString *)path 
+{
+	FolderController *fc = [[FolderController alloc] initWithStyle:UITableViewStylePlain];
+	fc.relativePath = path;
+	return fc;
+}
+
 
 
 
@@ -45,6 +68,7 @@
 	// Search
 	searchBar = [[UISearchBar alloc] initWithFrame:self.tableView.bounds];
 	searchBar.delegate = self;
+	searchBar.tintColor = [UIColor grayColor];
 	searchBar.placeholder	= [@"Search " stringByAppendingString:self.title];
 	[searchBar sizeToFit];
 	self.tableView.tableHeaderView = searchBar;
@@ -54,20 +78,13 @@
 	searchDisplayController.delegate = self;
 	self.filteredDirectoryItems = [NSMutableArray array];
 	
+	
 	// Notifications
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newItem:) name:@"newItem" object:nil];
 }
 
 
-- (void)dealloc 
-{
-	self.absolutePath = nil;
-	self.relativePath = nil;
-	self.directoryItems = nil;
-	self.filteredDirectoryItems = nil;
-	
-	[super dealloc];
-}
+
 
 
 
@@ -114,7 +131,7 @@
 		nameLabel = [[[UILabel alloc] initWithFrame:CGRectMake(40, 0, 250, 22)] autorelease];
 		nameLabel.tag = NAME_TAG;
 		nameLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize] - 2];
-		nameLabel.textColor = [UIColor blackColor];
+		nameLabel.textColor = [UIColor darkGrayColor];
 		[cell.contentView addSubview:nameLabel];
 		
 		// Meta
@@ -157,11 +174,10 @@
 	}
 	
 	if ([item.type isEqualToString:@"directory"]) {
-		// Directory
-		DirectoryTableViewController *directoryTableViewController = [[DirectoryTableViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
-		directoryTableViewController.relativePath = [self.relativePath stringByAppendingPathComponent:item.name];
-		[self.navigationController pushViewController:directoryTableViewController animated:YES];
-		[directoryTableViewController release];
+
+		FolderController *folderController = [FolderController initWithPath:[self.relativePath stringByAppendingPathComponent:item.name]];
+		[self.navigationController pushViewController:folderController animated:YES];
+		[folderController release];
 		
 	} else if ([item.type isEqualToString:@"document"]) {
 		
@@ -172,21 +188,26 @@
 	
 	} else if ([item.type isEqualToString:@"video"]) {
 	
-		MediaViewController *mediaViewController= [[MediaViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
+		MovieViewController *mediaViewController= [[MovieViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
 		[self.navigationController pushViewController:mediaViewController animated:YES];
 		[mediaViewController openFile:item];
 		[mediaViewController release];
 	
-	} else {
-		// File
+	} else if ([item.type isEqualToString:@"image"]) {
+		ImageViewController *imageViewController = [[ImageViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
+		[self.navigationController pushViewController:imageViewController animated:YES];
+		[imageViewController openFile:item];
+		[imageViewController release];
 		
-		// Create a new detail view controller
-		DetailViewController *detailViewController = [[DetailViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
-		[detailViewController openFile:item];
-		[self.navigationController pushViewController:detailViewController animated:YES];
-		
-		[detailViewController release];
+	} else if ([item.type isEqualToString:@"audio"]) {
+		AudioViewController *audioViewController = [[AudioViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
+		[self.navigationController pushViewController:audioViewController animated:YES];
+		[audioViewController release];
 	}
+
+
+
+	
 }
 
 
@@ -289,7 +310,6 @@
 - (void)newItem:(NSNotification *)notification 
 {
 
-	NSLog(@"%@, %@", self.relativePath, notification.userInfo);
 
 	// Not for this view, return;
 	if (![[notification.userInfo valueForKey:@"relativePath"] isEqualToString:self.relativePath]) {

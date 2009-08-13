@@ -7,19 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-@class HTTPServer;
 
 @interface HumboldtAppDelegate : NSObject <UIApplicationDelegate> 
 {
 	UIWindow *window;
-	UINavigationController *navigationController;
-	
-	HTTPServer *httpServer;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) UINavigationController *navigationController;
 
-- (void)copyWWWDataToPath:(NSString *)path;
 
 @end

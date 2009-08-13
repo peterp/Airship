@@ -32,12 +32,16 @@
 		CE38A3BA0FF6AE3000E93C29 /* NSCharacterSet_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = CE38A3B40FF6AE3000E93C29 /* NSCharacterSet_Extensions.m */; };
 		CE38A3BB0FF6AE3000E93C29 /* NSDictionary_JSONExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = CE38A3B60FF6AE3000E93C29 /* NSDictionary_JSONExtensions.m */; };
 		CE38A3BC0FF6AE3000E93C29 /* NSScanner_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = CE38A3B80FF6AE3000E93C29 /* NSScanner_Extensions.m */; };
+		CE3B69D61023866400463CF1 /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B69D41023866400463CF1 /* ImageViewController.m */; };
 		CE3D50D51019065700DF3783 /* DocumentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3D50D31019065700DF3783 /* DocumentViewController.m */; };
 		CE3D50D61019065700DF3783 /* DocumentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE3D50D41019065700DF3783 /* DocumentViewController.xib */; };
 		CE4FFB3B101E40B0003E968A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE4FFB3A101E40B0003E968A /* AVFoundation.framework */; };
-		CE6C9EED0FF6AFC5009CCC45 /* DirectoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6C9EEC0FF6AFC5009CCC45 /* DirectoryTableViewController.m */; };
+		CE6C9EED0FF6AFC5009CCC45 /* FolderController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6C9EEC0FF6AFC5009CCC45 /* FolderController.m */; };
 		CE8627E910013D400063F8F6 /* wwwroot in Resources */ = {isa = PBXBuildFile; fileRef = CE8627E510013D400063F8F6 /* wwwroot */; };
 		CE94311110092418006EE65D /* audio.png in Resources */ = {isa = PBXBuildFile; fileRef = CE94311010092418006EE65D /* audio.png */; };
+		CEA88706102AECB50029ED9F /* TapDetectingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA88704102AECB50029ED9F /* TapDetectingImageView.m */; };
+		CEA887E7102B6D610029ED9F /* AudioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA887E5102B6D610029ED9F /* AudioViewController.m */; };
+		CEA887E8102B6D610029ED9F /* AudioViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEA887E6102B6D610029ED9F /* AudioViewController.xib */; };
 		CEC144E1101D03FB000DA2AE /* MovieViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC144E0101D03FB000DA2AE /* MovieViewController.m */; };
 		CEC14570101D0DCB000DA2AE /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC1456F101D0DCB000DA2AE /* MediaPlayer.framework */; };
 		CEC586130FC98AE500326D27 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC586110FC98AE500326D27 /* DetailViewController.m */; };
@@ -48,6 +52,8 @@
 		CEE291C70FEECC6A00D5E0A4 /* image.png in Resources */ = {isa = PBXBuildFile; fileRef = CEE291C20FEECC6A00D5E0A4 /* image.png */; };
 		CEE291C80FEECC6A00D5E0A4 /* document.png in Resources */ = {isa = PBXBuildFile; fileRef = CEE291C30FEECC6A00D5E0A4 /* document.png */; };
 		CEECEDB01019DA1100B3918A /* AFWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEECEDAF1019DA1100B3918A /* AFWebView.m */; };
+		CEECF8E81030375800469751 /* ServerController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEECF8E61030375800469751 /* ServerController.m */; };
+		CEECF8E91030375800469751 /* ServerController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEECF8E71030375800469751 /* ServerController.xib */; };
 		CEF21BB40FF432810042E698 /* DirectoryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF21BB30FF432810042E698 /* DirectoryItem.m */; };
 /* End PBXBuildFile section */
 
@@ -55,7 +61,7 @@
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* HumboldtAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumboldtAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* HumboldtAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumboldtAppDelegate.m; sourceTree = "<group>"; };
-		1D6058910D05DD3D006BFB54 /* Humboldt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Humboldt.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6058910D05DD3D006BFB54 /* airship.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = airship.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28AD733E0D9D9553002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
@@ -99,15 +105,22 @@
 		CE38A3B60FF6AE3000E93C29 /* NSDictionary_JSONExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDictionary_JSONExtensions.m; sourceTree = "<group>"; };
 		CE38A3B70FF6AE3000E93C29 /* NSScanner_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSScanner_Extensions.h; sourceTree = "<group>"; };
 		CE38A3B80FF6AE3000E93C29 /* NSScanner_Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSScanner_Extensions.m; sourceTree = "<group>"; };
+		CE3B69D31023866400463CF1 /* ImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewController.h; sourceTree = "<group>"; };
+		CE3B69D41023866400463CF1 /* ImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewController.m; sourceTree = "<group>"; };
 		CE3D50D21019065700DF3783 /* DocumentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DocumentViewController.h; sourceTree = "<group>"; };
 		CE3D50D31019065700DF3783 /* DocumentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DocumentViewController.m; sourceTree = "<group>"; };
 		CE3D50D41019065700DF3783 /* DocumentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DocumentViewController.xib; path = Classes/DocumentViewController.xib; sourceTree = "<group>"; };
 		CE4FFB3A101E40B0003E968A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		CE6C9EEB0FF6AFC5009CCC45 /* DirectoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectoryTableViewController.h; sourceTree = "<group>"; };
-		CE6C9EEC0FF6AFC5009CCC45 /* DirectoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectoryTableViewController.m; sourceTree = "<group>"; };
+		CE6C9EEB0FF6AFC5009CCC45 /* FolderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FolderController.h; sourceTree = "<group>"; };
+		CE6C9EEC0FF6AFC5009CCC45 /* FolderController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FolderController.m; sourceTree = "<group>"; };
 		CE70DA090FFABC0400D606B3 /* AFMultipartParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFMultipartParser.h; sourceTree = "<group>"; };
 		CE8627E510013D400063F8F6 /* wwwroot */ = {isa = PBXFileReference; lastKnownFileType = folder; path = wwwroot; sourceTree = "<group>"; };
 		CE94311010092418006EE65D /* audio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = audio.png; sourceTree = "<group>"; };
+		CEA88704102AECB50029ED9F /* TapDetectingImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapDetectingImageView.m; sourceTree = "<group>"; };
+		CEA88705102AECB50029ED9F /* TapDetectingImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapDetectingImageView.h; sourceTree = "<group>"; };
+		CEA887E4102B6D610029ED9F /* AudioViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioViewController.h; sourceTree = "<group>"; };
+		CEA887E5102B6D610029ED9F /* AudioViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioViewController.m; sourceTree = "<group>"; };
+		CEA887E6102B6D610029ED9F /* AudioViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = AudioViewController.xib; path = Classes/AudioViewController.xib; sourceTree = "<group>"; };
 		CEC144DF101D03FB000DA2AE /* MovieViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieViewController.h; sourceTree = "<group>"; };
 		CEC144E0101D03FB000DA2AE /* MovieViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieViewController.m; sourceTree = "<group>"; };
 		CEC1456F101D0DCB000DA2AE /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -121,6 +134,9 @@
 		CEE291C30FEECC6A00D5E0A4 /* document.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = document.png; sourceTree = "<group>"; };
 		CEECEDAE1019DA1100B3918A /* AFWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFWebView.h; sourceTree = "<group>"; };
 		CEECEDAF1019DA1100B3918A /* AFWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFWebView.m; sourceTree = "<group>"; };
+		CEECF8E51030375800469751 /* ServerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerController.h; sourceTree = "<group>"; };
+		CEECF8E61030375800469751 /* ServerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerController.m; sourceTree = "<group>"; };
+		CEECF8E71030375800469751 /* ServerController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ServerController.xib; path = Classes/ServerController.xib; sourceTree = "<group>"; };
 		CEF21BB20FF432810042E698 /* DirectoryItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectoryItem.h; sourceTree = "<group>"; };
 		CEF21BB30FF432810042E698 /* DirectoryItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectoryItem.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -145,15 +161,14 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				CEECF85B10302C8200469751 /* WWW */,
 				CEC144E4101D092E000DA2AE /* DetailView */,
 				1D3623240D0F684500981E51 /* HumboldtAppDelegate.h */,
 				1D3623250D0F684500981E51 /* HumboldtAppDelegate.m */,
-				CE6C9EEB0FF6AFC5009CCC45 /* DirectoryTableViewController.h */,
-				CE6C9EEC0FF6AFC5009CCC45 /* DirectoryTableViewController.m */,
-				CE2B3B0D0F3CD72B0039B355 /* StorageHTTPConnection.h */,
-				CE2B3B0E0F3CD72B0039B355 /* StorageHTTPConnection.m */,
-				CE70DA090FFABC0400D606B3 /* AFMultipartParser.h */,
-				CEE04E9E0FD9E82E00C32900 /* AFMultipartParser.m */,
+				CE6C9EEB0FF6AFC5009CCC45 /* FolderController.h */,
+				CE6C9EEC0FF6AFC5009CCC45 /* FolderController.m */,
+				CEECF8E51030375800469751 /* ServerController.h */,
+				CEECF8E61030375800469751 /* ServerController.m */,
 				CEF21BB20FF432810042E698 /* DirectoryItem.h */,
 				CEF21BB30FF432810042E698 /* DirectoryItem.m */,
 			);
@@ -163,7 +178,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1D6058910D05DD3D006BFB54 /* Humboldt.app */,
+				1D6058910D05DD3D006BFB54 /* airship.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -197,6 +212,8 @@
 				CE26A2150FEE79DC00345AE8 /* icons */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				CE3D50D41019065700DF3783 /* DocumentViewController.xib */,
+				CEA887E6102B6D610029ED9F /* AudioViewController.xib */,
+				CEECF8E71030375800469751 /* ServerController.xib */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 			);
 			name = Resources;
@@ -312,8 +329,25 @@
 				CEECEDAF1019DA1100B3918A /* AFWebView.m */,
 				CEC144DF101D03FB000DA2AE /* MovieViewController.h */,
 				CEC144E0101D03FB000DA2AE /* MovieViewController.m */,
+				CE3B69D31023866400463CF1 /* ImageViewController.h */,
+				CE3B69D41023866400463CF1 /* ImageViewController.m */,
+				CEA88705102AECB50029ED9F /* TapDetectingImageView.h */,
+				CEA88704102AECB50029ED9F /* TapDetectingImageView.m */,
+				CEA887E4102B6D610029ED9F /* AudioViewController.h */,
+				CEA887E5102B6D610029ED9F /* AudioViewController.m */,
 			);
 			name = DetailView;
+			sourceTree = "<group>";
+		};
+		CEECF85B10302C8200469751 /* WWW */ = {
+			isa = PBXGroup;
+			children = (
+				CE2B3B0D0F3CD72B0039B355 /* StorageHTTPConnection.h */,
+				CE2B3B0E0F3CD72B0039B355 /* StorageHTTPConnection.m */,
+				CE70DA090FFABC0400D606B3 /* AFMultipartParser.h */,
+				CEE04E9E0FD9E82E00C32900 /* AFMultipartParser.m */,
+			);
+			name = WWW;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -333,7 +367,7 @@
 			);
 			name = Humboldt;
 			productName = Humboldt;
-			productReference = 1D6058910D05DD3D006BFB54 /* Humboldt.app */;
+			productReference = 1D6058910D05DD3D006BFB54 /* airship.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -367,6 +401,8 @@
 				CE8627E910013D400063F8F6 /* wwwroot in Resources */,
 				CE94311110092418006EE65D /* audio.png in Resources */,
 				CE3D50D61019065700DF3783 /* DocumentViewController.xib in Resources */,
+				CEA887E8102B6D610029ED9F /* AudioViewController.xib in Resources */,
+				CEECF8E91030375800469751 /* ServerController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,10 +436,14 @@
 				CE38A3BA0FF6AE3000E93C29 /* NSCharacterSet_Extensions.m in Sources */,
 				CE38A3BB0FF6AE3000E93C29 /* NSDictionary_JSONExtensions.m in Sources */,
 				CE38A3BC0FF6AE3000E93C29 /* NSScanner_Extensions.m in Sources */,
-				CE6C9EED0FF6AFC5009CCC45 /* DirectoryTableViewController.m in Sources */,
+				CE6C9EED0FF6AFC5009CCC45 /* FolderController.m in Sources */,
 				CE3D50D51019065700DF3783 /* DocumentViewController.m in Sources */,
 				CEECEDB01019DA1100B3918A /* AFWebView.m in Sources */,
 				CEC144E1101D03FB000DA2AE /* MovieViewController.m in Sources */,
+				CE3B69D61023866400463CF1 /* ImageViewController.m in Sources */,
+				CEA88706102AECB50029ED9F /* TapDetectingImageView.m in Sources */,
+				CEA887E7102B6D610029ED9F /* AudioViewController.m in Sources */,
+				CEECF8E81030375800469751 /* ServerController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -415,6 +455,7 @@
 			buildSettings = {
 				ADDITIONAL_SDKS = "";
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Peter Pistorius";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -426,7 +467,8 @@
 				GCC_PREFIX_HEADER = Humboldt_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = Humboldt;
+				PRODUCT_NAME = airship;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D8BE66A0-F9E7-4AE9-86F1-04763611A0B9";
 			};
 			name = Debug;
 		};
@@ -434,6 +476,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Peter Pistorius";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -442,7 +485,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Humboldt_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
-				PRODUCT_NAME = Humboldt;
+				PRODUCT_NAME = airship;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D8BE66A0-F9E7-4AE9-86F1-04763611A0B9";
 			};
 			name = Release;
 		};

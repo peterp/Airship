@@ -7,10 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+@class MPMoviePlayerController;
 @class DirectoryItem;
 
-@interface MediaViewController : UIViewController {
+@interface MovieViewController : UIViewController {
+	MPMoviePlayerController *moviePlayer;
 }
+
+@property (nonatomic, retain) MPMoviePlayerController *moviePlayer;
 
 - (void)openFile:(DirectoryItem *)file;
 

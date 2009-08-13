@@ -11,10 +11,13 @@
 #import "DirectoryItem.h"
 
 
-@implementation MediaViewController
+@implementation MovieViewController
+
+@synthesize moviePlayer;
 
 - (void)dealloc 
 {
+	self.moviePlayer = nil;
 	[super dealloc];
 }
 
@@ -28,8 +31,10 @@
 - (void)openFile:(DirectoryItem *)file
 {
 	// Init the movie player...
-		MPMoviePlayerController *moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:[NSURL fileURLWithPath:file.path]];
+		moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:[NSURL fileURLWithPath:file.path]];
 		moviePlayer.scalingMode = MPMovieScalingModeAspectFill;
+		
+		
 		moviePlayer.movieControlMode = MPMovieControlModeDefault;
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayerFinishedCallback:) name:MPMoviePlayerPlaybackDidFinishNotification object:moviePlayer];
 		[moviePlayer play];
@@ -38,7 +43,7 @@
 // When the movie is done,release the controller. 
 -(void)moviePlayerFinishedCallback:(NSNotification*)aNotification 
 {
-	MPMoviePlayerController *moviePlayer= [aNotification object];
+
 	// must be some simpler code to remove this.
   [[NSNotificationCenter defaultCenter] removeObserver:self name:MPMoviePlayerPlaybackDidFinishNotification object:moviePlayer]; 
 	

@@ -27,6 +27,9 @@
 	
 }
 
+
+
+
 - (void)openFile:(DirectoryItem *)file
 {
 	self.title = file.name;
