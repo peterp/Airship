@@ -32,7 +32,10 @@
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application 
 {
-	application.statusBarStyle = UIStatusBarStyleBlackOpaque;
+
+	// Prevent sleep
+	[UIApplication sharedApplication].idleTimerDisabled = YES;
+
 
 	// Folder Controller
 	FolderController *folderController = [FolderController initWithPath:@"Storage"];
@@ -40,6 +43,8 @@
 	UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:folderController];
 	navigationController.navigationBar.tintColor = [UIColor darkGrayColor];
 	[folderController release];
+	
+	
 	
 	
 	// Server view controller...
