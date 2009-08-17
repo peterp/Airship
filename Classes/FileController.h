@@ -1,0 +1,22 @@
+//
+//  FileController.h
+//  Humboldt
+//
+//  Created by Peter Pistorius on 2009/08/17.
+//  Copyright 2009 __MyCompanyName__. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "DirectoryItem.h"
+
+
+@interface FileController : UIViewController {
+
+	
+
+}
+
+- (void)openFile:(DirectoryItem *)file;
+
+
+@end

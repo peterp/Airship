@@ -82,7 +82,7 @@
         
         
         // load up the "Storage" directory.
-        loadDirectoryItems('Storage');
+        loadDirectoryItems('Files');
     };
     
     function loadDirectoryItems(atPath)

@@ -1,30 +1,35 @@
 //
-//  DocumentViewController.m
+//  DocumentController.m
 //  Humboldt
 //
-//  Created by Peter Pistorius on 2009/07/23.
+//  Created by Peter Pistorius on 2009/08/17.
 //  Copyright 2009 __MyCompanyName__. All rights reserved.
 //
 
-#import "DocumentViewController.h"
-#import "DirectoryItem.h"
+#import "DocumentController.h"
 
 
+@implementation DocumentController
 
 
-@implementation DocumentViewController
+@synthesize webView;
+@synthesize navigationBar, tabBar;
+
 
 - (void)dealloc 
 {
-    [super dealloc];
+	self.webView = nil;
+	self.navigationBar = nil;
+	self.tabBar = nil;
+
+	[super dealloc];
 }
+
 
 
 - (void)viewDidLoad 
 {
-
 	[super viewDidLoad];
-	
 }
 
 
@@ -32,30 +37,21 @@
 
 - (void)openFile:(DirectoryItem *)file
 {
-	self.title = file.name;
+	navigationBar.topItem.title = file.name;
 	[webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:file.path]]];
 }
 
 
-
-- (void)didReceiveMemoryWarning 
-{
-	// Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-	
-	// Release any cached data, images, etc that aren't in use.
-}
-
-- (void)viewDidUnload {
-	// Release any retained subviews of the main view.
-	// e.g. self.myOutlet = nil;
-}
-
-
-
-
 - (void)webView:(UIWebView*)sender tappedWithTouch:(UITouch*)touch event:(UIEvent*)event
 {
+	NSLog(@"touch: %@", touch);
+	NSLog(@"event: %@", event);
+
+
+	navigationBar.hidden = NO;
+	tabBar.hidden = NO;
+
+
 //	tabBar.hidden = NO;
 	
 	// let's try and scroll this mofo....
@@ -74,7 +70,6 @@
 {
 	NSLog(@"finished zooming");
 }
-
 
 
 

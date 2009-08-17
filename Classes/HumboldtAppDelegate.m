@@ -11,9 +11,6 @@
 #import "ServerController.h"
 
 
-
-
-
 @implementation HumboldtAppDelegate
 
 
@@ -38,7 +35,7 @@
 
 
 	// Folder Controller
-	FolderController *folderController = [FolderController initWithPath:@"Storage"];
+	FolderController *folderController = [FolderController initWithPath:@"Files"];
 	// Navigation Controller....
 	UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:folderController];
 	navigationController.navigationBar.tintColor = [UIColor darkGrayColor];

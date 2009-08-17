@@ -138,9 +138,9 @@
 	}
 //	
 //	// Create document path.
-	if (![fileManager fileExistsAtPath:[documentPath stringByAppendingPathComponent:@"Storage"]]) {
+	if (![fileManager fileExistsAtPath:[documentPath stringByAppendingPathComponent:@"Files"]]) {
 	
-		[fileManager createDirectoryAtPath:[documentPath stringByAppendingPathComponent:@"Storage"] attributes:nil];
+		[fileManager createDirectoryAtPath:[documentPath stringByAppendingPathComponent:@"Files"] attributes:nil];
 	}
 }
 

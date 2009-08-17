@@ -10,11 +10,16 @@
 
 #import "DirectoryItem.h"
 
-#import "DetailViewController.h"
-#import "DocumentViewController.h"
-#import "MovieViewController.h"
-#import "ImageViewController.h"
-#import "AudioViewController.h"
+//#import "DetailViewController.h"
+//#import "DocumentViewController.h"
+//#import "MovieViewController.h"
+//#import "ImageViewController.h"
+//#import "AudioViewController.h"
+
+
+#import "FileController.h"
+#import "MovieController.h"
+#import "DocumentController.h"
 
 
 @implementation FolderController
@@ -77,6 +82,7 @@
 	searchDisplayController.searchResultsDataSource = self;
 	searchDisplayController.delegate = self;
 	self.filteredDirectoryItems = [NSMutableArray array];
+	
 	
 	
 	// Notifications
@@ -179,32 +185,53 @@
 		[self.navigationController pushViewController:folderController animated:YES];
 		[folderController release];
 		
-	} else if ([item.type isEqualToString:@"document"]) {
+	} else {
+	
+		FileController *fileController = nil;
+	
+		if ([item.type isEqualToString:@"video"]) {
+			fileController = [[MovieController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
+		} else if ([item.type isEqualToString:@"document"]) {
+			fileController = [[DocumentController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
+		}
 		
-		DocumentViewController *documentViewController = [[DocumentViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
-		[self.navigationController pushViewController:documentViewController animated:YES];
-		[documentViewController openFile:item];
-		[documentViewController release];
-	
-	} else if ([item.type isEqualToString:@"video"]) {
-	
-		MovieViewController *mediaViewController= [[MovieViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
-		[self.navigationController pushViewController:mediaViewController animated:YES];
-		[mediaViewController openFile:item];
-		[mediaViewController release];
-	
-	} else if ([item.type isEqualToString:@"image"]) {
-		ImageViewController *imageViewController = [[ImageViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
-		[self.navigationController pushViewController:imageViewController animated:YES];
-		[imageViewController openFile:item];
-		[imageViewController release];
-		
-	} else if ([item.type isEqualToString:@"audio"]) {
-		AudioViewController *audioViewController = [[AudioViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
-		[self.navigationController pushViewController:audioViewController animated:YES];
-		[audioViewController release];
-	}
+		[self.navigationController presentModalViewController:fileController animated:YES];
+		[fileController openFile:item];
+		[fileController release];
 
+
+	
+	
+//		//
+//DocumentViewController *documentViewController = [[DocumentViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
+//[self.navigationController pushViewController:documentViewController animated:YES];
+//[documentViewController openFile:item];
+//[documentViewController release];
+//
+//} else if ([item.type isEqualToString:@"video"]) {
+//
+//MovieViewController *mediaViewController= [[MovieViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
+//[self.navigationController pushViewController:mediaViewController animated:YES];
+//[mediaViewController openFile:item];
+//[mediaViewController release];
+//
+//} else if ([item.type isEqualToString:@"image"]) {
+//ImageViewController *imageViewController = [[ImageViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
+//[self.navigationController pushViewController:imageViewController animated:YES];
+//[imageViewController openFile:item];
+//[imageViewController release];
+//
+//} else if ([item.type isEqualToString:@"audio"]) {
+//AudioViewController *audioViewController = [[AudioViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
+//[self.navigationController pushViewController:audioViewController animated:YES];
+//[audioViewController release];
+//}
+////
+	
+	
+	
+	
+	}
 
 
 	
