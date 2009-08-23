@@ -12,11 +12,24 @@
 
 @interface FileController : UIViewController {
 
-	
 
+	IBOutlet UINavigationBar *navigationBar;
+	IBOutlet UIToolbar *toolBar;
+
+	NSTimer *hideControlsTimer;
 }
 
+@property (nonatomic, retain) IBOutlet UINavigationBar *navigationBar;
+@property (nonatomic, retain) IBOutlet UIToolbar *toolBar;
+
+
 - (void)openFile:(DirectoryItem *)file;
+
+- (IBAction)closeFile;
+
+
+- (void)toggleControls;
+- (void)hideControls:(NSTimer*)aTimer;
 
 
 @end

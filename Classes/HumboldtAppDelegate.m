@@ -33,7 +33,6 @@
 	// Prevent sleep
 	[UIApplication sharedApplication].idleTimerDisabled = YES;
 
-
 	// Folder Controller
 	FolderController *folderController = [FolderController initWithPath:@"Files"];
 	// Navigation Controller....
@@ -52,8 +51,8 @@
 	tabBarController.viewControllers  = [NSArray arrayWithObjects:navigationController, serverController, nil];
 	[navigationController release];
 	[serverController release];
-
 	
+	window.backgroundColor = [UIColor blackColor];
 	[window addSubview:tabBarController.view];
 	[window makeKeyAndVisible];
 }

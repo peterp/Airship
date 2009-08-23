@@ -10,7 +10,6 @@
 #import "FileController.h"
 
 @interface MovieController : FileController {
-
 }
 
 - (void)openFile:(DirectoryItem *)file;

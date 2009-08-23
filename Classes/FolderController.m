@@ -20,6 +20,7 @@
 #import "FileController.h"
 #import "MovieController.h"
 #import "DocumentController.h"
+#import "ImageController.h"
 
 
 @implementation FolderController
@@ -193,8 +194,11 @@
 			fileController = [[MovieController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
 		} else if ([item.type isEqualToString:@"document"]) {
 			fileController = [[DocumentController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
+		} else if ([item.type isEqualToString:@"image"]) {
+			fileController = [[ImageController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
 		}
 		
+		[[UIApplication sharedApplication] setStatusBarHidden:YES animated:YES];
 		[self.navigationController presentModalViewController:fileController animated:YES];
 		[fileController openFile:item];
 		[fileController release];

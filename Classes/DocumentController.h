@@ -12,22 +12,13 @@
 
 
 @interface DocumentController : FileController {
-
 	IBOutlet AFWebView *webView;
-	
-	IBOutlet UINavigationBar *navigationBar;
-	IBOutlet UIToolbar *toolBar;
-	
-	NSTimer *hideControlsTimer;
 }
 
 @property (nonatomic, retain) IBOutlet AFWebView *webView;
-@property (nonatomic, retain) IBOutlet UINavigationBar *navigationBar;
-@property (nonatomic, retain) IBOutlet UIToolbar *toolBar;
 
 - (void)openFile:(DirectoryItem *)file;
-- (IBAction)closeFile;
-- (void)hideControls:(NSTimer*)aTimer;
+
 
 
 

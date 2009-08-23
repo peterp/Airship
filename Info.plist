@@ -29,6 +29,10 @@
 	
 	<key>UIStatusBarStyle</key>  
 	<string>UIStatusBarStyleBlackOpaque</string>
+	
+	
+	<key>UIRequiresPersistentWiFi</key>
+	<true/>
 		
 	
 </dict>

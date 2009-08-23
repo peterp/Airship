@@ -11,9 +11,69 @@
 
 @implementation FileController
 
+
+@synthesize navigationBar, toolBar;
+
+
+- (void)dealloc
+{
+	self.navigationBar = nil;
+	self.toolBar = nil;
+	[super dealloc];
+}
+
 - (void)openFile:(DirectoryItem *)file
 {
 	// has to be implemented by child controller...
+}
+
+
+- (void)viewDidLoad 
+{
+	[super viewDidLoad];
+	[self toggleControls];
+}
+
+
+
+- (void)toggleControls
+{
+	float alpha = 1.0f;
+	if (navigationBar.alpha > 0) {
+		alpha = 0.0f;
+		[hideControlsTimer invalidate];
+	} else {
+		hideControlsTimer = [NSTimer scheduledTimerWithTimeInterval:4.0f target:self selector:@selector(hideControls:) userInfo:nil repeats:NO];
+	}
+
+	CGContextRef context = UIGraphicsGetCurrentContext();
+	[UIView beginAnimations:nil context:context];
+	[UIView setAnimationDuration:0.2];
+	navigationBar.alpha = alpha;
+	toolBar.alpha = alpha;
+	[UIView commitAnimations];
+}
+
+
+
+
+- (void)hideControls:(NSTimer*)aTimer
+{
+	if (navigationBar.alpha > 0) {
+		CGContextRef context = UIGraphicsGetCurrentContext();
+		[UIView beginAnimations:nil context:context];
+		[UIView setAnimationDuration:0.2];
+		navigationBar.alpha = 0;
+		toolBar.alpha = 0;
+		[UIView commitAnimations];
+	}
+}
+
+
+- (IBAction)closeFile
+{
+	[[UIApplication sharedApplication] setStatusBarHidden:NO animated:YES];
+	[[self parentViewController] dismissModalViewControllerAnimated:YES];
 }
 
 /*
@@ -32,12 +92,10 @@
 }
 */
 
-/*
+
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
-    [super viewDidLoad];
-}
-*/
+
+
 
 /*
 // Override to allow orientations other than the default portrait orientation.
@@ -59,10 +117,6 @@
 	// e.g. self.myOutlet = nil;
 }
 
-
-- (void)dealloc {
-    [super dealloc];
-}
 
 
 @end
