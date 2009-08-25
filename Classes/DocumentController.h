@@ -11,16 +11,10 @@
 #import "AFWebView.h"
 
 
-@interface DocumentController : FileController {
+@interface DocumentController : FileController <UIWebViewDelegate> {
 	IBOutlet AFWebView *webView;
 }
 
 @property (nonatomic, retain) IBOutlet AFWebView *webView;
-
-- (void)openFile:(DirectoryItem *)file;
-
-
-
-
 
 @end

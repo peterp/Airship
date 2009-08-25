@@ -198,9 +198,10 @@
 			fileController = [[ImageController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
 		}
 		
+		
 		[[UIApplication sharedApplication] setStatusBarHidden:YES animated:YES];
+		fileController.directoryItem = item;
 		[self.navigationController presentModalViewController:fileController animated:YES];
-		[fileController openFile:item];
 		[fileController release];
 
 

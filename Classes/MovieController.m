@@ -27,20 +27,14 @@
 	self.view.backgroundColor = [UIColor blackColor];
 }
 
-- (void)openFile:(DirectoryItem *)file
+- (void)viewWillAppear:(BOOL)animated
 {
-	// Load and play the movie.
-	self.title = file.name;
-	MPMoviePlayerController *moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:[NSURL fileURLWithPath:file.path]];
+	MPMoviePlayerController *moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:[NSURL fileURLWithPath:directoryItem.path]];
 	moviePlayer.scalingMode = MPMovieScalingModeAspectFill;
 	moviePlayer.movieControlMode = MPMovieControlModeDefault;
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayerFinishedCallback:) name:MPMoviePlayerPlaybackDidFinishNotification object:moviePlayer];
 	[moviePlayer play];
 }
-
-
-
-
 
 -(void)moviePlayerFinishedCallback:(NSNotification*)aNotification 
 {
@@ -53,18 +47,10 @@
 }
 
 
-- (void)didReceiveMemoryWarning {
-	// Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-	
-	// Release any cached data, images, etc that aren't in use.
+- (void)didReceiveMemoryWarning 
+{
+	[super didReceiveMemoryWarning];
 }
-
-- (void)viewDidUnload {
-	// Release any retained subviews of the main view.
-	// e.g. self.myOutlet = nil;
-}
-
 
 
 

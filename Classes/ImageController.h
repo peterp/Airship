@@ -11,16 +11,12 @@
 @class TapDetectingScrollView;
 
 @interface ImageController : FileController <UIScrollViewDelegate> {
-
 	IBOutlet TapDetectingScrollView *scrollView;
 	UIImageView *imageView;
-	
-	
 }
 
 @property (nonatomic, retain) IBOutlet TapDetectingScrollView *scrollView;
 @property (nonatomic, retain) UIImageView *imageView;
 
-- (void)openFile:(DirectoryItem *)file;
 
 @end

@@ -21,20 +21,13 @@
 	[super dealloc];
 }
 
-
-
-- (void)viewDidLoad 
+- (void)viewDidAppear:(BOOL)animated
 {
-	[super viewDidLoad];
+	[webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:directoryItem.path]]];
 }
 
 
-- (void)openFile:(DirectoryItem *)file
-{
-	navigationBar.topItem.title = file.name;
-	[webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:file.path]]];
-}
-
+#pragma mark AFWebView methods
 
 - (void)webView:(UIWebView*)sender tappedWithTouch:(UITouch*)touch event:(UIEvent*)event
 {
@@ -46,6 +39,18 @@
 - (void)webView:(UIWebView*)sender zoomingEndedWithTouches:(NSSet*)touches event:(UIEvent*)event
 {
 //	NSLog(@"finished zooming");
+}
+
+#pragma mark UIWebView Delegates
+
+- (void)webViewDidStartLoad:(UIWebView *)aWebView
+{
+	[self showActivityIndicatorWithStyle:UIActivityIndicatorViewStyleGray];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)aWebView
+{
+	[self hideActivityIndicator];
 }
 
 

@@ -21,37 +21,34 @@
 	[super dealloc];
 }
 
-- (void)viewDidLoad 
+- (void)viewDidLoad
 {
 	[super viewDidLoad];
+	[self showActivityIndicatorWithStyle:UIActivityIndicatorViewStyleWhiteLarge];
 }
 
 
-- (void)openFile:(DirectoryItem *)file
+- (void)viewDidAppear:(BOOL)animated
 {
-	navigationBar.topItem.title = file.name;
-	
-	self.imageView = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:file.path]];
+
+	self.imageView = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:directoryItem.path]];
 	imageView.contentMode = UIViewContentModeCenter;
-	
-	
+
 	scrollView.clipsToBounds = NO;
 	scrollView.delegate = self;
-	
 	float minimumScale = scrollView.frame.size.width / imageView.frame.size.width;
 	scrollView.maximumZoomScale = 2.5;
 	scrollView.minimumZoomScale = minimumScale;
 	scrollView.zoomScale = minimumScale;
 	scrollView.contentSize = imageView.frame.size;
-	
+	scrollView.showsVerticalScrollIndicator = scrollView.showsHorizontalScrollIndicator = NO;
+
 	imageView.frame = scrollView.frame;
-	
-	
 	[scrollView addSubview:imageView];
 	[imageView release];
-
-	
+	[self hideActivityIndicator];
 }
+
 
 
 
@@ -62,11 +59,6 @@
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView 
 {
 	return imageView;
-}
-
-
-- (void)scrollViewDidEndZooming:(UIScrollView *)aScrollView withView:(UIView *)aView atScale:(float)scale
-{
 }
 
 
