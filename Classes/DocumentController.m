@@ -21,9 +21,12 @@
 	[super dealloc];
 }
 
+
+
 - (void)viewDidAppear:(BOOL)animated
 {
 	[webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:directoryItem.path]]];
+	[self showActivityIndicatorWithStyle:UIActivityIndicatorViewStyleWhiteLarge];
 }
 
 
@@ -32,7 +35,7 @@
 - (void)webView:(UIWebView*)sender tappedWithTouch:(UITouch*)touch event:(UIEvent*)event
 {
 	if (touch.tapCount == 1) {
-		[self toggleControls];
+		[self toggleToolBarsHidden];
 	}
 }
 
@@ -45,7 +48,7 @@
 
 - (void)webViewDidStartLoad:(UIWebView *)aWebView
 {
-	[self showActivityIndicatorWithStyle:UIActivityIndicatorViewStyleGray];
+	[self showActivityIndicatorWithStyle:UIActivityIndicatorViewStyleWhiteLarge];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)aWebView

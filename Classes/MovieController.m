@@ -42,7 +42,6 @@
 	[[NSNotificationCenter defaultCenter] removeObserver:aNotification];
 	[moviePlayer stop];
 	[moviePlayer release];
-	// This might change at some stage, since we want to display these modally.
 	[[self parentViewController] dismissModalViewControllerAnimated:YES];
 }
 

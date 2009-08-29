@@ -12,23 +12,27 @@
 @implementation FileController
 
 
-@synthesize navigationBar, toolBar;
+@synthesize navigationBar, toolBar, activityIndicator;
 @synthesize directoryItem;
-@synthesize activityIndicator;
 
 
 - (void)dealloc
 {
+	self.activityIndicator = nil;
 	self.navigationBar = nil;
 	self.toolBar = nil;
 	
 	self.directoryItem = nil;
+	
+	
 	[super dealloc];
 }
 
 
 - (void)viewDidLoad 
 {
+
+	// our lovely navigationbar
 	self.navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
 	navigationBar.barStyle = UIBarStyleBlackTranslucent;
 	navigationBar.alpha = 0;
@@ -41,20 +45,18 @@
 	[self.view addSubview:navigationBar];
 	[navigationBar release];
 
-
-
-
-	
-//	
-//	self.toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 436, 320,8 44)];
-//	toolBar.tintColor = [UIColor blackColor];
-//	toolBar.translucent = YES;
-//	[self.view addSubview:toolBar];
-//	[toolBar release];
+	// toolbar
+	self.toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 436, 320, 44)];
+	toolBar.barStyle = UIBarStyleBlackTranslucent;
+	toolBar.alpha = 0;
+	[self.view addSubview:toolBar];
+	[toolBar release];
 	
 
 	
-	[self toggleControls];
+	[self toggleToolBarsHidden];
+
+
 	
 	[super viewDidLoad];
 }
@@ -65,45 +67,45 @@
 
 
 
+# pragma mark UINavigationBar and UIToolBar
 
-
-
-- (void)toggleControls
+- (void)toggleToolBarsHidden
 {
-	float alpha = 1.0f;
 	if (navigationBar.alpha > 0) {
-		alpha = 0.0f;
-		[hideControlsTimer invalidate];
+		// hide tools bars.
+		[self setToolBarsHidden:YES];
+		[hideToolBarsTimer invalidate];
 	} else {
-		hideControlsTimer = [NSTimer scheduledTimerWithTimeInterval:4.0f target:self selector:@selector(hideControls:) userInfo:nil repeats:NO];
+		// show tools bars
+		[self setToolBarsHidden:NO];
+		hideToolBarsTimer = [NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(hideToolBars:) userInfo:nil repeats:NO];
 	}
+}
 
-	CGContextRef context = UIGraphicsGetCurrentContext();
-	[UIView beginAnimations:nil context:context];
-	[UIView setAnimationDuration:0.2];
-	navigationBar.alpha = alpha;
-	toolBar.alpha = alpha;
+- (void)hideToolBars:(NSTimer *)aTimer
+{
+	[self setToolBarsHidden:YES];
+}
+
+
+- (void)setToolBarsHidden:(BOOL)b
+{
+	[UIView beginAnimations:nil context:self];
+	[UIView setAnimationDuration:UINavigationControllerHideShowBarDuration];
+	navigationBar.alpha = b ? 0 : 1;
+	toolBar.alpha = b ? 0 : 1;
 	[UIView commitAnimations];
 }
 
 
 
 
-- (void)hideControls:(NSTimer*)aTimer
-{
-	if (navigationBar.alpha > 0) {
-		CGContextRef context = UIGraphicsGetCurrentContext();
-		[UIView beginAnimations:nil context:context];
-		[UIView setAnimationDuration:0.2];
-		navigationBar.alpha = 0;
-		toolBar.alpha = 0;
-		[UIView commitAnimations];
-	}
-}
+
 
 
 - (IBAction)closeFile
 {
+	[hideToolBarsTimer invalidate];
 	[[UIApplication sharedApplication] setStatusBarHidden:NO animated:YES];
 	[[self parentViewController] dismissModalViewControllerAnimated:YES];
 }
@@ -113,15 +115,16 @@
 
 
 
-
+- (void)showActivityIndicator
+{
+}
 
 
 
 - (void)showActivityIndicatorWithStyle:(UIActivityIndicatorViewStyle)style
 {
-	self.activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake((self.view.frame.size.width / 2) - 25, (self.view.frame.size.height / 2) - 25, 50, 50)];
-	activityIndicator.activityIndicatorViewStyle = style;
-	[self.view addSubview:activityIndicator];
+	self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+	navigationBar.topItem.rightBarButtonItem = activityIndicator;
 	[activityIndicator startAnimating];
 	[activityIndicator release];
 }
@@ -141,11 +144,8 @@
 	// Release any cached data, images, etc that aren't in use.
 }
 
-- (void)viewDidUnload {
-	// Release any retained subviews of the main view.
-	// e.g. self.myOutlet = nil;
-}
 
 
 
 @end
+

@@ -50,7 +50,7 @@
 						<bool key="IBUIScalesPageToFit">YES</bool>
 					</object>
 				</object>
-				<string key="NSFrameSize">{320, 460}</string>
+				<string key="NSFrameSize">{320, 480}</string>
 				<reference key="NSSuperview"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
@@ -59,7 +59,6 @@
 						<int key="NSID">2</int>
 					</object>
 				</object>
-				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
 			</object>
 		</object>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
@@ -143,7 +142,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>DocumentController</string>
 					<string>UIResponder</string>
-					<string>{{700, 131}, {320, 480}}</string>
+					<string>{{700, 132}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>AFWebView</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>

@@ -199,43 +199,10 @@
 		}
 		
 		
-		[[UIApplication sharedApplication] setStatusBarHidden:YES animated:YES];
 		fileController.directoryItem = item;
+		[[UIApplication sharedApplication] setStatusBarHidden:YES animated:YES];
 		[self.navigationController presentModalViewController:fileController animated:YES];
 		[fileController release];
-
-
-	
-	
-//		//
-//DocumentViewController *documentViewController = [[DocumentViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
-//[self.navigationController pushViewController:documentViewController animated:YES];
-//[documentViewController openFile:item];
-//[documentViewController release];
-//
-//} else if ([item.type isEqualToString:@"video"]) {
-//
-//MovieViewController *mediaViewController= [[MovieViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
-//[self.navigationController pushViewController:mediaViewController animated:YES];
-//[mediaViewController openFile:item];
-//[mediaViewController release];
-//
-//} else if ([item.type isEqualToString:@"image"]) {
-//ImageViewController *imageViewController = [[ImageViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
-//[self.navigationController pushViewController:imageViewController animated:YES];
-//[imageViewController openFile:item];
-//[imageViewController release];
-//
-//} else if ([item.type isEqualToString:@"audio"]) {
-//AudioViewController *audioViewController = [[AudioViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
-//[self.navigationController pushViewController:audioViewController animated:YES];
-//[audioViewController release];
-//}
-////
-	
-	
-	
-	
 	}
 
 

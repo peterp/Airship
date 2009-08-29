@@ -66,7 +66,7 @@
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event 
 {
-	[self toggleControls];
+	[self toggleToolBarsHidden];
 }
 
 
