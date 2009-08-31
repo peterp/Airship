@@ -8,13 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "FileController.h"
-#import "TapDetectingWebView.h"
+//#import "TapDetectingWebView.h"
+@class TapDetectingWebView;
 
 
 @interface DocumentController : FileController <UIWebViewDelegate> {
-	IBOutlet TapDetectingWebView *webView;
+	
+	TapDetectingWebView *webView;
 }
 
-@property (nonatomic, retain) IBOutlet TapDetectingWebView *webView;
+@property (nonatomic, retain) TapDetectingWebView *webView;
+
 
 @end

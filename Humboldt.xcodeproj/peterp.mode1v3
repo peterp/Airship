@@ -229,8 +229,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -269,6 +267,9 @@
 								<string>CE38A3740FF6ACEE00E93C29</string>
 								<string>080E96DDFE201D6D7F000001</string>
 								<string>CEC144E4101D092E000DA2AE</string>
+								<string>CE9A3D59104C6DF50095B470</string>
+								<string>CE9A3D58104C6DD70095B470</string>
+								<string>CE9A3D57104C6DC90095B470</string>
 								<string>29B97317FDCFA39411CA2CEA</string>
 								<string>1C37FBAC04509CD000000102</string>
 								<string>1C37FABC05509CD000000102</string>
@@ -277,9 +278,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>24</integer>
-									<integer>6</integer>
-									<integer>4</integer>
+									<integer>33</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -314,12 +313,14 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>TapDetectingImageView.m</string>
+								<string>FileController.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -327,11 +328,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>TapDetectingImageView.m</string>
+										<string>FileController.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>CE9A3CD6104C63BA0095B470</string>
+										<string>CE9A3DFC104C84920095B470</string>
 										<key>history</key>
 										<array>
 											<string>CEE04D2D0FD9AE7300C32900</string>
@@ -356,13 +357,11 @@
 											<string>CEA5276A1020DCB400E8B383</string>
 											<string>CE3B695110236DAD00463CF1</string>
 											<string>CE3B695210236DAD00463CF1</string>
-											<string>CEA887E9102B6DB50029ED9F</string>
 											<string>CEECF86310302E0F00469751</string>
 											<string>CEECF86710302E0F00469751</string>
 											<string>CEC34DA61034B238008021B0</string>
 											<string>CEC34DA71034B238008021B0</string>
 											<string>CEC34DA81034B238008021B0</string>
-											<string>CE93B038103C83430069BD35</string>
 											<string>CE93B0EA103C92D80069BD35</string>
 											<string>CE96953A103F230200D040AB</string>
 											<string>CE96954E103F236500D040AB</string>
@@ -370,19 +369,22 @@
 											<string>CE8D9A9E104486C30041B9F1</string>
 											<string>CE8D9AA0104486C30041B9F1</string>
 											<string>CE8D9AA1104486C30041B9F1</string>
-											<string>CED8FC95104948FF00F0FE87</string>
-											<string>CED8FD23104976FF00F0FE87</string>
 											<string>CED8FD3C1049779300F0FE87</string>
-											<string>CE9A3C64104C57200095B470</string>
-											<string>CE9A3CBD104C622D0095B470</string>
-											<string>CE9A3CBE104C622D0095B470</string>
-											<string>CE9A3CBF104C622D0095B470</string>
-											<string>CE9A3CC0104C622D0095B470</string>
-											<string>CE9A3CC1104C622D0095B470</string>
-											<string>CE9A3CC2104C622D0095B470</string>
-											<string>CE9A3CD3104C63BA0095B470</string>
-											<string>CE9A3CD4104C63BA0095B470</string>
-											<string>CE9A3CD5104C63BA0095B470</string>
+											<string>CE9A3D5A104C6E0E0095B470</string>
+											<string>CE9A3D5C104C6E0E0095B470</string>
+											<string>CE9A3D5F104C6E0E0095B470</string>
+											<string>CE9A3D75104C72E20095B470</string>
+											<string>CE9A3D9A104C80500095B470</string>
+											<string>CE9A3D9B104C80500095B470</string>
+											<string>CE9A3D9C104C80500095B470</string>
+											<string>CE9A3DB4104C81C40095B470</string>
+											<string>CE9A3DD9104C83490095B470</string>
+											<string>CE9A3DDA104C83490095B470</string>
+											<string>CE9A3DDB104C83490095B470</string>
+											<string>CE9A3DDC104C83490095B470</string>
+											<string>CE9A3DF0104C84000095B470</string>
+											<string>CE9A3DF1104C84000095B470</string>
+											<string>CE9A3DF2104C84000095B470</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -605,7 +607,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>TapDetectingWebView.m</string>
+								<string>FileController.m</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>

@@ -24,7 +24,7 @@
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
-	[self showActivityIndicatorWithStyle:UIActivityIndicatorViewStyleWhiteLarge];
+//	[self showActivityIndicatorWithStyle:UIActivityIndicatorViewStyleWhiteLarge];
 }
 
 
@@ -46,7 +46,7 @@
 	imageView.frame = scrollView.frame;
 	[scrollView addSubview:imageView];
 	[imageView release];
-	[self hideActivityIndicator];
+//	[self hideActivityIndicator];
 }
 
 
@@ -66,7 +66,7 @@
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event 
 {
-	[self toggleToolBarsHidden];
+//	[self toggleToolBarsHidden];
 }
 
 

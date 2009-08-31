@@ -7,6 +7,7 @@
 //
 
 #import "DocumentController.h"
+#import "TapDetectingWebView.h"
 
 
 @implementation DocumentController
@@ -22,41 +23,60 @@
 }
 
 
-
 - (void)viewDidAppear:(BOOL)animated
 {
+	// show activity indicator.
 	[webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:directoryItem.path]]];
-	[self showActivityIndicatorWithStyle:UIActivityIndicatorViewStyleWhiteLarge];
 }
 
-
-#pragma mark AFWebView methods
-
-- (void)webView:(UIWebView *)sender tappedWithTouch:(UITouch *)touch event:(UIEvent *)event
+- (void)viewDidLoad
 {
-//	NSLog(@"event: %@ \r\n\n\n\n\n---------------------------------", event);
-
-//	if (touch.tapCount == 1) {
-//		[self toggleToolBarsHidden];
-//	}
+	self.webView = [[TapDetectingWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
+	webView.delegate = self;
+	webView.scalesPageToFit = YES;
+	webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+	[self.view addSubview:webView];
+	[webView release];
+	
+	// add navigationBar & toolBar.
+	[super viewDidLoad];
 }
 
-//- (void)webView:(UIWebView*)sender zoomingEndedWithTouches:(NSSet*)touches event:(UIEvent*)event
-//{
-////	NSLog(@"finished zooming");
-//}
+- (void)didReceiveMemoryWarning
+{
+
+	NSLog(@"OH SHIT, A FUCKEN MEMORY WARNING");
+	[super didReceiveMemoryWarning];
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+	return YES;
+}
+
+
+#pragma mark TapDetectingWebViewDelegate methods
+
+
+- (void)tapDetectingWebViewGotSingleTap:(TapDetectingWebView *)aWebView
+{
+//	[self toggleToolBarsHidden];
+}
+
 
 #pragma mark UIWebView Delegates
 
+
 - (void)webViewDidStartLoad:(UIWebView *)aWebView
 {
-	[self showActivityIndicatorWithStyle:UIActivityIndicatorViewStyleWhiteLarge];
+//	[self showActivityIndicatorWithStyle:UIActivityIndicatorViewStyleWhiteLarge];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)aWebView
 {
-	[self hideActivityIndicator];
+//	[self hideActivityIndicator];
 }
+
 
 
 

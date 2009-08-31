@@ -12,13 +12,13 @@
 @implementation FileController
 
 
-@synthesize navigationBar, toolBar, activityIndicator;
+@synthesize navigationBar, toolBar;
 @synthesize directoryItem;
 
 
 - (void)dealloc
 {
-	self.activityIndicator = nil;
+
 	self.navigationBar = nil;
 	self.toolBar = nil;
 	
@@ -32,33 +32,41 @@
 - (void)viewDidLoad 
 {
 
-
-	// our lovely navigationbar
+	// init navigationBar.
 	self.navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
 	navigationBar.barStyle = UIBarStyleBlackTranslucent;
-	navigationBar.alpha = 0;
-	
-	UINavigationItem *navigationItem = [[UINavigationItem alloc] initWithTitle:directoryItem.name];
-
-	
-	UIBarButtonItem *doneBarButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(closeFile)];
-	navigationItem.leftBarButtonItem = doneBarButton;
-	[doneBarButton release];
-	[navigationBar pushNavigationItem:navigationItem animated:NO];
-	[navigationItem release];
+	navigationBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 	[self.view addSubview:navigationBar];
 	[navigationBar release];
+	
 
-	// toolbar
-	self.toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 436, 320, 44)];
-	toolBar.barStyle = UIBarStyleBlackTranslucent;
-	toolBar.alpha = 0;
-	[self.view addSubview:toolBar];
-	[toolBar release];
-	
-	[self toggleToolBarsHidden];
-	
-	[super viewDidLoad];
+
+	// our lovely navigationbar
+//	self.navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+//	navigationBar.barStyle = UIBarStyleBlackTranslucent;
+//	navigationBar.alpha = 0;
+//	
+//	UINavigationItem *navigationItem = [[UINavigationItem alloc] initWithTitle:directoryItem.name];
+//
+//	
+//	UIBarButtonItem *doneBarButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(closeFile)];
+//	navigationItem.leftBarButtonItem = doneBarButton;
+//	[doneBarButton release];
+//	[navigationBar pushNavigationItem:navigationItem animated:NO];
+//	[navigationItem release];
+//	[self.view addSubview:navigationBar];
+//	[navigationBar release];
+//
+//	// toolbar
+//	self.toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 436, 320, 44)];
+//	toolBar.barStyle = UIBarStyleBlackTranslucent;
+//	toolBar.alpha = 0;
+//	[self.view addSubview:toolBar];
+//	[toolBar release];
+//	
+//	[self toggleToolBarsHidden];
+//	
+//	[super viewDidLoad];
 }
 
 
@@ -73,18 +81,18 @@
 {
 	if (navigationBar.alpha > 0) {
 		// hide tools bars.
-		[self setToolBarsHidden:YES];
-		[hideToolBarsTimer invalidate];
+//		[self setToolBarsHidden:YES];
+//		[hideToolBarsTimer invalidate];
 	} else {
 		// show tools bars
-		[self setToolBarsHidden:NO];
-		hideToolBarsTimer = [NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(hideToolBars:) userInfo:nil repeats:NO];
+//		[self setToolBarsHidden:NO];
+//		hideToolBarsTimer = [NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(hideToolBars:) userInfo:nil repeats:NO];
 	}
 }
 
 - (void)hideToolBars:(NSTimer *)aTimer
 {
-	[self setToolBarsHidden:YES];
+//	[self setToolBarsHidden:YES];
 }
 
 
@@ -105,7 +113,7 @@
 
 - (IBAction)closeFile
 {
-	[hideToolBarsTimer invalidate];
+//	[hideToolBarsTimer invalidate];
 	[[UIApplication sharedApplication] setStatusBarHidden:NO animated:YES];
 	[[self parentViewController] dismissModalViewControllerAnimated:YES];
 }
@@ -132,9 +140,9 @@
 
 - (void)hideActivityIndicator
 {
-	[activityIndicator stopAnimating];
-	[activityIndicator removeFromSuperview];
-	self.activityIndicator = nil;
+//	[activityIndicator stopAnimating];
+//	[activityIndicator removeFromSuperview];
+//	self.activityIndicator = nil;
 }
 
 - (void)didReceiveMemoryWarning {

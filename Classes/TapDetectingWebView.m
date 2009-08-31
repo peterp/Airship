@@ -8,33 +8,47 @@
 #import <objc/runtime.h>
 #import "TapDetectingWebView.h"
 
+#define DOUBLE_TAP_DELAY 0.35
+
+
+@interface TapDetectingWebView ()
+- (void)handleSingleTap;
+- (void)handleDoubleTap;
+//- (void)handleTwoFingerTap;
+@end
+
+
 
 @interface NSObject (UIWebViewTappingDelegate)
-- (void)webView:(UIWebView*)sender zoomingEndedWithTouches:(NSSet*)touches event:(UIEvent*)event;
-- (void)webView:(UIWebView*)sender tappedWithTouch:(UITouch*)touch event:(UIEvent*)event;
+//- (void)webView:(UIWebView*)sender zoomingEndedWithTouches:(NSSet*)touches event:(UIEvent*)event;
+//- (void)webView:(UIWebView*)sender tappedWithTouch:(UITouch*)touch event:(UIEvent*)event;
+
+
+- (void)tapDetectingWebViewGotSingleTap:(TapDetectingWebView *)aWebView;
+- (void)tapDetectingWebViewGotDoubleTap:(TapDetectingWebView *)aWebView;
+
 @end
 
-@interface TapDetectingWebView (Private)
-- (void)fireZoomingEndedWithTouches:(NSSet*)touches event:(UIEvent*)event;
-- (void)fireTappedWithTouch:(UITouch*)touch event:(UIEvent*)event;
-@end
+
 
 @implementation UIView (__TapHook)
+
+//- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+//{
+
 
 - (void)__touchesEnded:(NSSet*)touches withEvent:(UIEvent*)event
 {
 	[self __touchesEnded:touches withEvent:event];
 	
 	id webView = [[self superview] superview];
-	if (touches.count > 1) {
-		if ([webView respondsToSelector:@selector(fireZoomingEndedWithTouches:event:)]) {
-			[webView fireZoomingEndedWithTouches:touches event:event];
-		}
-	}
-	else {
-		if ([webView respondsToSelector:@selector(fireTappedWithTouch:event:)]) {
-			[webView fireTappedWithTouch:[touches anyObject] event:event];
-		}
+	UITouch *touch = [touches anyObject];
+ 
+	if ([touch tapCount] == 1) {
+		[webView performSelector:@selector(handleSingleTap) withObject:nil afterDelay:DOUBLE_TAP_DELAY];
+	} else if([touch tapCount] == 2) {
+		[NSObject cancelPreviousPerformRequestsWithTarget:webView selector:@selector(handleSingleTap) object:nil];
+//		[webView handleDoubleTap];
 	}
 }
 
@@ -56,6 +70,10 @@ static void installHook()
 
 @implementation TapDetectingWebView
 
+
+
+
+
 - (id)initWithCoder:(NSCoder*)coder
 {
     if (self = [super initWithCoder:coder]) {
@@ -72,18 +90,21 @@ static void installHook()
     return self;
 }
 
-- (void)fireZoomingEndedWithTouches:(NSSet*)touches event:(UIEvent*)event
+
+
+
+- (void)handleSingleTap
 {
-	if ([self.delegate respondsToSelector:@selector(webView:zoomingEndedWithTouches:event:)]) {
-		[(NSObject*)self.delegate webView:self zoomingEndedWithTouches:touches event:event];
+	if ([self.delegate respondsToSelector:@selector(tapDetectingWebViewGotSingleTap:)]) {
+		[(NSObject *)self.delegate tapDetectingWebViewGotSingleTap:self];
 	}
 }
 
-- (void)fireTappedWithTouch:(UITouch*)touch event:(UIEvent*)event
+- (void)handleDoubleTap
 {
-	if ([self.delegate respondsToSelector:@selector(webView:tappedWithTouch:event:)]) {
-		[(NSObject*)self.delegate webView:self tappedWithTouch:touch event:event];
-	}
+//	if ([self.delegate respondsToSelector:@selector(tapDetectingWebViewGotDoubleTap:)]) {
+//		[(NSObject *)self.delegate tapDetectingWebViewGotDoubleTap:self];
+//	}
 }
 
 @end

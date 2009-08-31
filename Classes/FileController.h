@@ -11,17 +11,21 @@
 
 
 @interface FileController : UIViewController {
+
 	IBOutlet UINavigationBar *navigationBar;
 	IBOutlet UIToolbar *toolBar;
-	UIActivityIndicatorView *activityIndicator;
 	
-	NSTimer *hideToolBarsTimer;
+	//UIActivityIndicatorView *activityIndicator;
+	
+//	NSTimer *hideToolBarsTimer;
+
+
 	DirectoryItem *directoryItem;
 }
 
 @property (nonatomic, retain) IBOutlet UINavigationBar *navigationBar;
 @property (nonatomic, retain) IBOutlet UIToolbar *toolBar;
-@property (nonatomic, retain) UIActivityIndicatorView *activityIndicator;
+//@property (nonatomic, retain) UIActivityIndicatorView *activityIndicator;
 
 @property (nonatomic, retain) DirectoryItem *directoryItem;
 
@@ -30,15 +34,15 @@
 
 - (IBAction)closeFile;
 
-- (void)toggleToolBarsHidden;
-- (void)hideToolBars:(NSTimer*)aTimer;
-- (void)setToolBarsHidden:(BOOL)b;
-
-
-
-
-- (void)showActivityIndicatorWithStyle:(UIActivityIndicatorViewStyle)style;
-- (void)hideActivityIndicator;
+//- (void)toggleToolBarsHidden;
+//- (void)hideToolBars:(NSTimer*)aTimer;
+//- (void)setToolBarsHidden:(BOOL)b;
+//
+//
+//
+//
+//- (void)showActivityIndicatorWithStyle:(UIActivityIndicatorViewStyle)style;
+//- (void)hideActivityIndicator;
 
 
 @end
