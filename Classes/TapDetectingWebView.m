@@ -6,7 +6,7 @@
 //  Copyright 2009 __MyCompanyName__. All rights reserved.
 //
 #import <objc/runtime.h>
-#import "AFWebView.h"
+#import "TapDetectingWebView.h"
 
 
 @interface NSObject (UIWebViewTappingDelegate)
@@ -14,7 +14,7 @@
 - (void)webView:(UIWebView*)sender tappedWithTouch:(UITouch*)touch event:(UIEvent*)event;
 @end
 
-@interface AFWebView (Private)
+@interface TapDetectingWebView (Private)
 - (void)fireZoomingEndedWithTouches:(NSSet*)touches event:(UIEvent*)event;
 - (void)fireTappedWithTouch:(UITouch*)touch event:(UIEvent*)event;
 @end
@@ -54,7 +54,7 @@ static void installHook()
 	method_exchangeImplementations(targetMethod, newMethod);
 }
 
-@implementation AFWebView
+@implementation TapDetectingWebView
 
 - (id)initWithCoder:(NSCoder*)coder
 {

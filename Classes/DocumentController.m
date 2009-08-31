@@ -32,17 +32,19 @@
 
 #pragma mark AFWebView methods
 
-- (void)webView:(UIWebView*)sender tappedWithTouch:(UITouch*)touch event:(UIEvent*)event
+- (void)webView:(UIWebView *)sender tappedWithTouch:(UITouch *)touch event:(UIEvent *)event
 {
-	if (touch.tapCount == 1) {
-		[self toggleToolBarsHidden];
-	}
+//	NSLog(@"event: %@ \r\n\n\n\n\n---------------------------------", event);
+
+//	if (touch.tapCount == 1) {
+//		[self toggleToolBarsHidden];
+//	}
 }
 
-- (void)webView:(UIWebView*)sender zoomingEndedWithTouches:(NSSet*)touches event:(UIEvent*)event
-{
-//	NSLog(@"finished zooming");
-}
+//- (void)webView:(UIWebView*)sender zoomingEndedWithTouches:(NSSet*)touches event:(UIEvent*)event
+//{
+////	NSLog(@"finished zooming");
+//}
 
 #pragma mark UIWebView Delegates
 

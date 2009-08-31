@@ -54,7 +54,7 @@
 		CEC34E2C103594BF008021B0 /* video.png in Resources */ = {isa = PBXBuildFile; fileRef = CEC34E26103594BF008021B0 /* video.png */; };
 		CEC586130FC98AE500326D27 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC586110FC98AE500326D27 /* DetailViewController.m */; };
 		CEE04E9F0FD9E82E00C32900 /* AFMultipartParser.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE04E9E0FD9E82E00C32900 /* AFMultipartParser.m */; };
-		CEECEDB01019DA1100B3918A /* AFWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEECEDAF1019DA1100B3918A /* AFWebView.m */; };
+		CEECEDB01019DA1100B3918A /* TapDetectingWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEECEDAF1019DA1100B3918A /* TapDetectingWebView.m */; };
 		CEECF8E81030375800469751 /* ServerController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEECF8E61030375800469751 /* ServerController.m */; };
 		CEECF8E91030375800469751 /* ServerController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEECF8E71030375800469751 /* ServerController.xib */; };
 		CEF21BB40FF432810042E698 /* DirectoryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF21BB30FF432810042E698 /* DirectoryItem.m */; };
@@ -140,8 +140,8 @@
 		CEC586100FC98AE500326D27 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		CEC586110FC98AE500326D27 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		CEE04E9E0FD9E82E00C32900 /* AFMultipartParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFMultipartParser.m; sourceTree = "<group>"; };
-		CEECEDAE1019DA1100B3918A /* AFWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFWebView.h; sourceTree = "<group>"; };
-		CEECEDAF1019DA1100B3918A /* AFWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFWebView.m; sourceTree = "<group>"; };
+		CEECEDAE1019DA1100B3918A /* TapDetectingWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapDetectingWebView.h; sourceTree = "<group>"; };
+		CEECEDAF1019DA1100B3918A /* TapDetectingWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapDetectingWebView.m; sourceTree = "<group>"; };
 		CEECF8E51030375800469751 /* ServerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerController.h; sourceTree = "<group>"; };
 		CEECF8E61030375800469751 /* ServerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerController.m; sourceTree = "<group>"; };
 		CEECF8E71030375800469751 /* ServerController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ServerController.xib; path = Classes/ServerController.xib; sourceTree = "<group>"; };
@@ -327,8 +327,8 @@
 				CE8C98A61039E82400E7E3ED /* MovieController.m */,
 				CE8C992D1039F8FC00E7E3ED /* DocumentController.h */,
 				CE8C992E1039F8FC00E7E3ED /* DocumentController.m */,
-				CEECEDAE1019DA1100B3918A /* AFWebView.h */,
-				CEECEDAF1019DA1100B3918A /* AFWebView.m */,
+				CEECEDAE1019DA1100B3918A /* TapDetectingWebView.h */,
+				CEECEDAF1019DA1100B3918A /* TapDetectingWebView.m */,
 				CE93B065103C862E0069BD35 /* ImageController.h */,
 				CE93B066103C862E0069BD35 /* ImageController.m */,
 				CE8704C61041C4AB00A18899 /* TapDetectingScrollView.h */,
@@ -451,7 +451,7 @@
 				CE38A3BB0FF6AE3000E93C29 /* NSDictionary_JSONExtensions.m in Sources */,
 				CE38A3BC0FF6AE3000E93C29 /* NSScanner_Extensions.m in Sources */,
 				CE6C9EED0FF6AFC5009CCC45 /* FolderController.m in Sources */,
-				CEECEDB01019DA1100B3918A /* AFWebView.m in Sources */,
+				CEECEDB01019DA1100B3918A /* TapDetectingWebView.m in Sources */,
 				CEA88706102AECB50029ED9F /* TapDetectingImageView.m in Sources */,
 				CEA887E7102B6D610029ED9F /* AudioViewController.m in Sources */,
 				CEECF8E81030375800469751 /* ServerController.m in Sources */,

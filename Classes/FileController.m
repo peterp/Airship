@@ -32,11 +32,15 @@
 - (void)viewDidLoad 
 {
 
+
 	// our lovely navigationbar
 	self.navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
 	navigationBar.barStyle = UIBarStyleBlackTranslucent;
 	navigationBar.alpha = 0;
-	2
+	
+	UINavigationItem *navigationItem = [[UINavigationItem alloc] initWithTitle:directoryItem.name];
+
+	
 	UIBarButtonItem *doneBarButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(closeFile)];
 	navigationItem.leftBarButtonItem = doneBarButton;
 	[doneBarButton release];
@@ -52,11 +56,7 @@
 	[self.view addSubview:toolBar];
 	[toolBar release];
 	
-
-	
 	[self toggleToolBarsHidden];
-
-
 	
 	[super viewDidLoad];
 }
@@ -123,10 +123,10 @@
 
 - (void)showActivityIndicatorWithStyle:(UIActivityIndicatorViewStyle)style
 {
-	self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-	navigationBar.topItem.rightBarButtonItem = activityIndicator;
-	[activityIndicator startAnimating];
-	[activityIndicator release];
+//	self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+//	navigationBar.topItem.rightBarButtonItem = activityIndicator;
+//	[activityIndicator startAnimating];
+//	[activityIndicator release];
 }
 
 

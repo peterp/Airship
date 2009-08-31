@@ -9,9 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface AFWebView : UIWebView {
-
-
+@interface TapDetectingWebView : UIWebView {
 }
 
 @end
