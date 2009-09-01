@@ -23,7 +23,9 @@
 
 - (void)viewDidLoad 
 {
-	[super viewDidLoad];
+	// I don't need any of the controls in this view.
+//	[super viewDidLoad];
+
 	self.view.backgroundColor = [UIColor blackColor];
 }
 

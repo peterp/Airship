@@ -49,32 +49,22 @@
 	[super didReceiveMemoryWarning];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-	return YES;
-}
-
 
 #pragma mark TapDetectingWebViewDelegate methods
 
 
 - (void)tapDetectingWebViewGotSingleTap:(TapDetectingWebView *)aWebView
 {
-//	[self toggleToolBarsHidden];
+	[self showHideToolBars];
 }
 
 
 #pragma mark UIWebView Delegates
 
-
-- (void)webViewDidStartLoad:(UIWebView *)aWebView
-{
-//	[self showActivityIndicatorWithStyle:UIActivityIndicatorViewStyleWhiteLarge];
-}
-
 - (void)webViewDidFinishLoad:(UIWebView *)aWebView
 {
-//	[self hideActivityIndicator];
+	[activityIndicatorView stopAnimating];
+	self.activityIndicatorView = nil;
 }
 
 
