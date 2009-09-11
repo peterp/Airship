@@ -64,6 +64,7 @@
 - (void)webViewDidFinishLoad:(UIWebView *)aWebView
 {
 	[activityIndicatorView stopAnimating];
+	[activityIndicatorView removeFromSuperview];
 	self.activityIndicatorView = nil;
 }
 

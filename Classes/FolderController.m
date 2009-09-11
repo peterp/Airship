@@ -10,17 +10,11 @@
 
 #import "DirectoryItem.h"
 
-//#import "DetailViewController.h"
-//#import "DocumentViewController.h"
-//#import "MovieViewController.h"
-//#import "ImageViewController.h"
-//#import "AudioViewController.h"
-
-
 #import "FileController.h"
 #import "MovieController.h"
 #import "DocumentController.h"
 #import "ImageController.h"
+#import "AudioController.h"
 
 
 @implementation FolderController
@@ -196,6 +190,10 @@
 			fileController = [[DocumentController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
 		} else if ([item.type isEqualToString:@"image"]) {
 			fileController = [[ImageController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
+		} else if ([item.type isEqualToString:@"audio"]) {
+			fileController = [[AudioController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
+		} else {
+			// show generic controller... The Unknown.
 		}
 		
 		
