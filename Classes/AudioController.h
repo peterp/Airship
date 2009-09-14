@@ -18,7 +18,6 @@
 	AVAudioPlayer *audioPlayer;
 
 	MPVolumeView *volumeView;
-	UIView *volumeViewSlider;
 	IBOutlet UIView	*volumeViewHolder;
 
 
@@ -39,6 +38,7 @@
 @property (nonatomic, retain) IBOutlet UISlider *songSeekSlider;
 
 - (IBAction)playPauseAudioPlayer;
+
 
 
 - (IBAction)songSeekSliderEditingDidBegin;

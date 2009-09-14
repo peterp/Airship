@@ -8,7 +8,10 @@
 
 #import "AudioController.h"
 
-#import "GBMusicTrack.h"
+
+
+
+
 
 @implementation AudioController
 
@@ -39,6 +42,20 @@
 	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideToolBarsAfterDelay) object:nil];
 	[activityIndicatorView stopAnimating];
 	self.activityIndicatorView = nil;
+	[toolBar removeFromSuperview];
+	
+	
+	// check to see if we can read the ID3 tags...
+
+	
+	
+	// MARGLE.
+	UILabel *titleMainLabel = (UILabel *)[navigationBar.topItem.titleView viewWithTag:1001];
+	titleMainLabel.text = @"Margle";
+	
+	
+
+	
 	
 	// audio session category
 	NSError *setCategoryError = nil;
@@ -56,7 +73,7 @@
 		NSLog(@"%@", [outError description]);
 	} else {
 		[audioPlayer prepareToPlay];
-		[audioPlayer play];
+		//[audioPlayer play];
 	}
 	
 	
@@ -65,10 +82,25 @@
 	[volumeViewHolder addSubview:volumeView];
 	[volumeView release];
 	
+	
+	// Find the volume view slider, match our seeking style to the volume view's slider.
+	for (UIView *view in [volumeView subviews]) {
+		if ([[[view class] description] isEqualToString:@"MPVolumeSlider"]) {
+		
+			UISlider *volumeViewSlider = (UISlider *)view;
+			[songSeekSlider setThumbImage:[volumeViewSlider thumbImageForState:UIControlStateNormal] forState:UIControlStateNormal];
+			[songSeekSlider setMaximumTrackImage:[volumeViewSlider maximumTrackImageForState:UIControlStateNormal] forState:UIControlStateNormal];
+			[songSeekSlider setMinimumTrackImage:[volumeViewSlider minimumTrackImageForState:UIControlStateNormal] forState:UIControlStateNormal];
+		}
+ }
+ 
+ 
+
+	
 	songSeekSlider.minimumValue = 0;
 	songSeekSlider.maximumValue = audioPlayer.duration;
 	[self updateTimeIntervalViews];
-//	updateTimeIntervalTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateTimeIntervalViews) userInfo:nil repeats:YES];
+	updateTimeIntervalTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateTimeIntervalViews) userInfo:nil repeats:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -109,15 +141,11 @@
 	}
 }
 
-- (IBAction)songSeekSliderValueChanged
+- (IBAction)songSeekSliderValueChanged;
 {
-	NSLog(@"changed");
 	audioPlayer.currentTime = (int)songSeekSlider.value;
-	[audioPlayer prepareToPlay];
-	
-
-//	timeTotalLabel.text = [self secondsToHoursMinutesAndSeconds:audioPlayer.currentTime];
-//	timeLeftLabel.text = [@"-" stringByAppendingString:[self secondsToHoursMinutesAndSeconds:audioPlayer.duration - audioPlayer.currentTime]];
+	timeTotalLabel.text = [self secondsToHoursMinutesAndSeconds:audioPlayer.currentTime];
+	timeLeftLabel.text = [@"-" stringByAppendingString:[self secondsToHoursMinutesAndSeconds:audioPlayer.duration - audioPlayer.currentTime]];
 }
 
 - (void)updateTimeIntervalViews
@@ -162,6 +190,7 @@
 {
 	NSLog(@"%@", [error description]);
 }
+
 
 
 

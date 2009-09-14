@@ -9,11 +9,14 @@
 #import "FileController.h"
 
 
+
 @implementation FileController
 
 
 @synthesize navigationBar, toolBar, activityIndicatorView;
 @synthesize directoryItem;
+
+
 
 
 - (void)dealloc
@@ -40,7 +43,33 @@
 	navigationBar.alpha = 0;
 	
 	// add navigation item to navigation bar
-	UINavigationItem *navigationItem = [[UINavigationItem alloc] initWithTitle:directoryItem.name];
+	UINavigationItem *navigationItem = [[UINavigationItem alloc] init];
+
+
+	UIView *navigationBarTitleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 190, 44)];
+
+	UILabel *titleMainLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 2, 190, 18)];
+	titleMainLabel.tag = 1001;
+	titleMainLabel.text = directoryItem.name;
+	titleMainLabel.textColor = [UIColor whiteColor];
+
+	UILabel *titleMetaLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 18, 190, 18)];
+  titleMetaLabel.tag = 1002;
+	titleMetaLabel.text = @"Airship";
+	titleMetaLabel.textColor = [UIColor lightGrayColor];
+	
+	titleMainLabel.backgroundColor = titleMetaLabel.backgroundColor = [UIColor clearColor];
+	titleMainLabel.textAlignment = titleMetaLabel.textAlignment = UITextAlignmentCenter;
+	titleMainLabel.font = titleMetaLabel.font = [UIFont boldSystemFontOfSize:[UIFont smallSystemFontSize]];
+	
+	[navigationBarTitleView addSubview:titleMainLabel];
+	[titleMainLabel release];
+	[navigationBarTitleView addSubview:titleMetaLabel];
+	[titleMetaLabel release];
+	
+	navigationItem.titleView = navigationBarTitleView;
+	[navigationBarTitleView release];
+	
 
 	// done button
 	UIBarButtonItem *doneBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(unloadView)];

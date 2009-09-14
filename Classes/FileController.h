@@ -10,9 +10,11 @@
 #import "DirectoryItem.h"
 
 
+
 @interface FileController : UIViewController {
 
 	IBOutlet UINavigationBar *navigationBar;
+	
 	IBOutlet UIToolbar *toolBar;
 	
 	UIActivityIndicatorView *activityIndicatorView;
