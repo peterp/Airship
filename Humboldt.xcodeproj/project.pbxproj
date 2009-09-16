@@ -41,6 +41,8 @@
 		CE8C98A71039E82400E7E3ED /* MovieController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8C98A61039E82400E7E3ED /* MovieController.m */; };
 		CE8C992F1039F8FC00E7E3ED /* DocumentController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8C992E1039F8FC00E7E3ED /* DocumentController.m */; };
 		CE93B068103C862E0069BD35 /* ImageController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE93B066103C862E0069BD35 /* ImageController.m */; };
+		CE99B74110618DFD003C561F /* IMG_0422.PNG in Resources */ = {isa = PBXBuildFile; fileRef = CE99B74010618DFD003C561F /* IMG_0422.PNG */; };
+		CE9A6D85105EF74E00E25682 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE9A6D84105EF74E00E25682 /* AudioToolbox.framework */; };
 		CEA88706102AECB50029ED9F /* TapDetectingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA88704102AECB50029ED9F /* TapDetectingImageView.m */; };
 		CEC34E27103594BF008021B0 /* audio.png in Resources */ = {isa = PBXBuildFile; fileRef = CEC34E21103594BF008021B0 /* audio.png */; };
 		CEC34E28103594BF008021B0 /* directory.png in Resources */ = {isa = PBXBuildFile; fileRef = CEC34E22103594BF008021B0 /* directory.png */; };
@@ -106,7 +108,7 @@
 		CE5B301510539CBC00B6A834 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		CE5B301710539CBC00B6A834 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.sdk/System/Library/Frameworks/MediaPlayer.framework; sourceTree = "<absolute>"; };
 		CE5B301910539CBC00B6A834 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = "<absolute>"; };
-		CE5B30DD10539DD100B6A834 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = "<absolute>"; };
+		CE5B30DD10539DD100B6A834 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
 		CE6C9EEB0FF6AFC5009CCC45 /* FolderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FolderController.h; sourceTree = "<group>"; };
 		CE6C9EEC0FF6AFC5009CCC45 /* FolderController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FolderController.m; sourceTree = "<group>"; };
 		CE70DA090FFABC0400D606B3 /* AFMultipartParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFMultipartParser.h; sourceTree = "<group>"; };
@@ -121,6 +123,8 @@
 		CE8C992E1039F8FC00E7E3ED /* DocumentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DocumentController.m; sourceTree = "<group>"; };
 		CE93B065103C862E0069BD35 /* ImageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageController.h; sourceTree = "<group>"; };
 		CE93B066103C862E0069BD35 /* ImageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageController.m; sourceTree = "<group>"; };
+		CE99B74010618DFD003C561F /* IMG_0422.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IMG_0422.PNG; sourceTree = "<group>"; };
+		CE9A6D84105EF74E00E25682 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		CEA88704102AECB50029ED9F /* TapDetectingImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapDetectingImageView.m; sourceTree = "<group>"; };
 		CEA88705102AECB50029ED9F /* TapDetectingImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapDetectingImageView.h; sourceTree = "<group>"; };
 		CEC34E21103594BF008021B0 /* audio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = audio.png; sourceTree = "<group>"; };
@@ -153,6 +157,7 @@
 				CE5B301810539CBC00B6A834 /* MediaPlayer.framework in Frameworks */,
 				CE5B301A10539CBC00B6A834 /* UIKit.framework in Frameworks */,
 				CE5B30DE10539DD100B6A834 /* CoreGraphics.framework in Frameworks */,
+				CE9A6D85105EF74E00E25682 /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -193,7 +198,6 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				CE5B30DD10539DD100B6A834 /* CoreGraphics.framework */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -210,6 +214,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CE99B74010618DFD003C561F /* IMG_0422.PNG */,
 				CEC34E20103594BF008021B0 /* icons */,
 				CE8627E510013D400063F8F6 /* wwwroot */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
@@ -223,11 +228,13 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CE5B30DD10539DD100B6A834 /* CoreGraphics.framework */,
 				CE5B301110539CBC00B6A834 /* AVFoundation.framework */,
 				CE5B301310539CBC00B6A834 /* CFNetwork.framework */,
 				CE5B301510539CBC00B6A834 /* Foundation.framework */,
 				CE5B301710539CBC00B6A834 /* MediaPlayer.framework */,
 				CE5B301910539CBC00B6A834 /* UIKit.framework */,
+				CE9A6D84105EF74E00E25682 /* AudioToolbox.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -409,6 +416,9 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = appfactory;
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Humboldt" */;
 			compatibilityVersion = "Xcode 3.1";
 			hasScannedForEncodings = 1;
@@ -436,6 +446,7 @@
 				CEC34E2B103594BF008021B0 /* unknown.png in Resources */,
 				CEC34E2C103594BF008021B0 /* video.png in Resources */,
 				CEF88F60105311A100D415F0 /* AudioController.xib in Resources */,
+				CE99B74110618DFD003C561F /* IMG_0422.PNG in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -491,7 +502,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Peter Pistorius (C2PCA64J8V)";
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -534,10 +548,10 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 2.2.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
-				SDKROOT = iphoneos2.2;
+				SDKROOT = iphoneos3.0;
 			};
 			name = Debug;
 		};

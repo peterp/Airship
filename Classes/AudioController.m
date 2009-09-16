@@ -6,9 +6,8 @@
 //  Copyright 2009 __MyCompanyName__. All rights reserved.
 //
 
+
 #import "AudioController.h"
-
-
 
 
 
@@ -16,7 +15,12 @@
 @implementation AudioController
 
 @synthesize audioPlayer;
+
 @synthesize playPauseButton;
+@synthesize volumeViewHolder;
+
+
+
 @synthesize timeTotalLabel;
 @synthesize timeLeftLabel;
 @synthesize songSeekSlider;
@@ -24,12 +28,15 @@
 - (void)dealloc 
 {
 	self.audioPlayer = nil;
-
+	
 	self.playPauseButton = nil;
+	self.volumeViewHolder = nil;
+	
 	
 	self.timeTotalLabel = nil;
 	self.timeLeftLabel = nil;
 	self.songSeekSlider = nil;
+
 
 	[super dealloc];
 }
@@ -42,10 +49,20 @@
 	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideToolBarsAfterDelay) object:nil];
 	[activityIndicatorView stopAnimating];
 	self.activityIndicatorView = nil;
-	[toolBar removeFromSuperview];
+//	[toolBar removeFromSuperview];
+
+	toolBar.frame = CGRectMake(0, 362, 320, 118);
+	
+	// remove and re-add, possible?
+	[toolBar addSubview:playPauseButton];
+	playPauseButton.frame = CGRectMake(140, 15, 40, 30);
+	[toolBar addSubview:volumeViewHolder];
+	volumeViewHolder.frame = CGRectMake(25, 64, 270, 23);
+	
 	
 	
 	// check to see if we can read the ID3 tags...
+	[self getID3Tags];
 
 	
 	
@@ -189,6 +206,50 @@
 - (void)audioPlayerDecodeErrorDidOccur:(AVAudioPlayer *)player error:(NSError *)error
 {
 	NSLog(@"%@", [error description]);
+}
+
+
+- (void)getID3Tags;
+{
+	AudioFileID fileID = nil;
+  OSStatus err = noErr;
+	
+	err = AudioFileOpenURL((CFURLRef)[NSURL fileURLWithPath:directoryItem.path], kAudioFileReadPermission, 0, &fileID);
+  if( err != noErr ) {
+		NSLog( @"AudioFileOpenURL failed" );
+	}
+	
+	UInt32 id3DataSize = 0;
+  char *rawID3Tag = NULL;
+
+  err = AudioFileGetPropertyInfo( fileID, kAudioFilePropertyID3Tag, &id3DataSize, NULL );
+  if (err != noErr) {
+		NSLog(@"AudioFileGetPropertyInfo failed for ID3 tag");
+  }
+	
+	NSLog(@"id3 data size is %d bytes", id3DataSize);
+
+	rawID3Tag = (char *) malloc( id3DataSize );
+	if (rawID3Tag == NULL) {
+		NSLog(@"could not allocate %d bytes of memory for ID3 tag", id3DataSize);
+	}
+	
+	
+		
+	CFDictionaryRef piDict = nil;
+	UInt32 piDataSize = sizeof(piDict);
+
+	err = AudioFileGetProperty(fileID, kAudioFilePropertyInfoDictionary, &piDataSize, &piDict);
+	if (err != noErr) {
+		NSLog( @"AudioFileGetProperty failed for property info dictionary" );
+	}
+	
+  NSLog( @"property info: %@", (NSDictionary*)piDict );
+	
+	
+	CFRelease(piDict);
+  free(rawID3Tag);
+	
 }
 
 

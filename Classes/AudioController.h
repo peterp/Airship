@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVAudioPlayer.h>
 #import <AVFoundation/AVAudioSession.h>
+#import <AudioToolbox/AudioToolbox.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import "FileController.h"
 
@@ -19,8 +20,6 @@
 
 	MPVolumeView *volumeView;
 	IBOutlet UIView	*volumeViewHolder;
-
-
 	IBOutlet UIButton *playPauseButton;
 	
 	
@@ -32,14 +31,18 @@
 
 @property (nonatomic, retain) AVAudioPlayer *audioPlayer;
 
+@property (nonatomic, retain) IBOutlet UIView	*volumeViewHolder;
 @property (nonatomic, retain) IBOutlet UIButton *playPauseButton;
+
+
 @property (nonatomic, retain) IBOutlet UILabel *timeTotalLabel;
 @property (nonatomic, retain) IBOutlet UILabel *timeLeftLabel;
 @property (nonatomic, retain) IBOutlet UISlider *songSeekSlider;
 
+
+
 - (IBAction)playPauseAudioPlayer;
-
-
+- (void)getID3Tags;
 
 - (IBAction)songSeekSliderEditingDidBegin;
 - (IBAction)songSeekSliderEditingDidEnd:(id)sender;
