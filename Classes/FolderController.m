@@ -94,11 +94,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView 
 {
-	if (tableView == self.searchDisplayController.searchResultsTableView) {
-		return 1;
-	} else {
-		return 1;
-	}	
+	return 1;
 }
 
 
@@ -214,20 +210,19 @@
 
 - (void)filterContentForSearchText:(NSString*)searchText
 {
+	searchText = [searchText lowercaseString];
 	[self.filteredDirectoryItems removeAllObjects];
+
 	for (DirectoryItem *item in self.directoryItems) {
 		// Compare
-		NSComparisonResult result = [item.name compare:searchText options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [searchText length])];
-		if (result == NSOrderedSame) {
+		
+		NSRange range = [[item.name lowercaseString] rangeOfString:searchText];
+		if (range.length > 0) {
 			[self.filteredDirectoryItems addObject:item];
 		}
 	}
 }
 
-
-
-#pragma mark -
-#pragma mark UISearchDisplayController Delegate Methods
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString 
 {

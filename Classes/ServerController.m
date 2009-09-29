@@ -3,19 +3,17 @@
 //  Humboldt
 //
 //  Created by Peter Pistorius on 2009/08/10.
-//  Copyright 2009 __MyCompanyName__. All rights reserved.
+//  Copyright 2009 appfactory. All rights reserved.
 //
-
-#import "ServerController.h"
-
-
-#import "HTTPServer.h"
-#import "StorageHTTPConnection.h"
-
 
 #import <ifaddrs.h>
 #import <netinet/in.h>
 #import <sys/socket.h>
+
+#import "ServerController.h"
+#import "StorageHTTPConnection.h"
+#import "Reachability.h"
+
 
 
 @implementation ServerController
@@ -35,19 +33,28 @@
 }
 
 
+
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
 
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
 		
-			self.title = @"Status";
-		
+			self.title = @"Sharing";
+			
+			
+			// Copy WWWRoot Docs
 			NSString *documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
 			[self copyWWWDataToPath:documentPath];
-			
-			
-			
 					
-			
+					
+			// Reachability
+			[[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+			wifiReach = [[Reachability reachabilityForLocalWiFi] retain];
+			[wifiReach startNotifer];
+			[self updateInterfaceWithReachability:wifiReach];
+
+
+
 			// Setup & Start HTTP server
 			http = [HTTPServer new];
 			[http setType:@"_http._tcp."];
@@ -66,13 +73,16 @@
 
 - (void)viewDidLoad 
 {
-	httpAddressLabel.text = [NSString stringWithFormat:@"http://%@:%d", [self ipAddress], [http port]];
-	
-	if (httpRunning == YES) {
-		httpStatusLabel.text = @"On";
-	} else {
-		httpStatusLabel.text = @"Off, it should be on?";
-	}
+
+
+
+//	httpAddressLabel.text = [NSString stringWithFormat:@"http://%@:%d", [self ipAddress], [http port]];
+//	
+//	if (httpRunning == YES) {
+//		httpStatusLabel.text = @"On";
+//	} else {
+//		httpStatusLabel.text = @"Off, it should be on?";
+//	}
 	
 	
 	[super viewDidLoad];
@@ -146,26 +156,63 @@
 
 
 
+
+
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-	return YES;
+	return NO;
 }
 
 
 
 
-- (void)didReceiveMemoryWarning {
-	// Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-	
-	// Release any cached data, images, etc that aren't in use.
+
+
+
+
+#pragma mark Reachability code.
+
+
+- (void)reachabilityChanged:(NSNotification *)note;
+{
+	Reachability *currentReach = [note object];
+	[self updateInterfaceWithReachability:currentReach];
 }
 
-- (void)viewDidUnload {
-	// Release any retained subviews of the main view.
-	// e.g. self.myOutlet = nil;
-}
 
+- (void)updateInterfaceWithReachability:(Reachability *)currentReach;
+{
+	NetworkStatus networkStatus = [currentReach currentReachabilityStatus];
+  BOOL connectionRequired= [currentReach connectionRequired];
+  
+
+	switch (networkStatus)
+	{
+		case NotReachable:
+		{
+			self.tabBarItem.badgeValue = @"!";
+
+			//Minor interface detail- connectionRequired may return yes, even when the host is unreachable.  We cover that up here...
+			connectionRequired= NO;  
+			break;
+		}
+					
+		case ReachableViaWWAN:
+		{
+			self.tabBarItem.badgeValue = @"?";
+			break;
+		}
+		
+		case ReachableViaWiFi:
+		{
+			self.tabBarItem.badgeValue = nil;
+			// update IP address.
+			
+			break;
+		}
+	}
+}
 
 
 

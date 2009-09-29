@@ -8,7 +8,8 @@
 
 #import "HumboldtAppDelegate.h"
 #import "FolderController.h"
-#import "ServerController.h"
+#import "SearchController.h"
+#import "SharingController.h"
 
 
 @implementation HumboldtAppDelegate
@@ -32,27 +33,41 @@
 
 	// Prevent sleep
 	[UIApplication sharedApplication].idleTimerDisabled = YES;
+	self.window.backgroundColor = [UIColor blackColor];
 
 	// Folder Controller
 	FolderController *folderController = [FolderController initWithPath:@"Files"];
 	// Navigation Controller....
-	UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:folderController];
-	navigationController.navigationBar.tintColor = [UIColor darkGrayColor];
+	UINavigationController *folderNavigationController = [[UINavigationController alloc] initWithRootViewController:folderController];
+	folderNavigationController.navigationBar.tintColor = [UIColor darkGrayColor];
 	[folderController release];
 	
 	
-	
-	
 	// Server view controller...
-	ServerController *serverController = [[ServerController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
+	SharingController *sharingController = [[SharingController alloc] initWithStyle:UITableViewStyleGrouped];
+	UINavigationController *sharingNavigationController = [[UINavigationController alloc] initWithRootViewController:sharingController];
+	sharingNavigationController.navigationBar.tintColor = [UIColor darkGrayColor];
+	[sharingController release];
+
 	
+
+
+	// Search Controller
+	SearchController *searchController = [[SearchController alloc] initWithStyle:UITableViewStyleGrouped];
+	
+	
+
+
 	// Tab bar controller
 	UITabBarController *tabBarController = [[UITabBarController alloc] init];
-	tabBarController.viewControllers  = [NSArray arrayWithObjects:navigationController, serverController, nil];
-	[navigationController release];
-	[serverController release];
+	tabBarController.viewControllers  = [NSArray arrayWithObjects:folderNavigationController, searchController, sharingNavigationController, nil];
+	tabBarController.selectedIndex = 0;
+
+	[folderNavigationController release];
+	[searchController release];
+	[sharingNavigationController release];
 	
-	window.backgroundColor = [UIColor blackColor];
+
 	[window addSubview:tabBarController.view];
 	[window makeKeyAndVisible];
 }
