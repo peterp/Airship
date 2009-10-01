@@ -35,12 +35,19 @@
 	[UIApplication sharedApplication].idleTimerDisabled = YES;
 	self.window.backgroundColor = [UIColor blackColor];
 
+
 	// Folder Controller
 	FolderController *folderController = [FolderController initWithPath:@"Files"];
-	// Navigation Controller....
 	UINavigationController *folderNavigationController = [[UINavigationController alloc] initWithRootViewController:folderController];
 	folderNavigationController.navigationBar.tintColor = [UIColor darkGrayColor];
 	[folderController release];
+	
+	
+	// Search Controller
+	SearchController *searchController = [[SearchController alloc] initWithStyle:UITableViewStyleGrouped];
+	UINavigationController *searchNavigationController = [[UINavigationController alloc] initWithRootViewController:searchController];
+	searchNavigationController.navigationBar.tintColor = [UIColor darkGrayColor];
+	[searchController release];
 	
 	
 	// Server view controller...
@@ -52,19 +59,16 @@
 	
 
 
-	// Search Controller
-	SearchController *searchController = [[SearchController alloc] initWithStyle:UITableViewStyleGrouped];
-	
 	
 
 
 	// Tab bar controller
 	UITabBarController *tabBarController = [[UITabBarController alloc] init];
-	tabBarController.viewControllers  = [NSArray arrayWithObjects:folderNavigationController, searchController, sharingNavigationController, nil];
+	tabBarController.viewControllers  = [NSArray arrayWithObjects:folderNavigationController, searchNavigationController, sharingNavigationController, nil];
 	tabBarController.selectedIndex = 0;
 
 	[folderNavigationController release];
-	[searchController release];
+	[searchNavigationController release];
 	[sharingNavigationController release];
 	
 

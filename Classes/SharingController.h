@@ -9,14 +9,25 @@
 #import <UIKit/UIKit.h>
 #import "Reachability.h"
 
+#import "HTTPServer.h"
+#import "StorageHTTPConnection.h"
+
 
 @interface SharingController : UITableViewController {
 
-	// stores the state...
+	// Reachability
 	Reachability *localWiFiReachable;
 	BOOL localWiFiConnected;
+	
+	// Web Sharing
+	HTTPServer *httpServer;
+	BOOL httpServerOn;
 }
 
+
+// Web Sharing
+- (void)startWebSharing;
+- (void)installWebSharingDocuments:(NSString *)toPath;
 
 
 // Reachability

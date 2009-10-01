@@ -27,6 +27,7 @@
 - (void)dealloc 
 {
 	[localWiFiReachable dealloc];
+	[httpServer release];
 
 	[super dealloc];
 }
@@ -40,7 +41,12 @@
 			
 		
 			// Reachability
+			localWiFiReachable = FALSE;
 			[self initReachability];
+			
+			// Web Sharing
+			httpServerOn = FALSE;
+			[self performSelector:@selector(startWebSharing) withObject:nil afterDelay:1];
     }
     return self;
 }
@@ -144,7 +150,8 @@
 			switch (indexPath.row) {
 				case 0: {
 					cell.textLabel.text = @"Web Sharing";
-					cell.detailTextLabel.text = @"Running";
+				
+					cell.detailTextLabel.text = @"On";
 					break;
 				}
 				case 1: {
@@ -303,6 +310,7 @@
 				
 				// Don't return loopback interface, keep searching.
 				if ([IP isEqualToString:@"127.0.0.1"] == FALSE) {
+					freeifaddrs(addrs);
 					return IP;
 				}
 			}
@@ -312,6 +320,49 @@
 	}
 
 	return nil;
+}
+
+
+
+
+
+
+#pragma mark HTTP Server
+- (void)startWebSharing;
+{
+	// Init
+	
+	// Copy WWWRoot Docs
+	NSString *documentRoot = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+	[self installWebSharingDocuments:documentRoot];
+	
+	httpServer = [HTTPServer new];
+	[httpServer setType:@"_http._tcp."];
+	[httpServer setConnectionClass:[StorageHTTPConnection class]];
+	[httpServer setDocumentRoot:[NSURL fileURLWithPath:documentRoot]];
+	[httpServer setPort:8000];
+	// Start
+	NSError *httpError;
+	httpServerOn = [httpServer start:&httpError];
+
+}
+
+
+- (void)installWebSharingDocuments:(NSString *)toPath;
+{
+	
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+	NSString *fromPath = [[NSBundle mainBundle] resourcePath];
+	
+	if (![fileManager fileExistsAtPath:[toPath stringByAppendingPathComponent:@"wwwroot"]]) {
+		NSError *error;
+		[fileManager copyItemAtPath:[fromPath stringByAppendingPathComponent:@"wwwroot"] toPath:[toPath stringByAppendingPathComponent:@"wwwroot"] error:&error];
+	}
+
+	if (![fileManager fileExistsAtPath:[toPath stringByAppendingPathComponent:@"Files"]]) {
+		[fileManager createDirectoryAtPath:[toPath stringByAppendingPathComponent:@"Files"] attributes:nil];
+	}
+
 }
 
 
