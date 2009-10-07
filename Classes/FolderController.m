@@ -72,6 +72,7 @@
 	searchBar.placeholder	= [@"Search " stringByAppendingString:self.title];
 	[searchBar sizeToFit];
 	self.tableView.tableHeaderView = searchBar;
+	
 	searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
 	searchDisplayController.searchResultsDelegate = self;
 	searchDisplayController.searchResultsDataSource = self;
@@ -178,25 +179,25 @@
 		
 	} else {
 	
-		FileController *fileController = nil;
-	
-		if ([item.type isEqualToString:@"video"]) {
-			fileController = [[MovieController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
-		} else if ([item.type isEqualToString:@"document"]) {
-			fileController = [[DocumentController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
-		} else if ([item.type isEqualToString:@"image"]) {
-			fileController = [[ImageController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
-		} else if ([item.type isEqualToString:@"audio"]) {
-			fileController = [[AudioController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
-		} else {
-			// show generic controller... The Unknown.
-		}
+//		FileController *fileController = nil;
+//	
+//		if ([item.type isEqualToString:@"video"]) {
+//			fileController = [[MovieController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
+//		} else if ([item.type isEqualToString:@"document"]) {
+//			fileController = [[DocumentController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
+//		} else if ([item.type isEqualToString:@"image"]) {
+//			fileController = [[ImageController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
+//		} else if ([item.type isEqualToString:@"audio"]) {
+//			fileController = [[AudioController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
+//		} else {
+//			// show generic controller... The Unknown.
+//		}
 		
 		
-		fileController.directoryItem = item;
-		[[UIApplication sharedApplication] setStatusBarHidden:YES animated:YES];
-		[self.navigationController presentModalViewController:fileController animated:YES];
-		[fileController release];
+//		fileController.directoryItem = item;
+//		[[UIApplication sharedApplication] setStatusBarHidden:YES animated:YES];
+//		[self.navigationController presentModalViewController:fileController animated:YES];
+//		[fileController release];
 	}
 
 

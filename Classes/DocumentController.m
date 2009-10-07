@@ -26,7 +26,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
 	// show activity indicator.
-	[webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:directoryItem.path]]];
+	[webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:directoryItem.absolutePath]]];
 }
 
 - (void)viewDidLoad

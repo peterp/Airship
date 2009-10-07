@@ -7,6 +7,10 @@
 //
 
 #import "HumboldtAppDelegate.h"
+
+
+#import "FilesTableViewController.h"
+
 #import "FolderController.h"
 #import "SearchController.h"
 #import "SharingController.h"
@@ -15,7 +19,7 @@
 @implementation HumboldtAppDelegate
 
 
-@synthesize window;//, navigationController;
+@synthesize window;
 
 - (void)dealloc 
 {
@@ -33,14 +37,14 @@
 
 	// Prevent sleep
 	[UIApplication sharedApplication].idleTimerDisabled = YES;
-	self.window.backgroundColor = [UIColor blackColor];
+	
 
-
-	// Folder Controller
-	FolderController *folderController = [FolderController initWithPath:@"Files"];
-	UINavigationController *folderNavigationController = [[UINavigationController alloc] initWithRootViewController:folderController];
-	folderNavigationController.navigationBar.tintColor = [UIColor darkGrayColor];
-	[folderController release];
+	
+	// FilesTableViewController
+	FilesTableViewController *filesTableViewController = [FilesTableViewController initWithAbsolutePath:[[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"Files"]];
+	UINavigationController *filesNavigationController = [[UINavigationController alloc] initWithRootViewController:filesTableViewController];
+	filesNavigationController.navigationBar.tintColor = [UIColor darkGrayColor];    
+	[filesTableViewController release];
 	
 	
 	// Search Controller
@@ -53,7 +57,7 @@
 	// Server view controller...
 	SharingController *sharingController = [[SharingController alloc] initWithStyle:UITableViewStyleGrouped];
 	UINavigationController *sharingNavigationController = [[UINavigationController alloc] initWithRootViewController:sharingController];
-	sharingNavigationController.navigationBar.tintColor = [UIColor darkGrayColor];
+	sharingNavigationController.navigationBar.tintColor = [UIColor whiteColor];
 	[sharingController release];
 
 	
@@ -64,10 +68,10 @@
 
 	// Tab bar controller
 	UITabBarController *tabBarController = [[UITabBarController alloc] init];
-	tabBarController.viewControllers  = [NSArray arrayWithObjects:folderNavigationController, searchNavigationController, sharingNavigationController, nil];
+	tabBarController.viewControllers  = [NSArray arrayWithObjects:filesNavigationController, searchNavigationController, sharingNavigationController, nil];
 	tabBarController.selectedIndex = 0;
 
-	[folderNavigationController release];
+	[filesNavigationController release];
 	[searchNavigationController release];
 	[sharingNavigationController release];
 	

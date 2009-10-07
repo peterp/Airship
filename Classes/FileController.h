@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DirectoryItem.h"
+#import "StorageItem.h"
 
 
 
@@ -18,13 +18,13 @@
 	IBOutlet UIToolbar *toolBar;
 	
 	UIActivityIndicatorView *activityIndicatorView;
-	DirectoryItem *directoryItem;
+	StorageItem *directoryItem;
 }
 
 @property (nonatomic, retain) IBOutlet UINavigationBar *navigationBar;
 @property (nonatomic, retain) IBOutlet UIToolbar *toolBar;
 @property (nonatomic, retain) UIActivityIndicatorView *activityIndicatorView;
-@property (nonatomic, retain) DirectoryItem *directoryItem;
+@property (nonatomic, retain) StorageItem *directoryItem;
 
 - (IBAction)unloadView;
 

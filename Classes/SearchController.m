@@ -11,6 +11,36 @@
 
 @implementation SearchController
 
+@synthesize searchItems;
+
+- (void)dealloc
+{
+	self.searchItems = nil;
+	[super dealloc];
+	
+}
+
+- (void)viewDidLoad 
+{
+	[super viewDidLoad];
+	
+	// SearchBar
+	searchBar = [[UISearchBar alloc] initWithFrame:self.tableView.bounds];
+	searchBar.delegate = self;
+	searchBar.tintColor = [UIColor grayColor];
+	searchBar.placeholder	= @"Search airship";
+	[searchBar sizeToFit];
+	self.tableView.tableHeaderView = searchBar;
+
+	// SearchDisplayController
+	searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
+	searchDisplayController.searchResultsDelegate = self;
+	searchDisplayController.searchResultsDataSource = self;
+	searchDisplayController.delegate = self;
+	self.searchItems = [NSMutableArray array];
+}
+
+
 
 - (id)initWithStyle:(UITableViewStyle)style 
 {
@@ -23,14 +53,68 @@
 
 
 
-/*
-- (void)viewDidLoad {
-    [super viewDidLoad];
+#pragma mark -
+#pragma mark Content Filtering
 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+- (void)filterContentForSearchText:(NSString*)searchText
+{
+	searchText = [searchText lowercaseString];
+	[searchItems removeAllObjects];
+	
+	
+	NSString *file;
+	NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:[[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"Files"]];
+	while (file = [dirEnum nextObject]) {
+	
+		
+	
+	
+//		NSRange range = [[item.name lowercaseString] rangeOfString:searchText];
+//		if (range.length > 0) {
+//			[self.filteredDirectoryItems addObject:item];
+//		}
+		
+	}
+	
+	
+//	NSString *file;
+//NSString *docsDir = [NSHomeDirectory() stringByAppendingPathComponent:  @"Documents"];
+//NSDirectoryEnumerator *dirEnum =
+//    [[NSFileManager defaultManager] enumeratorAtPath:docsDir];
+// 
+//while (file = [dirEnum nextObject]) {
+//    if ([[file pathExtension] isEqualToString: @"doc"]) {
+//        [self scanDocument: [docsDir stringByAppendingPathComponent:file]];
+//    }
+//}
+
+//	searchText = [searchText lowercaseString];
+//	[self.filteredDirectoryItems removeAllObjects];
+//
+//	for (DirectoryItem *item in self.directoryItems) {
+//		// Compare
+//		
+//		NSRange range = [[item.name lowercaseString] rangeOfString:searchText];
+//		if (range.length > 0) {
+//			[self.filteredDirectoryItems addObject:item];
+//		}
+//	}
 }
-*/
+
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString 
+{
+	[self filterContentForSearchText:searchString];
+	return YES;
+}
+
+
+
+
+
+
+
+
 
 /*
 - (void)viewWillAppear:(BOOL)animated {
@@ -151,9 +235,7 @@
 */
 
 
-- (void)dealloc {
-    [super dealloc];
-}
+
 
 
 @end

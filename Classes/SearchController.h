@@ -9,8 +9,15 @@
 #import <UIKit/UIKit.h>
 
 
-@interface SearchController : UITableViewController {
+@interface SearchController : UITableViewController <UISearchBarDelegate, UISearchDisplayDelegate> {
+
+	// Search
+	UISearchBar *searchBar;
+	UISearchDisplayController *searchDisplayController;
+	NSMutableArray *searchItems;
 
 }
+
+@property (nonatomic, retain) NSMutableArray *searchItems;
 
 @end

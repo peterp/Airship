@@ -82,7 +82,7 @@
 
 	// need to add our own thingums.
 	NSError *outError;
-	self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:directoryItem.path] error:&outError];
+	self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:directoryItem.absolutePath] error:&outError];
 	audioPlayer.volume = 1;
   audioPlayer.delegate = self;
 	
@@ -214,7 +214,7 @@
 	AudioFileID fileID = nil;
   OSStatus err = noErr;
 	
-	err = AudioFileOpenURL((CFURLRef)[NSURL fileURLWithPath:directoryItem.path], kAudioFileReadPermission, 0, &fileID);
+	err = AudioFileOpenURL((CFURLRef)[NSURL fileURLWithPath:directoryItem.absolutePath], kAudioFileReadPermission, 0, &fileID);
   if( err != noErr ) {
 		NSLog( @"AudioFileOpenURL failed" );
 	}

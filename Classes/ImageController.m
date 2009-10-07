@@ -42,7 +42,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
 
-	self.imageView = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:directoryItem.path]];
+	self.imageView = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:directoryItem.absolutePath]];
 
 
 	float minimumScale = 0;
