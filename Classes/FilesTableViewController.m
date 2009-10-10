@@ -11,6 +11,9 @@
 
 @implementation FilesTableViewController
 
+@synthesize searchItemList;
+
+
 
 + (id)initWithAbsolutePath:(NSString *)path;
 {
@@ -27,10 +30,6 @@
 {
 	[super viewDidLoad];
 	
-	// Table Style
-	self.tableView.rowHeight = 44;
-
-
 	// DataSource
 	NSArray *directoryContents = [[[NSFileManager defaultManager] directoryContentsAtPath:self.absolutePath] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 	
@@ -41,28 +40,27 @@
 		[storageItem release];
 	}
 	directoryContents = nil;
+	
+	
+		// SearchBar
+	searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 20, 320, 44)];
+	searchBar.delegate = self;
+	[searchBar sizeToFit];
+	self.tableView.tableHeaderView = searchBar;
+	[searchBar release];
+	
+	
+	searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
+	searchDisplayController.delegate = self;
+	searchDisplayController.searchResultsDelegate = self;
+	searchDisplayController.searchResultsDataSource = self;
 
 
 	
-
-
-//	
-//	// Search
-//	searchBar = [[UISearchBar alloc] initWithFrame:self.tableView.bounds];
-//	searchBar.delegate = self;
-//	searchBar.tintColor = [UIColor grayColor];
-//	searchBar.placeholder	= [@"Search " stringByAppendingString:self.title];
-//	[searchBar sizeToFit];
-//	self.tableView.tableHeaderView = searchBar;
-//	
-//	searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
-//	searchDisplayController.searchResultsDelegate = self;
-//	searchDisplayController.searchResultsDataSource = self;
-//	searchDisplayController.delegate = self;
-//	self.filteredDirectoryItems = [NSMutableArray array];
-//	
-//	
-//	
+	
+	// SearchBar
+	searchBar.placeholder = [NSString stringWithFormat:@"Search '%@'", self.title];
+	
 //	// Notifications
 //	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newItem:) name:@"newItem" object:nil];
 }

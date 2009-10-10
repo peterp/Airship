@@ -50,7 +50,7 @@
 	if ([[attrib fileType] isEqualToString:NSFileTypeDirectory]) {
 		self.kind = @"directory";
 	} else {
-		self.kind = [self determineItemType];
+		self.kind = [self determineKindByExtension];
 	}
 
 
@@ -59,7 +59,7 @@
 
 
 
-- (NSString *)determineItemType;
+- (NSString *)determineKindByExtension;
 {
 	// Kind by Extension
 	NSArray  *doc = [NSArray arrayWithObjects:@"doc", @"docx", @"htm", @"html", @"key", @"numbers", @"pages", @"pdf", @"ppt", @"pptx", @"txt", @"rtf", @"xls", @"xlsx", nil];

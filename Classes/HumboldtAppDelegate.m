@@ -10,9 +10,8 @@
 
 
 #import "FilesTableViewController.h"
+#import "SearchTableViewController.h"
 
-#import "FolderController.h"
-#import "SearchController.h"
 #import "SharingController.h"
 
 
@@ -43,33 +42,26 @@
 	// FilesTableViewController
 	FilesTableViewController *filesTableViewController = [FilesTableViewController initWithAbsolutePath:[[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"Files"]];
 	UINavigationController *filesNavigationController = [[UINavigationController alloc] initWithRootViewController:filesTableViewController];
-	filesNavigationController.navigationBar.tintColor = [UIColor darkGrayColor];    
 	[filesTableViewController release];
 	
 	
 	// Search Controller
-	SearchController *searchController = [[SearchController alloc] initWithStyle:UITableViewStyleGrouped];
-	UINavigationController *searchNavigationController = [[UINavigationController alloc] initWithRootViewController:searchController];
-	searchNavigationController.navigationBar.tintColor = [UIColor darkGrayColor];
-	[searchController release];
+	SearchTableViewController *searchTableViewController = [[SearchTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+	UINavigationController *searchNavigationController = [[UINavigationController alloc] initWithRootViewController:searchTableViewController];
+	[searchTableViewController release];
 	
 	
 	// Server view controller...
 	SharingController *sharingController = [[SharingController alloc] initWithStyle:UITableViewStyleGrouped];
 	UINavigationController *sharingNavigationController = [[UINavigationController alloc] initWithRootViewController:sharingController];
-	sharingNavigationController.navigationBar.tintColor = [UIColor whiteColor];
 	[sharingController release];
 
-	
-
-
-	
 
 
 	// Tab bar controller
 	UITabBarController *tabBarController = [[UITabBarController alloc] init];
 	tabBarController.viewControllers  = [NSArray arrayWithObjects:filesNavigationController, searchNavigationController, sharingNavigationController, nil];
-	tabBarController.selectedIndex = 0;
+	tabBarController.selectedIndex = 1;
 
 	[filesNavigationController release];
 	[searchNavigationController release];

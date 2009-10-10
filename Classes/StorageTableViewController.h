@@ -9,13 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "StorageItem.h"
 
-@interface StorageTableViewController : UITableViewController {
+@interface StorageTableViewController : UITableViewController <UISearchBarDelegate, UISearchDisplayDelegate> {
 
 	// Storage Directory Path;
 	NSString *absolutePath;
 
 	// DataSource
 	NSMutableArray *storageItemList;
+	
+
 }
 
 @property (nonatomic, copy) NSString *absolutePath;

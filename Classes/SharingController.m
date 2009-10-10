@@ -84,10 +84,10 @@
 }
 */
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation 
-{
-	return FALSE;
-}
+//- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation 
+//{
+//	return FALSE;
+//}
 
 
 - (void)didReceiveMemoryWarning {

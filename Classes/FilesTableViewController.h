@@ -11,7 +11,16 @@
 
 @interface FilesTableViewController : StorageTableViewController {
 	
+	
+		// Search
+	UISearchBar *searchBar;
+	UISearchDisplayController *searchDisplayController;
+	NSMutableArray *searchItemList;
+
 }
+
+@property (nonatomic, retain) NSMutableArray *searchItemList;
+
 
 + (id)initWithAbsolutePath:(NSString *)path;
 
