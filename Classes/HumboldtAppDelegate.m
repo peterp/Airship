@@ -38,15 +38,14 @@
 	[UIApplication sharedApplication].idleTimerDisabled = YES;
 	
 
-	
 	// FilesTableViewController
-	FilesTableViewController *filesTableViewController = [FilesTableViewController initWithAbsolutePath:[[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"Files"]];
+	FilesTableViewController *filesTableViewController = [FilesTableViewController initWithAbsolutePath:[NSHomeDirectory() stringByAppendingPathComponent:@"Documents/Files/"]];
 	UINavigationController *filesNavigationController = [[UINavigationController alloc] initWithRootViewController:filesTableViewController];
 	[filesTableViewController release];
 	
 	
 	// Search Controller
-	SearchTableViewController *searchTableViewController = [[SearchTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+	SearchTableViewController *searchTableViewController = [[SearchTableViewController alloc] initWithStyle:UITableViewStylePlain];
 	UINavigationController *searchNavigationController = [[UINavigationController alloc] initWithRootViewController:searchTableViewController];
 	[searchTableViewController release];
 	
@@ -61,7 +60,7 @@
 	// Tab bar controller
 	UITabBarController *tabBarController = [[UITabBarController alloc] init];
 	tabBarController.viewControllers  = [NSArray arrayWithObjects:filesNavigationController, searchNavigationController, sharingNavigationController, nil];
-	tabBarController.selectedIndex = 1;
+	tabBarController.selectedIndex = 0;
 
 	[filesNavigationController release];
 	[searchNavigationController release];

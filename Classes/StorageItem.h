@@ -24,7 +24,7 @@
 @property (nonatomic, copy) NSString *date;
 @property (nonatomic, copy) NSString *size;
 
-- (id)initWithName:(NSString *)itemName atAbsolutePath:(NSString *)atPath;
+- (id)initWithName:(NSString *)itemName atAbsolutePath:(NSString *)itemPath;
 - (NSString *)determineKindByExtension;
 
 

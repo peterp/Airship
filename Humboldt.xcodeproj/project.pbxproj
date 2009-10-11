@@ -13,7 +13,6 @@
 		CE0FA3791078CAC200ABACCD /* SearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0FA3781078CAC200ABACCD /* SearchController.m */; };
 		CE15B29D106D0F1A006F44E0 /* SharingController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE15B29C106D0F1A006F44E0 /* SharingController.m */; };
 		CE2B3B0F0F3CD72B0039B355 /* StorageHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2B3B0E0F3CD72B0039B355 /* StorageHTTPConnection.m */; };
-		CE35CA7E107D21BA006C6A60 /* SearchTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE35CA7D107D21BA006C6A60 /* SearchTableViewController.m */; };
 		CE38A38D0FF6AD1200E93C29 /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = CE38A3790FF6AD1200E93C29 /* AsyncSocket.m */; };
 		CE38A38E0FF6AD1200E93C29 /* DDData.m in Sources */ = {isa = PBXBuildFile; fileRef = CE38A37B0FF6AD1200E93C29 /* DDData.m */; };
 		CE38A38F0FF6AD1200E93C29 /* DDNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = CE38A37D0FF6AD1200E93C29 /* DDNumber.m */; };
@@ -38,8 +37,6 @@
 		CE5B301A10539CBC00B6A834 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE5B301910539CBC00B6A834 /* UIKit.framework */; };
 		CE5B30DE10539DD100B6A834 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE5B30DD10539DD100B6A834 /* CoreGraphics.framework */; };
 		CE6C9EED0FF6AFC5009CCC45 /* FolderController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6C9EEC0FF6AFC5009CCC45 /* FolderController.m */; };
-		CE7A0646107BBED300CFCCED /* StorageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7A0645107BBED300CFCCED /* StorageTableViewController.m */; };
-		CE7A0651107BC0E000CFCCED /* FilesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7A0650107BC0E000CFCCED /* FilesTableViewController.m */; };
 		CE7A06C5107BC98700CFCCED /* StorageItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7A06C4107BC98700CFCCED /* StorageItem.m */; };
 		CE8627E910013D400063F8F6 /* wwwroot in Resources */ = {isa = PBXBuildFile; fileRef = CE8627E510013D400063F8F6 /* wwwroot */; };
 		CE8704C81041C4AB00A18899 /* TapDetectingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8704C71041C4AB00A18899 /* TapDetectingScrollView.m */; };
@@ -58,6 +55,9 @@
 		CEC34E2B103594BF008021B0 /* unknown.png in Resources */ = {isa = PBXBuildFile; fileRef = CEC34E25103594BF008021B0 /* unknown.png */; };
 		CEC34E2C103594BF008021B0 /* video.png in Resources */ = {isa = PBXBuildFile; fileRef = CEC34E26103594BF008021B0 /* video.png */; };
 		CECE390910680DD4000EE1F6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CECE390810680DD4000EE1F6 /* SystemConfiguration.framework */; };
+		CED611271081F5F9000C41CB /* NSArray+CWSortedInsert.m in Sources */ = {isa = PBXBuildFile; fileRef = CED611261081F5F9000C41CB /* NSArray+CWSortedInsert.m */; };
+		CED6135910826EB9000C41CB /* SearchTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CED6135810826EB9000C41CB /* SearchTableViewController.m */; };
+		CED6138C108279AB000C41CB /* FilesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CED6138B108279AB000C41CB /* FilesTableViewController.m */; };
 		CEE04E9F0FD9E82E00C32900 /* AFMultipartParser.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE04E9E0FD9E82E00C32900 /* AFMultipartParser.m */; };
 		CEECEDB01019DA1100B3918A /* TapDetectingWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEECEDAF1019DA1100B3918A /* TapDetectingWebView.m */; };
 		CEF21BB40FF432810042E698 /* DirectoryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF21BB30FF432810042E698 /* DirectoryItem.m */; };
@@ -78,8 +78,6 @@
 		CE15B29C106D0F1A006F44E0 /* SharingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharingController.m; sourceTree = "<group>"; };
 		CE2B3B0D0F3CD72B0039B355 /* StorageHTTPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StorageHTTPConnection.h; sourceTree = "<group>"; };
 		CE2B3B0E0F3CD72B0039B355 /* StorageHTTPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StorageHTTPConnection.m; sourceTree = "<group>"; };
-		CE35CA7C107D21BA006C6A60 /* SearchTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchTableViewController.h; sourceTree = "<group>"; };
-		CE35CA7D107D21BA006C6A60 /* SearchTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTableViewController.m; sourceTree = "<group>"; };
 		CE38A3780FF6AD1200E93C29 /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncSocket.h; sourceTree = "<group>"; };
 		CE38A3790FF6AD1200E93C29 /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncSocket.m; sourceTree = "<group>"; };
 		CE38A37A0FF6AD1200E93C29 /* DDData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDData.h; sourceTree = "<group>"; };
@@ -123,10 +121,6 @@
 		CE6C9EEB0FF6AFC5009CCC45 /* FolderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FolderController.h; sourceTree = "<group>"; };
 		CE6C9EEC0FF6AFC5009CCC45 /* FolderController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FolderController.m; sourceTree = "<group>"; };
 		CE70DA090FFABC0400D606B3 /* AFMultipartParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFMultipartParser.h; sourceTree = "<group>"; };
-		CE7A0644107BBED300CFCCED /* StorageTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StorageTableViewController.h; sourceTree = "<group>"; };
-		CE7A0645107BBED300CFCCED /* StorageTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StorageTableViewController.m; sourceTree = "<group>"; };
-		CE7A064F107BC0E000CFCCED /* FilesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilesTableViewController.h; sourceTree = "<group>"; };
-		CE7A0650107BC0E000CFCCED /* FilesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilesTableViewController.m; sourceTree = "<group>"; };
 		CE7A06C3107BC98700CFCCED /* StorageItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StorageItem.h; sourceTree = "<group>"; };
 		CE7A06C4107BC98700CFCCED /* StorageItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StorageItem.m; sourceTree = "<group>"; };
 		CE8627E510013D400063F8F6 /* wwwroot */ = {isa = PBXFileReference; lastKnownFileType = folder; path = wwwroot; sourceTree = "<group>"; };
@@ -154,6 +148,12 @@
 		CEC34E25103594BF008021B0 /* unknown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unknown.png; sourceTree = "<group>"; };
 		CEC34E26103594BF008021B0 /* video.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = video.png; sourceTree = "<group>"; };
 		CECE390810680DD4000EE1F6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		CED611251081F5F9000C41CB /* NSArray+CWSortedInsert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+CWSortedInsert.h"; sourceTree = "<group>"; };
+		CED611261081F5F9000C41CB /* NSArray+CWSortedInsert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+CWSortedInsert.m"; sourceTree = "<group>"; };
+		CED6135710826EB9000C41CB /* SearchTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchTableViewController.h; sourceTree = "<group>"; };
+		CED6135810826EB9000C41CB /* SearchTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTableViewController.m; sourceTree = "<group>"; };
+		CED6138A108279AB000C41CB /* FilesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilesTableViewController.h; sourceTree = "<group>"; };
+		CED6138B108279AB000C41CB /* FilesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilesTableViewController.m; sourceTree = "<group>"; };
 		CEE04E9E0FD9E82E00C32900 /* AFMultipartParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFMultipartParser.m; sourceTree = "<group>"; };
 		CEECEDAE1019DA1100B3918A /* TapDetectingWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapDetectingWebView.h; sourceTree = "<group>"; };
 		CEECEDAF1019DA1100B3918A /* TapDetectingWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapDetectingWebView.m; sourceTree = "<group>"; };
@@ -198,14 +198,12 @@
 				CE0FA3781078CAC200ABACCD /* SearchController.m */,
 				CE15B29B106D0F1A006F44E0 /* SharingController.h */,
 				CE15B29C106D0F1A006F44E0 /* SharingController.m */,
-				CE7A0644107BBED300CFCCED /* StorageTableViewController.h */,
-				CE7A0645107BBED300CFCCED /* StorageTableViewController.m */,
 				CE7A06C3107BC98700CFCCED /* StorageItem.h */,
 				CE7A06C4107BC98700CFCCED /* StorageItem.m */,
-				CE7A064F107BC0E000CFCCED /* FilesTableViewController.h */,
-				CE7A0650107BC0E000CFCCED /* FilesTableViewController.m */,
-				CE35CA7C107D21BA006C6A60 /* SearchTableViewController.h */,
-				CE35CA7D107D21BA006C6A60 /* SearchTableViewController.m */,
+				CED6138A108279AB000C41CB /* FilesTableViewController.h */,
+				CED6138B108279AB000C41CB /* FilesTableViewController.m */,
+				CED6135710826EB9000C41CB /* SearchTableViewController.h */,
+				CED6135810826EB9000C41CB /* SearchTableViewController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -271,7 +269,7 @@
 		CE38A3740FF6ACEE00E93C29 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				CEAA885D10680D13009EF7B7 /* Reachability */,
+				CED6111A1081F5D7000C41CB /* Misc */,
 				CE38A3A20FF6ADEF00E93C29 /* TouchJSON */,
 				CE38A3750FF6ACF400E93C29 /* CocoaHTTPServer */,
 			);
@@ -375,15 +373,6 @@
 			name = Videos;
 			sourceTree = "<group>";
 		};
-		CEAA885D10680D13009EF7B7 /* Reachability */ = {
-			isa = PBXGroup;
-			children = (
-				CEAA886910680D1E009EF7B7 /* Reachability.h */,
-				CEAA886A10680D1E009EF7B7 /* Reachability.m */,
-			);
-			name = Reachability;
-			sourceTree = "<group>";
-		};
 		CEC144E4101D092E000DA2AE /* DetailView */ = {
 			isa = PBXGroup;
 			children = (
@@ -408,6 +397,17 @@
 				CEC34E26103594BF008021B0 /* video.png */,
 			);
 			path = icons;
+			sourceTree = "<group>";
+		};
+		CED6111A1081F5D7000C41CB /* Misc */ = {
+			isa = PBXGroup;
+			children = (
+				CEAA886910680D1E009EF7B7 /* Reachability.h */,
+				CEAA886A10680D1E009EF7B7 /* Reachability.m */,
+				CED611251081F5F9000C41CB /* NSArray+CWSortedInsert.h */,
+				CED611261081F5F9000C41CB /* NSArray+CWSortedInsert.m */,
+			);
+			name = Misc;
 			sourceTree = "<group>";
 		};
 		CEECF85B10302C8200469751 /* WWW */ = {
@@ -529,10 +529,10 @@
 				CEAA886B10680D1E009EF7B7 /* Reachability.m in Sources */,
 				CE15B29D106D0F1A006F44E0 /* SharingController.m in Sources */,
 				CE0FA3791078CAC200ABACCD /* SearchController.m in Sources */,
-				CE7A0646107BBED300CFCCED /* StorageTableViewController.m in Sources */,
-				CE7A0651107BC0E000CFCCED /* FilesTableViewController.m in Sources */,
 				CE7A06C5107BC98700CFCCED /* StorageItem.m in Sources */,
-				CE35CA7E107D21BA006C6A60 /* SearchTableViewController.m in Sources */,
+				CED611271081F5F9000C41CB /* NSArray+CWSortedInsert.m in Sources */,
+				CED6135910826EB9000C41CB /* SearchTableViewController.m in Sources */,
+				CED6138C108279AB000C41CB /* FilesTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

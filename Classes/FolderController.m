@@ -211,6 +211,7 @@
 
 - (void)filterContentForSearchText:(NSString*)searchText
 {
+	
 	searchText = [searchText lowercaseString];
 	[self.filteredDirectoryItems removeAllObjects];
 

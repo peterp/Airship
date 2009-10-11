@@ -32,10 +32,10 @@
 
 
 
-- (id)initWithName:(NSString *)itemName atAbsolutePath:(NSString *)path;
+- (id)initWithName:(NSString *)itemName atAbsolutePath:(NSString *)itemPath;
 {
 	self.name = itemName;
-	self.absolutePath = [path stringByAppendingPathComponent:itemName];
+	self.absolutePath = [itemPath stringByAppendingPathComponent:itemName];
 	
 	// Date, Size, Kind
 	NSDictionary *attrib = [[NSFileManager defaultManager] attributesOfItemAtPath:self.absolutePath error:nil];

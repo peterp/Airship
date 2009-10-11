@@ -2,27 +2,43 @@
 //  FilesTableViewController.h
 //  Humboldt
 //
-//  Created by Peter Pistorius on 2009/10/06.
+//  Created by Peter Pistorius on 2009/10/11.
 //  Copyright 2009 appfactory. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "StorageTableViewController.h"
 
-@interface FilesTableViewController : StorageTableViewController {
+
+@interface FilesTableViewController : UITableViewController <UISearchBarDelegate, UISearchDisplayDelegate> {
+
+	// Storage Directory Path;
+	NSString *absolutePath;
+
+	// DataSource
+	NSMutableArray *storageItemList;
 	
 	
-		// Search
+	// Search
 	UISearchBar *searchBar;
 	UISearchDisplayController *searchDisplayController;
-	NSMutableArray *searchItemList;
-
+	NSMutableArray *filteredStorageItemList;
 }
 
-@property (nonatomic, retain) NSMutableArray *searchItemList;
 
+@property (nonatomic, copy) NSString *absolutePath;
+@property (nonatomic, retain) NSMutableArray *storageItemList;
+
+
+@property (nonatomic, retain) UISearchBar *searchBar;
+@property (nonatomic, retain) UISearchDisplayController *searchDisplayController;
+@property (nonatomic, retain) NSMutableArray *filteredStorageItemList;
 
 + (id)initWithAbsolutePath:(NSString *)path;
 
 
+
 @end
+
+
+
+
