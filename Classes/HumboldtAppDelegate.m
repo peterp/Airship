@@ -18,9 +18,12 @@
 
 
 @synthesize window;
+@synthesize tabBarController;
+
 
 - (void)dealloc 
 {
+	[tabBarController release];
   [window release];
   [super dealloc];
 }
@@ -55,9 +58,11 @@
 	[sharingTableViewController release];
 
 	// Tab bar controller
-	UITabBarController *tabBarController = [[UITabBarController alloc] init];
+	self.tabBarController = [[UITabBarController alloc] init];
 	tabBarController.viewControllers  = [NSArray arrayWithObjects:filesNavigationController, searchNavigationController, sharingNavigationController, nil];
 	tabBarController.selectedIndex = 0;
+	
+	
 
 	[filesNavigationController release];
 	[searchNavigationController release];

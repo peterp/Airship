@@ -39,8 +39,8 @@
     if (self = [super initWithStyle:style]) {
 		
 			self.title = @"Sharing";
+			self.tabBarItem.image = [UIImage imageNamed:@"audio.png"];
 			
-			NSLog(@"%@", self.tabBarItem.title);
 			
 		
 			// Reachability
@@ -56,14 +56,14 @@
 
 
 
-//- (void)viewDidLoad 
-//{
-//	[super viewDidLoad];
-//	
-//	
-//	
-//	
-//}
+- (void)viewDidLoad 
+{
+	[super viewDidLoad];
+	
+	
+
+	
+}
 
 
 /*
@@ -279,7 +279,7 @@
 		
 		case ReachableViaWiFi:
 		{
-			self.tabBarItem.badgeValue = @"margle";
+			self.tabBarItem.badgeValue = nil;
 			localWiFiConnected = TRUE;
 			break;
 		}
