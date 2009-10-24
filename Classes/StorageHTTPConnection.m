@@ -13,72 +13,161 @@
 #import "CJSONSerializer.h"
 #import "AFMultipartParser.h"
 
-#import "DirectoryItem.h"
+#import "StorageItem.h"
 
-#import "time.h"
 
 
 @implementation StorageHTTPConnection
 
 
 
-- (NSObject<HTTPResponse> *)httpResponseForMethod:(NSString *)method URI:(NSString *)uri 
+- (BOOL)supportsMethod:(NSString *)method atPath:(NSString *)path;
+{
+	
+	NSString *contentType = NSMakeCollectable(CFHTTPMessageCopyHeaderFieldValue(request, CFSTR("Content-Type")));
+
+	if ([contentType hasPrefix:@"multipart/form-data;"]) {
+		
+		[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+		requestIsMultipart = YES;
+		NSString *boundary = [contentType substringFromIndex:[contentType rangeOfString:@"boundary="].location + [@"boundary=" length]];
+		multipartParser = [[AFMultipartParser alloc] initWithBoundary:boundary];
+		
+	} else {
+	
+		requestIsMultipart = NO;
+	}
+	[contentType release];
+
+	// We support all methods
+	return YES;
+}
+
+
+- (void)processDataChunk:(NSData *)postDataChunk;
+{
+	if (requestIsMultipart) {
+	
+		[multipartParser parseMultipartChunk:postDataChunk];
+	} else {
+	
+		// Append post body to request object.
+		CFHTTPMessageAppendBytes(request, [postDataChunk bytes], [postDataChunk length]);
+	}
+}
+
+
+
+
+- (NSObject<HTTPResponse> *)httpResponseForMethod:(NSString *)method URI:(NSString *)URI;
 {
 
-	NSLog(@"httpResponseForMethod: URI:%@", uri);
+	NSURL *URL = [NSURL URLWithString:URI];
 	
-	NSURL *url = [NSURL URLWithString:uri];
+
+	NSLog(@"response: %@ (%@)", URL.path, method);
 	
+	// Normal Response
 	if ([method isEqualToString:@"GET"]) {
-		// GET METHODS
-		
-		
-		
-		
-			
-
-
-			NSString *path = url.path;
-			if ([url.path isEqualToString:@"/"]) {
-				path = @"index.html";
-			}
-			path = [[server.documentRoot.path stringByAppendingPathComponent:@"wwwroot"] stringByAppendingPathComponent:path];
-			return [[[HTTPFileResponse alloc] initWithFilePath:path] autorelease];
-		
-		
-		
+	
+		NSString *URLpath = URL.path;
+	
+		if ([URLpath isEqualToString:@"/"]) {
+			URLpath = @"index.html";
+		} else if ([URLpath isEqualToString:@"/upload"]) {
+			URLpath = @"upload.html";
+		}
+		return [[[HTTPFileResponse alloc] initWithFilePath:[[server.documentRoot.path stringByAppendingPathComponent:@"wwwroot"] stringByAppendingPathComponent:URLpath]] autorelease];
+	
 	} else if ([method isEqualToString:@"POST"]) {
-		// POST METHODS
 		
-		if ([url.path isEqualToString:@"/__/directory/create"]) {
-
-			// Create a directory
-			NSDictionary *vars = [self variablesForPostRequest];
-			return [[[HTTPDataResponse alloc] initWithData:[[self createDirectory:[vars valueForKey:@"directoryName"] atPath:[vars valueForKey:@"relativePath"]] dataUsingEncoding:NSUTF8StringEncoding]] autorelease];
-
-		} else if ([url.path isEqualToString:@"/__/directory/open"]) {
-
-			// Open a directory
-			NSDictionary *vars = [self variablesForPostRequest];
-			return [[[HTTPDataResponse alloc] initWithData:[self directoryContentsAtURL:[vars valueForKey:@"relativePath"]]] autorelease];
+		
+		
+		
+		if ([URL.path isEqualToString:@"/__/directory/list"]) {
+			
+			NSDictionary *args = [self getPOSTRequestArguments];
+			return [[[HTTPDataResponse alloc] initWithData:[self JSONForDirectoryContentsAtPath:[args valueForKey:@"relativePath"]]] autorelease];
+			
 			
 		} else if (requestIsMultipart) {
-		
-			// check to see if the fileupload was correctly done?
-			if ([[[multipartParser.parts valueForKey:@"Filedata"] valueForKey:@"filename"] length] <= 0) {
-				// Bad upload, cleanup.
-				[multipartParser release];
-				requestIsMultipart = NO;
-				return [[[HTTPDataResponse alloc] initWithData:[@"0" dataUsingEncoding:NSUTF8StringEncoding]] autorelease];
-			}
-			// File upload is complete, move the file to it's proper directory and release all used resources.
-			[self fileUploadComplete];
-			return [[[HTTPDataResponse alloc] initWithData:[@"1" dataUsingEncoding:NSUTF8StringEncoding]] autorelease];
+
+			[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+			NSString *filename = [[multipartParser.parts valueForKey:@"Filedata"] valueForKey:@"filename"];
+			NSString *relativePath = [[multipartParser.parts valueForKey:@"relativePath"] valueForKey:@"value"];
+			NSError *error;
+			[[NSFileManager defaultManager] moveItemAtPath:[[multipartParser.parts valueForKey:@"Filedata"] valueForKey:@"tmpFilePath"] toPath:[[server.documentRoot.path stringByAppendingPathComponent:relativePath] stringByAppendingPathComponent:filename] error:&error];
+			// Notification
+			//[[NSNotificationCenter defaultCenter] postNotificationName:@"newItem" object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:relativePath, @"relativePath",filename, @"name", nil]];
+
+			// Cleanup...
+			[multipartParser release];
+			requestIsMultipart = NO;
+			
+			return [[[HTTPDataResponse alloc] initWithData:[@"true" dataUsingEncoding:NSUTF8StringEncoding]] autorelease];
 		}
-		
 	}
 	
-	return nil;
+	return nil; // 404
+
+
+
+
+
+
+	// We need to seperate action responses from server responses...
+	
+	
+//	if ([method isEqualToString:@"GET"]) {
+//		// GET METHODS
+//		
+//		
+//		
+//		
+//			
+//
+//
+//			NSString *path = url.path;
+//			if ([url.path isEqualToString:@"/"]) {
+//				path = @"index.html";
+//			}
+//			path = [[server.documentRoot.path stringByAppendingPathComponent:@"wwwroot"] stringByAppendingPathComponent:path];
+//			return [[[HTTPFileResponse alloc] initWithFilePath:path] autorelease];
+//		
+//		
+//		
+//	} else if ([method isEqualToString:@"POST"]) {
+//		// POST METHODS
+//		
+//		if ([url.path isEqualToString:@"/__/directory/create"]) {
+//
+//			// Create a directory
+//			NSDictionary *vars = [self variablesForPostRequest];
+//			return [[[HTTPDataResponse alloc] initWithData:[[self createDirectory:[vars valueForKey:@"directoryName"] atPath:[vars valueForKey:@"relativePath"]] dataUsingEncoding:NSUTF8StringEncoding]] autorelease];
+//
+//		} else if ([url.path isEqualToString:@"/__/directory/open"]) {
+//
+//			// Open a directory
+//			NSDictionary *vars = [self variablesForPostRequest];
+//			return [[[HTTPDataResponse alloc] initWithData:[self JSONForDirectoryContentsAtPath:[vars valueForKey:@"relativePath"]]] autorelease];
+//			
+//		} else if (requestIsMultipart) {
+//		
+//			// check to see if the fileupload was correctly done?
+//			if ([[[multipartParser.parts valueForKey:@"Filedata"] valueForKey:@"filename"] length] <= 0) {
+//				// Bad upload, cleanup.
+//				[multipartParser release];
+//				requestIsMultipart = NO;
+//				return [[[HTTPDataResponse alloc] initWithData:[@"0" dataUsingEncoding:NSUTF8StringEncoding]] autorelease];
+//			}
+//			// File upload is complete, move the file to it's proper directory and release all used resources.
+//			[self fileUploadComplete];
+//			return [[[HTTPDataResponse alloc] initWithData:[@"1" dataUsingEncoding:NSUTF8StringEncoding]] autorelease];
+//		}
+//		
+//	}
+//	
+//	return nil;
 }
 
 
@@ -96,14 +185,13 @@
 # pragma mark Utility classes
 
 
-- (NSMutableDictionary *)variablesForPostRequest
+- (NSMutableDictionary *)getPOSTRequestArguments;
 {
 	CFDataRef postData = CFHTTPMessageCopyBody(request);
 	NSString *postBody = [[NSString alloc] initWithData:(NSData *)postData encoding:NSUTF8StringEncoding];
 	
 	NSMutableDictionary *variables= [NSMutableDictionary dictionary];
 	for (NSString *postBodyPart in [postBody componentsSeparatedByString:@"&"]) {
-	
 		NSArray *keyValue = [postBodyPart componentsSeparatedByString:@"="];
 		[variables setValue:[[[keyValue objectAtIndex:1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByReplacingOccurrencesOfString:@"+" withString:@" "] forKey:[keyValue objectAtIndex:0]];
 	}
@@ -167,75 +255,34 @@
 }
 
 
-- (NSData *)directoryContentsAtURL:(NSString *)url
+- (NSData *)JSONForDirectoryContentsAtPath:(NSString *)path;
 {
-	NSLog(@"directoryContentsAtURL:%@", url);
-
-	NSString *path = [server.documentRoot.path stringByAppendingPathComponent:url];
-	
-	NSArray *directoryContents = [[NSFileManager defaultManager] directoryContentsAtPath:path];
-	NSMutableArray *directoryItems = [NSMutableArray array];
-	for (NSString *name in [directoryContents sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)]) {
-		if (![name isEqualToString:@".DS_Store"]) {
-
-			// Create DirectoryItem
-			DirectoryItem *item = [DirectoryItem initWithName:name atPath:path];
-			[directoryItems addObject:[NSDictionary dictionaryWithObjectsAndKeys:name, @"name", item.type, @"type", item.date, @"date", nil]];
-		}
+	// DataSource
+	NSArray *directoryContents = [[[NSFileManager defaultManager] directoryContentsAtPath:[server.documentRoot.path stringByAppendingPathComponent:path]] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+	NSMutableArray *storageItemList = [NSMutableArray arrayWithCapacity:[directoryContents count]];
+	for (NSString *itemName in directoryContents) {
+		StorageItem *storageItem = [[StorageItem alloc] initWithName:itemName atAbsolutePath:[server.documentRoot.path stringByAppendingPathComponent:path]];
+		[storageItemList addObject:[NSDictionary dictionaryWithObjectsAndKeys:storageItem.name, @"name", storageItem.kind, @"kind", storageItem.date, @"date", storageItem.size, @"size", nil]];
+		
+		[storageItem release];
 	}
-
-	return [[[CJSONSerializer serializer] serializeObject:directoryItems] dataUsingEncoding:NSUTF8StringEncoding];
+	directoryContents = nil;
+	return [[[CJSONSerializer serializer] serializeObject:storageItemList] dataUsingEncoding:NSUTF8StringEncoding];
 }
 
 
 
-# pragma mark -
-# pragma mark Multipart/form-data and generic POST requests
-
-- (BOOL)supportsMethod:(NSString *)method atPath:(NSString *)path 
-{
-	// Looking for multipart uploads
-	NSString *contentType = NSMakeCollectable(CFHTTPMessageCopyHeaderFieldValue(request, CFSTR("Content-Type")));
-	if ([contentType hasPrefix:@"multipart/form-data;"]) {
-	
-		requestIsMultipart = YES;
-		NSString *boundary = [contentType substringFromIndex:[contentType rangeOfString:@"boundary="].location + [@"boundary=" length]];
-		multipartParser = [[AFMultipartParser alloc] initWithBoundary:boundary];
-		//start = clock();
-	} else {
-		requestIsMultipart = NO;
-	}
-	[contentType release];
-
-	return YES;
-}
 
 
-- (void)processDataChunk:(NSData *)postDataChunk 
-{
-	if (requestIsMultipart) {
-		[multipartParser parseMultipartChunk:postDataChunk];
-	} else {
-		// Append post body to request object.
-		CFHTTPMessageAppendBytes(request, [postDataChunk bytes], [postDataChunk length]);
-	}
-}
+
+
+
+
 
 
 - (void)fileUploadComplete
 {
-	NSString *fromPath = [[multipartParser.parts valueForKey:@"Filedata"] valueForKey:@"tmpFilePath"];
-	NSString *filename = [[multipartParser.parts valueForKey:@"Filedata"] valueForKey:@"filename"];
-	NSString *relativePath = [[multipartParser.parts valueForKey:@"relativePath"] valueForKey:@"value"];
-	NSString *destPath = [[server.documentRoot.path stringByAppendingPathComponent:relativePath] stringByAppendingPathComponent:filename];
-	
-	NSError *error;
-	[[NSFileManager defaultManager] moveItemAtPath:fromPath toPath:destPath error:&error];
-			
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"newItem" object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:relativePath, @"relativePath",filename, @"name", nil]];
-			
-	[multipartParser release];
-	requestIsMultipart = NO;
+
 }
 
 

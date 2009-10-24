@@ -11,8 +11,7 @@
 
 #import "FilesTableViewController.h"
 #import "SearchTableViewController.h"
-
-#import "SharingController.h"
+#import "SharingTableViewController.h"
 
 
 @implementation HumboldtAppDelegate
@@ -43,7 +42,7 @@
 	UINavigationController *filesNavigationController = [[UINavigationController alloc] initWithRootViewController:filesTableViewController];
 	[filesTableViewController release];
 	
-	
+
 	// Search Controller
 	SearchTableViewController *searchTableViewController = [[SearchTableViewController alloc] initWithStyle:UITableViewStylePlain];
 	UINavigationController *searchNavigationController = [[UINavigationController alloc] initWithRootViewController:searchTableViewController];
@@ -51,11 +50,9 @@
 	
 	
 	// Server view controller...
-	SharingController *sharingController = [[SharingController alloc] initWithStyle:UITableViewStyleGrouped];
-	UINavigationController *sharingNavigationController = [[UINavigationController alloc] initWithRootViewController:sharingController];
-	[sharingController release];
-
-
+	SharingTableViewController *sharingTableViewController = [[SharingTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+	UINavigationController *sharingNavigationController = [[UINavigationController alloc] initWithRootViewController:sharingTableViewController];
+	[sharingTableViewController release];
 
 	// Tab bar controller
 	UITabBarController *tabBarController = [[UITabBarController alloc] init];

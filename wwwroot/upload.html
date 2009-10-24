@@ -2,70 +2,159 @@
 	"http://www.w3.org/TR/html4/strict.dtd">
 <html>
 	<head>
-		<title>Upload | airship</title>
+		<title>Upload your files</title>
 		<link rel="stylesheet" href="/media/base.css" type="text/css" media="screen" title="" charset="utf-8">
-		<link href="/media/js/uploadify/uploadify.css" rel="stylesheet" type="text/css" />
 		
-		<script type="text/javascript" src="/media/js/swfobject.js"></script>
 		<script src="/media/js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
-		<script type="text/javascript" src="/media/js/uploadify/jquery.uploadify.v2.0.1.min.js"></script>
-		
-		
+		<script src="/media/js/swfobject.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/media/js/uploadify/jquery.uploadify.v2.1.0.min.js" type="text/javascript" charset="utf-8"></script>
 		
 		<script type="text/javascript" charset="utf-8">
 		
+			var humanize_bytes = function(b) 
+			{
+				var d = [' B', ' KB', ' MB', ' GB'];
+			    for (var i = 0; b > 1024; i++) {
+			    	b /= 1024;
+			    }
+				return Math.round(b * 100) / 100 + d[i];
+			};
+		
+		
 			$(function() {
-				// grab the current relative Path... This is where we'll be uploading too.
-				var relativePath = decodeURIComponent(window.location.search.split('=')[1]);
-				$('#relativePath').val(relativePath);
-
-				var directory = relativePath.split('/');
-				directory = directory[directory.length - 1];
-				$('#upload-directory').text(directory);
 				
-				$('#upload-form').uploadify({
-					'uploader'       : '/media/js/uploadify/uploadify.swf',
-					'script'         : '/__/file/upload/',
-					'cancelImg'      : '/media/js/uploadify/cancel.png',
-					'expressInstall' : '/media/js/expressInstall.swf',
-					'folder'         : 	'',
-					'queueID'        : 'upload-queue',
-					'multi'			 : true,
-					'auto'           : false,
-					'scriptData'	 : {'relativePath': relativePath},
-					'onSelectOnce': function() {
-						
-						var b = $('<input type="button" value="Begin Upload"></input>').click(function() {
+				
+				
+				// grab the current relative Path... This is where we'll be uploading too.
+				var relativePath = decodeURIComponent(window.location.search);
+				relativePath = relativePath.length <= 0 ? 'Files' : relativePath.substr(1);
+				$('#relativePath').val(relativePath);
+				
+				var destination = relativePath.split('/');
+				destination = destination[destination.length - 1];
+				$('#destination').text(destination);
+				
+				$('a[href=#toggleUploaders]').click(function() {
+				
+					$('#basic').toggle();
+					$('#advanced').toggle();
+				
+					return false;
+				});
 							
-							$('#upload-form').uploadifyUpload();
-						});
-						
-						$('#upload-queue').after(b);
-						
+				
+				$('#uploader').uploadify({
+					uploader: '/media/js/uploadify/uploadify.swf',
+					script: '/__/file/upload/',
+//					checkScript: '/__/file/exists/',
+					scriptData: {'relativePath': relativePath}, // additional post vars
+					cancelImg: '/media/js/uploadify/cancel.png',
+					fileDataName: 'Filedata', // post name
+					folder: '../' + relativePath,
+					queueID: 'upload-queue',
+					multi: true,
+					auto: true,
+					buttonText: 'Choose files to upload...',
+					width: '120',
+					
+					
+					onInit: function() {
+						$('#basic').toggle();
+						$('#advanced').toggle();
 					},
+					
+					onSelect: function(event, queueID, fileObj) {
+						var m = $('<div class="item" id="' + queueID + '"/>')
+							.append('<div class="info">Uploading ' + fileObj.name + ' to "' + destination + '"')
+							.append('<div class="progress"><div class="completed"></div></div>')
+							.append($('<div class="cancel"></div>').click(function() {
+								
+								$('#uploader').uploadifyCancel($(this).parent().attr('id'));
+								
+							}))
+							.append('<span class="status"><span>Zero KB</span> of ' + humanize_bytes(fileObj.size) + ' - <span>Waiting to upload...</span></span>');
+							
+						$('#queue').append(m);
+						
+						
+						var c = parseInt($('#upload-count').html(), 10);
+						$('#upload-count').html(c += 1);
+						
+						return false;
+					},
+					
+					onCancel: function(event, queueID, fileObj, data) {
+						$('#' + queueID).remove();
+						
+						var c = parseInt($('#upload-count').html(), 10);
+						$('#upload-count').html(c -= 1);
+					},
+					
+					onProgress: function(event, queueID, fileObj, data) {
+						var i = $('#' + queueID);
+						var s = i.find('.status span');
+						s.slice(0, 1).html(humanize_bytes(data.bytesLoaded));
+						s.slice(1, 2).html(humanize_bytes(data.speed * 1024) + '/s');
+						i.find('.completed').css('width', (data.percentage * 4) + 'px');
+					},
+
+					onComplete: function(event, queueID, fileObj, response, data) {
+						
+						
+						$('#' + queueID).animate({opacity:0}, 800, function() { $(this).remove(); })
+
+						var c = parseInt($('#upload-count-completed').html(), 10);
+						$('#upload-count-completed').html(c += 1);
+						$('#upload-speed').html(humanize_bytes(data.speed * 1024));
+					}
 				});
 				
-				
+		
+
+							
+							
 			});
 		</script>
 	</head>
 	<body>
-		<form action="/__/file/upload" method="post" enctype="multipart/form-data">
-			
-			<h2>Choose file to upload to "<span id="upload-directory"></span>"</h2>
-			<div id="upload-form">
+		
+		<div id="upload-container">
+
+			<h2>Upload your files</h2>
+			<p>Upload destination: <span id="destination">Files</span></p>
+
+			<form action="/__/file/upload/" method="post" enctype="multipart/form-data" id="basic">
 				
-				<p><input type="file" name="Filedata"/></p>
-	
 				<p>
-					<input type="hidden" name="relativePath" id="relativePath"/>
-					<input type="submit" value="Upload"/>
+					<input type="file" name="Filedata"><br>
+					<span class="small">Problems? Try the <a href="#toggleUploaders">advanced uploader</a>.</span>
 				</p>
+				
+				<p>
+					<input type="submit" value="Upload">
+					<input type="hidden" name="relativePath" id="relativePath" value="Files">
+				</p>
+			</form>
+
+				
+				
+			<div id="advanced">
+				
+				<div id="uploader"></div>
+				
+				<p class="small">Problems? Try the <a href="#toggleUploaders">basic uploader</a>.</p>
+				
+				<div id="queue">
+				</div>
+				
+				<p><span id="upload-count-completed">0</span> of <span id="upload-count">0</span> files uploaded, at an average of <span id="upload-speed">0 KB</span>/s</p>
+				
 			</div>
+				
+				
+				
 			
-			<div id="upload-queue">
-			</div>
 			
-		</form>
+		</div>
 	</body>
 </html>

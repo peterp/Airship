@@ -5,11 +5,10 @@
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 		<title>airship</title>
 		<link rel="stylesheet" href="/media/base.css" type="text/css" media="screen" title="" charset="utf-8">
-		<link rel="stylesheet" href="/media/js/fancybox/jquery.fancybox.css" type="text/css" media="screen" title="" charset="utf-8">
-		
+
 		<script src="/media/js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="/media/js/fancybox/jquery.fancybox-1.2.1.pack.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/media/js/jquery-airship.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/media/js/jquery.simplemodal-1.3.min.js" type="text/javascript" charset="utf-8"></script>
 
 		
 		<script type="text/javascript" charset="utf-8">
@@ -20,33 +19,65 @@
 	</head>
 	<body>
 		
+		
 		<div id="container">
 			
 			<div id="header">
-				<h1>airship</h1>
+				<img src="media/gfx/airship.png" alt="airship">
 			</div>
 			
-			<a href="upload.html" class="iframe" id="action-file-upload">Upload</a>
-			<a href="#action-directory-create" id="action-directory-create">New Directory</a>
+
+			<div id="toolbar">
+			</div>
 			
-			<div class="item-container">
+			
+			<div class="storage-item-container">
+				
 				<ul class="lh">
-					<li class="type"></li>
+					<li class="mark"></li>
+					<li class="icon"></li>
 					<li class="name">Name</li>
 					<li class="date">Date Modified</li>
 					<li class="size">Size</li>
-					<li></li>
 				</ul>
-				<div id="item-list">
-					
-				</div>
+
 				
-				
-				<div id="path-breadcrumbs">
+				<div id="storage-item-list">
 				</div>
 			</div>
 			
+			<div id="footer">
+			</div>
 			
 		</div>
+		
+		
+		
+
+		<!-- <div id="dialog-upload">
+				
+				<form action="/__/file/upload/" method="post" enctype="multipart/form-data" id="upload-form">
+
+					<h2>Choose files to upload to "<span>Files</span>"</h2>
+					
+					<div>
+						<p><input type="file" name="Filedata"/></p>
+						
+						<div id="upload-queue">
+						</div>
+
+						<p>
+							<input type="hidden" name="relativePath" id="relativePath"/>
+							<input type="submit" value="Upload"/>
+						</p>
+					</div>
+
+					
+
+				</form>				
+					
+			</div>
+			 -->
+
 	</body>
 </html>

@@ -1,4 +1,121 @@
-/* reset.css */
+/* reset */
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {margin:0;padding:0;border:0;font-weight:inherit;font-style:inherit;font-size:100%;font-family:inherit;vertical-align:baseline;}
+table {border-collapse:separate;border-spacing:0;}
+caption, th, td {text-align:left;font-weight:normal;}
+table, td, th {vertical-align:middle;}
+blockquote:before, blockquote:after, q:before, q:after {content:"";}
+blockquote, q {quotes:"" "";}
+a img {border:none;}
+.small { font-size:.8em; }
+
+
+/* typography.css */
+html {font-size:100.01%;}
+h1, h2, h3, h4, h5, h6 {font-weight:normal;}
+h1 {font-size:3em;line-height:1;margin-bottom:0.5em;}
+h2 {font-size:2em;margin-bottom:0.75em;}
+h3 {font-size:1.5em;line-height:1;margin-bottom:1em;}
+h4 {font-size:1.2em;line-height:1.25;margin-bottom:1.25em;}
+h5 {font-size:1em;font-weight:bold;margin-bottom:1.5em;}
+h6 {font-size:1em;font-weight:bold;}
+h1 img, h2 img, h3 img, h4 img, h5 img, h6 img {margin:0;}
+p {margin:0 0 1.5em;}
+
+
+
+/* override */
+body {
+    line-height:1.5;
+    font-size:75%;
+    font-family:"Lucida Grande",Helvetica, Arial, sans-serif;
+	color:#000;
+}
+
+
+
+
+
+
+
+/* structural */
+
+
+#container {
+    margin:0 auto;
+    text-align:left;
+    width:960px;
+}
+
+#header { }
+#header img { }
+
+
+
+#toolbar {
+	height:36px;
+	background:#ccc;
+}
+
+
+
+.storage-item-container {
+}
+
+.storage-item-container ul {
+	list-style:none;
+}
+.storage-item-container li {
+	float:left;
+	display:inline;
+	height:19px;
+	font-weight:bold;
+	background:#ddd;
+}
+
+li.mark { width:36px; }
+li.icon { width:36px; }
+li.name { width:470px; }
+li.date { width:200px; }
+li.size { width:200px; }
+
+#storage-item-list {
+	height:500px;
+	overflow:auto;
+	clear:left;
+}
+#storage-item-list li {
+	font-weight:normal;
+}
+
+li.directory, li.document, li.image, li.audio, li.video, li.unknown { background:transparent url(/media/gfx/unknown.png) no-repeat 50% 50%; }
+li.directory { background-image:url(/media/gfx/directory.png); }
+li.document { background-image:url(/media/gfx/document.png); }
+li.image { background-image:url(/media/gfx/image.png); }
+li.audio { background-image:url(/media/gfx/audio.png); }
+li.video { background-image:url(/media/gfx/video.png); }
+
+ul.selected, ul.selected li { background-color:#fff; }
+
+
+
+
+
+#footer {
+	height:36px;
+	background:#ccc;
+}
+
+
+
+
+
+
+
+
+
+
+
+/*
 html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {margin:0;padding:0;border:0;font-weight:inherit;font-style:inherit;font-size:100%;font-family:inherit;vertical-align:baseline;}
 body {line-height:1.5;}
 table {border-collapse:separate;border-spacing:0;}
@@ -8,7 +125,6 @@ blockquote:before, blockquote:after, q:before, q:after {content:"";}
 blockquote, q {quotes:"" "";}
 a img {border:none;}
 
-/* typography.css */
 body {
     font-size:75%;
     color:#222;
@@ -125,5 +241,62 @@ li.size { width:50px; }
     overflow:auto;
     height:400px;
 }
+
+
+*/
+#simplemodal-overlay {background-color:#fff;}
+#simplemodal-container {background-color:#fff; border:8px solid #444; padding:9px; }
+
+#upload-container {
+	padding:18px;
+	width:470px;
+	background:#eee;
+	text-align:left;
+}
+
+#advanced { display:none; }
+
+
+
+
+
+#queue {
+	overflow:auto;
+	height:360px;
+	margin:18px 0;
+	background:#fff;
+}
+#queue .item {
+	border-bottom:1px #ccc solid;
+	padding:9px;
+	background:#fff;
+}
+#queue .progress {
+	float:left;
+	border:1px #ccc solid;
+	height:10px;
+	width:400px;
+	margin:9px 0;
+}
+#queue .progress .completed {
+	background:#a5abba;
+	width:0px;
+	height:10px;
+}
+#queue .cancel {
+	float:right;
+	height:16px;
+	width:16px;
+	background:#999;
+	margin:7px 0;
+	cursor:pointer;
+}
+#queue .item .status {
+	display:block;
+	clear:both;
+	font-size:.9em;
+}
+
+
 
 

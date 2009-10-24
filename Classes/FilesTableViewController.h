@@ -7,34 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StorageTableViewController.h"
 
 
-@interface FilesTableViewController : UITableViewController <UISearchBarDelegate, UISearchDisplayDelegate> {
-
-	// Storage Directory Path;
-	NSString *absolutePath;
-
-	// DataSource
-	NSMutableArray *storageItemList;
-	
+@interface FilesTableViewController : StorageTableViewController <UISearchBarDelegate, UISearchDisplayDelegate> {
 	
 	// Search
 	UISearchBar *searchBar;
 	UISearchDisplayController *searchDisplayController;
-	NSMutableArray *filteredStorageItemList;
 }
 
-
-@property (nonatomic, copy) NSString *absolutePath;
-@property (nonatomic, retain) NSMutableArray *storageItemList;
 
 
 @property (nonatomic, retain) UISearchBar *searchBar;
 @property (nonatomic, retain) UISearchDisplayController *searchDisplayController;
-@property (nonatomic, retain) NSMutableArray *filteredStorageItemList;
 
 + (id)initWithAbsolutePath:(NSString *)path;
-
 
 
 @end

@@ -16,7 +16,7 @@
     
     function ls(callback)
     {
-        $.post('/__/directory/open/', {'relativePath': relativePath}, function(r) {
+        $.post('/__/directory/list/', {'relativePath': relativePath}, function(r) {
             callback(r);
         }, 'json');
     };
@@ -56,14 +56,27 @@
     $.fn.airshipUI = function() {
         
         // upload
-        $('#action-file-upload').fancybox({
-            'hideOnContentClick': false,
-            'padding': 18,
-            'callbackOnStart': function() {
-                var href = 'upload.html?currentRelativePath=' + encodeURIComponent(currentRelativePath);
-                $('#action-file-upload').attr('href', href);
-            }
-        });
+		$('#action-upload').click(function() {
+			
+			
+			// Open a new popup window.
+			$('#dialog-upload').modal({
+				
+			});
+			
+			
+			
+			
+			return false;
+		});
+        // $('#action-file-upload').fancybox({
+        //     'hideOnContentClick': false,
+        //     'padding': 18,
+        //     'callbackOnStart': function() {
+        //         var href = 'upload.html?currentRelativePath=' + encodeURIComponent(currentRelativePath);
+        //         $('#action-file-upload').attr('href', href);
+        //     }
+        // });
         
         // create folder
         $('#action-directory-create').click(function() {
@@ -90,7 +103,7 @@
         currentRelativePath = atPath;
         fileManager = $().fileManager(atPath);
 
-        var list = $('#item-list');
+        var list = $('#storage-item-list');
         list.html('');
         
         fileManager.ls(function(r) {
@@ -99,9 +112,11 @@
                 // empty
                 return;
             }
+
+			console.log(r);
             
             $(r).each(function(i) {
-                list.append(createItemRow(this.type, this.name, this.date, this.size));
+                list.append(createItemRow(this.kind, this.name, this.date, this.size));
             });
         });
         
@@ -140,23 +155,22 @@
     };
     
     // given the parameters it returns the appropriate row 
-    function createItemRow(type, name, date, size, mode)
+    function createItemRow(kind, name, date, size, mode)
     {
         var ul = $('<ul/>').addClass(mode);
-        $('<li class="type"></li>').appendTo(ul).addClass(type);
-        $('<li class="name"></li>').appendTo(ul).html('<a href="#' + currentRelativePath + '/' + name + '">' + name + '</a>');
+		$('<li class="mark"></li>').appendTo(ul);
+        $('<li class="icon"></li>').appendTo(ul).addClass(kind)
+        $('<li class="name"></li>').appendTo(ul).html('<a href="#/' + currentRelativePath + '/' + name + '">' + name + '</a>');
         $('<li class="date"></li>').appendTo(ul).html(date);
         $('<li class="size"></li>').appendTo(ul).html(size);
         
         ul.mousedown(function(e) {
-            $('#item-list').find('.selected').removeClass('selected');
-                
+            $('#storage-item-list').find('.selected').removeClass('selected');
             $(this).addClass('selected');
         })
         .mouseup(function(e) {
                 
             var row = $(this);
-        
             if (e.detail == 1) {
                 // set a timeout...
                 timeoutID = setTimeout(function() {
@@ -175,10 +189,10 @@
     function openItemRow(row)
     {
         var row = $(row);
-        var type = row.find('.type')[0].className.split(' ')[1];
+        var kind = row.find('.icon')[0].className.split(' ')[1];
         var name = row.find('.name').text();
 
-        if (type == 'directory') {
+        if (kind == 'directory') {
             loadDirectoryItems(currentRelativePath + '/' + name);
         } else {
             // view/ preview a file.

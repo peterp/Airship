@@ -181,11 +181,16 @@
 	return [[NSString alloc] initWithBytes:[data bytes] length:[data length] encoding:NSUTF8StringEncoding];
 }
 
+
+
+
+
 - (void)bodyForPostDataChunk:(NSData *)data withRange:(NSRange)range
 {
 
 	NSMutableDictionary *part = [parts valueForKey:lastPartName];
 	// Is this a file?
+	
 	NSString *filename = [part valueForKey:@"filename"];
 	if (filename) {
 	
@@ -215,45 +220,6 @@
 	}
 }
 
-
-/**
- * This method saves the data/ chunked or not for a part. It's always the last
- * part, so I don't know why I really bother passing it through. Anyway.
- */
-//- (void)bodyForPostDataChunkWithRange:(NSRange)range forPart:(NSMutableDictionary *)part {
-//
-//
-//	NSString *filename = [part valueForKey:@"filename"];
-//	if (filename) {
-//	
-//		// Check to see if we've created a temporary file to store this damn
-//		// thing.
-//		
-//		NSString *tmpFilePath = [part valueForKey:@"tmpFilePath"];
-//		if (!tmpFilePath) {
-//			// Create a temporary file for this part.
-//			tmpFilePath = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%.0f_%@", [NSDate timeIntervalSinceReferenceDate] * 100, filename]];
-//			[part setObject:tmpFilePath forKey:@"tmpFilePath"];
-//			
-//			[[NSFileManager defaultManager] createFileAtPath:tmpFilePath contents:nil attributes:nil];
-//				
-//			// create a file handle as welll.
-//			self.fileHandler = nil;
-//			self.fileHandler = [NSFileHandle fileHandleForWritingAtPath:tmpFilePath];
-//		}
-//		//NSLog(@"..... path: %@", tmpFilePath);
-//		
-//		
-//		[fileHandler seekToEndOfFile];
-//		[fileHandler writeData:[postDataChunk subdataWithRange:range]];
-//	} else {
-//		// extract and place this value in to the "part" dictionary.
-//
-//		NSString *value = [self stringFromData:[postDataChunk subdataWithRange:range]];
-//		[part setValue:value forKey:@"value"];
-//		[value release];
-//	}
-//};
 
 
 

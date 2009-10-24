@@ -41,11 +41,13 @@
 	NSDictionary *attrib = [[NSFileManager defaultManager] attributesOfItemAtPath:self.absolutePath error:nil];
 	
 	NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-	[dateFormat setDateFormat:@"MMM dd yyyy, HH:mm"];
+	[dateFormat setDateFormat:@"dd MMM yyyy h:mm a"];
 	self.date = [dateFormat stringFromDate:[attrib fileModificationDate]];
 	[dateFormat release];
 
 	self.size = @"--";
+	
+
 	
 	if ([[attrib fileType] isEqualToString:NSFileTypeDirectory]) {
 		self.kind = @"directory";

@@ -16,12 +16,11 @@
 	BOOL requestIsMultipart;
 	AFMultipartParser *multipartParser;
 	
-	int start;
 }
 
 
-- (NSData *)directoryContentsAtURL:(NSString *)url;
-- (NSMutableDictionary *)variablesForPostRequest;
+- (NSData *)JSONForDirectoryContentsAtPath:(NSString *)path;
+- (NSMutableDictionary *)getPOSTRequestArguments;
 
 - (NSString *)createDirectory:(NSString *)name atPath:(NSString *)path;
 - (void)fileUploadComplete;

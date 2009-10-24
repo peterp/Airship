@@ -7,23 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StorageTableViewController.h"
 
 
-@interface SearchTableViewController : UITableViewController <UITextFieldDelegate> {
+@interface SearchTableViewController : StorageTableViewController <UITextFieldDelegate> {
 	
-	NSString *documentsDirectory;
-
 	// Search
 	UITextField *searchTextField;
 	UIControl *searchInterstitial;
-	NSMutableArray *filteredStorageItemList;
 }
 
-@property (nonatomic, copy) NSString *documentsDirectory;
 
 @property (nonatomic, retain) UITextField *searchTextField;
 @property (nonatomic, retain) UIControl *searchInterstitial;
-@property (nonatomic, retain) NSMutableArray *filteredStorageItemList;
 
 
 // Search
