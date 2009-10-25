@@ -47,14 +47,11 @@
 
 	self.size = @"--";
 	
-
 	
-	if ([[attrib fileType] isEqualToString:NSFileTypeDirectory]) {
+	self.kind = [self determineKindByExtension];
+	if ([self.kind isEqualToString:@"unknown"] && [[attrib fileType] isEqualToString:NSFileTypeDirectory]) {
 		self.kind = @"directory";
-	} else {
-		self.kind = [self determineKindByExtension];
 	}
-
 
 	return self;
 }
@@ -70,9 +67,8 @@
 	NSArray  *vid = [NSArray arrayWithObjects:@"m4v", @"mp4", @"mov", nil];
 	
 	
-	
-	
 	NSString *ext = [[self.name pathExtension] lowercaseString];
+	
 	if ([doc containsObject:ext]) {
 		return @"document";
 	} else if ([img containsObject:ext]) {

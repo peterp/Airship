@@ -134,6 +134,7 @@
 		CE9A6D84105EF74E00E25682 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		CEAA886910680D1E009EF7B7 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		CEAA886A10680D1E009EF7B7 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		CEB85486109495D60011350B /* GenericFileViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericFileViewDelegate.h; sourceTree = "<group>"; };
 		CEC34E21103594BF008021B0 /* audio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = audio.png; sourceTree = "<group>"; };
 		CEC34E22103594BF008021B0 /* directory.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = directory.png; sourceTree = "<group>"; };
 		CEC34E23103594BF008021B0 /* document.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = document.png; sourceTree = "<group>"; };
@@ -357,6 +358,7 @@
 		CEC144E4101D092E000DA2AE /* Detail Views */ = {
 			isa = PBXGroup;
 			children = (
+				CEB85486109495D60011350B /* GenericFileViewDelegate.h */,
 				CE2FECF21083C78000367B9C /* GenericFileViewController.h */,
 				CE2FECF31083C78000367B9C /* GenericFileViewController.m */,
 				CEF88F36105301DB00D415F0 /* Audio */,

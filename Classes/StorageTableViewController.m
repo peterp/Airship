@@ -190,29 +190,50 @@
 		
 	} else {
 	
+	
+	
 		GenericFileViewController *genericFileViewController = [[GenericFileViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
-		if ([storageItem.kind isEqualToString:@"audio"]) {
-
-			genericFileViewController = [[AudioViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
-			
-		} else if ([storageItem.kind isEqualToString:@"document"]) {
+		UINavigationController *genericFileNavigationController = [[UINavigationController alloc] initWithRootViewController:genericFileViewController];
 		
-			genericFileViewController = [[DocumentViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
-			
-		} else if ([storageItem.kind isEqualToString:@"image"]) {
-		
-			genericFileViewController = [[ImageViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
-			
-		} else if ([storageItem.kind isEqualToString:@"video"]) {
-		
-			genericFileViewController = [[VideoViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
-			
-		} else {
-		}
-
 		genericFileViewController.storageItem = storageItem;
-		[self presentModalViewController:genericFileViewController animated:YES];
+		genericFileViewController.delegate = self;
+		[self presentModalViewController:genericFileNavigationController animated:YES];
+		
 		[genericFileViewController release];
+		[genericFileNavigationController release];
+	
+	
+	
+	//	
+//		
+//		
+//		if ([storageItem.kind isEqualToString:@"audio"]) {
+//
+//			genericFileViewController = [[AudioViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
+//			
+//		} else if ([storageItem.kind isEqualToString:@"document"]) {
+//		
+//			genericFileViewController = [[DocumentViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
+//			
+//		} else if ([storageItem.kind isEqualToString:@"image"]) {
+//		
+//			genericFileViewController = [[ImageViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
+//			
+//		} else if ([storageItem.kind isEqualToString:@"video"]) {
+//		
+//			genericFileViewController = [[VideoViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
+//			
+//		} else {
+//		}
+//
+//		genericFileViewController.storageItem = storageItem;
+//		genericFileViewController.delegate = self;
+//		
+//		// 
+//		
+//		
+//		[self presentModalViewController:genericFileViewController animated:YES];
+//		[genericFileViewController release];
 	}
 }
 
@@ -257,6 +278,56 @@
     return YES;
 }
 */
+
+
+#pragma mark GenericFileViewDelegate methods
+
+- (void)genericFileViewControllerDidFinish:(GenericFileViewController *)controller;
+{
+	[[UIApplication sharedApplication] setStatusBarHidden:NO animated:YES];
+	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+	[self.navigationController dismissModalViewControllerAnimated:YES];
+}
+
+- (void)genericFileViewControllerDidPaginate:(UINavigationController *)navigationController toNextFile:(BOOL)nextFile;
+{
+	// ok, have to get the selected row from the real thingum...
+	int selectedRowIndex = -1;
+	NSMutableArray *tmpStorageItemList = nil;
+	if (self.searchDisplayController.active) {
+		selectedRowIndex = [self.searchDisplayController.searchResultsTableView indexPathForSelectedRow].row;
+		tmpStorageItemList = filteredStorageItemList;
+	} else {
+		selectedRowIndex = [self.tableView indexPathForSelectedRow].row;
+		tmpStorageItemList = storageItemList;
+	}
+
+	selectedRowIndex = (nextFile) ? ++selectedRowIndex : --selectedRowIndex;
+	
+	if (selectedRowIndex < 0 || selectedRowIndex >= [tmpStorageItemList count]) { // make absolutely sure this code is working.
+		NSLog(@"out of bounds.");
+		return;
+	}
+	
+	StorageItem *storageItem = [tmpStorageItemList objectAtIndex:selectedRowIndex];
+	
+	GenericFileViewController *viewController = [[GenericFileViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
+	viewController.storageItem = storageItem;
+	viewController.delegate = self;
+	[navigationController setViewControllers:[NSArray arrayWithObject:viewController] animated:NO];
+	[viewController release];
+	
+
+	if (self.searchDisplayController.active) {
+		[self.searchDisplayController.searchResultsTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:selectedRowIndex inSection:0] animated:NO scrollPosition:UITableViewScrollPositionMiddle];
+	} else {
+		[self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:selectedRowIndex inSection:0] animated:NO scrollPosition:UITableViewScrollPositionMiddle];
+	}
+	
+	tmpStorageItemList = nil;
+}
+
+
 
 
 

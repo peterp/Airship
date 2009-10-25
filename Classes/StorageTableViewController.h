@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "StorageItem.h"
+#import "GenericFileViewDelegate.h"
 
-@interface StorageTableViewController : UITableViewController {
+@interface StorageTableViewController : UITableViewController <GenericFileViewDelegate> {
 
 	// Storage Directory Path;
 	NSString *absolutePath;

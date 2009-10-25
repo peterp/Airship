@@ -50,26 +50,26 @@
 	// remove timer that hides "navigation bar" automatically.
 	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideBarsAfterDelay) object:nil];
 
-
-	toolbar.frame = CGRectMake(0, 362, 320, 118);
-	
-	// remove and re-add, possible?
-	[toolbar addSubview:playPauseButton];
-	playPauseButton.frame = CGRectMake(140, 15, 40, 30);
-	[toolbar addSubview:volumeViewHolder];
-	volumeViewHolder.frame = CGRectMake(25, 64, 270, 23);
-	
-	
-	
-	// check to see if we can read the ID3 tags...
-	[self getID3Tags];
-
-	
-	
-	// MARGLE.
-	UILabel *titleMainLabel = (UILabel *)[navigationBar.topItem.titleView viewWithTag:1001];
-	titleMainLabel.text = @"Margle";
-	
+//
+//	toolbar.frame = CGRectMake(0, 362, 320, 118);
+//	
+//	// remove and re-add, possible?
+//	[toolbar addSubview:playPauseButton];
+//	playPauseButton.frame = CGRectMake(140, 15, 40, 30);
+//	[toolbar addSubview:volumeViewHolder];
+//	volumeViewHolder.frame = CGRectMake(25, 64, 270, 23);
+//	
+//	
+//	
+//	// check to see if we can read the ID3 tags...
+//	[self getID3Tags];
+//
+//	
+//	
+//	// MARGLE.
+//	UILabel *titleMainLabel = (UILabel *)[navigationBar.topItem.titleView viewWithTag:1001];
+//	titleMainLabel.text = @"Margle";
+//	
 	
 
 	
@@ -193,7 +193,7 @@
 
 
 
-- (IBAction)unloadViewController
+- (void)unloadViewController;
 {
 	[updateTimeIntervalTimer invalidate];
 	updateTimeIntervalTimer = nil;

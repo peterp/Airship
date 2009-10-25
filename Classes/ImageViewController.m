@@ -45,6 +45,7 @@
 	self.scrollView.maximumZoomScale = 2.5;
 	self.scrollView.minimumZoomScale = minimumScale;
 	self.scrollView.zoomScale = minimumScale;
+	self.scrollView.showsHorizontalScrollIndicator = self.scrollView.showsVerticalScrollIndicator = NO;
 	
 	self.imageView.center = CGPointMake(160, 240);
 	

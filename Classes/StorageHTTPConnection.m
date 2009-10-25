@@ -28,7 +28,6 @@
 
 	if ([contentType hasPrefix:@"multipart/form-data;"]) {
 		
-		[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 		requestIsMultipart = YES;
 		NSString *boundary = [contentType substringFromIndex:[contentType rangeOfString:@"boundary="].location + [@"boundary=" length]];
 		multipartParser = [[AFMultipartParser alloc] initWithBoundary:boundary];
@@ -92,7 +91,6 @@
 			
 		} else if (requestIsMultipart) {
 
-			[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 			NSString *filename = [[multipartParser.parts valueForKey:@"Filedata"] valueForKey:@"filename"];
 			NSString *relativePath = [[multipartParser.parts valueForKey:@"relativePath"] valueForKey:@"value"];
 			NSError *error;

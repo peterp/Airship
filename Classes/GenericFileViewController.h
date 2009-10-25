@@ -7,25 +7,40 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GenericFileViewDelegate.h"
 #import "StorageItem.h"
 
 
 @interface GenericFileViewController : UIViewController {
 
-	IBOutlet UINavigationBar *navigationBar;
-	IBOutlet UIToolbar *toolbar;
+	id <GenericFileViewDelegate> delegate;
+
+//	UIBarButtonItem *
+//	IBOutlet UINavigationBar *navigationBar;
+//	IBOutlet UIToolbar *toolbar;
 	
 	UIActivityIndicatorView *activityIndicator;
 	StorageItem *storageItem;
+	
+	
+
 }
 
-@property (nonatomic, retain) IBOutlet UINavigationBar *navigationBar;
-@property (nonatomic, retain) IBOutlet UIToolbar *toolbar;
+@property (nonatomic, assign) id <GenericFileViewDelegate> delegate;
+
+//@property (nonatomic, retain) IBOutlet UINavigationBar *navigationBar;
+//@property (nonatomic, retain) IBOutlet UIToolbar *toolbar;
 @property (nonatomic, retain) UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, retain) StorageItem *storageItem;
 
 
-- (IBAction)unloadViewController;
+
+
+
+
+- (void)unloadViewController;
+- (void)paginationSegmentControlChanged:(id)sender;
+
 
 - (void)toggleBarsVisibilty;
 - (void)hideBarsAfterDelay;
