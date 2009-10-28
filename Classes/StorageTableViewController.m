@@ -192,7 +192,7 @@
 	
 	
 	
-		GenericFileViewController *genericFileViewController = [[GenericFileViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
+		ImageViewController *genericFileViewController = [[ImageViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
 		UINavigationController *genericFileNavigationController = [[UINavigationController alloc] initWithRootViewController:genericFileViewController];
 		
 		genericFileViewController.storageItem = storageItem;
