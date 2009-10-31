@@ -1,5 +1,5 @@
 //
-//  StorageItem.h
+//  File.h
 //  Humboldt
 //
 //  Created by Peter Pistorius on 2009/10/06.
@@ -9,23 +9,35 @@
 #import <Foundation/Foundation.h>
 
 
-@interface StorageItem : NSObject {
+#define FILE_KIND_UNKNOWN 0
+#define FILE_KIND_DIRECTORY 1
+#define FILE_KIND_AUDIO 2
+#define FILE_KIND_DOCUMENT 3
+#define FILE_KIND_IMAGE 4
+#define FILE_KIND_VIDEO 5
+
+
+
+@interface File : NSObject {
+
 	NSString *absolutePath;
 	
 	NSString *name;
-	NSString *kind;
+	int kind;
 	NSString *date;
 	NSString *size;
 }
 
 @property (nonatomic, copy) NSString *absolutePath;
 @property (nonatomic, copy) NSString *name;
-@property (nonatomic, copy) NSString *kind;
+@property int kind;
 @property (nonatomic, copy) NSString *date;
 @property (nonatomic, copy) NSString *size;
 
-- (id)initWithName:(NSString *)itemName atAbsolutePath:(NSString *)itemPath;
-- (NSString *)determineKindByExtension;
+
+- (id)initWithName:(NSString *)fileName atPath:(NSString *)filePath;
+- (int)kindByExtension;
+- (NSString *)kindDescription;
 
 
 @end

@@ -9,9 +9,12 @@
 #import "HumboldtAppDelegate.h"
 
 
-#import "FilesTableViewController.h"
-#import "SearchTableViewController.h"
-#import "SharingTableViewController.h"
+#import "FinderTableViewController.h"
+#import "SpotlightTableViewController.h"
+
+//#import "FilesTableViewController.h"
+//#import "SearchTableViewController.h"
+//#import "SharingTableViewController.h"
 
 
 @implementation HumboldtAppDelegate
@@ -40,33 +43,32 @@
 	[UIApplication sharedApplication].idleTimerDisabled = YES;
 	
 
-	// FilesTableViewController
-	FilesTableViewController *filesTableViewController = [FilesTableViewController initWithAbsolutePath:[NSHomeDirectory() stringByAppendingPathComponent:@"Documents/Files/"]];
-	UINavigationController *filesNavigationController = [[UINavigationController alloc] initWithRootViewController:filesTableViewController];
-	[filesTableViewController release];
+	FinderTableViewController *finder = [FinderTableViewController finderWithPath:[NSHomeDirectory() stringByAppendingPathComponent:@"Documents/Files/"]];
+	UINavigationController *finderNavigationController = [[UINavigationController alloc] initWithRootViewController:finder];
+	[finder release];
+	
+	SpotlightTableViewController *spotlight = [[SpotlightTableViewController alloc] initWithStyle:UITableViewStylePlain];
+	UINavigationController *spotlightNavigationController = [[UINavigationController alloc] initWithRootViewController:spotlight];
+	[spotlight release];
 	
 
-	// Search Controller
-	SearchTableViewController *searchTableViewController = [[SearchTableViewController alloc] initWithStyle:UITableViewStylePlain];
-	UINavigationController *searchNavigationController = [[UINavigationController alloc] initWithRootViewController:searchTableViewController];
-	[searchTableViewController release];
-	
-	
-	// Server view controller...
-	SharingTableViewController *sharingTableViewController = [[SharingTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
-	UINavigationController *sharingNavigationController = [[UINavigationController alloc] initWithRootViewController:sharingTableViewController];
-	[sharingTableViewController release];
+//	
+//	
+//	// Server view controller...
+//	SharingTableViewController *sharingTableViewController = [[SharingTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+//	UINavigationController *sharingNavigationController = [[UINavigationController alloc] initWithRootViewController:sharingTableViewController];
+//	[sharingTableViewController release];
 
 	// Tab bar controller
 	self.tabBarController = [[UITabBarController alloc] init];
-	tabBarController.viewControllers  = [NSArray arrayWithObjects:filesNavigationController, searchNavigationController, sharingNavigationController, nil];
+	tabBarController.viewControllers  = [NSArray arrayWithObjects:finderNavigationController, spotlightNavigationController, nil]; //searchNavigationController, sharingNavigationController, nil];
 	tabBarController.selectedIndex = 0;
-	
-	
-
-	[filesNavigationController release];
-	[searchNavigationController release];
-	[sharingNavigationController release];
+//	
+//	
+//
+	[finderNavigationController release];
+	[spotlightNavigationController release];
+//	[sharingNavigationController release];
 	
 
 	[window addSubview:tabBarController.view];
