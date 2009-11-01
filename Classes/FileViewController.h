@@ -28,8 +28,8 @@
 	// Image
 	UIScrollView *imageScrollView;
 	UIImageView *imageView;
-	int imageWidth;
-	int imageHeight;
+	float imageWidth;
+	float imageHeight;
 }
 
 @property (nonatomic, assign) id <FileViewDelegate> delegate;

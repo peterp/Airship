@@ -67,8 +67,8 @@
 {
 	[super viewDidLoad];
 	
-	self.navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 20, 0, 0)];
-	navigationBar.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
+	self.navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 20, 0, 44)];
+	navigationBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
 	navigationBar.barStyle = UIBarStyleBlackTranslucent;
 	[navigationBar sizeToFit];
 
@@ -77,7 +77,7 @@
 	[navigationItem release];
 	
 	// DONE BUTTON
-	UIBarButtonItem *doneBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(unloadViewController)];
+	UIBarButtonItem *doneBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(unloadViewController)];
 	navigationBar.topItem.leftBarButtonItem = doneBarButtonItem;
 	[doneBarButtonItem release];
 	
@@ -98,7 +98,7 @@
 	titleView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 
 	UILabel *titleMainLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, navigationBar.frame.size.width - (self.paginationSegmentControl.frame.size.width * 2), navigationBar.frame.size.height / 2)];
-	titleMainLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+	titleMainLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	titleMainLabel.tag = 1001;
 	titleMainLabel.textColor = [UIColor whiteColor];
 	titleMainLabel.textAlignment = UITextAlignmentCenter;
@@ -108,7 +108,7 @@
 	[titleMainLabel release];
 	
 	UILabel *titleMetaLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, (navigationBar.frame.size.height / 2) - 4, navigationBar.frame.size.width - (self.paginationSegmentControl.frame.size.width * 2), navigationBar.frame.size.height / 2)];
-	titleMetaLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+	titleMetaLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	titleMetaLabel.tag = 1002;
 	titleMetaLabel.textColor = [UIColor grayColor];
 	titleMetaLabel.textAlignment = UITextAlignmentCenter;
@@ -130,8 +130,8 @@
 	
 	
 	
-	self.toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 44, 0, 0)];
-	toolbar.autoresizingMask =  UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+	self.toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 44, 0, 44)];
+	toolbar.autoresizingMask =  UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
 	toolbar.barStyle = UIBarStyleBlackTranslucent;
 	[toolbar sizeToFit];
 	[self.view addSubview:toolbar];
@@ -158,73 +158,6 @@
 
 
 
-- (void)loadImage;
-{
-	self.imageScrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];
-	//self.imageScrollView.backgroundColor = [UIColor grayColor];
-	self.imageScrollView.delegate = self;
-	self.imageScrollView.bouncesZoom = YES;
-	self.imageScrollView.alwaysBounceVertical = YES;
-	self.imageScrollView.alwaysBounceHorizontal = YES;
-	self.imageScrollView.showsVerticalScrollIndicator = NO;
-	self.imageScrollView.showsHorizontalScrollIndicator = NO;
-	[self.view insertSubview:self.imageScrollView atIndex:0];
-	[self.imageScrollView release];
-
-	// add touch-sensitive image view to the scroll view
-	self.imageView = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:self.file.absolutePath]];
-	[self.imageScrollView addSubview:imageView];
-	[self.imageView release];
-	
-	// Cache image's original dimensions
-	imageWidth = imageView.frame.size.width;
-	imageHeight = imageView.frame.size.height;
-	
-  // calculate minimum scale to perfectly fit image width, and begin at that scale
-	float minimumZoomScale = imageWidth > imageHeight ? self.view.frame.size.width  / imageWidth : self.view.frame.size.height  / imageHeight;
-	self.imageScrollView.minimumZoomScale = minimumZoomScale;
-	self.imageScrollView.zoomScale = minimumZoomScale;
-	self.imageScrollView.maximumZoomScale = 2.5;
-	self.imageView.center = self.imageScrollView.center;
-}
-
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)aScrollView;
-{
-	// If the image is still smaller than the actual size of the frame, keep it in the center.
-	if (self.imageView.frame.size.height < self.view.frame.size.height) {
-		// determine the center of the frame
-		CGPoint p = self.imageView.center;
-		self.imageView.center = CGPointMake(p.x, self.view.frame.size.height / 2);
-	}
-	
-	if (self.imageView.frame.size.width < self.view.frame.size.width) {
-		// determine the center of the frame
-		CGPoint p = self.imageView.center;
-		self.imageView.center = CGPointMake(self.view.frame.size.width / 2, p.y);
-	}
-	return self.imageView;
-}
-
-
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event;
-{
-
-}
-
-- (void)willAnimateSecondHalfOfRotationFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation duration:(NSTimeInterval)duration;
-{
-//	float minimumScale = 0;
-//	if (imageWidth > imageHeight) {
-//		minimumScale = self.scrollView.frame.size.width / imageWidth;
-//	} else {
-//		minimumScale = self.scrollView.frame.size.height / imageHeight;
-//	}
-//	
-//	
-//	self.scrollView.minimumZoomScale = minimumScale;
-//	self.scrollView.zoomScale = minimumScale;
-////1	self.imageView.center = CGPointMake(self.scrollView.frame.size.width / 2, self.scrollView.frame.size.height / 2);
-}
 
 
 
@@ -278,6 +211,98 @@
 		UISegmentedControl *segmentedControl = (UISegmentedControl *)sender;
 		[self.delegate fileViewControllerDidPaginate:self toNextFile:segmentedControl.selectedSegmentIndex ? YES : NO];
 	}
+}
+
+
+
+
+
+
+
+
+
+
+- (void)loadImage;
+{
+	self.imageScrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];
+	//self.imageScrollView.backgroundColor = [UIColor grayColor];
+	self.imageScrollView.delegate = self;
+	self.imageScrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+	self.imageScrollView.bouncesZoom = YES;
+	self.imageScrollView.bounces = YES;
+	self.imageScrollView.showsVerticalScrollIndicator = NO;
+	self.imageScrollView.showsHorizontalScrollIndicator = NO;
+	[self.view insertSubview:self.imageScrollView atIndex:0];
+	[self.imageScrollView release];
+
+	// add touch-sensitive image view to the scroll view
+	self.imageView = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:self.file.absolutePath]];
+	[self.imageScrollView addSubview:imageView];
+	[self.imageView release];
+	
+	// Cache image's original dimensions
+	imageWidth = imageView.frame.size.width;
+	imageHeight = imageView.frame.size.height;
+	
+	NSLog(@"%f", imageWidth);
+	NSLog(@"%f", imageHeight);
+
+	
+  // calculate minimum scale to perfectly fit image width, and begin at that scale
+	float minimumZoomScale = imageWidth > imageHeight ? self.imageScrollView.frame.size.width / imageWidth : self.imageScrollView.frame.size.height / imageHeight;
+	self.imageScrollView.minimumZoomScale = minimumZoomScale;
+	self.imageScrollView.zoomScale = minimumZoomScale;
+	self.imageScrollView.maximumZoomScale = 2.5;
+	self.imageView.center = CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height / 2);
+}
+
+
+
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)aScrollView;
+{
+	// If the image is still smaller than the actual size of the frame, keep it in the center.
+	if (self.imageView.frame.size.height < self.imageScrollView.frame.size.height) {
+		// determine the center of the frame
+		CGPoint p = self.imageView.center;
+		self.imageView.center = CGPointMake(p.x, self.imageScrollView.frame.size.height / 2);
+	}
+	
+	if (self.imageView.frame.size.width < self.imageScrollView.frame.size.width) {
+		// determine the center of the frame
+		CGPoint p = self.imageView.center;
+		self.imageView.center = CGPointMake(self.imageScrollView.frame.size.width / 2, p.y);
+	}
+	return self.imageView;
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+	float minimumZoomScale = 0;
+	if (imageWidth > imageHeight) {
+		minimumZoomScale = self.imageScrollView.frame.size.width / imageWidth;
+		
+		NSLog(@"%f / %f = %f", self.imageScrollView.bounds.size.width, imageWidth, minimumZoomScale);
+	} else {
+		minimumZoomScale = self.imageScrollView.frame.size.height / imageHeight;
+		
+		NSLog(@"%f / %f = %f", self.imageScrollView.bounds.size.height, imageHeight, minimumZoomScale);
+	}
+	
+//	float minimumZoomScale = imageWidth > imageHeight ? self.imageScrollView.frame.size.width / imageWidth : self.imageScrollView.frame.size.height / imageHeight;
+	NSLog(@"%f", minimumZoomScale);
+	
+	
+	self.imageScrollView.maximumZoomScale = 2.5;
+	self.imageScrollView.minimumZoomScale = minimumZoomScale;
+	self.imageScrollView.zoomScale = minimumZoomScale;
+	
+	
+	
+	[self viewForZoomingInScrollView:self.imageScrollView];
+	
+	NSLog(@"w:%f, h:%f", self.imageView.frame.size.width,  self.imageView.frame.size.height);	
+	
 }
 
 
