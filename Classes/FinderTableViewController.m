@@ -272,6 +272,10 @@
 		return;
 	}
 	
+	self.searchDisplayController.active ?
+		[self.searchDisplayController.searchResultsTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] animated:NO scrollPosition:UITableViewScrollPositionMiddle] :
+		[self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] animated:NO scrollPosition:UITableViewScrollPositionMiddle];
+	
 	File *file = [self fileForIndexPath:index];
 	[self presentFileViewControllerWithFile:file];
 }

@@ -10,6 +10,8 @@
 #import "File.h";
 
 
+
+
 @implementation FileViewController
 
 @synthesize delegate;
@@ -19,6 +21,11 @@
 @synthesize paginationSegmentControl;
 
 @synthesize toolbar;
+
+
+// Image
+@synthesize imageScrollView;
+@synthesize imageView;
 
 
 
@@ -33,6 +40,11 @@
 	self.paginationSegmentControl = nil;
 
 	self.toolbar = nil;
+	
+	
+	// Image
+	self.imageScrollView = nil;
+	self.imageView = nil;
 	
 
 	[super dealloc];
@@ -127,16 +139,6 @@
 }
 
 
-//- (void)loadView;
-//{
-//	NSLog(@"%@", self.storageItem.name);
-//}
-
-
-
-
-
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation;
 {
 	return YES;
@@ -151,6 +153,110 @@
 - (void)viewDidUnload;
 {
 }
+
+
+
+
+
+- (void)loadImage;
+{
+	self.imageScrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];
+	//self.imageScrollView.backgroundColor = [UIColor grayColor];
+	self.imageScrollView.delegate = self;
+	self.imageScrollView.bouncesZoom = YES;
+	self.imageScrollView.alwaysBounceVertical = YES;
+	self.imageScrollView.alwaysBounceHorizontal = YES;
+	self.imageScrollView.showsVerticalScrollIndicator = NO;
+	self.imageScrollView.showsHorizontalScrollIndicator = NO;
+	[self.view insertSubview:self.imageScrollView atIndex:0];
+	[self.imageScrollView release];
+
+	// add touch-sensitive image view to the scroll view
+	self.imageView = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:self.file.absolutePath]];
+	[self.imageScrollView addSubview:imageView];
+	[self.imageView release];
+	
+	// Cache image's original dimensions
+	imageWidth = imageView.frame.size.width;
+	imageHeight = imageView.frame.size.height;
+	
+  // calculate minimum scale to perfectly fit image width, and begin at that scale
+	float minimumZoomScale = imageWidth > imageHeight ? self.view.frame.size.width  / imageWidth : self.view.frame.size.height  / imageHeight;
+	self.imageScrollView.minimumZoomScale = minimumZoomScale;
+	self.imageScrollView.zoomScale = minimumZoomScale;
+	self.imageScrollView.maximumZoomScale = 2.5;
+	self.imageView.center = self.imageScrollView.center;
+}
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)aScrollView;
+{
+	// If the image is still smaller than the actual size of the frame, keep it in the center.
+	if (self.imageView.frame.size.height < self.view.frame.size.height) {
+		// determine the center of the frame
+		CGPoint p = self.imageView.center;
+		self.imageView.center = CGPointMake(p.x, self.view.frame.size.height / 2);
+	}
+	
+	if (self.imageView.frame.size.width < self.view.frame.size.width) {
+		// determine the center of the frame
+		CGPoint p = self.imageView.center;
+		self.imageView.center = CGPointMake(self.view.frame.size.width / 2, p.y);
+	}
+	return self.imageView;
+}
+
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event;
+{
+
+}
+
+- (void)willAnimateSecondHalfOfRotationFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation duration:(NSTimeInterval)duration;
+{
+//	float minimumScale = 0;
+//	if (imageWidth > imageHeight) {
+//		minimumScale = self.scrollView.frame.size.width / imageWidth;
+//	} else {
+//		minimumScale = self.scrollView.frame.size.height / imageHeight;
+//	}
+//	
+//	
+//	self.scrollView.minimumZoomScale = minimumScale;
+//	self.scrollView.zoomScale = minimumScale;
+////1	self.imageView.center = CGPointMake(self.scrollView.frame.size.width / 2, self.scrollView.frame.size.height / 2);
+}
+
+
+
+
+- (void)setFile:(File *)aFile;
+{
+	// Unload the original file view...
+	file = aFile;
+	
+	[self loadImage];
+	
+	UILabel *titleMainLabel = (UILabel *)[navigationBar.topItem.titleView viewWithTag:1001];
+	titleMainLabel.text = file.name;
+	UILabel *titleMetaLabel = (UILabel *)[navigationBar.topItem.titleView viewWithTag:1002];
+	titleMetaLabel.text = [file kindDescription];
+	
+	// Now we actually need to load the file...
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -172,18 +278,6 @@
 		UISegmentedControl *segmentedControl = (UISegmentedControl *)sender;
 		[self.delegate fileViewControllerDidPaginate:self toNextFile:segmentedControl.selectedSegmentIndex ? YES : NO];
 	}
-}
-
-
-- (void)setFile:(File *)aFile;
-{
-	file = aFile;
-	
-	UILabel *titleMainLabel = (UILabel *)[navigationBar.topItem.titleView viewWithTag:1001];
-	titleMainLabel.text = file.name;
-	
-	UILabel *titleMetaLabel = (UILabel *)[navigationBar.topItem.titleView viewWithTag:1002];
-	titleMetaLabel.text = [file kindDescription];
 }
 
 

@@ -41,6 +41,7 @@
 		CE5B30DE10539DD100B6A834 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE5B30DD10539DD100B6A834 /* CoreGraphics.framework */; };
 		CE7A06C5107BC98700CFCCED /* File.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7A06C4107BC98700CFCCED /* File.m */; };
 		CE8627E910013D400063F8F6 /* wwwroot in Resources */ = {isa = PBXBuildFile; fileRef = CE8627E510013D400063F8F6 /* wwwroot */; };
+		CE8CB8D0109CD62A008B3FAE /* TapDetectingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8CB8CF109CD62A008B3FAE /* TapDetectingScrollView.m */; };
 		CE9A6D85105EF74E00E25682 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE9A6D84105EF74E00E25682 /* AudioToolbox.framework */; };
 		CEAA886B10680D1E009EF7B7 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = CEAA886A10680D1E009EF7B7 /* Reachability.m */; };
 		CEC34E27103594BF008021B0 /* audio.png in Resources */ = {isa = PBXBuildFile; fileRef = CEC34E21103594BF008021B0 /* audio.png */; };
@@ -117,6 +118,8 @@
 		CE7A06C3107BC98700CFCCED /* File.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = File.h; sourceTree = "<group>"; };
 		CE7A06C4107BC98700CFCCED /* File.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = File.m; sourceTree = "<group>"; };
 		CE8627E510013D400063F8F6 /* wwwroot */ = {isa = PBXFileReference; lastKnownFileType = folder; path = wwwroot; sourceTree = "<group>"; };
+		CE8CB8CE109CD62A008B3FAE /* TapDetectingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapDetectingScrollView.h; sourceTree = "<group>"; };
+		CE8CB8CF109CD62A008B3FAE /* TapDetectingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapDetectingScrollView.m; sourceTree = "<group>"; };
 		CE9A6D84105EF74E00E25682 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		CEAA886910680D1E009EF7B7 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		CEAA886A10680D1E009EF7B7 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
@@ -154,7 +157,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				CEE2A69D109B4BAC002D99A2 /* StorageView */,
+				CEE2A69D109B4BAC002D99A2 /* File View + Support */,
 				CEECF85B10302C8200469751 /* HTTP */,
 				CE7A06C3107BC98700CFCCED /* File.h */,
 				CE7A06C4107BC98700CFCCED /* File.m */,
@@ -324,14 +327,16 @@
 			name = Misc;
 			sourceTree = "<group>";
 		};
-		CEE2A69D109B4BAC002D99A2 /* StorageView */ = {
+		CEE2A69D109B4BAC002D99A2 /* File View + Support */ = {
 			isa = PBXGroup;
 			children = (
 				CE1F417A109A28AD0067DB73 /* FileViewDelegate.h */,
 				CE1F40F6109A17B50067DB73 /* FileViewController.h */,
 				CE1F40F7109A17B50067DB73 /* FileViewController.m */,
+				CE8CB8CE109CD62A008B3FAE /* TapDetectingScrollView.h */,
+				CE8CB8CF109CD62A008B3FAE /* TapDetectingScrollView.m */,
 			);
-			name = StorageView;
+			name = "File View + Support";
 			sourceTree = "<group>";
 		};
 		CEECF85B10302C8200469751 /* HTTP */ = {
@@ -437,6 +442,7 @@
 				CE1F40F8109A17B50067DB73 /* FileViewController.m in Sources */,
 				CE303606109C2CD700A31CCC /* FinderTableViewController.m in Sources */,
 				CE303609109C2CE400A31CCC /* SpotlightTableViewController.m in Sources */,
+				CE8CB8D0109CD62A008B3FAE /* TapDetectingScrollView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,9 +13,7 @@
 
 
 
-
-
-@interface FileViewController : UIViewController {
+@interface FileViewController : UIViewController <UIScrollViewDelegate> {
 
 	id <FileViewDelegate> delegate;
 	File *file;
@@ -24,6 +22,14 @@
 	UISegmentedControl *paginationSegmentControl;
 	
 	UIToolbar *toolbar;
+	
+	
+	
+	// Image
+	UIScrollView *imageScrollView;
+	UIImageView *imageView;
+	int imageWidth;
+	int imageHeight;
 }
 
 @property (nonatomic, assign) id <FileViewDelegate> delegate;
@@ -36,8 +42,15 @@
 
 
 
+// Image
+@property (nonatomic, retain) UIScrollView *imageScrollView;
+@property (nonatomic, retain) UIImageView *imageView;
+
+
+
 - (void)unloadViewController;
 - (void)paginationSegmentControlChanged:(id)sender;
+
 
 
 
