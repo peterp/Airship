@@ -22,7 +22,7 @@
 	UISegmentedControl *paginationSegmentControl;
 	
 	UIToolbar *toolbar;
-	
+	UIActivityIndicatorView *activityIndicator;
 	
 	
 	// Image
@@ -39,6 +39,8 @@
 @property (nonatomic, retain) UISegmentedControl *paginationSegmentControl;
 
 @property (nonatomic, retain) UIToolbar *toolbar;
+@property (nonatomic, retain) UIActivityIndicatorView *activityIndicator;
+
 
 
 
@@ -50,6 +52,14 @@
 
 - (void)unloadViewController;
 - (void)paginationSegmentControlChanged:(id)sender;
+
+
+
+
+//- (void)loadAudio;
+//- (void)loadDocument;
+- (void)loadImage;
+//- (void)loadVideo;
 
 
 
