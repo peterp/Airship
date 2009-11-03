@@ -24,7 +24,7 @@
 	29B97313FDCFA39411CA2CEA /* Project object */ = {
 		activeBuildConfigurationName = Debug;
 		activeExecutable = CE2B3A9D0F3CCE4D0039B355 /* Humboldt */;
-		activeSDKPreference = iphonesimulator3.0;
+		activeSDKPreference = iphoneos3.1.2;
 		activeTarget = 1D6058900D05DD3D006BFB54 /* Humboldt */;
 		addToTargets = (
 			1D6058900D05DD3D006BFB54 /* Humboldt */,
@@ -194,6 +194,50 @@
 			CE0F131410A0C48F002569B6 /* PBXTextBookmark */ = CE0F131410A0C48F002569B6 /* PBXTextBookmark */;
 			CE0F131510A0C514002569B6 /* PBXTextBookmark */ = CE0F131510A0C514002569B6 /* PBXTextBookmark */;
 			CE0F131C10A0C628002569B6 /* PBXTextBookmark */ = CE0F131C10A0C628002569B6 /* PBXTextBookmark */;
+			CE0F131D10A0C933002569B6 /* PBXTextBookmark */ = CE0F131D10A0C933002569B6 /* PBXTextBookmark */;
+			CE0F131E10A0C933002569B6 /* PBXTextBookmark */ = CE0F131E10A0C933002569B6 /* PBXTextBookmark */;
+			CE0F131F10A0C933002569B6 /* PBXTextBookmark */ = CE0F131F10A0C933002569B6 /* PBXTextBookmark */;
+			CE0F132010A0C973002569B6 /* PBXTextBookmark */ = CE0F132010A0C973002569B6 /* PBXTextBookmark */;
+			CE0F132110A0C973002569B6 /* PBXTextBookmark */ = CE0F132110A0C973002569B6 /* PBXTextBookmark */;
+			CE0F132210A0C973002569B6 /* PBXTextBookmark */ = CE0F132210A0C973002569B6 /* PBXTextBookmark */;
+			CE0F132510A0CA27002569B6 /* XCBuildMessageTextBookmark */ = CE0F132510A0CA27002569B6 /* XCBuildMessageTextBookmark */;
+			CE0F132610A0CA27002569B6 /* PBXTextBookmark */ = CE0F132610A0CA27002569B6 /* PBXTextBookmark */;
+			CE0F133110A0CB74002569B6 /* PBXTextBookmark */ = CE0F133110A0CB74002569B6 /* PBXTextBookmark */;
+			CE0F133210A0CB74002569B6 /* PBXTextBookmark */ = CE0F133210A0CB74002569B6 /* PBXTextBookmark */;
+			CE0F133310A0CB74002569B6 /* PBXTextBookmark */ = CE0F133310A0CB74002569B6 /* PBXTextBookmark */;
+			CE0F133410A0CB74002569B6 /* PBXTextBookmark */ = CE0F133410A0CB74002569B6 /* PBXTextBookmark */;
+			CE0F133B10A0CBC6002569B6 /* PBXTextBookmark */ = CE0F133B10A0CBC6002569B6 /* PBXTextBookmark */;
+			CE0F134010A0CBDD002569B6 /* PBXTextBookmark */ = CE0F134010A0CBDD002569B6 /* PBXTextBookmark */;
+			CE0F134110A0CC32002569B6 /* PBXTextBookmark */ = CE0F134110A0CC32002569B6 /* PBXTextBookmark */;
+			CE0F134210A0CC32002569B6 /* PBXTextBookmark */ = CE0F134210A0CC32002569B6 /* PBXTextBookmark */;
+			CE0F134310A0CC32002569B6 /* PBXTextBookmark */ = CE0F134310A0CC32002569B6 /* PBXTextBookmark */;
+			CE0F134A10A0CEF7002569B6 /* PBXTextBookmark */ = CE0F134A10A0CEF7002569B6 /* PBXTextBookmark */;
+			CE0F134B10A0CEF7002569B6 /* PBXTextBookmark */ = CE0F134B10A0CEF7002569B6 /* PBXTextBookmark */;
+			CE0F134C10A0CEF7002569B6 /* PBXTextBookmark */ = CE0F134C10A0CEF7002569B6 /* PBXTextBookmark */;
+			CE0F134D10A0CF14002569B6 /* PBXTextBookmark */ = CE0F134D10A0CF14002569B6 /* PBXTextBookmark */;
+			CE0F134E10A0CF14002569B6 /* PBXTextBookmark */ = CE0F134E10A0CF14002569B6 /* PBXTextBookmark */;
+			CE0F134F10A0CF14002569B6 /* PBXTextBookmark */ = CE0F134F10A0CF14002569B6 /* PBXTextBookmark */;
+			CE0F135410A0CF2C002569B6 /* PBXTextBookmark */ = CE0F135410A0CF2C002569B6 /* PBXTextBookmark */;
+			CE0F135510A0CF2C002569B6 /* PBXTextBookmark */ = CE0F135510A0CF2C002569B6 /* PBXTextBookmark */;
+			CE0F135610A0CF2C002569B6 /* PBXTextBookmark */ = CE0F135610A0CF2C002569B6 /* PBXTextBookmark */;
+			CE0F135710A0CF2C002569B6 /* PBXTextBookmark */ = CE0F135710A0CF2C002569B6 /* PBXTextBookmark */;
+			CE0F135810A0CF2C002569B6 /* PBXTextBookmark */ = CE0F135810A0CF2C002569B6 /* PBXTextBookmark */;
+			CE0F135D10A0CF54002569B6 /* PBXTextBookmark */ = CE0F135D10A0CF54002569B6 /* PBXTextBookmark */;
+			CE0F135E10A0CF54002569B6 /* PBXTextBookmark */ = CE0F135E10A0CF54002569B6 /* PBXTextBookmark */;
+			CE0F135F10A0CF54002569B6 /* PBXTextBookmark */ = CE0F135F10A0CF54002569B6 /* PBXTextBookmark */;
+			CE0F136410A0CFAA002569B6 /* PBXTextBookmark */ = CE0F136410A0CFAA002569B6 /* PBXTextBookmark */;
+			CE0F136510A0CFAA002569B6 /* PBXTextBookmark */ = CE0F136510A0CFAA002569B6 /* PBXTextBookmark */;
+			CE0F136610A0CFAA002569B6 /* PBXTextBookmark */ = CE0F136610A0CFAA002569B6 /* PBXTextBookmark */;
+			CE0F136710A0CFC9002569B6 /* PBXTextBookmark */ = CE0F136710A0CFC9002569B6 /* PBXTextBookmark */;
+			CE0F136C10A0CFEE002569B6 /* PBXTextBookmark */ = CE0F136C10A0CFEE002569B6 /* PBXTextBookmark */;
+			CE0F136D10A0CFEE002569B6 /* PBXTextBookmark */ = CE0F136D10A0CFEE002569B6 /* PBXTextBookmark */;
+			CE0F136E10A0CFEE002569B6 /* PBXTextBookmark */ = CE0F136E10A0CFEE002569B6 /* PBXTextBookmark */;
+			CE0F136F10A0CFEE002569B6 /* PBXTextBookmark */ = CE0F136F10A0CFEE002569B6 /* PBXTextBookmark */;
+			CE0F137210A0D02E002569B6 /* PBXTextBookmark */ = CE0F137210A0D02E002569B6 /* PBXTextBookmark */;
+			CE0F137710A0D0DA002569B6 /* PBXTextBookmark */ = CE0F137710A0D0DA002569B6 /* PBXTextBookmark */;
+			CE0F137C10A0D191002569B6 /* PBXTextBookmark */ = CE0F137C10A0D191002569B6 /* PBXTextBookmark */;
+			CE0F138110A0D1BA002569B6 /* PBXTextBookmark */ = CE0F138110A0D1BA002569B6 /* PBXTextBookmark */;
+			CE0F138410A0D1E0002569B6 /* PBXTextBookmark */ = CE0F138410A0D1E0002569B6 /* PBXTextBookmark */;
 			CE2F881F109F5E8600E87D08 = CE2F881F109F5E8600E87D08 /* PBXTextBookmark */;
 			CE2F882B109F65C000E87D08 = CE2F882B109F65C000E87D08 /* PBXTextBookmark */;
 			CE2F887F109F6D4B00E87D08 = CE2F887F109F6D4B00E87D08 /* PBXTextBookmark */;
@@ -225,7 +269,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		fallbackIsa = XCBuildMessageTextBookmark;
 		rLen = 1;
-		rLoc = 409;
+		rLoc = 410;
 		rType = 1;
 	};
 	CE0F125210A0B0E4002569B6 /* PBXTextBookmark */ = {
@@ -233,7 +277,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 422";
 		rLen = 0;
-		rLoc = 12111;
+		rLoc = 11943;
 		rType = 0;
 		vrLen = 126;
 		vrLoc = 12123;
@@ -243,7 +287,7 @@
 		fRef = CE1F40F6109A17B50067DB73 /* FileViewController.h */;
 		name = "FileViewController.h: 24";
 		rLen = 0;
-		rLoc = 420;
+		rLoc = 452;
 		rType = 0;
 		vrLen = 1246;
 		vrLoc = 28;
@@ -273,7 +317,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 190";
 		rLen = 109;
-		rLoc = 5719;
+		rLoc = 5546;
 		rType = 0;
 		vrLen = 1501;
 		vrLoc = 5076;
@@ -283,7 +327,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 80";
 		rLen = 0;
-		rLoc = 4951;
+		rLoc = 4994;
 		rType = 0;
 		vrLen = 2323;
 		vrLoc = 719;
@@ -293,7 +337,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 80";
 		rLen = 0;
-		rLoc = 4951;
+		rLoc = 4994;
 		rType = 0;
 		vrLen = 2975;
 		vrLoc = 743;
@@ -303,7 +347,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 80";
 		rLen = 0;
-		rLoc = 4951;
+		rLoc = 4994;
 		rType = 0;
 		vrLen = 2974;
 		vrLoc = 743;
@@ -313,7 +357,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 80";
 		rLen = 0;
-		rLoc = 4951;
+		rLoc = 4994;
 		rType = 0;
 		vrLen = 2890;
 		vrLoc = 722;
@@ -323,7 +367,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 81";
 		rLen = 0;
-		rLoc = 4951;
+		rLoc = 4994;
 		rType = 0;
 		vrLen = 1893;
 		vrLoc = 533;
@@ -333,7 +377,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 82";
 		rLen = 0;
-		rLoc = 4951;
+		rLoc = 4994;
 		rType = 0;
 		vrLen = 1588;
 		vrLoc = 533;
@@ -343,7 +387,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 82";
 		rLen = 0;
-		rLoc = 4951;
+		rLoc = 4994;
 		rType = 0;
 		vrLen = 1588;
 		vrLoc = 533;
@@ -353,7 +397,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 82";
 		rLen = 0;
-		rLoc = 4951;
+		rLoc = 4994;
 		rType = 0;
 		vrLen = 2352;
 		vrLoc = 742;
@@ -363,7 +407,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 80";
 		rLen = 0;
-		rLoc = 4951;
+		rLoc = 4994;
 		rType = 0;
 		vrLen = 1674;
 		vrLoc = 489;
@@ -373,7 +417,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 79";
 		rLen = 0;
-		rLoc = 4902;
+		rLoc = 4945;
 		rType = 0;
 		vrLen = 1812;
 		vrLoc = 560;
@@ -383,7 +427,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 78";
 		rLen = 0;
-		rLoc = 4706;
+		rLoc = 4749;
 		rType = 0;
 		vrLen = 1777;
 		vrLoc = 560;
@@ -393,7 +437,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 80";
 		rLen = 0;
-		rLoc = 4706;
+		rLoc = 4749;
 		rType = 0;
 		vrLen = 1785;
 		vrLoc = 560;
@@ -403,7 +447,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 80";
 		rLen = 0;
-		rLoc = 4706;
+		rLoc = 4749;
 		rType = 0;
 		vrLen = 1785;
 		vrLoc = 560;
@@ -413,7 +457,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 78";
 		rLen = 0;
-		rLoc = 4706;
+		rLoc = 4749;
 		rType = 0;
 		vrLen = 2234;
 		vrLoc = 696;
@@ -423,7 +467,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 83";
 		rLen = 0;
-		rLoc = 4901;
+		rLoc = 4944;
 		rType = 0;
 		vrLen = 2276;
 		vrLoc = 696;
@@ -433,7 +477,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 79";
 		rLen = 0;
-		rLoc = 4706;
+		rLoc = 4749;
 		rType = 0;
 		vrLen = 2407;
 		vrLoc = 696;
@@ -443,7 +487,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 79";
 		rLen = 0;
-		rLoc = 4706;
+		rLoc = 4749;
 		rType = 0;
 		vrLen = 2407;
 		vrLoc = 696;
@@ -453,7 +497,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 78";
 		rLen = 0;
-		rLoc = 4706;
+		rLoc = 4749;
 		rType = 0;
 		vrLen = 2363;
 		vrLoc = 696;
@@ -463,7 +507,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 79";
 		rLen = 0;
-		rLoc = 4706;
+		rLoc = 4749;
 		rType = 0;
 		vrLen = 2365;
 		vrLoc = 696;
@@ -473,7 +517,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 90";
 		rLen = 0;
-		rLoc = 5536;
+		rLoc = 5540;
 		rType = 0;
 		vrLen = 2165;
 		vrLoc = 719;
@@ -483,7 +527,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 93";
 		rLen = 0;
-		rLoc = 5536;
+		rLoc = 5540;
 		rType = 0;
 		vrLen = 2056;
 		vrLoc = 719;
@@ -493,7 +537,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 88";
 		rLen = 0;
-		rLoc = 5536;
+		rLoc = 5540;
 		rType = 0;
 		vrLen = 2057;
 		vrLoc = 719;
@@ -503,7 +547,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 323";
 		rLen = 0;
-		rLoc = 8664;
+		rLoc = 8206;
 		rType = 0;
 		vrLen = 1376;
 		vrLoc = 8098;
@@ -513,7 +557,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 344";
 		rLen = 0;
-		rLoc = 9072;
+		rLoc = 8614;
 		rType = 0;
 		vrLen = 1388;
 		vrLoc = 8096;
@@ -523,7 +567,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 322";
 		rLen = 0;
-		rLoc = 8533;
+		rLoc = 8075;
 		rType = 0;
 		vrLen = 1485;
 		vrLoc = 8096;
@@ -533,7 +577,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 322";
 		rLen = 0;
-		rLoc = 8503;
+		rLoc = 8045;
 		rType = 0;
 		vrLen = 1511;
 		vrLoc = 8096;
@@ -543,7 +587,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 80";
 		rLen = 0;
-		rLoc = 4866;
+		rLoc = 4909;
 		rType = 0;
 		vrLen = 1154;
 		vrLoc = 6971;
@@ -553,7 +597,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 313";
 		rLen = 0;
-		rLoc = 7493;
+		rLoc = 6981;
 		rType = 0;
 		vrLen = 1796;
 		vrLoc = 8056;
@@ -563,7 +607,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 326";
 		rLen = 0;
-		rLoc = 7884;
+		rLoc = 7372;
 		rType = 0;
 		vrLen = 1860;
 		vrLoc = 8056;
@@ -573,7 +617,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 315";
 		rLen = 0;
-		rLoc = 7493;
+		rLoc = 6981;
 		rType = 0;
 		vrLen = 1933;
 		vrLoc = 7719;
@@ -583,7 +627,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 323";
 		rLen = 0;
-		rLoc = 7681;
+		rLoc = 7169;
 		rType = 0;
 		vrLen = 1898;
 		vrLoc = 8112;
@@ -593,7 +637,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 332";
 		rLen = 0;
-		rLoc = 7931;
+		rLoc = 7419;
 		rType = 0;
 		vrLen = 2232;
 		vrLoc = 7809;
@@ -603,7 +647,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 338";
 		rLen = 0;
-		rLoc = 8311;
+		rLoc = 7853;
 		rType = 0;
 		vrLen = 2205;
 		vrLoc = 7809;
@@ -613,7 +657,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 80";
 		rLen = 0;
-		rLoc = 1495;
+		rLoc = 1538;
 		rType = 0;
 		vrLen = 3099;
 		vrLoc = 1143;
@@ -623,7 +667,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 149";
 		rLen = 0;
-		rLoc = 5536;
+		rLoc = 5540;
 		rType = 0;
 		vrLen = 1850;
 		vrLoc = 4706;
@@ -633,7 +677,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 152";
 		rLen = 0;
-		rLoc = 5536;
+		rLoc = 5540;
 		rType = 0;
 		vrLen = 1681;
 		vrLoc = 4590;
@@ -643,7 +687,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 153";
 		rLen = 0;
-		rLoc = 5225;
+		rLoc = 5231;
 		rType = 0;
 		vrLen = 1855;
 		vrLoc = 4432;
@@ -653,7 +697,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 154";
 		rLen = 0;
-		rLoc = 5536;
+		rLoc = 5540;
 		rType = 0;
 		vrLen = 1905;
 		vrLoc = 4432;
@@ -663,28 +707,467 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 160";
 		rLen = 0;
-		rLoc = 5516;
+		rLoc = 5520;
 		rType = 0;
 		vrLen = 1413;
 		vrLoc = 4620;
 	};
+	CE0F131D10A0C933002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
+		name = "FileViewController.m: 196";
+		rLen = 0;
+		rLoc = 5839;
+		rType = 0;
+		vrLen = 2073;
+		vrLoc = 8202;
+	};
+	CE0F131E10A0C933002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE1F40F6109A17B50067DB73 /* FileViewController.h */;
+		name = "FileViewController.h: 24";
+		rLen = 0;
+		rLoc = 452;
+		rType = 0;
+		vrLen = 1271;
+		vrLoc = 3;
+	};
+	CE0F131F10A0C933002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE1F40F6109A17B50067DB73 /* FileViewController.h */;
+		name = "FileViewController.h: 56";
+		rLen = 0;
+		rLoc = 1233;
+		rType = 0;
+		vrLen = 1235;
+		vrLoc = 44;
+	};
+	CE0F132010A0C973002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE1F40F6109A17B50067DB73 /* FileViewController.h */;
+		name = "FileViewController.h: 59";
+		rLen = 13;
+		rLoc = 1277;
+		rType = 0;
+		vrLen = 1277;
+		vrLoc = 44;
+	};
+	CE0F132110A0C973002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
+		name = "FileViewController.m: 196";
+		rLen = 0;
+		rLoc = 5839;
+		rType = 0;
+		vrLen = 2073;
+		vrLoc = 8202;
+	};
+	CE0F132210A0C973002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
+		name = "FileViewController.m: 336";
+		rLen = 0;
+		rLoc = 8796;
+		rType = 0;
+		vrLen = 1945;
+		vrLoc = 9095;
+	};
+	CE0F132510A0CA27002569B6 /* XCBuildMessageTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "Expected ';' before '}' token";
+		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
+		fallbackIsa = XCBuildMessageTextBookmark;
+		rLen = 1;
+		rLoc = 190;
+		rType = 1;
+	};
+	CE0F132610A0CA27002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
+		name = "FileViewController.m: 193";
+		rLen = 0;
+		rLoc = 5837;
+		rType = 0;
+		vrLen = 111;
+		vrLoc = 5756;
+	};
+	CE0F133110A0CB74002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE1F417A109A28AD0067DB73 /* FileViewDelegate.h */;
+		name = "FileViewDelegate.h: 14";
+		rLen = 170;
+		rLoc = 221;
+		rType = 0;
+		vrLen = 395;
+		vrLoc = 0;
+	};
+	CE0F133210A0CB74002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE1F40F6109A17B50067DB73 /* FileViewController.h */;
+		name = "FileViewController.h: 58";
+		rLen = 0;
+		rLoc = 1267;
+		rType = 0;
+		vrLen = 1293;
+		vrLoc = 44;
+	};
+	CE0F133310A0CB74002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
+		name = "FileViewController.m: 191";
+		rLen = 0;
+		rLoc = 5837;
+		rType = 0;
+		vrLen = 811;
+		vrLoc = 5434;
+	};
+	CE0F133410A0CB74002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
+		name = "FileViewController.m: 385";
+		rLen = 0;
+		rLoc = 9867;
+		rType = 0;
+		vrLen = 1367;
+		vrLoc = 9080;
+	};
+	CE0F133B10A0CBC6002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
+		name = "FileViewController.m: 195";
+		rLen = 0;
+		rLoc = 5893;
+		rType = 0;
+		vrLen = 870;
+		vrLoc = 5503;
+	};
+	CE0F134010A0CBDD002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
+		name = "FileViewController.m: 193";
+		rLen = 0;
+		rLoc = 5845;
+		rType = 0;
+		vrLen = 865;
+		vrLoc = 5503;
+	};
+	CE0F134110A0CC32002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
+		name = "FileViewController.m: 13";
+		rLen = 0;
+		rLoc = 246;
+		rType = 0;
+		vrLen = 1037;
+		vrLoc = 0;
+	};
+	CE0F134210A0CC32002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE1F40F6109A17B50067DB73 /* FileViewController.h */;
+		name = "FileViewController.h: 58";
+		rLen = 0;
+		rLoc = 1267;
+		rType = 0;
+		vrLen = 1293;
+		vrLoc = 44;
+	};
+	CE0F134310A0CC32002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE1F40F6109A17B50067DB73 /* FileViewController.h */;
+		name = "FileViewController.h: 50";
+		rLen = 0;
+		rLoc = 1074;
+		rType = 0;
+		vrLen = 1244;
+		vrLoc = 145;
+	};
+	CE0F134A10A0CEF7002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE1F40F6109A17B50067DB73 /* FileViewController.h */;
+		name = "FileViewController.h: 50";
+		rLen = 0;
+		rLoc = 1074;
+		rType = 0;
+		vrLen = 1244;
+		vrLoc = 145;
+	};
+	CE0F134B10A0CEF7002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
+		name = "FileViewController.m: 13";
+		rLen = 0;
+		rLoc = 246;
+		rType = 0;
+		vrLen = 1037;
+		vrLoc = 0;
+	};
+	CE0F134C10A0CEF7002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
+		name = "FileViewController.m: 255";
+		rLen = 57;
+		rLoc = 7171;
+		rType = 0;
+		vrLen = 2321;
+		vrLoc = 9398;
+	};
+	CE0F134D10A0CF14002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
+		name = "FileViewController.m: 255";
+		rLen = 57;
+		rLoc = 7171;
+		rType = 0;
+		vrLen = 2321;
+		vrLoc = 9398;
+	};
+	CE0F134E10A0CF14002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE8CB8CE109CD62A008B3FAE /* TapDetectingScrollView.h */;
+		name = "TapDetectingScrollView.h: 11";
+		rLen = 0;
+		rLoc = 182;
+		rType = 0;
+		vrLen = 242;
+		vrLoc = 0;
+	};
+	CE0F134F10A0CF14002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE8CB8CF109CD62A008B3FAE /* TapDetectingScrollView.m */;
+		name = "TapDetectingScrollView.m: 15";
+		rLen = 0;
+		rLoc = 245;
+		rType = 0;
+		vrLen = 547;
+		vrLoc = 0;
+	};
+	CE0F135410A0CF2C002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE8CB8CF109CD62A008B3FAE /* TapDetectingScrollView.m */;
+		name = "TapDetectingScrollView.m: 15";
+		rLen = 0;
+		rLoc = 245;
+		rType = 0;
+		vrLen = 547;
+		vrLoc = 0;
+	};
+	CE0F135510A0CF2C002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE1F40F6109A17B50067DB73 /* FileViewController.h */;
+		name = "FileViewController.h: 50";
+		rLen = 0;
+		rLoc = 1074;
+		rType = 0;
+		vrLen = 1379;
+		vrLoc = 0;
+	};
+	CE0F135610A0CF2C002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE8CB8CE109CD62A008B3FAE /* TapDetectingScrollView.h */;
+		name = "TapDetectingScrollView.h: 11";
+		rLen = 0;
+		rLoc = 182;
+		rType = 0;
+		vrLen = 242;
+		vrLoc = 0;
+	};
+	CE0F135710A0CF2C002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
+		name = "FileViewController.m: 255";
+		rLen = 57;
+		rLoc = 7171;
+		rType = 0;
+		vrLen = 2321;
+		vrLoc = 9398;
+	};
+	CE0F135810A0CF2C002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
+		name = "FileViewController.m: 322";
+		rLen = 0;
+		rLoc = 8868;
+		rType = 0;
+		vrLen = 1367;
+		vrLoc = 8563;
+	};
+	CE0F135D10A0CF54002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
+		name = "FileViewController.m: 322";
+		rLen = 0;
+		rLoc = 8868;
+		rType = 0;
+		vrLen = 1252;
+		vrLoc = 8553;
+	};
+	CE0F135E10A0CF54002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE8CB8CE109CD62A008B3FAE /* TapDetectingScrollView.h */;
+		name = "TapDetectingScrollView.h: 11";
+		rLen = 0;
+		rLoc = 182;
+		rType = 0;
+		vrLen = 242;
+		vrLoc = 0;
+	};
+	CE0F135F10A0CF54002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE8CB8CF109CD62A008B3FAE /* TapDetectingScrollView.m */;
+		name = "TapDetectingScrollView.m: 20";
+		rLen = 0;
+		rLoc = 312;
+		rType = 0;
+		vrLen = 536;
+		vrLoc = 0;
+	};
+	CE0F136410A0CFAA002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE8CB8CF109CD62A008B3FAE /* TapDetectingScrollView.m */;
+		name = "TapDetectingScrollView.m: 20";
+		rLen = 0;
+		rLoc = 312;
+		rType = 0;
+		vrLen = 536;
+		vrLoc = 0;
+	};
+	CE0F136510A0CFAA002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE8CB8CE109CD62A008B3FAE /* TapDetectingScrollView.h */;
+		name = "TapDetectingScrollView.h: 11";
+		rLen = 0;
+		rLoc = 182;
+		rType = 0;
+		vrLen = 242;
+		vrLoc = 0;
+	};
+	CE0F136610A0CFAA002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
+		name = "FileViewController.m: 332";
+		rLen = 0;
+		rLoc = 9432;
+		rType = 0;
+		vrLen = 1367;
+		vrLoc = 8562;
+	};
+	CE0F136710A0CFC9002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
+		name = "FileViewController.m: 322";
+		rLen = 0;
+		rLoc = 8868;
+		rType = 0;
+		vrLen = 2309;
+		vrLoc = 9410;
+	};
+	CE0F136C10A0CFEE002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE8CB8CF109CD62A008B3FAE /* TapDetectingScrollView.m */;
+		name = "TapDetectingScrollView.m: 12";
+		rLen = 22;
+		rLoc = 210;
+		rType = 0;
+		vrLen = 556;
+		vrLoc = 0;
+	};
+	CE0F136D10A0CFEE002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE8CB8CE109CD62A008B3FAE /* TapDetectingScrollView.h */;
+		name = "TapDetectingScrollView.h: 11";
+		rLen = 0;
+		rLoc = 182;
+		rType = 0;
+		vrLen = 242;
+		vrLoc = 0;
+	};
+	CE0F136E10A0CFEE002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
+		name = "FileViewController.m: 322";
+		rLen = 0;
+		rLoc = 8868;
+		rType = 0;
+		vrLen = 2309;
+		vrLoc = 9410;
+	};
+	CE0F136F10A0CFEE002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
+		name = "FileViewController.m: 324";
+		rLen = 0;
+		rLoc = 8983;
+		rType = 0;
+		vrLen = 2336;
+		vrLoc = 8747;
+	};
+	CE0F137210A0D02E002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
+		name = "FileViewController.m: 324";
+		rLen = 0;
+		rLoc = 8983;
+		rType = 0;
+		vrLen = 2428;
+		vrLoc = 8750;
+	};
+	CE0F137710A0D0DA002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
+		name = "FileViewController.m: 397";
+		rLen = 0;
+		rLoc = 11903;
+		rType = 0;
+		vrLen = 2462;
+		vrLoc = 9420;
+	};
+	CE0F137C10A0D191002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
+		name = "FileViewController.m: 267";
+		rLen = 0;
+		rLoc = 7805;
+		rType = 0;
+		vrLen = 2316;
+		vrLoc = 6298;
+	};
+	CE0F138110A0D1BA002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
+		name = "FileViewController.m: 261";
+		rLen = 0;
+		rLoc = 7561;
+		rType = 0;
+		vrLen = 2316;
+		vrLoc = 6298;
+	};
+	CE0F138410A0D1E0002569B6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
+		name = "FileViewController.m: 261";
+		rLen = 0;
+		rLoc = 7561;
+		rType = 0;
+		vrLen = 2319;
+		vrLoc = 6298;
+	};
 	CE1F40F6109A17B50067DB73 /* FileViewController.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {953, 966}}";
-			sepNavSelRange = "{420, 0}";
-			sepNavVisRange = "{28, 1246}";
+			sepNavIntBoundsRect = "{{0, 0}, {1281, 1008}}";
+			sepNavSelRange = "{1074, 0}";
+			sepNavVisRange = "{0, 1379}";
 		};
 	};
 	CE1F40F7109A17B50067DB73 /* FileViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1699, 5754}}";
-			sepNavSelRange = "{5516, 0}";
-			sepNavVisRange = "{4620, 1413}";
+			sepNavIntBoundsRect = "{{0, 0}, {1281, 6384}}";
+			sepNavSelRange = "{7561, 0}";
+			sepNavVisRange = "{6298, 2319}";
 		};
 	};
 	CE1F417A109A28AD0067DB73 /* FileViewDelegate.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {953, 920}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1281, 899}}";
 			sepNavSelRange = "{221, 170}";
 			sepNavVisRange = "{0, 395}";
 			sepNavWindowFrame = "{{1382, 17}, {824, 1041}}";
@@ -814,7 +1297,7 @@
 		fRef = CE1F40F6109A17B50067DB73 /* FileViewController.h */;
 		name = "FileViewController.h: 49";
 		rLen = 0;
-		rLoc = 968;
+		rLoc = 1010;
 		rType = 0;
 		vrLen = 1113;
 		vrLoc = 199;
@@ -824,7 +1307,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 280";
 		rLen = 0;
-		rLoc = 9897;
+		rLoc = 9591;
 		rType = 0;
 		vrLen = 1054;
 		vrLoc = 0;
@@ -834,7 +1317,7 @@
 		fRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */;
 		name = "FileViewController.m: 182";
 		rLen = 0;
-		rLoc = 6029;
+		rLoc = 5840;
 		rType = 0;
 		vrLen = 841;
 		vrLoc = 4761;
@@ -994,16 +1477,16 @@
 	};
 	CE8CB8CE109CD62A008B3FAE /* TapDetectingScrollView.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {857, 888}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1281, 899}}";
 			sepNavSelRange = "{182, 0}";
 			sepNavVisRange = "{0, 242}";
 		};
 	};
 	CE8CB8CF109CD62A008B3FAE /* TapDetectingScrollView.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {700, 902}}";
-			sepNavSelRange = "{541, 0}";
-			sepNavVisRange = "{0, 547}";
+			sepNavIntBoundsRect = "{{0, 0}, {1281, 899}}";
+			sepNavSelRange = "{210, 22}";
+			sepNavVisRange = "{0, 556}";
 		};
 	};
 	CE8CB8D4109CD6A9008B3FAE /* PBXTextBookmark */ = {
@@ -1011,7 +1494,7 @@
 		fRef = CE8CB8CF109CD62A008B3FAE /* TapDetectingScrollView.m */;
 		name = "TapDetectingScrollView.m: 29";
 		rLen = 0;
-		rLoc = 541;
+		rLoc = 550;
 		rType = 0;
 		vrLen = 547;
 		vrLoc = 0;

@@ -11,6 +11,8 @@
 
 @class File;
 
+@class TapDetectingScrollView;
+
 
 
 @interface FileViewController : UIViewController <UIScrollViewDelegate> {
@@ -26,7 +28,7 @@
 	
 	
 	// Image
-	UIScrollView *imageScrollView;
+	TapDetectingScrollView *imageScrollView;
 	UIImageView *imageView;
 	float imageWidth;
 	float imageHeight;
@@ -45,7 +47,7 @@
 
 
 // Image
-@property (nonatomic, retain) UIScrollView *imageScrollView;
+@property (nonatomic, retain) TapDetectingScrollView *imageScrollView;
 @property (nonatomic, retain) UIImageView *imageView;
 
 
@@ -55,10 +57,11 @@
 
 
 
-
+- (void)determineFileKindAndLoad;
+- (void)loadImageFile;
 //- (void)loadAudio;
 //- (void)loadDocument;
-- (void)loadImage;
+//- (void)loadImage;
 //- (void)loadVideo;
 
 

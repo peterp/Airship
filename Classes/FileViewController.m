@@ -9,7 +9,8 @@
 #import "FileViewController.h"
 #import "File.h";
 
-
+// Image
+#import "TapDetectingScrollView.h"
 
 
 @implementation FileViewController
@@ -149,8 +150,6 @@
 	// Toolbar + ActivityIndicator
 	self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
 	activityIndicator.hidesWhenStopped = YES;
-	[activityIndicator startAnimating];
-	
 	UIBarButtonItem *activityIndicatorBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
 	[activityIndicator release];
 	
@@ -158,12 +157,6 @@
 	[toolbar setItems:[NSArray arrayWithObjects:activityIndicatorBarButtonItem, nil] animated:YES];
 	[activityIndicatorBarButtonItem release];
 	[toolbar release];
-	
-	
-//	[self performSelector:@selector(hideBarsAfterDelay) withObject:nil afterDelay:4];
-//	[self performSelector:@selector(hideBarsAfterDelay) withObject:nil afterDelay:8];
-
-	
 	
 }
 
@@ -193,40 +186,13 @@
 
 - (void)setFile:(File *)aFile;
 {
-	// check the views, which one will it be placed inside?
-	
-	
-	// ok, load it up!
-	
-	
 
-
-
-
-//	// Not the same file, unload and reload
-//	if (self.file.kind != aFile.kind) {
-//	
-//	
-//		// remove
-//		if (self.file.kind == FILE_KIND_IMAGE) {
-//		
-//
-//
-//			
-//			
-//			
-//			
-//		}
-//	}
-//	
-//	// Set the file.
-//	file = aFile;
-//	if (self.file.kind == FILE_KIND_IMAGE) {
-//		NSLog(@"image is loaded.");
-//		[self loadImage];
-//	}
-//
+	if (self.file.kind != aFile.kind) {
+	}
 	
+	
+	file = aFile;
+	[self determineFileKindAndLoad];
 	
 	
 	UILabel *titleMainLabel = (UILabel *)[navigationBar.topItem.titleView viewWithTag:1001];
@@ -292,12 +258,16 @@
 		self.navigationBar.hidden = NO;
 		self.toolbar.hidden = NO;
 		self.navigationBar.frame = CGRectMake(0, 20, self.navigationBar.frame.size.width, self.navigationBar.frame.size.height);
-		self.toolbar.frame = CGRectMake(0, self.toolbar.frame.origin.y - self.toolbar.frame.size.height, self.toolbar.frame.size.width, self.toolbar.frame.size.height);
+		self.toolbar.frame = CGRectMake(0, self.view.frame.size.height - self.toolbar.frame.size.height, self.toolbar.frame.size.width, self.toolbar.frame.size.height);
 	} else {
 		// HIDE
 		[[UIApplication sharedApplication] setStatusBarHidden:YES animated:YES];
+		
+		
+		NSLog(@"%f", self.view.frame.size.height);
+		
 		self.navigationBar.frame = CGRectMake(0, (self.navigationBar.frame.size.height + 20) * -1, self.navigationBar.frame.size.width, self.navigationBar.frame.size.height);
-		self.toolbar.frame = CGRectMake(0, self.toolbar.frame.origin.y + self.toolbar.frame.size.height, self.toolbar.frame.size.width, self.toolbar.frame.size.height);
+		self.toolbar.frame = CGRectMake(0, self.view.frame.size.height + self.toolbar.frame.size.height, self.toolbar.frame.size.width, self.toolbar.frame.size.height);
 		[UIView setAnimationDidStopSelector:@selector(setBarsHidden)];
 	}
 
@@ -327,43 +297,63 @@
 
 
 
+- (void)determineFileKindAndLoad;
+{
+	[self.activityIndicator startAnimating];
+
+	switch(self.file.kind) {
+	
+		case FILE_KIND_IMAGE:
+			[self loadImageFile];
+			break;
+	
+	}
+}
 
 
-- (void)loadImage;
+
+
+
+
+
+
+
+#pragma mark -
+#pragma mark IMAGES
+
+- (void)loadImageFile;
 {
 	if (self.imageScrollView == nil) {
-		self.imageScrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];
-		//self.imageScrollView.backgroundColor = [UIColor grayColor];
-		self.imageScrollView.delegate = self;
-		self.imageScrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-		self.imageScrollView.bouncesZoom = YES;
-		self.imageScrollView.bounces = YES;
-		self.imageScrollView.clipsToBounds = YES;
-		self.imageScrollView.showsVerticalScrollIndicator = NO;
-		self.imageScrollView.showsHorizontalScrollIndicator = NO;
-		[self.view insertSubview:self.imageScrollView atIndex:0];
-		[self.imageScrollView release];
+		// Loading a "fresh" image.
+		self.imageScrollView = [[TapDetectingScrollView alloc] initWithFrame:self.view.frame];
+		imageScrollView.delegate = self;
+		imageScrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+		imageScrollView.bouncesZoom = YES;
+		imageScrollView.bounces = YES;
+		imageScrollView.clipsToBounds = YES;
+		imageScrollView.showsVerticalScrollIndicator = NO;
+		imageScrollView.showsHorizontalScrollIndicator = NO;
+		[self.view insertSubview:imageScrollView atIndex:0];
+		[imageScrollView release];
 	} else {
-		// remove image view.
+		// Loading another image
 		[self.imageView removeFromSuperview];
 		self.imageView = nil;
 	}
 
 	// Load the image!
 	
-//	NSData *imageData = [NSData dataWithContentsOfFile:fileLocation];
-
-
-	self.imageView = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:self.file.absolutePath]];
-	NSLog(@"on startup: %d", [self.imageView retainCount]);
+	NSData *imageData = [NSData dataWithContentsOfFile:self.file.absolutePath];
+	self.imageView = [[UIImageView alloc] initWithImage:[UIImage imageWithData:imageData]];
 	[self.imageScrollView addSubview:imageView];
-	NSLog(@"on adding to view: %d", [self.imageView retainCount]);
 	[imageView release];
-	NSLog(@"on release: %d", [self.imageView retainCount]);
 	
+	[self.activityIndicator stopAnimating];
+
 	// Cache image's original dimensions
 	imageWidth = imageView.frame.size.width;
 	imageHeight = imageView.frame.size.height;
+
   // calculate minimum scale to perfectly fit image width, and begin at that scale
 	float minimumZoomScale = imageWidth > imageHeight ? self.imageScrollView.frame.size.width / imageWidth : self.imageScrollView.frame.size.height / imageHeight;
 	self.imageScrollView.minimumZoomScale = minimumZoomScale;
@@ -371,9 +361,6 @@
 	self.imageScrollView.maximumZoomScale = 2.5;
 	[self viewForZoomingInScrollView:self.imageScrollView];
 }
-
-
-
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)aScrollView;
 {
@@ -383,7 +370,6 @@
 		CGPoint p = self.imageView.center;
 		self.imageView.center = CGPointMake(p.x, self.imageScrollView.frame.size.height / 2);
 	}
-	
 	if (self.imageView.frame.size.width < self.imageScrollView.frame.size.width) {
 		// determine the center of the frame
 		CGPoint p = self.imageView.center;
@@ -392,7 +378,7 @@
 	return self.imageView;
 }
 
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation;
 {
 	if (self.imageView != nil) {
 		float minimumZoomScale = imageWidth > imageHeight ? self.imageScrollView.frame.size.width / imageWidth : self.imageScrollView.frame.size.height / imageHeight;
@@ -402,6 +388,21 @@
 		[self viewForZoomingInScrollView:self.imageScrollView];
 	}
 }
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event;
+{
+	NSLog(@"i come here...");
+	[self toggleBarsVisibilty];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView;
+{
+	if (self.navigationBar.hidden == NO && self.toolbar.hidden == NO) {
+		[self toggleBarsVisibilty];
+	}
+}
+
+
 
 
 
