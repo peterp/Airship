@@ -328,7 +328,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>CE0F138410A0D1E0002569B6</string>
+										<string>CE0F139010A0DC1C002569B6</string>
 										<key>history</key>
 										<array>
 											<string>CEF34700109E262C004D4E0C</string>
@@ -539,10 +539,10 @@
 	<array>
 		<string>CE0F12BA10A0B7E5002569B6</string>
 		<string>CE0F12B510A0B792002569B6</string>
+		<string>1C78EAAD065D492600B07095</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>CE2B3ACC0F3CCF090039B355</string>
 		<string>/Volumes/Storage/Development/apps/Humboldt/Humboldt.xcodeproj</string>
-		<string>1C78EAAD065D492600B07095</string>
 	</array>
 	<key>WindowString</key>
 	<string>132 58 1602 1000 0 0 1920 1058 </string>

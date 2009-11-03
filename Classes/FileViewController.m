@@ -329,7 +329,8 @@
 		imageScrollView.delegate = self;
 		imageScrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		imageScrollView.bouncesZoom = YES;
-		imageScrollView.bounces = YES;
+		imageScrollView.alwaysBounceHorizontal = YES;
+		imageScrollView.alwaysBounceVertical = YES;
 		imageScrollView.clipsToBounds = YES;
 		imageScrollView.showsVerticalScrollIndicator = NO;
 		imageScrollView.showsHorizontalScrollIndicator = NO;
@@ -395,7 +396,7 @@
 	[self toggleBarsVisibilty];
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView;
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView;
 {
 	if (self.navigationBar.hidden == NO && self.toolbar.hidden == NO) {
 		[self toggleBarsVisibilty];
