@@ -9,6 +9,8 @@
 #import "FileViewController.h"
 #import "File.h";
 
+// Document
+#import "TapDetectingWebView.h"
 // Image
 #import "TapDetectingScrollView.h"
 
@@ -25,8 +27,8 @@
 @synthesize activityIndicator;
 
 
-
-
+// Document
+@synthesize documentWebView;
 // Image
 @synthesize imageScrollView;
 @synthesize imageView;
@@ -46,8 +48,8 @@
 	self.toolbar = nil;
 	self.activityIndicator = nil;
 	
-	
-	
+	// Document
+	self.documentWebView = nil;
 	// Image
 	self.imageScrollView = nil;
 	self.imageView = nil;
@@ -130,14 +132,6 @@
 	[self.view addSubview:navigationBar];
 	[navigationBar release];
 	
-
-
-
-
-	
-	
-	
-	
 	
 	// Toolbar
 	self.toolbar = [[UIToolbar alloc] initWithFrame:CGRectZero];
@@ -186,8 +180,31 @@
 
 - (void)setFile:(File *)aFile;
 {
-
-	if (self.file.kind != aFile.kind) {
+	if (self.file != nil && self.file.kind != aFile.kind) {
+	
+		// Unload the view
+		switch (self.file.kind) {
+			case FILE_KIND_AUDIO:
+				break;
+			
+			case FILE_KIND_DOCUMENT:
+				[self.documentWebView removeFromSuperview];
+				self.documentWebView = nil;
+				break;
+				
+			case FILE_KIND_IMAGE:
+				[self.imageScrollView removeFromSuperview];
+				self.imageView = nil;
+				self.imageScrollView = nil;
+				break;
+			
+			case FILE_KIND_VIDEO:
+				break;
+				
+			default:
+				break;
+		}
+		
 	}
 	
 	
@@ -262,10 +279,6 @@
 	} else {
 		// HIDE
 		[[UIApplication sharedApplication] setStatusBarHidden:YES animated:YES];
-		
-		
-		NSLog(@"%f", self.view.frame.size.height);
-		
 		self.navigationBar.frame = CGRectMake(0, (self.navigationBar.frame.size.height + 20) * -1, self.navigationBar.frame.size.width, self.navigationBar.frame.size.height);
 		self.toolbar.frame = CGRectMake(0, self.view.frame.size.height + self.toolbar.frame.size.height, self.toolbar.frame.size.width, self.toolbar.frame.size.height);
 		[UIView setAnimationDidStopSelector:@selector(setBarsHidden)];
@@ -300,20 +313,63 @@
 - (void)determineFileKindAndLoad;
 {
 	[self.activityIndicator startAnimating];
-
-	switch(self.file.kind) {
 	
+	// Unload the view
+	switch (self.file.kind) {
+		case FILE_KIND_AUDIO:
+			break;
+			
+		case FILE_KIND_DOCUMENT:
+			[self loadDocumentFile];
+			break;
+				
 		case FILE_KIND_IMAGE:
 			[self loadImageFile];
 			break;
-	
+			
+		case FILE_KIND_VIDEO:
+			break;
+				
+		default:
+			break;
 	}
 }
 
 
 
 
+#pragma mark -
+#pragma mark DOCUMENTS
 
+- (void)loadDocumentFile;
+{
+	if (self.documentWebView == nil) {
+		self.documentWebView = [[TapDetectingWebView alloc] initWithFrame:self.view.frame];
+		documentWebView.delegate = self;
+		documentWebView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+		documentWebView.scalesPageToFit = YES;
+		[self.view insertSubview:documentWebView atIndex:0];
+		[documentWebView release];
+	}
+	
+	[documentWebView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:self.file.absolutePath]]];
+}
+
+- (void)tapDetectingWebViewGotSingleTap:(TapDetectingWebView *)aWebView;
+{
+	[self toggleBarsVisibilty];
+}
+
+
+- (void)webViewDidStartLoad:(UIWebView *)aWebView;
+{
+	[self.activityIndicator startAnimating];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)aWebView;
+{
+	[self.activityIndicator stopAnimating];
+}
 
 
 
@@ -392,7 +448,7 @@
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event;
 {
-	NSLog(@"i come here...");
+	NSLog(@"hmpf.");
 	[self toggleBarsVisibilty];
 }
 

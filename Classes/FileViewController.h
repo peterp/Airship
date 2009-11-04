@@ -8,14 +8,19 @@
 
 #import <UIKit/UIKit.h>
 #import "FileViewDelegate.h"
+// Document
 
 @class File;
 
+// Document
+@class TapDetectingWebView;
+
+// Image
 @class TapDetectingScrollView;
 
 
 
-@interface FileViewController : UIViewController <UIScrollViewDelegate> {
+@interface FileViewController : UIViewController <UIScrollViewDelegate, UIWebViewDelegate> {
 
 	id <FileViewDelegate> delegate;
 	File *file;
@@ -26,6 +31,9 @@
 	UIToolbar *toolbar;
 	UIActivityIndicatorView *activityIndicator;
 	
+	
+	// Document
+	TapDetectingWebView *documentWebView;
 	
 	// Image
 	TapDetectingScrollView *imageScrollView;
@@ -43,9 +51,8 @@
 @property (nonatomic, retain) UIToolbar *toolbar;
 @property (nonatomic, retain) UIActivityIndicatorView *activityIndicator;
 
-
-
-
+// Document
+@property (nonatomic, retain) TapDetectingWebView *documentWebView;
 // Image
 @property (nonatomic, retain) TapDetectingScrollView *imageScrollView;
 @property (nonatomic, retain) UIImageView *imageView;
@@ -58,10 +65,10 @@
 
 
 - (void)determineFileKindAndLoad;
+- (void)loadDocumentFile;
 - (void)loadImageFile;
+
 //- (void)loadAudio;
-//- (void)loadDocument;
-//- (void)loadImage;
 //- (void)loadVideo;
 
 

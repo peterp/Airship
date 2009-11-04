@@ -20,8 +20,6 @@
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event;
 {
-	NSLog(@"margle");
-	
 	if (!self.dragging) {
 		[self.nextResponder touchesEnded:touches withEvent:event]; 
 	} else {
