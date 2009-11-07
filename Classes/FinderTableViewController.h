@@ -13,7 +13,7 @@
 @class File;
 
 
-@interface FinderTableViewController : UITableViewController <FileViewDelegate> {
+@interface FinderTableViewController : UITableViewController <FileViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate> {
 
 
 	NSString *path;
@@ -25,8 +25,6 @@
 	UISearchDisplayController *searchDisplayController;
 	
 	FileViewController *fileViewController;
-	
-	
 }
 
 
@@ -34,6 +32,9 @@
 
 @property (nonatomic, retain) NSMutableArray *fileList;
 @property (nonatomic, retain) NSMutableArray *filteredFileList;
+
+@property (nonatomic, retain) UISearchBar *searchBar;
+@property (nonatomic, retain) UISearchDisplayController *searchDisplayController;
 
 @property (nonatomic, retain) FileViewController *fileViewController;
 

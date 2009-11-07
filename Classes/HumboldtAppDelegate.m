@@ -26,8 +26,8 @@
 
 - (void)dealloc 
 {
-	[tabBarController release];
-  [window release];
+	self.tabBarController = nil;
+	self.window = nil;
   [super dealloc];
 }
 
@@ -40,7 +40,7 @@
 {
 
 	// Prevent sleep
-	[UIApplication sharedApplication].idleTimerDisabled = YES;
+	// [UIApplication sharedApplication].idleTimerDisabled = YES;
 	
 
 	FinderTableViewController *finder = [FinderTableViewController finderWithPath:[NSHomeDirectory() stringByAppendingPathComponent:@"Documents/Files/"]];
@@ -63,13 +63,12 @@
 	self.tabBarController = [[UITabBarController alloc] init];
 	tabBarController.viewControllers  = [NSArray arrayWithObjects:finderNavigationController, spotlightNavigationController, nil]; //searchNavigationController, sharingNavigationController, nil];
 	tabBarController.selectedIndex = 0;
-//	
-//	
-//
+
 	[finderNavigationController release];
 	[spotlightNavigationController release];
-//	[sharingNavigationController release];
 	
+	
+//	[sharingNavigationController release];
 
 	[window addSubview:tabBarController.view];
 	[window makeKeyAndVisible];

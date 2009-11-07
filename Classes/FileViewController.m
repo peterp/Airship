@@ -338,6 +338,10 @@
 
 
 
+
+
+
+
 #pragma mark -
 #pragma mark DOCUMENTS
 
@@ -371,9 +375,6 @@
 	[self.activityIndicator stopAnimating];
 }
 
-
-
-
 #pragma mark -
 #pragma mark IMAGES
 
@@ -399,7 +400,6 @@
 	}
 
 	// Load the image!
-	
 	NSData *imageData = [NSData dataWithContentsOfFile:self.file.absolutePath];
 	self.imageView = [[UIImageView alloc] initWithImage:[UIImage imageWithData:imageData]];
 	[self.imageScrollView addSubview:imageView];

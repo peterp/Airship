@@ -16,6 +16,7 @@
 
 @synthesize path;
 @synthesize fileList, filteredFileList;
+@synthesize searchBar, searchDisplayController;
 @synthesize fileViewController;
 
 
@@ -74,6 +75,23 @@
 			[file release];
 		}
 		directoryContents = nil;
+		
+		
+		
+		// Search
+		self.searchBar = [[UISearchBar alloc] init];
+		
+		searchBar.delegate = self;
+		searchBar.placeholder = [NSString stringWithFormat:@"Search %@", self.title];
+		self.tableView.tableHeaderView = searchBar;
+		[searchBar sizeToFit];
+		[searchBar release];
+		
+		// Search Display Controller;
+		self.searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
+		searchDisplayController.delegate = self;
+		searchDisplayController.searchResultsDelegate = self;
+		searchDisplayController.searchResultsDataSource = self;
 	}
 }
 
@@ -94,7 +112,11 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
 {
-	return [self.fileList count];
+	if (tableView == self.searchDisplayController.searchResultsTableView) {
+		return [self.filteredFileList count];
+	} else {
+		return [self.fileList count];
+	}
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
@@ -138,6 +160,7 @@
 		file = [self.fileList objectAtIndex:indexPath.row];
 	}
 	
+	
 //	[cell.imageView setImage:[UIImage imageNamed:[storageItem.kind stringByAppendingPathExtension:@"png"]]];
 	nameLabel.text = file.name;
 	metaLabel.text = file.date;
@@ -151,6 +174,12 @@
 	File *file = [self fileForIndexPath:indexPath.row];
 	
 	if (file.kind == FILE_KIND_DIRECTORY) {
+	
+	
+		FinderTableViewController *finderTableViewController = [FinderTableViewController finderWithPath:file.absolutePath];
+		[self.navigationController pushViewController:finderTableViewController animated:YES];
+		[finderTableViewController release];
+
 	} else {
 		// Present the file.
 		[self presentFileViewControllerWithFile:file];
@@ -278,6 +307,35 @@
 	
 	File *file = [self fileForIndexPath:index];
 	[self presentFileViewControllerWithFile:file];
+}
+
+
+
+#pragma mark -
+#pragma mark Searching
+
+- (void)filterContentForSearchText:(NSString*)searchText;
+{
+	if (self.filteredFileList == nil) {
+		self.filteredFileList = [NSMutableArray array];
+	} else {
+		[filteredFileList removeAllObjects];
+	}
+	searchText = [searchText lowercaseString];
+	
+	for (File *file in fileList) {
+		NSRange range = [[file.name lowercaseString] rangeOfString:searchText];
+		if (range.length > 0) {
+			[filteredFileList addObject:file];
+		}
+	}
+}
+
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString;
+{
+	[self filterContentForSearchText:searchString];
+	return YES;
 }
 
 

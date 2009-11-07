@@ -34,7 +34,6 @@
 	
 	// Document
 	TapDetectingWebView *documentWebView;
-	
 	// Image
 	TapDetectingScrollView *imageScrollView;
 	UIImageView *imageView;

@@ -10,8 +10,21 @@
 #import "FinderTableViewController.h"
 
 
-@interface SpotlightTableViewController : FinderTableViewController {
+@interface SpotlightTableViewController : FinderTableViewController <UITextFieldDelegate> {
 
+
+	// Search
+	UITextField *searchTextField;
+	UIControl *searchInterstitial;
 }
+
+@property (nonatomic, retain) UITextField *searchTextField;
+@property (nonatomic, retain) UIControl *searchInterstitial;
+
+// Search
+- (void)setSearchInterstitialHidden:(BOOL)hidden animated:(BOOL)animated;
+- (void)hideSearchKeyboardAndInterstitial;
+- (void)filterContentForSearchText:(NSString*)searchText;
+
 
 @end
