@@ -76,15 +76,13 @@
 		}
 		directoryContents = nil;
 		
-		
-		
 		// Search
 		self.searchBar = [[UISearchBar alloc] init];
-		
+		searchBar.frame = CGRectMake(0, 0, self.view.frame.size.width, 44);
+		searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 		searchBar.delegate = self;
 		searchBar.placeholder = [NSString stringWithFormat:@"Search %@", self.title];
 		self.tableView.tableHeaderView = searchBar;
-		[searchBar sizeToFit];
 		[searchBar release];
 		
 		// Search Display Controller;

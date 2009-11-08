@@ -13,15 +13,15 @@
 @implementation SpotlightTableViewController
 
 
-@synthesize searchTextField;
 @synthesize searchInterstitial;
+@synthesize searchResultsEmptyLabel;
 
 
 
 - (void)dealloc;
 {
-	self.searchTextField = nil;
 	self.searchInterstitial = nil;
+	self.searchResultsEmptyLabel = nil;
 	
 	[super dealloc];
 }
@@ -42,79 +42,95 @@
 {
 	[super viewDidLoad];
 	
+	// Setup
+	self.tableView.hidden = YES;
+	self.navigationController.view.backgroundColor = [UIColor darkGrayColor];
+
+	
 	// Data Store
 	self.path = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/Files/"];
 	self.fileList = [NSMutableArray array];
 	
-	// Search Input
-	self.searchTextField = [[UITextField alloc] initWithFrame:CGRectMake(0,0, 300, 44)];
-	searchTextField.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-	searchTextField.placeholder = @"Search";
-	searchTextField.backgroundColor = [UIColor whiteColor];
-	searchTextField.font = [UIFont systemFontOfSize:14];
-	searchTextField.bounds = CGRectMake(0, 0, 240, 21);
-	searchTextField.delegate = self;
-	searchTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
-	searchTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-	searchTextField.autocorrectionType = UITextAutocorrectionTypeNo;
-	searchTextField.keyboardAppearance = UIKeyboardTypeDefault;
-	searchTextField.returnKeyType = UIReturnKeySearch;
-	searchTextField.enablesReturnKeyAutomatically = YES;
-	self.navigationItem.titleView = searchTextField;
-	[searchTextField release];
+	self.navigationController.navigationBar.frame = CGRectMake(0, 20, self.navigationController.navigationBar.frame.size.width, 44);
+	
+	// Search
+	self.searchBar = [[UISearchBar alloc] init];
+	searchBar.frame = CGRectMake(0, 0, self.view.frame.size.width, 44);
+	searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+	searchBar.delegate = self;
+	searchBar.placeholder = [NSString stringWithFormat:@"Search"];
+	self.navigationController.navigationBar.topItem.titleView = searchBar;
+	[searchBar release];
 	
 	
-	self.searchInterstitial = [[UIControl alloc] initWithFrame:CGRectMake(0, 64, 320, 480)];
+	
+	self.searchInterstitial = [[UIControl alloc] initWithFrame:CGRectZero];
+	searchInterstitial.frame = self.view.frame;
 	searchInterstitial.backgroundColor = [UIColor blackColor];
+	searchInterstitial.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	searchInterstitial.hidden = YES;
 	[searchInterstitial addTarget:self action:@selector(hideSearchKeyboardAndInterstitial) forControlEvents:UIControlEventTouchUpInside];
-	[self.navigationController.view addSubview:searchInterstitial];
+	[self.navigationController.view insertSubview:searchInterstitial belowSubview:self.navigationController.navigationBar];
 	[searchInterstitial release];
-}
-
-
-#pragma mark UITextField delegate methods
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField;
-{
-	[searchTextField resignFirstResponder];
-	return YES;
-}
-
-
-
-
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string;
-{
-	string = [textField.text stringByReplacingCharactersInRange:range withString:string];
-	[self setSearchInterstitialHidden:([string length] <= 0 ? NO : YES) animated:NO];
 	
-	if ([string length] > 0) {
-		[self filterContentForSearchText:string];
-	}
-
-	return YES;
+	
+	
+	
+	// No Results Label
+	self.searchResultsEmptyLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height / 3, self.view.frame.size.width, 44)];
+	searchResultsEmptyLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+	searchResultsEmptyLabel.hidden = YES;
+	searchResultsEmptyLabel.text = @"No Results Found";
+	searchResultsEmptyLabel.textAlignment = UITextAlignmentCenter;
+	searchResultsEmptyLabel.font = [UIFont boldSystemFontOfSize:[UIFont labelFontSize]];
+	searchResultsEmptyLabel.backgroundColor = [UIColor clearColor];
+	searchResultsEmptyLabel.textColor = [UIColor darkTextColor];
+	[self.navigationController.view insertSubview:searchResultsEmptyLabel belowSubview:self.navigationController.navigationBar];
+	[searchResultsEmptyLabel release];
 }
 
-- (void)textFieldDidBeginEditing:(UITextField *)textField;
+
+
+
+
+
+#pragma mark UISearchBar Delegate
+
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)search;
 {
 	// Is called everytime the textfield is tapped.
-	if ([textField.text length] <= 0) {
+	if ([search.text length] <= 0) {
 		[self setSearchInterstitialHidden:NO animated:YES];
 	}
 }
 
-- (BOOL)textFieldShouldClear:(UITextField *)textField;
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)search;
 {
-	[self setSearchInterstitialHidden:NO animated:NO];
-	return YES;
+	[search resignFirstResponder];
 }
+
+
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText;
+{
+	self.searchResultsEmptyLabel.hidden = YES;
+
+	if ([searchText length] > 0) {
+		[self setSearchInterstitialHidden:YES animated:NO];
+		[self filterContentForSearchText:searchText];
+	} else {
+		[self setSearchInterstitialHidden:NO animated:NO];
+	}
+}
+
 
 
 - (void)hideSearchKeyboardAndInterstitial;
 {
 	[self setSearchInterstitialHidden:YES animated:YES];
-	[searchTextField resignFirstResponder];
+	[searchBar resignFirstResponder];
 }
 
 
@@ -128,7 +144,6 @@
 			[UIView setAnimationDuration:0.3];
 			searchInterstitial.alpha = 0;
 			[UIView commitAnimations];
-
 		} else {
 			// apparently this is causing a leak?
 			searchInterstitial.alpha = 0;
@@ -141,6 +156,7 @@
 		}
 	} else {
 	 searchInterstitial.hidden = hidden;
+
 	 
 	 if (hidden = YES) {
 		// reset 
@@ -150,6 +166,9 @@
 	 }
 	}
 }
+
+
+
 
 
 - (void)filterContentForSearchText:(NSString*)searchText;
@@ -170,14 +189,28 @@
 			[file release];
 		}
 	}
+		
+	if ([fileList count] > 0) {
+		NSSortDescriptor *storageItemSortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:NO];
+		[fileList sortUsingDescriptors:[NSArray arrayWithObject:storageItemSortDescriptor]];
+		[storageItemSortDescriptor release];
+		self.tableView.hidden = NO;
+	} else {
+		self.tableView.hidden = YES;
+		self.searchResultsEmptyLabel.hidden = NO;
+	}
 	
-	NSSortDescriptor *storageItemSortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:NO];
-	[fileList sortUsingDescriptors:[NSArray arrayWithObject:storageItemSortDescriptor]];
-	[storageItemSortDescriptor release];
-	
-	self.tableView.hidden = NO;
 	[self.tableView reloadData];
 }
+
+
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation;
+{
+	self.navigationController.navigationBar.frame = CGRectMake(0, 20, self.navigationController.navigationBar.frame.size.width, 44);
+}
+
+
 
 
 
