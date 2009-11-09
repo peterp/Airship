@@ -26,7 +26,7 @@
 {
 	FinderTableViewController *finder = [[FinderTableViewController alloc] initWithStyle:UIStatusBarStyleDefault];
 	finder.path = path;
-
+	finder.title = [path lastPathComponent];
 
 	return finder;
 }
@@ -255,25 +255,16 @@
 
 - (void)presentFileViewControllerWithFile:(File *)file;
 {
-	
-	BOOL isActive = YES;
 	if (self.fileViewController == nil) {
 		self.fileViewController = [[FileViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
-		self.fileViewController.delegate = self;
-		isActive = NO;
+		fileViewController.delegate = self;
+		[self.navigationController presentModalViewController:self.fileViewController animated:YES];
+		[fileViewController release];
 	}
 
 	self.fileViewController.file = file;
-	
-	
 	[self.fileViewController.paginationSegmentControl setEnabled:[self indexPathForPaginationToNextFile:NO] >= 0 ? YES : NO forSegmentAtIndex:0];
 	[self.fileViewController.paginationSegmentControl setEnabled:[self indexPathForPaginationToNextFile:YES] >= 0 ? YES : NO forSegmentAtIndex:1];
-	
-	
-	if (isActive == NO) {
-		[self.navigationController presentModalViewController:self.fileViewController animated:YES];
-		[self.fileViewController release];
-	}
 }
 
 

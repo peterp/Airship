@@ -75,10 +75,12 @@
 {
 	[super viewDidLoad];
 	
+	
+	
 	// NavigationBar
 	self.navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectZero];
 	navigationBar.frame = CGRectMake(0, 20, self.view.frame.size.width, 44);
-	navigationBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
+	navigationBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleBottomMargin;
 	navigationBar.barStyle = UIBarStyleBlackTranslucent;
 	
 	// NavigationBar + NavigationItem
@@ -100,33 +102,6 @@
 	navigationItem.rightBarButtonItem = paginationBarButtonItem;
 	[paginationBarButtonItem release];
 	
-	// NavigationBar + NavigationItem + titleView
-	UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, navigationBar.frame.size.width - (self.paginationSegmentControl.frame.size.width * 2), navigationBar.frame.size.height)];
-	titleView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-	titleView.autoresizesSubviews = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
-
-	// NavigationBar + NavigationItem + titleView + titleMainLabel
-	UILabel *titleMainLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, navigationBar.frame.size.width - (self.paginationSegmentControl.frame.size.width * 2), navigationBar.frame.size.height / 2)];
-	titleMainLabel.tag = 1001;
-	titleMainLabel.textColor = [UIColor whiteColor];
-	titleMainLabel.textAlignment = UITextAlignmentCenter;
-	titleMainLabel.backgroundColor = [UIColor clearColor];
-	titleMainLabel.font = [UIFont boldSystemFontOfSize:[UIFont smallSystemFontSize]];
-	[titleView addSubview:titleMainLabel];
-	[titleMainLabel release];
-
-	// NavigationBar + NavigationItem + titleView + titleMetaLabel
-	UILabel *titleMetaLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, (navigationBar.frame.size.height / 2) - 4, navigationBar.frame.size.width - (self.paginationSegmentControl.frame.size.width * 2), navigationBar.frame.size.height / 2)];
-	titleMetaLabel.tag = 1002;
-	titleMetaLabel.textColor = [UIColor grayColor];
-	titleMetaLabel.textAlignment = UITextAlignmentCenter;
-	titleMetaLabel.font = [UIFont systemFontOfSize:[UIFont smallSystemFontSize]];
-	titleMetaLabel.backgroundColor = [UIColor clearColor];
-	[titleView addSubview:titleMetaLabel];
-	[titleMetaLabel release];
-	navigationItem.titleView = titleView;
-	[titleView release];
-	
 	[navigationBar setItems:[NSArray arrayWithObject:navigationItem]];
 	[navigationItem release];
 	[self.view addSubview:navigationBar];
@@ -136,7 +111,7 @@
 	// Toolbar
 	self.toolbar = [[UIToolbar alloc] initWithFrame:CGRectZero];
 	toolbar.frame = CGRectMake(0, self.view.frame.size.height - 44, self.view.frame.size.width, 44);
-	toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+	toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin;
 	toolbar.barStyle = UIBarStyleBlackTranslucent;
 	[self.view addSubview:toolbar];
 
@@ -174,51 +149,6 @@
 
 
 
-
-
-
-
-- (void)setFile:(File *)aFile;
-{
-	if (self.file != nil && self.file.kind != aFile.kind) {
-	
-		// Unload the view
-		switch (self.file.kind) {
-			case FILE_KIND_AUDIO:
-				break;
-			
-			case FILE_KIND_DOCUMENT:
-				[self.documentWebView removeFromSuperview];
-				self.documentWebView = nil;
-				break;
-				
-			case FILE_KIND_IMAGE:
-				[self.imageScrollView removeFromSuperview];
-				self.imageView = nil;
-				self.imageScrollView = nil;
-				break;
-			
-			case FILE_KIND_VIDEO:
-				break;
-				
-			default:
-				break;
-		}
-		
-	}
-	
-	
-	file = aFile;
-	[self determineFileKindAndLoad];
-	
-	
-	UILabel *titleMainLabel = (UILabel *)[navigationBar.topItem.titleView viewWithTag:1001];
-	titleMainLabel.text = file.name;
-	UILabel *titleMetaLabel = (UILabel *)[navigationBar.topItem.titleView viewWithTag:1002];
-	titleMetaLabel.text = [file kindDescription];
-	
-	// Now we actually need to load the file...
-}
 
 
 
@@ -275,12 +205,12 @@
 		self.navigationBar.hidden = NO;
 		self.toolbar.hidden = NO;
 		self.navigationBar.frame = CGRectMake(0, 20, self.navigationBar.frame.size.width, self.navigationBar.frame.size.height);
-		self.toolbar.frame = CGRectMake(0, self.view.frame.size.height - self.toolbar.frame.size.height, self.toolbar.frame.size.width, self.toolbar.frame.size.height);
+		self.toolbar.frame = CGRectMake(0, self.view.bounds.size.height - self.toolbar.frame.size.height, self.toolbar.frame.size.width, self.toolbar.frame.size.height);
 	} else {
 		// HIDE
 		[[UIApplication sharedApplication] setStatusBarHidden:YES animated:YES];
 		self.navigationBar.frame = CGRectMake(0, (self.navigationBar.frame.size.height + 20) * -1, self.navigationBar.frame.size.width, self.navigationBar.frame.size.height);
-		self.toolbar.frame = CGRectMake(0, self.view.frame.size.height + self.toolbar.frame.size.height, self.toolbar.frame.size.width, self.toolbar.frame.size.height);
+		self.toolbar.frame = CGRectMake(0, self.view.bounds.size.height + self.toolbar.frame.size.height, self.toolbar.frame.size.width, self.toolbar.frame.size.height);
 		[UIView setAnimationDidStopSelector:@selector(setBarsHidden)];
 	}
 
@@ -310,8 +240,51 @@
 
 
 
+
+- (void)setFile:(File *)aFile;
+{
+	if (self.file != nil && self.file.kind != aFile.kind) {
+	
+		// Unload the view
+		switch (self.file.kind) {
+			case FILE_KIND_AUDIO:
+				break;
+			
+			case FILE_KIND_DOCUMENT:
+				[self.documentWebView removeFromSuperview];
+				self.documentWebView = nil;
+				break;
+				
+			case FILE_KIND_IMAGE:
+				[self.imageScrollView removeFromSuperview];
+				self.imageView = nil;
+				self.imageScrollView = nil;
+				break;
+			
+			case FILE_KIND_VIDEO:
+				break;
+				
+			default:
+				break;
+		}
+		
+	}
+	
+	
+	self.navigationBar.topItem.title = aFile.name;
+	file = aFile;
+	[self determineFileKindAndLoad];
+	
+	
+}
+
+
+
+
+
 - (void)determineFileKindAndLoad;
 {
+	self.activityIndicator.hidden = NO;
 	[self.activityIndicator startAnimating];
 	
 	// Unload the view
@@ -348,7 +321,7 @@
 - (void)loadDocumentFile;
 {
 	if (self.documentWebView == nil) {
-		self.documentWebView = [[TapDetectingWebView alloc] initWithFrame:self.view.frame];
+		self.documentWebView = [[TapDetectingWebView alloc] initWithFrame:self.view.bounds];
 		documentWebView.delegate = self;
 		documentWebView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		documentWebView.scalesPageToFit = YES;
@@ -367,6 +340,7 @@
 
 - (void)webViewDidStartLoad:(UIWebView *)aWebView;
 {
+	self.activityIndicator.hidden = NO;
 	[self.activityIndicator startAnimating];
 }
 
@@ -382,7 +356,7 @@
 {
 	if (self.imageScrollView == nil) {
 		// Loading a "fresh" image.
-		self.imageScrollView = [[TapDetectingScrollView alloc] initWithFrame:self.view.frame];
+		self.imageScrollView = [[TapDetectingScrollView alloc] initWithFrame:self.view.bounds];
 		imageScrollView.delegate = self;
 		imageScrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		imageScrollView.bouncesZoom = YES;
@@ -405,8 +379,6 @@
 	[self.imageScrollView addSubview:imageView];
 	[imageView release];
 	
-	[self.activityIndicator stopAnimating];
-
 	// Cache image's original dimensions
 	imageWidth = imageView.frame.size.width;
 	imageHeight = imageView.frame.size.height;
@@ -417,6 +389,8 @@
 	self.imageScrollView.zoomScale = minimumZoomScale;
 	self.imageScrollView.maximumZoomScale = 2.5;
 	[self viewForZoomingInScrollView:self.imageScrollView];
+	
+	[self.activityIndicator stopAnimating];
 }
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)aScrollView;
@@ -448,7 +422,6 @@
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event;
 {
-	NSLog(@"hmpf.");
 	[self toggleBarsVisibilty];
 }
 

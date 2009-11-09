@@ -11,10 +11,7 @@
 
 #import "FinderTableViewController.h"
 #import "SpotlightTableViewController.h"
-
-//#import "FilesTableViewController.h"
-//#import "SearchTableViewController.h"
-//#import "SharingTableViewController.h"
+#import "SharingTableViewController.h"
 
 
 @implementation HumboldtAppDelegate
@@ -51,24 +48,19 @@
 	UINavigationController *spotlightNavigationController = [[UINavigationController alloc] initWithRootViewController:spotlight];
 	[spotlight release];
 	
-
-//	
-//	
-//	// Server view controller...
-//	SharingTableViewController *sharingTableViewController = [[SharingTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
-//	UINavigationController *sharingNavigationController = [[UINavigationController alloc] initWithRootViewController:sharingTableViewController];
-//	[sharingTableViewController release];
+	// Server view controller...
+	SharingTableViewController *sharingTableViewController = [[SharingTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+	UINavigationController *sharingNavigationController = [[UINavigationController alloc] initWithRootViewController:sharingTableViewController];
+	[sharingTableViewController release];
 
 	// Tab bar controller
 	self.tabBarController = [[UITabBarController alloc] init];
-	tabBarController.viewControllers  = [NSArray arrayWithObjects:finderNavigationController, spotlightNavigationController, nil]; //searchNavigationController, sharingNavigationController, nil];
+	tabBarController.viewControllers  = [NSArray arrayWithObjects:finderNavigationController, spotlightNavigationController, sharingNavigationController, nil];
 	tabBarController.selectedIndex = 0;
 
 	[finderNavigationController release];
 	[spotlightNavigationController release];
-	
-	
-//	[sharingNavigationController release];
+	[sharingNavigationController release];
 
 	[window addSubview:tabBarController.view];
 	[window makeKeyAndVisible];

@@ -12,7 +12,7 @@
 
 @implementation SpotlightTableViewController
 
-
+@synthesize searchTextField;
 @synthesize searchInterstitial;
 @synthesize searchResultsEmptyLabel;
 
@@ -20,6 +20,7 @@
 
 - (void)dealloc;
 {
+	self.searchTextField = nil;
 	self.searchInterstitial = nil;
 	self.searchResultsEmptyLabel = nil;
 	
@@ -37,7 +38,6 @@
 	return self;
 }
 
-
 - (void)viewDidLoad;
 {
 	[super viewDidLoad];
@@ -46,38 +46,40 @@
 	self.tableView.hidden = YES;
 	self.navigationController.view.backgroundColor = [UIColor darkGrayColor];
 
-	
 	// Data Store
 	self.path = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/Files/"];
 	self.fileList = [NSMutableArray array];
 	
-	self.navigationController.navigationBar.frame = CGRectMake(0, 20, self.navigationController.navigationBar.frame.size.width, 44);
-	
-	// Search
-	self.searchBar = [[UISearchBar alloc] init];
-	searchBar.frame = CGRectMake(0, 0, self.view.frame.size.width, 44);
-	searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-	searchBar.delegate = self;
-	searchBar.placeholder = [NSString stringWithFormat:@"Search"];
-	self.navigationController.navigationBar.topItem.titleView = searchBar;
-	[searchBar release];
-	
-	
-	
+
+	// Search TextField.
+	self.searchTextField = [[UITextField alloc] init];
+	self.searchTextField.frame = CGRectMake(0, 0, self.navigationController.navigationBar.frame.size.width - 50, 22);
+	searchTextField.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
+	searchTextField.delegate = self;
+	searchTextField.placeholder = @"Search";
+	searchTextField.backgroundColor = [UIColor whiteColor];
+	searchTextField.font = [UIFont systemFontOfSize:[UIFont systemFontSize]];
+	searchTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+	searchTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+	searchTextField.autocorrectionType = UITextAutocorrectionTypeNo;
+	searchTextField.keyboardAppearance = UIKeyboardTypeDefault;
+	searchTextField.returnKeyType = UIReturnKeySearch;
+	searchTextField.enablesReturnKeyAutomatically = YES;
+	self.navigationController.navigationBar.topItem.titleView = searchTextField;
+	[searchTextField release];
+
+	// Search Interstitial
 	self.searchInterstitial = [[UIControl alloc] initWithFrame:CGRectZero];
-	searchInterstitial.frame = self.view.frame;
+	
 	searchInterstitial.backgroundColor = [UIColor blackColor];
 	searchInterstitial.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	searchInterstitial.hidden = YES;
 	[searchInterstitial addTarget:self action:@selector(hideSearchKeyboardAndInterstitial) forControlEvents:UIControlEventTouchUpInside];
 	[self.navigationController.view insertSubview:searchInterstitial belowSubview:self.navigationController.navigationBar];
 	[searchInterstitial release];
-	
-	
-	
-	
-	// No Results Label
-	self.searchResultsEmptyLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height / 3, self.view.frame.size.width, 44)];
+
+	// No Results Found Label
+	self.searchResultsEmptyLabel = [[UILabel alloc] initWithFrame:CGRectZero];
 	searchResultsEmptyLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
 	searchResultsEmptyLabel.hidden = YES;
 	searchResultsEmptyLabel.text = @"No Results Found";
@@ -87,52 +89,44 @@
 	searchResultsEmptyLabel.textColor = [UIColor darkTextColor];
 	[self.navigationController.view insertSubview:searchResultsEmptyLabel belowSubview:self.navigationController.navigationBar];
 	[searchResultsEmptyLabel release];
+
+	
 }
 
 
-
-
-
-
-#pragma mark UISearchBar Delegate
-
-
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)search;
+- (void)viewWillAppear:(BOOL)animated;
 {
-	// Is called everytime the textfield is tapped.
-	if ([search.text length] <= 0) {
+	self.searchInterstitial.frame = self.tableView.frame;
+	self.searchResultsEmptyLabel.frame = CGRectMake(0, self.view.frame.size.height / 3, self.view.frame.size.width, 44);
+}
+
+
+#pragma mark -
+#pragma mark UITextField Helper/ Delegate Methods
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField;
+{
+	// This method is called everytime the textfield is tapped.
+	if ([textField.text length] <= 0) {
 		[self setSearchInterstitialHidden:NO animated:YES];
 	}
 }
 
-
-- (void)searchBarSearchButtonClicked:(UISearchBar *)search;
+- (BOOL)textFieldShouldReturn:(UITextField *)textField;
 {
-	[search resignFirstResponder];
+	// When "Search" button is pushed.
+	[searchTextField resignFirstResponder];
+	return YES;
 }
 
-
-
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText;
+- (BOOL)textFieldShouldClear:(UITextField *)textField;
 {
+	// When "Clear" button is pushed.
 	self.searchResultsEmptyLabel.hidden = YES;
 
-	if ([searchText length] > 0) {
-		[self setSearchInterstitialHidden:YES animated:NO];
-		[self filterContentForSearchText:searchText];
-	} else {
-		[self setSearchInterstitialHidden:NO animated:NO];
-	}
+	[self setSearchInterstitialHidden:NO animated:NO];
+	return YES;
 }
-
-
-
-- (void)hideSearchKeyboardAndInterstitial;
-{
-	[self setSearchInterstitialHidden:YES animated:YES];
-	[searchBar resignFirstResponder];
-}
-
 
 - (void)setSearchInterstitialHidden:(BOOL)hidden animated:(BOOL)animated;
 {
@@ -144,6 +138,7 @@
 			[UIView setAnimationDuration:0.3];
 			searchInterstitial.alpha = 0;
 			[UIView commitAnimations];
+
 		} else {
 			// apparently this is causing a leak?
 			searchInterstitial.alpha = 0;
@@ -156,7 +151,6 @@
 		}
 	} else {
 	 searchInterstitial.hidden = hidden;
-
 	 
 	 if (hidden = YES) {
 		// reset 
@@ -167,7 +161,25 @@
 	}
 }
 
+- (void)hideSearchKeyboardAndInterstitial;
+{
+	[self setSearchInterstitialHidden:YES animated:YES];
+	[searchTextField resignFirstResponder];
+}
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string;
+{
+	// Called everytime new text is changed in the textview.
+	self.searchResultsEmptyLabel.hidden = YES;
+
+	string = [textField.text stringByReplacingCharactersInRange:range withString:string];
+	[self setSearchInterstitialHidden:([string length] <= 0 ? NO : YES) animated:NO];
+	if ([string length] > 0) {
+		[self filterContentForSearchText:string];
+	}
+
+	return YES;
+}
 
 
 
@@ -205,14 +217,5 @@
 
 
 
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation;
-{
-	self.navigationController.navigationBar.frame = CGRectMake(0, 20, self.navigationController.navigationBar.frame.size.width, 44);
-}
-
-
-
-
 
 @end
-

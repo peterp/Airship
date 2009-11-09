@@ -34,6 +34,7 @@
 	
 	// Document
 	TapDetectingWebView *documentWebView;
+	
 	// Image
 	TapDetectingScrollView *imageScrollView;
 	UIImageView *imageView;
@@ -52,6 +53,7 @@
 
 // Document
 @property (nonatomic, retain) TapDetectingWebView *documentWebView;
+
 // Image
 @property (nonatomic, retain) TapDetectingScrollView *imageScrollView;
 @property (nonatomic, retain) UIImageView *imageView;
