@@ -343,13 +343,8 @@
 {
 	NSLog(@"editing button pushed");
 	
-//    [super setEditing:editing animated:animated];
-//    [tableView setEditing:editing animated:YES];
-//    if (editing) {
-//        addButton.enabled = NO;
-//    } else {
-//        addButton.enabled = YES;
-//    }
+	[super setEditing:editing animated:animated];
+	[self.tableView setEditing:editing animated:YES];
 }
 
 
