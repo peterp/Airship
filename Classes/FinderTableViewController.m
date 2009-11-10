@@ -64,6 +64,11 @@
 {
 	[super viewDidLoad];
 	
+	
+	UIBarButtonItem *editButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(setEditing:animated:)];
+	self.navigationItem.rightBarButtonItem = editButtonItem;
+	[editButtonItem release];
+	
 	if (self.path != nil) {
 	
 		// DATA SOURCE
@@ -329,6 +334,23 @@
 
 
 
+
+
+#pragma mark -
+#pragma mark Editing
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated;
+{
+	NSLog(@"editing button pushed");
+	
+//    [super setEditing:editing animated:animated];
+//    [tableView setEditing:editing animated:YES];
+//    if (editing) {
+//        addButton.enabled = NO;
+//    } else {
+//        addButton.enabled = YES;
+//    }
+}
 
 
 
