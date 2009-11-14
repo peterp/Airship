@@ -104,4 +104,13 @@
 	}
 }
 
+
+- (BOOL)delete;
+{
+	return [[NSFileManager defaultManager] removeItemAtPath:self.absolutePath error:nil];
+}
+
+
+
+
 @end

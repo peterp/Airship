@@ -39,5 +39,7 @@
 - (int)kindByExtension;
 - (NSString *)kindDescription;
 
+- (BOOL)delete;
+
 
 @end
