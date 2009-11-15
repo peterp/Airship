@@ -19,7 +19,6 @@
 		CE3035D6109BAB1F00A31CCC /* dock_finder.png in Resources */ = {isa = PBXBuildFile; fileRef = CE3035D4109BAB1F00A31CCC /* dock_finder.png */; };
 		CE3035D7109BAB1F00A31CCC /* dock_spotlight.png in Resources */ = {isa = PBXBuildFile; fileRef = CE3035D5109BAB1F00A31CCC /* dock_spotlight.png */; };
 		CE303606109C2CD700A31CCC /* FinderTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE303605109C2CD700A31CCC /* FinderTableViewController.m */; };
-		CE303609109C2CE400A31CCC /* SpotlightTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE303608109C2CE400A31CCC /* SpotlightTableViewController.m */; };
 		CE38A38D0FF6AD1200E93C29 /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = CE38A3790FF6AD1200E93C29 /* AsyncSocket.m */; };
 		CE38A38E0FF6AD1200E93C29 /* DDData.m in Sources */ = {isa = PBXBuildFile; fileRef = CE38A37B0FF6AD1200E93C29 /* DDData.m */; };
 		CE38A38F0FF6AD1200E93C29 /* DDNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = CE38A37D0FF6AD1200E93C29 /* DDNumber.m */; };
@@ -60,6 +59,7 @@
 		CECE390910680DD4000EE1F6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CECE390810680DD4000EE1F6 /* SystemConfiguration.framework */; };
 		CED611271081F5F9000C41CB /* NSArray+CWSortedInsert.m in Sources */ = {isa = PBXBuildFile; fileRef = CED611261081F5F9000C41CB /* NSArray+CWSortedInsert.m */; };
 		CEE04E9F0FD9E82E00C32900 /* AFMultipartParser.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE04E9E0FD9E82E00C32900 /* AFMultipartParser.m */; };
+		CEF0D6C210B09C0F003E3155 /* SpotlightViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF0D6C110B09C0F003E3155 /* SpotlightViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,8 +85,6 @@
 		CE3035D5109BAB1F00A31CCC /* dock_spotlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dock_spotlight.png; path = icons/dock_spotlight.png; sourceTree = "<group>"; };
 		CE303604109C2CD700A31CCC /* FinderTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FinderTableViewController.h; sourceTree = "<group>"; };
 		CE303605109C2CD700A31CCC /* FinderTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FinderTableViewController.m; sourceTree = "<group>"; };
-		CE303607109C2CE400A31CCC /* SpotlightTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotlightTableViewController.h; sourceTree = "<group>"; };
-		CE303608109C2CE400A31CCC /* SpotlightTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotlightTableViewController.m; sourceTree = "<group>"; };
 		CE38A3780FF6AD1200E93C29 /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncSocket.h; sourceTree = "<group>"; };
 		CE38A3790FF6AD1200E93C29 /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncSocket.m; sourceTree = "<group>"; };
 		CE38A37A0FF6AD1200E93C29 /* DDData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDData.h; sourceTree = "<group>"; };
@@ -150,6 +148,8 @@
 		CED611251081F5F9000C41CB /* NSArray+CWSortedInsert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+CWSortedInsert.h"; sourceTree = "<group>"; };
 		CED611261081F5F9000C41CB /* NSArray+CWSortedInsert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+CWSortedInsert.m"; sourceTree = "<group>"; };
 		CEE04E9E0FD9E82E00C32900 /* AFMultipartParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFMultipartParser.m; sourceTree = "<group>"; };
+		CEF0D6C010B09C0F003E3155 /* SpotlightViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotlightViewController.h; sourceTree = "<group>"; };
+		CEF0D6C110B09C0F003E3155 /* SpotlightViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotlightViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,8 +184,8 @@
 				CE0AECAE10AF842C003FA784 /* FinderViewController.m */,
 				CE303604109C2CD700A31CCC /* FinderTableViewController.h */,
 				CE303605109C2CD700A31CCC /* FinderTableViewController.m */,
-				CE303607109C2CE400A31CCC /* SpotlightTableViewController.h */,
-				CE303608109C2CE400A31CCC /* SpotlightTableViewController.m */,
+				CEF0D6C010B09C0F003E3155 /* SpotlightViewController.h */,
+				CEF0D6C110B09C0F003E3155 /* SpotlightViewController.m */,
 				CE7CB34010A8A62700DC58C0 /* SharingTableViewController.h */,
 				CE7CB34110A8A62700DC58C0 /* SharingTableViewController.m */,
 			);
@@ -480,11 +480,11 @@
 				CED611271081F5F9000C41CB /* NSArray+CWSortedInsert.m in Sources */,
 				CE1F40F8109A17B50067DB73 /* FileViewController.m in Sources */,
 				CE303606109C2CD700A31CCC /* FinderTableViewController.m in Sources */,
-				CE303609109C2CE400A31CCC /* SpotlightTableViewController.m in Sources */,
 				CE8CB8D0109CD62A008B3FAE /* TapDetectingScrollView.m in Sources */,
 				CE0F139F10A21080002569B6 /* TapDetectingWebView.m in Sources */,
 				CE7CB34210A8A62700DC58C0 /* SharingTableViewController.m in Sources */,
 				CE0AECAF10AF842C003FA784 /* FinderViewController.m in Sources */,
+				CEF0D6C210B09C0F003E3155 /* SpotlightViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,21 +1,19 @@
 //
-//  SpotlightTableViewController.m
+//  SpotlightViewController.m
 //  Humboldt
 //
-//  Created by Peter Pistorius on 2009/10/31.
+//  Created by Peter Pistorius on 2009/11/15.
 //  Copyright 2009 appfactory. All rights reserved.
 //
 
-#import "SpotlightTableViewController.h"
+#import "SpotlightViewController.h"
 #import "File.h"
 
-
-@implementation SpotlightTableViewController
+@implementation SpotlightViewController
 
 @synthesize searchTextField;
 @synthesize searchInterstitial;
 @synthesize searchResultsEmptyLabel;
-
 
 
 - (void)dealloc;
@@ -27,23 +25,23 @@
 	[super dealloc];
 }
 
-
-- (id)initWithStyle:(UITableViewStyle)style;
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
 {
-	if (self = [super initWithStyle:style]) {
-
+	if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
 		self.title = @"Search";
 		self.tabBarItem.image = [UIImage imageNamed:@"dock_spotlight.png"];
 	}
-	return self;
+  return self;
 }
+
+
 
 - (void)viewDidLoad;
 {
 	[super viewDidLoad];
 	
 	// Setup
-	self.tableView.hidden = YES;
+	self.finderTableView.hidden = YES;
 	self.navigationController.view.backgroundColor = [UIColor darkGrayColor];
 
 	// Data Store
@@ -89,15 +87,15 @@
 	searchResultsEmptyLabel.textColor = [UIColor darkTextColor];
 	[self.navigationController.view insertSubview:searchResultsEmptyLabel belowSubview:self.navigationController.navigationBar];
 	[searchResultsEmptyLabel release];
-
-	
 }
 
 
 - (void)viewWillAppear:(BOOL)animated;
 {
-	self.searchInterstitial.frame = self.tableView.frame;
+	self.searchInterstitial.frame = self.finderTableView.frame;
 	self.searchResultsEmptyLabel.frame = CGRectMake(0, self.view.frame.size.height / 3, self.view.frame.size.width, 44);
+	
+	[finderTableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:[self indexPathForActiveTableView] inSection:0] animated:animated];
 }
 
 
@@ -154,9 +152,9 @@
 	 
 	 if (hidden = YES) {
 		// reset 
-		self.tableView.hidden = YES;
+		self.finderTableView.hidden = YES;
 		[fileList removeAllObjects];
-		[self.tableView reloadData];
+		[self.finderTableView reloadData];
 	 }
 	}
 }
@@ -206,13 +204,57 @@
 		NSSortDescriptor *storageItemSortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:NO];
 		[fileList sortUsingDescriptors:[NSArray arrayWithObject:storageItemSortDescriptor]];
 		[storageItemSortDescriptor release];
-		self.tableView.hidden = NO;
+		self.finderTableView.hidden = NO;
 	} else {
-		self.tableView.hidden = YES;
+		self.finderTableView.hidden = YES;
 		self.searchResultsEmptyLabel.hidden = NO;
 	}
 	
-	[self.tableView reloadData];
+	[self.finderTableView reloadData];
+}
+
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView;
+{
+	[searchTextField resignFirstResponder];
+}
+
+
+
+
+
+
+/*
+// Implement loadView to create a view hierarchy programmatically, without using a nib.
+- (void)loadView {
+}
+*/
+
+/*
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+    [super viewDidLoad];
+}
+*/
+
+/*
+// Override to allow orientations other than the default portrait orientation.
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+*/
+
+- (void)didReceiveMemoryWarning {
+	// Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+	
+	// Release any cached data, images, etc that aren't in use.
+}
+
+- (void)viewDidUnload {
+	// Release any retained subviews of the main view.
+	// e.g. self.myOutlet = nil;
 }
 
 

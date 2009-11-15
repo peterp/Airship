@@ -10,7 +10,7 @@
 
 
 #import "FinderViewController.h"
-#import "SpotlightTableViewController.h"
+#import "SpotlightViewController.h"
 #import "SharingTableViewController.h"
 
 
@@ -44,7 +44,7 @@
 	UINavigationController *finderNavigationController = [[UINavigationController alloc] initWithRootViewController:finder];
 	[finder release];
 	
-	SpotlightTableViewController *spotlight = [[SpotlightTableViewController alloc] initWithStyle:UITableViewStylePlain];
+	SpotlightViewController *spotlight = [[SpotlightViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
 	UINavigationController *spotlightNavigationController = [[UINavigationController alloc] initWithRootViewController:spotlight];
 	[spotlight release];
 	

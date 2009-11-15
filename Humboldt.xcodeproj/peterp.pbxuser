@@ -2,7 +2,7 @@
 {
 	1D3623240D0F684500981E51 /* HumboldtAppDelegate.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1209, 871}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1093, 875}}";
 			sepNavSelRange = "{349, 0}";
 			sepNavVisRange = "{0, 442}";
 			sepNavWindowFrame = "{{198, 11}, {969, 807}}";
@@ -11,8 +11,8 @@
 	1D3623250D0F684500981E51 /* HumboldtAppDelegate.m */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1111, 1050}}";
-			sepNavSelRange = "{824, 0}";
-			sepNavVisRange = "{181, 1891}";
+			sepNavSelRange = "{1084, 0}";
+			sepNavVisRange = "{179, 1886}";
 		};
 	};
 	1D6058900D05DD3D006BFB54 /* Humboldt */ = {
@@ -621,6 +621,37 @@
 			CEBD7EEB10A76C86004E1296 = CEBD7EEB10A76C86004E1296 /* PBXTextBookmark */;
 			CEE204A510AA1683009B2467 = CEE204A510AA1683009B2467 /* PBXTextBookmark */;
 			CEE204A610AA1683009B2467 = CEE204A610AA1683009B2467 /* PBXTextBookmark */;
+			CEF0D6CA10B09CF5003E3155 /* XCBuildMessageTextBookmark */ = CEF0D6CA10B09CF5003E3155 /* XCBuildMessageTextBookmark */;
+			CEF0D6CB10B09CF5003E3155 /* PBXTextBookmark */ = CEF0D6CB10B09CF5003E3155 /* PBXTextBookmark */;
+			CEF0D6D410B09D01003E3155 /* PBXTextBookmark */ = CEF0D6D410B09D01003E3155 /* PBXTextBookmark */;
+			CEF0D6D510B09D01003E3155 /* PBXTextBookmark */ = CEF0D6D510B09D01003E3155 /* PBXTextBookmark */;
+			CEF0D6D610B09D01003E3155 /* PBXTextBookmark */ = CEF0D6D610B09D01003E3155 /* PBXTextBookmark */;
+			CEF0D6D710B09D01003E3155 /* PBXTextBookmark */ = CEF0D6D710B09D01003E3155 /* PBXTextBookmark */;
+			CEF0D6D810B09D01003E3155 /* PBXTextBookmark */ = CEF0D6D810B09D01003E3155 /* PBXTextBookmark */;
+			CEF0D6D910B09D01003E3155 /* PBXTextBookmark */ = CEF0D6D910B09D01003E3155 /* PBXTextBookmark */;
+			CEF0D6DA10B09D01003E3155 /* PBXTextBookmark */ = CEF0D6DA10B09D01003E3155 /* PBXTextBookmark */;
+			CEF0D6DB10B09D01003E3155 /* PBXTextBookmark */ = CEF0D6DB10B09D01003E3155 /* PBXTextBookmark */;
+			CEF0D6DC10B09D01003E3155 /* XCBuildMessageTextBookmark */ = CEF0D6DC10B09D01003E3155 /* XCBuildMessageTextBookmark */;
+			CEF0D6DD10B09D01003E3155 /* PBXTextBookmark */ = CEF0D6DD10B09D01003E3155 /* PBXTextBookmark */;
+			CEF0D6EF10B09D6B003E3155 /* PBXTextBookmark */ = CEF0D6EF10B09D6B003E3155 /* PBXTextBookmark */;
+			CEF0D6F010B09D6B003E3155 /* PBXTextBookmark */ = CEF0D6F010B09D6B003E3155 /* PBXTextBookmark */;
+			CEF0D6F110B09D6B003E3155 /* PBXTextBookmark */ = CEF0D6F110B09D6B003E3155 /* PBXTextBookmark */;
+			CEF0D6F210B09D6B003E3155 /* PBXTextBookmark */ = CEF0D6F210B09D6B003E3155 /* PBXTextBookmark */;
+			CEF0D6F310B09D6B003E3155 /* PBXTextBookmark */ = CEF0D6F310B09D6B003E3155 /* PBXTextBookmark */;
+			CEF0D6F810B09E07003E3155 /* PBXTextBookmark */ = CEF0D6F810B09E07003E3155 /* PBXTextBookmark */;
+			CEF0D6F910B09E07003E3155 /* PBXTextBookmark */ = CEF0D6F910B09E07003E3155 /* PBXTextBookmark */;
+			CEF0D6FA10B09E07003E3155 /* PBXTextBookmark */ = CEF0D6FA10B09E07003E3155 /* PBXTextBookmark */;
+			CEF0D70810B09FEE003E3155 /* PBXTextBookmark */ = CEF0D70810B09FEE003E3155 /* PBXTextBookmark */;
+			CEF0D70910B09FEE003E3155 /* PBXTextBookmark */ = CEF0D70910B09FEE003E3155 /* PBXTextBookmark */;
+			CEF0D70A10B09FEE003E3155 /* PBXTextBookmark */ = CEF0D70A10B09FEE003E3155 /* PBXTextBookmark */;
+			CEF0D70B10B09FEE003E3155 /* PBXTextBookmark */ = CEF0D70B10B09FEE003E3155 /* PBXTextBookmark */;
+			CEF0D70C10B09FEE003E3155 /* PBXTextBookmark */ = CEF0D70C10B09FEE003E3155 /* PBXTextBookmark */;
+			CEF0D70D10B0A0E1003E3155 /* PBXTextBookmark */ = CEF0D70D10B0A0E1003E3155 /* PBXTextBookmark */;
+			CEF0D70E10B0A0E1003E3155 /* PBXTextBookmark */ = CEF0D70E10B0A0E1003E3155 /* PBXTextBookmark */;
+			CEF0D70F10B0A0EB003E3155 /* PBXTextBookmark */ = CEF0D70F10B0A0EB003E3155 /* PBXTextBookmark */;
+			CEF0D71410B0A150003E3155 /* PBXTextBookmark */ = CEF0D71410B0A150003E3155 /* PBXTextBookmark */;
+			CEF0D71510B0A150003E3155 /* PBXTextBookmark */ = CEF0D71510B0A150003E3155 /* PBXTextBookmark */;
+			CEF0D71610B0A150003E3155 /* PBXTextBookmark */ = CEF0D71610B0A150003E3155 /* PBXTextBookmark */;
 		};
 		sourceControlManager = CE2B3AA90F3CCE530039B355 /* Source Control */;
 		userBuildSettings = {
@@ -2795,7 +2826,7 @@
 		rLen = 0;
 		rLoc = 1551;
 		rType = 0;
-		vrLen = 1351;
+		vrLen = 1329;
 		vrLoc = 234;
 	};
 	CE0AEC9610AF81C7003FA784 /* PBXTextBookmark */ = {
@@ -2835,7 +2866,7 @@
 		rLen = 0;
 		rLoc = 1551;
 		rType = 0;
-		vrLen = 1377;
+		vrLen = 1356;
 		vrLoc = 207;
 	};
 	CE0AECA410AF824F003FA784 /* PBXTextBookmark */ = {
@@ -2885,7 +2916,7 @@
 		rLen = 0;
 		rLoc = 1551;
 		rType = 0;
-		vrLen = 1378;
+		vrLen = 1357;
 		vrLoc = 206;
 	};
 	CE0AECA910AF82F7003FA784 /* PBXTextBookmark */ = {
@@ -2930,16 +2961,16 @@
 	};
 	CE0AECAD10AF842C003FA784 /* FinderViewController.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1183, 1008}}";
-			sepNavSelRange = "{1547, 0}";
-			sepNavVisRange = "{807, 557}";
+			sepNavIntBoundsRect = "{{0, 0}, {1139, 1106}}";
+			sepNavSelRange = "{1831, 0}";
+			sepNavVisRange = "{203, 1630}";
 		};
 	};
 	CE0AECAE10AF842C003FA784 /* FinderViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1183, 7896}}";
-			sepNavSelRange = "{14368, 0}";
-			sepNavVisRange = "{13494, 338}";
+			sepNavIntBoundsRect = "{{0, 0}, {1321, 8316}}";
+			sepNavSelRange = "{3991, 413}";
+			sepNavVisRange = "{3233, 1698}";
 			sepNavWindowFrame = "{{408, 17}, {824, 1041}}";
 		};
 	};
@@ -2958,7 +2989,7 @@
 		fRef = 1D3623250D0F684500981E51 /* HumboldtAppDelegate.m */;
 		name = "HumboldtAppDelegate.m: 43";
 		rLen = 0;
-		rLoc = 824;
+		rLoc = 819;
 		rType = 0;
 		vrLen = 1862;
 		vrLoc = 181;
@@ -2968,7 +2999,7 @@
 		fRef = CE0AECAD10AF842C003FA784 /* FinderViewController.h */;
 		name = "FinderViewController.h: 28";
 		rLen = 0;
-		rLoc = 1766;
+		rLoc = 1833;
 		rType = 0;
 		vrLen = 519;
 		vrLoc = 0;
@@ -3048,7 +3079,7 @@
 		fRef = CE0AECAD10AF842C003FA784 /* FinderViewController.h */;
 		name = "FinderViewController.h: 27";
 		rLen = 0;
-		rLoc = 1766;
+		rLoc = 1833;
 		rType = 0;
 		vrLen = 479;
 		vrLoc = 0;
@@ -3068,7 +3099,7 @@
 		fRef = 1D3623250D0F684500981E51 /* HumboldtAppDelegate.m */;
 		name = "HumboldtAppDelegate.m: 43";
 		rLen = 0;
-		rLoc = 824;
+		rLoc = 819;
 		rType = 0;
 		vrLen = 1862;
 		vrLoc = 181;
@@ -3095,7 +3126,7 @@
 		fRef = 1D3623250D0F684500981E51 /* HumboldtAppDelegate.m */;
 		name = "HumboldtAppDelegate.m: 43";
 		rLen = 0;
-		rLoc = 824;
+		rLoc = 819;
 		rType = 0;
 		vrLen = 1862;
 		vrLoc = 181;
@@ -3154,7 +3185,7 @@
 		isa = PBXTextBookmark;
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 59";
-		rLen = 1072;
+		rLen = 1066;
 		rLoc = 2922;
 		rType = 0;
 		vrLen = 932;
@@ -3245,7 +3276,7 @@
 		fRef = CE0AECAD10AF842C003FA784 /* FinderViewController.h */;
 		name = "FinderViewController.h: 21";
 		rLen = 0;
-		rLoc = 971;
+		rLoc = 976;
 		rType = 0;
 		vrLen = 395;
 		vrLoc = 0;
@@ -3264,7 +3295,7 @@
 		isa = PBXTextBookmark;
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 59";
-		rLen = 1072;
+		rLen = 1066;
 		rLoc = 2922;
 		rType = 0;
 		vrLen = 883;
@@ -3295,7 +3326,7 @@
 		fRef = CE0AECAD10AF842C003FA784 /* FinderViewController.h */;
 		name = "FinderViewController.h: 21";
 		rLen = 0;
-		rLoc = 971;
+		rLoc = 976;
 		rType = 0;
 		vrLen = 395;
 		vrLoc = 0;
@@ -3345,7 +3376,7 @@
 		comments = "Method definition for '-tableView:cellForRowAtIndexPath:' not found";
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		rLen = 1;
-		rLoc = 553;
+		rLoc = 597;
 		rType = 1;
 	};
 	CE0AED7310AF8C13003FA784 /* PBXTextBookmark */ = {
@@ -3353,7 +3384,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 145";
 		rLen = 0;
-		rLoc = 14350;
+		rLoc = 15846;
 		rType = 0;
 		vrLen = 118;
 		vrLoc = 1842;
@@ -3363,7 +3394,7 @@
 		comments = "Local declaration of 'tableView' hides instance variable";
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		rLen = 1;
-		rLoc = 207;
+		rLoc = 206;
 		rType = 1;
 	};
 	CE0AED7710AF8C77003FA784 /* PBXTextBookmark */ = {
@@ -3371,7 +3402,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 103";
 		rLen = 0;
-		rLoc = 4908;
+		rLoc = 4902;
 		rType = 0;
 		vrLen = 257;
 		vrLoc = 1528;
@@ -3381,7 +3412,7 @@
 		comments = "Local declaration of 'tableView' hides instance variable";
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		rLen = 1;
-		rLoc = 207;
+		rLoc = 206;
 		rType = 1;
 	};
 	CE0AED7910AF8C86003FA784 /* PBXTextBookmark */ = {
@@ -3389,7 +3420,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 106";
 		rLen = 0;
-		rLoc = 4908;
+		rLoc = 4902;
 		rType = 0;
 		vrLen = 257;
 		vrLoc = 1547;
@@ -3429,7 +3460,7 @@
 		comments = "Local declaration of 'tableView' hides instance variable";
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		rLen = 1;
-		rLoc = 207;
+		rLoc = 206;
 		rType = 1;
 	};
 	CE0AED8010AF8CA7003FA784 /* PBXTextBookmark */ = {
@@ -3437,7 +3468,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 91";
 		rLen = 0;
-		rLoc = 4799;
+		rLoc = 4793;
 		rType = 0;
 		vrLen = 1325;
 		vrLoc = 1177;
@@ -3447,7 +3478,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 95";
 		rLen = 0;
-		rLoc = 4848;
+		rLoc = 4842;
 		rType = 0;
 		vrLen = 1841;
 		vrLoc = 1215;
@@ -3477,7 +3508,7 @@
 		fRef = 1D3623250D0F684500981E51 /* HumboldtAppDelegate.m */;
 		name = "HumboldtAppDelegate.m: 43";
 		rLen = 0;
-		rLoc = 824;
+		rLoc = 819;
 		rType = 0;
 		vrLen = 1862;
 		vrLoc = 181;
@@ -3487,7 +3518,7 @@
 		fRef = CE0AECAD10AF842C003FA784 /* FinderViewController.h */;
 		name = "FinderViewController.h: 21";
 		rLen = 0;
-		rLoc = 986;
+		rLoc = 991;
 		rType = 0;
 		vrLen = 452;
 		vrLoc = 0;
@@ -3497,7 +3528,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 95";
 		rLen = 0;
-		rLoc = 4848;
+		rLoc = 4842;
 		rType = 0;
 		vrLen = 1782;
 		vrLoc = 1215;
@@ -3517,7 +3548,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 166";
 		rLen = 0;
-		rLoc = 4908;
+		rLoc = 4902;
 		rType = 0;
 		vrLen = 1928;
 		vrLoc = 2730;
@@ -3527,7 +3558,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 91";
 		rLen = 0;
-		rLoc = 4651;
+		rLoc = 4645;
 		rType = 0;
 		vrLen = 1826;
 		vrLoc = 2838;
@@ -3537,7 +3568,7 @@
 		comments = "'setText:' is deprecated (declared at /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.0.sdk/System/Library/Frameworks/UIKit.framework/Headers/UITableViewCell.h:199)";
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		rLen = 0;
-		rLoc = 264;
+		rLoc = 276;
 		rType = 1;
 	};
 	CE0AED9F10AF8DAD003FA784 /* PBXTextBookmark */ = {
@@ -3545,7 +3576,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 166";
 		rLen = 0;
-		rLoc = 4908;
+		rLoc = 4902;
 		rType = 0;
 		vrLen = 376;
 		vrLoc = 3893;
@@ -3555,7 +3586,7 @@
 		comments = "'setText:' is deprecated (declared at /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.0.sdk/System/Library/Frameworks/UIKit.framework/Headers/UITableViewCell.h:199)";
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		rLen = 0;
-		rLoc = 264;
+		rLoc = 276;
 		rType = 1;
 	};
 	CE0AEDA110AF8DAF003FA784 /* PBXTextBookmark */ = {
@@ -3563,7 +3594,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 166";
 		rLen = 0;
-		rLoc = 4908;
+		rLoc = 4902;
 		rType = 0;
 		vrLen = 1849;
 		vrLoc = 2838;
@@ -3573,7 +3604,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 89";
 		rLen = 0;
-		rLoc = 4606;
+		rLoc = 4600;
 		rType = 0;
 		vrLen = 1684;
 		vrLoc = 1254;
@@ -3593,7 +3624,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 87";
 		rLen = 0;
-		rLoc = 4487;
+		rLoc = 4481;
 		rType = 0;
 		vrLen = 1127;
 		vrLoc = 1066;
@@ -3603,7 +3634,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 87";
 		rLen = 0;
-		rLoc = 4487;
+		rLoc = 4481;
 		rType = 0;
 		vrLen = 1073;
 		vrLoc = 181;
@@ -3633,7 +3664,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 94";
 		rLen = 0;
-		rLoc = 4651;
+		rLoc = 4645;
 		rType = 0;
 		vrLen = 1087;
 		vrLoc = 1011;
@@ -3803,7 +3834,7 @@
 		fRef = CE0AECAD10AF842C003FA784 /* FinderViewController.h */;
 		name = "FinderViewController.h: 26";
 		rLen = 0;
-		rLoc = 1195;
+		rLoc = 1200;
 		rType = 0;
 		vrLen = 713;
 		vrLoc = 0;
@@ -3837,7 +3868,7 @@
 		fRef = CE0AECAD10AF842C003FA784 /* FinderViewController.h */;
 		name = "FinderViewController.h: 26";
 		rLen = 0;
-		rLoc = 1195;
+		rLoc = 1200;
 		rType = 0;
 		vrLen = 713;
 		vrLoc = 0;
@@ -3877,7 +3908,7 @@
 		fRef = CE0AECAD10AF842C003FA784 /* FinderViewController.h */;
 		name = "FinderViewController.h: 31";
 		rLen = 0;
-		rLoc = 1366;
+		rLoc = 1376;
 		rType = 0;
 		vrLen = 818;
 		vrLoc = 0;
@@ -3887,7 +3918,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 134";
 		rLen = 1;
-		rLoc = 4801;
+		rLoc = 4795;
 		rType = 0;
 		vrLen = 1138;
 		vrLoc = 43;
@@ -3897,7 +3928,7 @@
 		fRef = 1D3623250D0F684500981E51 /* HumboldtAppDelegate.m */;
 		name = "HumboldtAppDelegate.m: 43";
 		rLen = 0;
-		rLoc = 752;
+		rLoc = 747;
 		rType = 0;
 		vrLen = 1819;
 		vrLoc = 181;
@@ -3907,7 +3938,7 @@
 		fRef = 1D3623250D0F684500981E51 /* HumboldtAppDelegate.m */;
 		name = "HumboldtAppDelegate.m: 43";
 		rLen = 0;
-		rLoc = 752;
+		rLoc = 747;
 		rType = 0;
 		vrLen = 1819;
 		vrLoc = 181;
@@ -3937,7 +3968,7 @@
 		fRef = 1D3623250D0F684500981E51 /* HumboldtAppDelegate.m */;
 		name = "HumboldtAppDelegate.m: 43";
 		rLen = 0;
-		rLoc = 752;
+		rLoc = 747;
 		rType = 0;
 		vrLen = 1786;
 		vrLoc = 214;
@@ -3947,7 +3978,7 @@
 		fRef = 1D3623250D0F684500981E51 /* HumboldtAppDelegate.m */;
 		name = "HumboldtAppDelegate.m: 43";
 		rLen = 0;
-		rLoc = 824;
+		rLoc = 819;
 		rType = 0;
 		vrLen = 1891;
 		vrLoc = 181;
@@ -3957,7 +3988,7 @@
 		fRef = 1D3623250D0F684500981E51 /* HumboldtAppDelegate.m */;
 		name = "HumboldtAppDelegate.m: 43";
 		rLen = 0;
-		rLoc = 824;
+		rLoc = 819;
 		rType = 0;
 		vrLen = 1891;
 		vrLoc = 181;
@@ -3967,7 +3998,7 @@
 		fRef = CE0AECAD10AF842C003FA784 /* FinderViewController.h */;
 		name = "FinderViewController.h: 31";
 		rLen = 0;
-		rLoc = 1366;
+		rLoc = 1376;
 		rType = 0;
 		vrLen = 818;
 		vrLoc = 0;
@@ -3997,7 +4028,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 126";
 		rLen = 0;
-		rLoc = 4561;
+		rLoc = 4555;
 		rType = 0;
 		vrLen = 1605;
 		vrLoc = 867;
@@ -4087,7 +4118,7 @@
 		fRef = CE0AECAD10AF842C003FA784 /* FinderViewController.h */;
 		name = "FinderViewController.h: 31";
 		rLen = 0;
-		rLoc = 926;
+		rLoc = 931;
 		rType = 0;
 		vrLen = 1019;
 		vrLoc = 0;
@@ -4117,7 +4148,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 153";
 		rLen = 0;
-		rLoc = 4734;
+		rLoc = 4728;
 		rType = 0;
 		vrLen = 1825;
 		vrLoc = 4759;
@@ -4137,7 +4168,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 221";
 		rLen = 0;
-		rLoc = 4908;
+		rLoc = 4902;
 		rType = 0;
 		vrLen = 2160;
 		vrLoc = 4164;
@@ -4147,7 +4178,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 230";
 		rLen = 0;
-		rLoc = 4908;
+		rLoc = 4902;
 		rType = 0;
 		vrLen = 2018;
 		vrLoc = 4291;
@@ -4157,7 +4188,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 187";
 		rLen = 0;
-		rLoc = 4908;
+		rLoc = 4902;
 		rType = 0;
 		vrLen = 2188;
 		vrLoc = 3327;
@@ -4177,7 +4208,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 229";
 		rLen = 0;
-		rLoc = 4908;
+		rLoc = 4902;
 		rType = 0;
 		vrLen = 1136;
 		vrLoc = 5196;
@@ -4187,7 +4218,7 @@
 		fRef = CE0AECAD10AF842C003FA784 /* FinderViewController.h */;
 		name = "FinderViewController.h: 47";
 		rLen = 0;
-		rLoc = 1682;
+		rLoc = 1692;
 		rType = 0;
 		vrLen = 1125;
 		vrLoc = 0;
@@ -4217,7 +4248,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 123";
 		rLen = 0;
-		rLoc = 3918;
+		rLoc = 3912;
 		rType = 0;
 		vrLen = 1844;
 		vrLoc = 1280;
@@ -4226,8 +4257,8 @@
 		isa = PBXTextBookmark;
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 294";
-		rLen = 417;
-		rLoc = 9568;
+		rLen = 416;
+		rLoc = 10102;
 		rType = 0;
 		vrLen = 1417;
 		vrLoc = 6548;
@@ -4237,7 +4268,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 305";
 		rLen = 0;
-		rLoc = 9800;
+		rLoc = 10333;
 		rType = 0;
 		vrLen = 912;
 		vrLoc = 6872;
@@ -4257,7 +4288,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 307";
 		rLen = 0;
-		rLoc = 9834;
+		rLoc = 10367;
 		rType = 0;
 		vrLen = 1164;
 		vrLoc = 6616;
@@ -4267,7 +4298,7 @@
 		fRef = CE0AECAD10AF842C003FA784 /* FinderViewController.h */;
 		name = "FinderViewController.h: 25";
 		rLen = 0;
-		rLoc = 756;
+		rLoc = 761;
 		rType = 0;
 		vrLen = 1142;
 		vrLoc = 0;
@@ -4277,7 +4308,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 290";
 		rLen = 0;
-		rLoc = 9531;
+		rLoc = 10067;
 		rType = 0;
 		vrLen = 1164;
 		vrLoc = 6608;
@@ -4287,7 +4318,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 237";
 		rLen = 0;
-		rLoc = 4908;
+		rLoc = 4902;
 		rType = 0;
 		vrLen = 1539;
 		vrLoc = 5433;
@@ -4307,7 +4338,7 @@
 		fRef = CE0AECAD10AF842C003FA784 /* FinderViewController.h */;
 		name = "FinderViewController.h: 53";
 		rLen = 0;
-		rLoc = 1658;
+		rLoc = 1668;
 		rType = 0;
 		vrLen = 1391;
 		vrLoc = 0;
@@ -4317,7 +4348,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 237";
 		rLen = 0;
-		rLoc = 4908;
+		rLoc = 4902;
 		rType = 0;
 		vrLen = 2164;
 		vrLoc = 3869;
@@ -4347,7 +4378,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 234";
 		rLen = 0;
-		rLoc = 4908;
+		rLoc = 4902;
 		rType = 0;
 		vrLen = 315;
 		vrLoc = 468;
@@ -4365,7 +4396,7 @@
 		fRef = CE0AECAD10AF842C003FA784 /* FinderViewController.h */;
 		name = "FinderViewController.h: 51";
 		rLen = 0;
-		rLoc = 1510;
+		rLoc = 1520;
 		rType = 0;
 		vrLen = 298;
 		vrLoc = 1093;
@@ -4383,7 +4414,7 @@
 		fRef = CE0AECAD10AF842C003FA784 /* FinderViewController.h */;
 		name = "FinderViewController.h: 52";
 		rLen = 0;
-		rLoc = 1547;
+		rLoc = 1557;
 		rType = 0;
 		vrLen = 298;
 		vrLoc = 1093;
@@ -4403,7 +4434,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 373";
 		rLen = 0;
-		rLoc = 11670;
+		rLoc = 13013;
 		rType = 0;
 		vrLen = 1354;
 		vrLoc = 8350;
@@ -4413,7 +4444,7 @@
 		fRef = CE0AECAD10AF842C003FA784 /* FinderViewController.h */;
 		name = "FinderViewController.h: 51";
 		rLen = 0;
-		rLoc = 1510;
+		rLoc = 1520;
 		rType = 0;
 		vrLen = 1391;
 		vrLoc = 0;
@@ -4453,7 +4484,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 272";
 		rLen = 0;
-		rLoc = 8832;
+		rLoc = 9270;
 		rType = 0;
 		vrLen = 1734;
 		vrLoc = 5371;
@@ -4475,7 +4506,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 263";
 		rLen = 0;
-		rLoc = 8418;
+		rLoc = 8856;
 		rType = 0;
 		vrLen = 1558;
 		vrLoc = 5816;
@@ -4529,7 +4560,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 425";
 		rLen = 0;
-		rLoc = 12280;
+		rLoc = 13623;
 		rType = 0;
 		vrLen = 1983;
 		vrLoc = 9378;
@@ -4539,7 +4570,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 276";
 		rLen = 0;
-		rLoc = 8418;
+		rLoc = 8856;
 		rType = 0;
 		vrLen = 1586;
 		vrLoc = 5596;
@@ -4549,7 +4580,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 165";
 		rLen = 140;
-		rLoc = 4768;
+		rLoc = 4762;
 		rType = 0;
 		vrLen = 1808;
 		vrLoc = 3293;
@@ -4559,7 +4590,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 165";
 		rLen = 140;
-		rLoc = 4768;
+		rLoc = 4762;
 		rType = 0;
 		vrLen = 1092;
 		vrLoc = 0;
@@ -4609,7 +4640,7 @@
 		fRef = 1D3623250D0F684500981E51 /* HumboldtAppDelegate.m */;
 		name = "HumboldtAppDelegate.m: 43";
 		rLen = 0;
-		rLoc = 824;
+		rLoc = 819;
 		rType = 0;
 		vrLen = 1891;
 		vrLoc = 181;
@@ -4619,7 +4650,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 165";
 		rLen = 140;
-		rLoc = 4768;
+		rLoc = 4762;
 		rType = 0;
 		vrLen = 1909;
 		vrLoc = 1072;
@@ -4629,7 +4660,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 457";
 		rLen = 0;
-		rLoc = 13405;
+		rLoc = 14901;
 		rType = 0;
 		vrLen = 1631;
 		vrLoc = 10319;
@@ -4639,7 +4670,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 457";
 		rLen = 0;
-		rLoc = 13405;
+		rLoc = 14901;
 		rType = 0;
 		vrLen = 1862;
 		vrLoc = 1429;
@@ -4669,7 +4700,7 @@
 		fRef = CE0AECAD10AF842C003FA784 /* FinderViewController.h */;
 		name = "FinderViewController.h: 50";
 		rLen = 0;
-		rLoc = 1363;
+		rLoc = 1373;
 		rType = 0;
 		vrLen = 1520;
 		vrLoc = 147;
@@ -4679,7 +4710,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 457";
 		rLen = 0;
-		rLoc = 13405;
+		rLoc = 14901;
 		rType = 0;
 		vrLen = 1861;
 		vrLoc = 1429;
@@ -4729,7 +4760,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 260";
 		rLen = 0;
-		rLoc = 4908;
+		rLoc = 4902;
 		rType = 0;
 		vrLen = 2150;
 		vrLoc = 5287;
@@ -4739,7 +4770,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 253";
 		rLen = 0;
-		rLoc = 4908;
+		rLoc = 4902;
 		rType = 0;
 		vrLen = 2156;
 		vrLoc = 5287;
@@ -4749,7 +4780,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 139";
 		rLen = 0;
-		rLoc = 3697;
+		rLoc = 3691;
 		rType = 0;
 		vrLen = 2171;
 		vrLoc = 1836;
@@ -4759,7 +4790,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 245";
 		rLen = 0;
-		rLoc = 4908;
+		rLoc = 4902;
 		rType = 0;
 		vrLen = 2075;
 		vrLoc = 5454;
@@ -4769,7 +4800,7 @@
 		fRef = CE0AECAD10AF842C003FA784 /* FinderViewController.h */;
 		name = "FinderViewController.h: 38";
 		rLen = 0;
-		rLoc = 799;
+		rLoc = 804;
 		rType = 0;
 		vrLen = 1525;
 		vrLoc = 148;
@@ -4779,7 +4810,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 245";
 		rLen = 0;
-		rLoc = 4908;
+		rLoc = 4902;
 		rType = 0;
 		vrLen = 2307;
 		vrLoc = 1696;
@@ -4788,7 +4819,7 @@
 		isa = PBXTextBookmark;
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 130";
-		rLen = 657;
+		rLen = 651;
 		rLoc = 3038;
 		rType = 0;
 		vrLen = 2186;
@@ -4799,7 +4830,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 203";
 		rLen = 0;
-		rLoc = 4908;
+		rLoc = 4902;
 		rType = 0;
 		vrLen = 2058;
 		vrLoc = 4074;
@@ -4808,8 +4839,8 @@
 		isa = PBXTextBookmark;
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 242";
-		rLen = 1049;
-		rLoc = 6726;
+		rLen = 1476;
+		rLoc = 6824;
 		rType = 0;
 		vrLen = 2114;
 		vrLoc = 5214;
@@ -4819,7 +4850,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 236";
 		rLen = 232;
-		rLoc = 6489;
+		rLoc = 6587;
 		rType = 0;
 		vrLen = 1987;
 		vrLoc = 4148;
@@ -4828,8 +4859,8 @@
 		isa = PBXTextBookmark;
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 242";
-		rLen = 314;
-		rLoc = 6726;
+		rLen = 741;
+		rLoc = 6824;
 		rType = 0;
 		vrLen = 2245;
 		vrLoc = 5117;
@@ -4838,8 +4869,8 @@
 		isa = PBXTextBookmark;
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 216";
-		rLen = 295;
-		rLoc = 5867;
+		rLen = 347;
+		rLoc = 5861;
 		rType = 0;
 		vrLen = 2183;
 		vrLoc = 4551;
@@ -4849,7 +4880,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 238";
 		rLen = 0;
-		rLoc = 6613;
+		rLoc = 6711;
 		rType = 0;
 		vrLen = 2337;
 		vrLoc = 4711;
@@ -4859,7 +4890,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 240";
 		rLen = 0;
-		rLoc = 6721;
+		rLoc = 6819;
 		rType = 0;
 		vrLen = 2086;
 		vrLoc = 5333;
@@ -4869,7 +4900,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 261";
 		rLen = 80;
-		rLoc = 7514;
+		rLoc = 8039;
 		rType = 0;
 		vrLen = 2029;
 		vrLoc = 5468;
@@ -4879,7 +4910,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 250";
 		rLen = 0;
-		rLoc = 7040;
+		rLoc = 7565;
 		rType = 0;
 		vrLen = 2077;
 		vrLoc = 5453;
@@ -4899,7 +4930,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 152";
 		rLen = 0;
-		rLoc = 4409;
+		rLoc = 4403;
 		rType = 0;
 		vrLen = 1620;
 		vrLoc = 2747;
@@ -4909,7 +4940,7 @@
 		fRef = CE0AECAD10AF842C003FA784 /* FinderViewController.h */;
 		name = "FinderViewController.h: 62";
 		rLen = 27;
-		rLoc = 1481;
+		rLoc = 1491;
 		rType = 0;
 		vrLen = 1500;
 		vrLoc = 173;
@@ -4919,7 +4950,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 152";
 		rLen = 0;
-		rLoc = 4409;
+		rLoc = 4403;
 		rType = 0;
 		vrLen = 1757;
 		vrLoc = 2747;
@@ -4929,7 +4960,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 157";
 		rLen = 0;
-		rLoc = 4409;
+		rLoc = 4403;
 		rType = 0;
 		vrLen = 2009;
 		vrLoc = 2419;
@@ -4939,7 +4970,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 439";
 		rLen = 0;
-		rLoc = 12278;
+		rLoc = 13621;
 		rType = 0;
 		vrLen = 1765;
 		vrLoc = 10832;
@@ -4949,7 +4980,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 288";
 		rLen = 0;
-		rLoc = 8403;
+		rLoc = 8842;
 		rType = 0;
 		vrLen = 1482;
 		vrLoc = 6825;
@@ -4959,7 +4990,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 287";
 		rLen = 0;
-		rLoc = 8131;
+		rLoc = 8842;
 		rType = 0;
 		vrLen = 1732;
 		vrLoc = 6825;
@@ -4969,7 +5000,7 @@
 		fRef = CE0AECAD10AF842C003FA784 /* FinderViewController.h */;
 		name = "FinderViewController.h: 66";
 		rLen = 0;
-		rLoc = 1547;
+		rLoc = 1557;
 		rType = 0;
 		vrLen = 557;
 		vrLoc = 807;
@@ -4979,7 +5010,7 @@
 		comments = "Property 'selectedFileList' requires method '-selectedFileList' to be defined - use @synthesize, @dynamic or provide a method implementation";
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		rLen = 1;
-		rLoc = 553;
+		rLoc = 597;
 		rType = 1;
 	};
 	CE0AEF6B10B07651003FA784 /* PBXTextBookmark */ = {
@@ -4987,7 +5018,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 544";
 		rLen = 0;
-		rLoc = 14350;
+		rLoc = 15846;
 		rType = 0;
 		vrLen = 118;
 		vrLoc = 14059;
@@ -4997,7 +5028,7 @@
 		fRef = CE0AECAD10AF842C003FA784 /* FinderViewController.h */;
 		name = "FinderViewController.h: 52";
 		rLen = 16;
-		rLoc = 1346;
+		rLoc = 1356;
 		rType = 0;
 		vrLen = 1594;
 		vrLoc = 172;
@@ -5017,7 +5048,7 @@
 		comments = "Property 'selectedFileList' requires method '-selectedFileList' to be defined - use @synthesize, @dynamic or provide a method implementation";
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		rLen = 1;
-		rLoc = 553;
+		rLoc = 597;
 		rType = 1;
 	};
 	CE0AEF7310B07665003FA784 /* PBXTextBookmark */ = {
@@ -5035,7 +5066,7 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 291";
 		rLen = 0;
-		rLoc = 8129;
+		rLoc = 8842;
 		rType = 0;
 		vrLen = 1673;
 		vrLoc = 7042;
@@ -5045,14 +5076,14 @@
 		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
 		name = "FinderViewController.m: 296";
 		rLen = 0;
-		rLoc = 8124;
+		rLoc = 8842;
 		rType = 0;
 		vrLen = 1774;
 		vrLoc = 7042;
 	};
 	CE0F139D10A21080002569B6 /* TapDetectingWebView.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1361, 925}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1093, 898}}";
 			sepNavSelRange = "{0, 0}";
 			sepNavVisRange = "{0, 223}";
 		};
@@ -5199,7 +5230,7 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1093, 1078}}";
 			sepNavSelRange = "{311, 16}";
-			sepNavVisRange = "{247, 1316}";
+			sepNavVisRange = "{0, 1444}";
 			sepNavWindowFrame = "{{15, 12}, {824, 1041}}";
 		};
 	};
@@ -5211,17 +5242,29 @@
 		};
 	};
 	CE303607109C2CE400A31CCC /* SpotlightTableViewController.h */ = {
+		isa = PBXFileReference;
+		fileEncoding = 4;
+		lastKnownFileType = sourcecode.c.h;
+		name = SpotlightTableViewController.h;
+		path = /Volumes/Storage/Development/apps/Humboldt/Classes/SpotlightTableViewController.h;
+		sourceTree = "<absolute>";
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1209, 871}}";
-			sepNavSelRange = "{308, 0}";
+			sepNavIntBoundsRect = "{{0, 0}, {1093, 875}}";
+			sepNavSelRange = "{314, 483}";
 			sepNavVisRange = "{0, 804}";
 		};
 	};
 	CE303608109C2CE400A31CCC /* SpotlightTableViewController.m */ = {
+		isa = PBXFileReference;
+		fileEncoding = 4;
+		lastKnownFileType = sourcecode.c.objc;
+		name = SpotlightTableViewController.m;
+		path = /Volumes/Storage/Development/apps/Humboldt/Classes/SpotlightTableViewController.m;
+		sourceTree = "<absolute>";
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1601, 3108}}";
-			sepNavSelRange = "{2403, 0}";
-			sepNavVisRange = "{1510, 2792}";
+			sepNavIntBoundsRect = "{{0, 0}, {1093, 875}}";
+			sepNavSelRange = "{456, 0}";
+			sepNavVisRange = "{0, 485}";
 		};
 	};
 	CE38A3790FF6AD1200E93C29 /* AsyncSocket.m */ = {
@@ -5334,7 +5377,7 @@
 		fRef = 1D3623250D0F684500981E51 /* HumboldtAppDelegate.m */;
 		name = "HumboldtAppDelegate.m: 15";
 		rLen = 0;
-		rLoc = 294;
+		rLoc = 289;
 		rType = 0;
 		vrLen = 1971;
 		vrLoc = 29;
@@ -5378,7 +5421,7 @@
 	};
 	CE7A06C3107BC98700CFCCED /* File.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1209, 871}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1093, 898}}";
 			sepNavSelRange = "{803, 0}";
 			sepNavVisRange = "{0, 812}";
 			sepNavWindowFrame = "{{1051, 0}, {824, 1041}}";
@@ -5388,7 +5431,7 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1209, 1638}}";
 			sepNavSelRange = "{2378, 0}";
-			sepNavVisRange = "{1101, 1289}";
+			sepNavVisRange = "{974, 1416}";
 		};
 	};
 	CE7CB31D10A89C8B00DC58C0 /* PBXTextBookmark */ = {
@@ -5403,7 +5446,7 @@
 	};
 	CE7CB34010A8A62700DC58C0 /* SharingTableViewController.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1361, 900}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1093, 875}}";
 			sepNavSelRange = "{586, 0}";
 			sepNavVisRange = "{0, 736}";
 		};
@@ -5430,7 +5473,7 @@
 		fRef = CE303608109C2CE400A31CCC /* SpotlightTableViewController.m */;
 		name = "SpotlightTableViewController.m: 76";
 		rLen = 0;
-		rLoc = 2403;
+		rLoc = 476;
 		rType = 0;
 		vrLen = 2792;
 		vrLoc = 1510;
@@ -5486,7 +5529,7 @@
 		hitCount = 0;
 		ignoreCount = 0;
 		location = libobjc.A.dylib;
-		modificationTime = 279941179.797216;
+		modificationTime = 280009788.073851;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 		symbolName = objc_exception_throw;
@@ -5579,5 +5622,327 @@
 		rType = 0;
 		vrLen = 812;
 		vrLoc = 0;
+	};
+	CEF0D6C010B09C0F003E3155 /* SpotlightViewController.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1093, 875}}";
+			sepNavSelRange = "{312, 0}";
+			sepNavVisRange = "{0, 806}";
+		};
+	};
+	CEF0D6C110B09C0F003E3155 /* SpotlightViewController.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1093, 3920}}";
+			sepNavSelRange = "{7259, 108}";
+			sepNavVisRange = "{6113, 2011}";
+		};
+	};
+	CEF0D6CA10B09CF5003E3155 /* XCBuildMessageTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "Request for member 'tableView' in something not a structure or union";
+		fRef = CEF0D6C110B09C0F003E3155 /* SpotlightViewController.m */;
+		fallbackIsa = XCBuildMessageTextBookmark;
+		rLen = 1;
+		rLoc = 43;
+		rType = 1;
+	};
+	CEF0D6CB10B09CF5003E3155 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CEF0D6C110B09C0F003E3155 /* SpotlightViewController.m */;
+		name = "SpotlightViewController.m: 44";
+		rLen = 0;
+		rLoc = 820;
+		rType = 0;
+		vrLen = 304;
+		vrLoc = 763;
+	};
+	CEF0D6D410B09D01003E3155 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE7A06C3107BC98700CFCCED /* File.h */;
+		name = "File.h: 42";
+		rLen = 0;
+		rLoc = 803;
+		rType = 0;
+		vrLen = 812;
+		vrLoc = 0;
+	};
+	CEF0D6D510B09D01003E3155 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE7A06C4107BC98700CFCCED /* File.m */;
+		name = "File.m: 110";
+		rLen = 0;
+		rLoc = 2378;
+		rType = 0;
+		vrLen = 1289;
+		vrLoc = 1101;
+	};
+	CEF0D6D610B09D01003E3155 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE0AECAD10AF842C003FA784 /* FinderViewController.h */;
+		name = "FinderViewController.h: 75";
+		rLen = 0;
+		rLoc = 1831;
+		rType = 0;
+		vrLen = 1630;
+		vrLoc = 204;
+	};
+	CEF0D6D710B09D01003E3155 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
+		name = "FinderViewController.m: 406";
+		rLen = 0;
+		rLoc = 11038;
+		rType = 0;
+		vrLen = 1952;
+		vrLoc = 6824;
+	};
+	CEF0D6D810B09D01003E3155 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE303604109C2CD700A31CCC /* FinderTableViewController.h */;
+		name = "FinderTableViewController.h: 16";
+		rLen = 16;
+		rLoc = 311;
+		rType = 0;
+		vrLen = 1444;
+		vrLoc = 0;
+	};
+	CEF0D6D910B09D01003E3155 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CEF0D6C010B09C0F003E3155 /* SpotlightViewController.h */;
+		name = "SpotlightViewController.h: 25";
+		rLen = 185;
+		rLoc = 614;
+		rType = 0;
+		vrLen = 768;
+		vrLoc = 0;
+	};
+	CEF0D6DA10B09D01003E3155 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623240D0F684500981E51 /* HumboldtAppDelegate.h */;
+		name = "HumboldtAppDelegate.h: 17";
+		rLen = 0;
+		rLoc = 349;
+		rType = 0;
+		vrLen = 442;
+		vrLoc = 0;
+	};
+	CEF0D6DB10B09D01003E3155 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623250D0F684500981E51 /* HumboldtAppDelegate.m */;
+		name = "HumboldtAppDelegate.m: 47";
+		rLen = 0;
+		rLoc = 987;
+		rType = 0;
+		vrLen = 1876;
+		vrLoc = 181;
+	};
+	CEF0D6DC10B09D01003E3155 /* XCBuildMessageTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "Request for member 'tableView' in something not a structure or union";
+		fRef = CEF0D6C110B09C0F003E3155 /* SpotlightViewController.m */;
+		fallbackIsa = XCBuildMessageTextBookmark;
+		rLen = 1;
+		rLoc = 43;
+		rType = 1;
+	};
+	CEF0D6DD10B09D01003E3155 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CEF0D6C110B09C0F003E3155 /* SpotlightViewController.m */;
+		name = "SpotlightViewController.m: 44";
+		rLen = 0;
+		rLoc = 826;
+		rType = 0;
+		vrLen = 2488;
+		vrLoc = 246;
+	};
+	CEF0D6EF10B09D6B003E3155 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623240D0F684500981E51 /* HumboldtAppDelegate.h */;
+		name = "HumboldtAppDelegate.h: 17";
+		rLen = 0;
+		rLoc = 349;
+		rType = 0;
+		vrLen = 442;
+		vrLoc = 0;
+	};
+	CEF0D6F010B09D6B003E3155 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE7CB34010A8A62700DC58C0 /* SharingTableViewController.h */;
+		name = "SharingTableViewController.h: 34";
+		rLen = 0;
+		rLoc = 586;
+		rType = 0;
+		vrLen = 736;
+		vrLoc = 0;
+	};
+	CEF0D6F110B09D6B003E3155 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CEF0D6C010B09C0F003E3155 /* SpotlightViewController.h */;
+		name = "SpotlightViewController.h: 26";
+		rLen = 175;
+		rLoc = 624;
+		rType = 0;
+		vrLen = 784;
+		vrLoc = 0;
+	};
+	CEF0D6F210B09D6B003E3155 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CEF0D6C110B09C0F003E3155 /* SpotlightViewController.m */;
+		name = "SpotlightViewController.m: 97";
+		rLen = 15;
+		rLoc = 3645;
+		rType = 0;
+		vrLen = 2197;
+		vrLoc = 2484;
+	};
+	CEF0D6F310B09D6B003E3155 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CEF0D6C110B09C0F003E3155 /* SpotlightViewController.m */;
+		name = "SpotlightViewController.m: 254";
+		rLen = 0;
+		rLoc = 8237;
+		rType = 0;
+		vrLen = 1742;
+		vrLoc = 6253;
+	};
+	CEF0D6F810B09E07003E3155 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CEF0D6C110B09C0F003E3155 /* SpotlightViewController.m */;
+		name = "SpotlightViewController.m: 254";
+		rLen = 0;
+		rLoc = 8237;
+		rType = 0;
+		vrLen = 1742;
+		vrLoc = 6253;
+	};
+	CEF0D6F910B09E07003E3155 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623250D0F684500981E51 /* HumboldtAppDelegate.m */;
+		name = "HumboldtAppDelegate.m: 47";
+		rLen = 0;
+		rLoc = 987;
+		rType = 0;
+		vrLen = 1877;
+		vrLoc = 180;
+	};
+	CEF0D6FA10B09E07003E3155 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623250D0F684500981E51 /* HumboldtAppDelegate.m */;
+		name = "HumboldtAppDelegate.m: 47";
+		rLen = 0;
+		rLoc = 1084;
+		rType = 0;
+		vrLen = 1886;
+		vrLoc = 179;
+	};
+	CEF0D70810B09FEE003E3155 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623250D0F684500981E51 /* HumboldtAppDelegate.m */;
+		name = "HumboldtAppDelegate.m: 47";
+		rLen = 0;
+		rLoc = 1084;
+		rType = 0;
+		vrLen = 1886;
+		vrLoc = 179;
+	};
+	CEF0D70910B09FEE003E3155 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE0AECAD10AF842C003FA784 /* FinderViewController.h */;
+		name = "FinderViewController.h: 75";
+		rLen = 0;
+		rLoc = 1831;
+		rType = 0;
+		vrLen = 1630;
+		vrLoc = 203;
+	};
+	CEF0D70A10B09FEE003E3155 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE0AECAE10AF842C003FA784 /* FinderViewController.m */;
+		name = "FinderViewController.m: 151";
+		rLen = 413;
+		rLoc = 3991;
+		rType = 0;
+		vrLen = 1698;
+		vrLoc = 3233;
+	};
+	CEF0D70B10B09FEE003E3155 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CEF0D6C110B09C0F003E3155 /* SpotlightViewController.m */;
+		name = "SpotlightViewController.m: 254";
+		rLen = 0;
+		rLoc = 8237;
+		rType = 0;
+		vrLen = 1737;
+		vrLoc = 6253;
+	};
+	CEF0D70C10B09FEE003E3155 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CEF0D6C110B09C0F003E3155 /* SpotlightViewController.m */;
+		name = "SpotlightViewController.m: 99";
+		rLen = 0;
+		rLoc = 3926;
+		rType = 0;
+		vrLen = 3280;
+		vrLoc = 932;
+	};
+	CEF0D70D10B0A0E1003E3155 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CEF0D6C110B09C0F003E3155 /* SpotlightViewController.m */;
+		name = "SpotlightViewController.m: 99";
+		rLen = 0;
+		rLoc = 3926;
+		rType = 0;
+		vrLen = 1971;
+		vrLoc = 0;
+	};
+	CEF0D70E10B0A0E1003E3155 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CEF0D6C010B09C0F003E3155 /* SpotlightViewController.h */;
+		name = "SpotlightViewController.h: 14";
+		rLen = 0;
+		rLoc = 312;
+		rType = 0;
+		vrLen = 806;
+		vrLoc = 0;
+	};
+	CEF0D70F10B0A0EB003E3155 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CEF0D6C010B09C0F003E3155 /* SpotlightViewController.h */;
+		name = "SpotlightViewController.h: 14";
+		rLen = 0;
+		rLoc = 312;
+		rType = 0;
+		vrLen = 806;
+		vrLoc = 0;
+	};
+	CEF0D71410B0A150003E3155 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CEF0D6C010B09C0F003E3155 /* SpotlightViewController.h */;
+		name = "SpotlightViewController.h: 14";
+		rLen = 0;
+		rLoc = 312;
+		rType = 0;
+		vrLen = 806;
+		vrLoc = 0;
+	};
+	CEF0D71510B0A150003E3155 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CEF0D6C110B09C0F003E3155 /* SpotlightViewController.m */;
+		name = "SpotlightViewController.m: 99";
+		rLen = 0;
+		rLoc = 3926;
+		rType = 0;
+		vrLen = 1971;
+		vrLoc = 0;
+	};
+	CEF0D71610B0A150003E3155 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CEF0D6C110B09C0F003E3155 /* SpotlightViewController.m */;
+		name = "SpotlightViewController.m: 219";
+		rLen = 0;
+		rLoc = 7365;
+		rType = 0;
+		vrLen = 1948;
+		vrLoc = 6113;
 	};
 }

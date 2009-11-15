@@ -425,8 +425,10 @@
 	[self toggleBarsVisibilty];
 }
 
+
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView;
 {
+	NSLog(@"sadoksoapd");
 	if (self.navigationBar.hidden == NO && self.toolbar.hidden == NO) {
 		[self toggleBarsVisibilty];
 	}
