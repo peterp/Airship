@@ -9,7 +9,7 @@
 #import "HumboldtAppDelegate.h"
 
 
-#import "FinderTableViewController.h"
+#import "FinderViewController.h"
 #import "SpotlightTableViewController.h"
 #import "SharingTableViewController.h"
 
@@ -40,7 +40,7 @@
 	// [UIApplication sharedApplication].idleTimerDisabled = YES;
 	
 
-	FinderTableViewController *finder = [FinderTableViewController finderWithPath:[NSHomeDirectory() stringByAppendingPathComponent:@"Documents/Files/"]];
+	FinderViewController *finder = [FinderViewController finderWithPath:[NSHomeDirectory() stringByAppendingPathComponent:@"Documents/Files/"]];
 	UINavigationController *finderNavigationController = [[UINavigationController alloc] initWithRootViewController:finder];
 	[finder release];
 	

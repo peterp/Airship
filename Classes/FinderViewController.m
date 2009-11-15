@@ -1,140 +1,163 @@
 //
-//  FinderTableViewController.m
+//  FinderViewController.m
 //  Humboldt
 //
-//  Created by Peter Pistorius on 2009/10/31.
+//  Created by Peter Pistorius on 2009/11/15.
 //  Copyright 2009 appfactory. All rights reserved.
 //
 
-#import "FinderTableViewController.h"
-
+#import "FinderViewController.h"
 #import "FileViewController.h"
 #import "File.h";
 
-@implementation FinderTableViewController
+//#import "FinderTableViewController.h"
 
+
+@implementation FinderViewController
 
 @synthesize path;
-@synthesize fileList, filteredFileList;
-@synthesize toolbar, deleteButton;
-@synthesize searchBar, searchDisplayController;
+
+
+@synthesize fileList;
+@synthesize filteredFileList;
+
+@synthesize finderTableView;
+@synthesize searchBar;
+@synthesize searchDisplayController;
+
 @synthesize fileViewController;
+
+@synthesize toolbar;
+@synthesize deleteButton;
+@synthesize selectedFileList;
 
 
 
 
 + (id)finderWithPath:(NSString *)path;
 {
-	FinderTableViewController *finder = [[FinderTableViewController alloc] initWithStyle:UIStatusBarStyleDefault];
-	finder.path = path;
-	finder.title = [path lastPathComponent];
+	FinderViewController *finderViewControlller = [[FinderViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
+	finderViewControlller.path = path;
+	finderViewControlller.title = [path lastPathComponent];
 
-	return finder;
+	return finderViewControlller;
 }
 
 
 - (void)dealloc;
 {
 	self.path = nil;
-	
+
 	self.fileList = nil;
 	self.filteredFileList = nil;
+
+
+	self.finderTableView = nil;
+	self.searchBar = nil;
+	self.searchDisplayController = nil;
 	
-	self.deleteButton = nil;
-	self.toolbar = nil;
-
-//	[deleteButton release];
-//	[toolbar release];
-
 	self.fileViewController = nil;
+	
+	self.toolbar = nil;
+	self.deleteButton = nil;
+	self.selectedFileList = nil;
+	
 	
 	[super dealloc];
 }
 
 
-
-
-
-- (id)initWithStyle:(UITableViewStyle)style;
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
 {
-  if (self = [super initWithStyle:style]) {
-		
-		self.title = @"Files";
-		self.tabBarItem.image = [UIImage imageNamed:@"dock_finder.png"];
-
-	}
-  return self;
+    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+			
+			self.title = @"Files";
+			self.tabBarItem.image = [UIImage imageNamed:@"dock_finder.png"];
+    }
+    return self;
 }
+
+
+
+
 
 
 - (void)viewDidLoad;
 {
 	[super viewDidLoad];
+
+	self.finderTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+	finderTableView.frame = CGRectMake(0, 0, 320, 367);
+	finderTableView.delegate = self;
+	finderTableView.dataSource = self;
+
+	[self.view addSubview:finderTableView];
+	[finderTableView release];
 	
 	if (self.path != nil) {
 	
+		
 		// DATA SOURCE
 		NSArray *directoryContents = [[NSFileManager defaultManager] directoryContentsAtPath:self.path];
 		self.fileList = [NSMutableArray arrayWithCapacity:[directoryContents count]];
 		for (NSString *name in directoryContents) {
 			File *file = [[File alloc] initWithName:name atPath:self.path]; 
-			[self.fileList addObject:file];
+			[fileList addObject:file];
 			[file release];
 		}
 		directoryContents = nil;
-		
+
+	
+	
 		// Search
-		self.searchBar = [[UISearchBar alloc] init];
+		searchBar = [[UISearchBar alloc] init];
 		searchBar.frame = CGRectMake(0, 0, self.view.frame.size.width, 44);
 		searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 		searchBar.delegate = self;
 		searchBar.placeholder = [NSString stringWithFormat:@"Search %@", self.title];
-		self.tableView.tableHeaderView = searchBar;
-		[searchBar release];
+		self.finderTableView.tableHeaderView = searchBar;
+	
 		
-		// Search Display Controller;
-		self.searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
+		// Search Display Controller
+		searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
 		searchDisplayController.delegate = self;
 		searchDisplayController.searchResultsDelegate = self;
 		searchDisplayController.searchResultsDataSource = self;
+
+		self.toolbar = [[UIToolbar alloc] initWithFrame:CGRectZero];
+		toolbar.frame = CGRectMake(0, 367, 320, 40);
+		
+		
+		self.deleteButton = [[UIButton alloc] initWithFrame:CGRectMake(12, 7, 122, 28)];
+		[deleteButton addTarget:self action:@selector(deleteSelection) forControlEvents:UIControlEventTouchUpInside];
+		[deleteButton setBackgroundImage:[[UIImage imageNamed: @"button_red.png"] stretchableImageWithLeftCapWidth:7.0 topCapHeight:0.0] forState:UIControlStateNormal];
+		[deleteButton setImage:[UIImage imageNamed:@"icon_trash.png"] forState:UIControlStateNormal];
+		[deleteButton setTitle:@"Delete" forState:UIControlStateNormal];
+		deleteButton.titleLabel.font = [UIFont boldSystemFontOfSize:13];
+		[toolbar addSubview:deleteButton];
+		[deleteButton release];
+		
+		[self.view addSubview:toolbar];
+		[toolbar release];
 		
 		
 		// Editing
 		UIBarButtonItem *editButton = [[[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonSystemItemEdit target:self action:@selector(edit:)] autorelease];
 		self.navigationItem.rightBarButtonItem = editButton;
-		
-		// Toolbar
-		self.toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 367, 320, 40)];
 
+	}
+}
 
-		self.deleteButton = [[UIButton alloc] initWithFrame:CGRectMake(12, 7, 122, 28)];
-		[deleteButton addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
-		[deleteButton setBackgroundImage:[[UIImage imageNamed: @"button_red.png"] stretchableImageWithLeftCapWidth:7.0 topCapHeight:0.0] forState:UIControlStateNormal];
-		[deleteButton setImage:[UIImage imageNamed:@"icon_trash.png"] forState:UIControlStateNormal];
-		[deleteButton setTitle:@"Delete" forState:UIControlStateNormal];
-		deleteButton.titleLabel.font = [UIFont boldSystemFontOfSize:13];
-		deleteButton.enabled = NO;
-		
-		[toolbar addSubview:deleteButton];
-		[deleteButton release];
+- (void)viewWillAppear:(BOOL)animated;
+{
+	if (self.searchDisplayController.active) {
+		[self.searchDisplayController.searchResultsTableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:[self indexPathForActiveTableView] inSection:0] animated:animated];
+	} else {
+		[finderTableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:[self indexPathForActiveTableView] inSection:0] animated:animated];
 	}
 }
 
 
-- (void)viewDidAppear:(BOOL)animated;
-{
-	// adjust tableview's frame according to the editing mode.
-	CGRect tableViewFrame = self.tableView.frame;
-	tableViewFrame.size.height = self.tableView.editing ? 327 : 367;
-	self.tableView.frame = tableViewFrame;
-	[self.view.superview addSubview:self.toolbar];
-	
-}
-
-- (void)viewWillDisappear:(BOOL)animated;
-{
-	[self.toolbar removeFromSuperview];
-}
 
 
 
@@ -142,19 +165,28 @@
 
 
 
-#pragma mark Table view methods
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
+
+
+
+
+
+
+#pragma mark -
+#pragma mark UITableViewDataSource Protocol
+
+
+- (int)numberOfSectionsInTableView:(UITableView *)tableView;
 {
 	return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
+- (int)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
 {
 	if (tableView == self.searchDisplayController.searchResultsTableView) {
-		return [self.filteredFileList count];
+		return [filteredFileList count];
 	} else {
-		return [self.fileList count];
+		return [fileList count];
 	}
 }
 
@@ -182,19 +214,18 @@
 		pickImageView = [[[UIImageView alloc] initWithFrame:CGRectMake(-22, 11, 22, 22)] autorelease];
 		pickImageView.tag = PICK_TAG;
 		pickImageView.alpha = 0;
-		pickImageView.backgroundColor = [UIColor brownColor];
+		pickImageView.contentMode = UIViewContentModeCenter;
 		[cell.contentView addSubview:pickImageView];
 		
 		// Icon
 		iconImageView = [[[UIImageView alloc] initWithFrame:CGRectMake(7, 11, 22, 22)] autorelease];
+		iconImageView.contentMode = UIViewContentModeCenter;
 		iconImageView.tag = ICON_TAG;
 		[cell.contentView addSubview:iconImageView];
-
-		
 		
 		// Name 
 		nameLabel = [[[UILabel alloc] initWithFrame:CGRectMake(43, 0, 270, 22)] autorelease];
-//		nameLabel.backgroundColor = [UIColor grayColor];
+		nameLabel.backgroundColor = [UIColor clearColor];
 		nameLabel.tag = NAME_TAG;
 		nameLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize] - 2];
 		nameLabel.textColor = [UIColor darkGrayColor];
@@ -202,7 +233,7 @@
 		
 		// Meta
 		metaLabel = [[[UILabel alloc] initWithFrame:CGRectMake(43, 22, 270, 22)] autorelease];
-//		metaLabel.backgroundColor = [UIColor darkGrayColor];
+		metaLabel.backgroundColor = [UIColor clearColor];
 		metaLabel.tag = META_TAG;
 		metaLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize] - 4];
 		metaLabel.textColor = [UIColor grayColor];
@@ -219,18 +250,32 @@
 	
 	File *file = nil;
 	if (tableView == self.searchDisplayController.searchResultsTableView) {
-		file = [self.filteredFileList objectAtIndex:indexPath.row];
+		file = [filteredFileList objectAtIndex:indexPath.row];
 	} else {
-		file = [self.fileList objectAtIndex:indexPath.row];
+		file = [fileList objectAtIndex:indexPath.row];
 	}
 	
+	// this is always the default colour
+	cell.selectionStyle = UITableViewCellSelectionStyleGray;
+	cell.contentView.backgroundColor = [UIColor clearColor];
+	
+	if (isEditing == YES) {
+		cell.selectionStyle = UITableViewCellSelectionStyleNone;
+		
+		if ([selectedFileList objectForKey:indexPath] == nil) {
+			[pickImageView setImage:[UIImage imageNamed:@"cell_notselected.png"]];
+		} else {
+			[pickImageView setImage:[UIImage imageNamed:@"cell_selected.png"]];
+			cell.contentView.backgroundColor = [UIColor lightGrayColor];
+		}
+	}
+	
+	[iconImageView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"file_kind_%d.png", file.kind]]];
 	nameLabel.text = file.name;
 	metaLabel.text = file.date;
-	[iconImageView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"file_kind_%d.png", file.kind]]];
-	
 	
 	[UIView beginAnimations:nil context:nil];
-	if (editing) {
+	if (isEditing == YES) {
 		pickImageView.frame = CGRectMake(7, 11, 22, 22);
 		pickImageView.alpha = 1;
 		iconImageView.frame = CGRectMake(43, 11, 22, 22);
@@ -250,21 +295,38 @@
 }
 
 
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 {
-	File *file = [self fileForIndexPath:indexPath.row];
+	if (isEditing) {
 	
-	if (file.kind == FILE_KIND_DIRECTORY) {
+		// update selection count.
 	
+		if (self.selectedFileList == nil) {
+			self.selectedFileList = [NSMutableDictionary dictionary];
+		}
+		
+		if ([selectedFileList objectForKey:indexPath] == nil) {
+			[selectedFileList setObject:[NSNumber numberWithInt:1] forKey:indexPath];
+		} else {
+			[selectedFileList removeObjectForKey:indexPath];
+		}
+		
+		[finderTableView reloadData];
+		[self updateSelectionCount];
+		
 	
-		FinderTableViewController *finderTableViewController = [FinderTableViewController finderWithPath:file.absolutePath];
-		[self.navigationController pushViewController:finderTableViewController animated:YES];
-		[finderTableViewController release];
-
 	} else {
-		// Present the file.
-		[self presentFileViewControllerWithFile:file];
+
+		File *file = [self fileForIndexPath:indexPath.row];
+		if (file.kind == FILE_KIND_DIRECTORY) {
+			FinderViewController *finderViewController = [FinderViewController finderWithPath:file.absolutePath];
+			[self.navigationController pushViewController:finderViewController animated:YES];
+			[finderViewController release];
+
+		} else {
+			// Present the file.
+			[self presentFileViewControllerWithFile:file];
+		}
 	}
 }
 
@@ -278,12 +340,82 @@
 
 
 
+#pragma mark -
+#pragma mark Editing
 
 
+- (void)edit:(id)sender;
+{
+	UIBarButtonItem *cancelButton = [[[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonSystemItemDone target:self action:@selector(cancel:)] autorelease];
+	self.navigationItem.rightBarButtonItem = cancelButton;
+	
+	[self showToolbar:YES];
+	[self updateSelectionCount];
+	isEditing = YES;
+	[finderTableView reloadData];
+}
+
+- (void)cancel:(id)sender;
+{
+	UIBarButtonItem *editButton = [[[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(edit:)] autorelease];
+	self.navigationItem.rightBarButtonItem = editButton;
+	[self showToolbar:NO];
+	isEditing = NO;
+	[selectedFileList removeAllObjects];
+	self.selectedFileList = nil;
+	[finderTableView reloadData];
+}
+
+- (void)showToolbar:(BOOL)show;
+{
+	// Animate show/ hide
+	CGRect toolbarFrame = toolbar.frame;
+	CGRect tableViewFrame = finderTableView.frame;
+	
+	if (show) {
+		toolbarFrame.origin.y = 327;
+		tableViewFrame.size.height = 327;
+	} else {
+		toolbarFrame.origin.y = 367;
+		tableViewFrame.size.height = 367;
+	}
+	
+	[UIView beginAnimations:nil context:nil];
+	toolbar.frame = toolbarFrame;
+	finderTableView.frame = tableViewFrame;
+	[UIView commitAnimations];
+}
+
+- (void)updateSelectionCount;
+{
+	int count = [selectedFileList count];
+	
+	[deleteButton setTitle:[NSString stringWithFormat:@"Delete (%ld)", count] forState:UIControlStateNormal];
+	deleteButton.enabled = (count != 0);
+}
+
+- (void)deleteSelection;
+{
+
+	NSArray *indexPaths = [NSArray arrayWithArray:[selectedFileList allKeys]];
+	NSMutableIndexSet *indexes = [NSMutableIndexSet indexSet];
+	for (NSIndexPath *indexPath in indexPaths) {
+	
+		// delete the file object.
+		File *file = [fileList objectAtIndex:indexPath.row];
+		[file delete];
+	
+		[indexes addIndex:indexPath.row];
+	}
+	[fileList removeObjectsAtIndexes:indexes];
 
 
-
-
+	[finderTableView beginUpdates];
+	[finderTableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+	[finderTableView endUpdates];
+	
+	[self cancel:self];
+}
 
 
 
@@ -294,22 +426,22 @@
 - (int)numberOfRowsForActiveTableView;
 {
 	return (self.searchDisplayController.active) ? 
-		[self.filteredFileList count] :
-		[self.fileList count];
+		[filteredFileList count] :
+		[fileList count];
 }
 
 - (int)indexPathForActiveTableView;
 {
 	return (self.searchDisplayController.active) ? 
 		[self.searchDisplayController.searchResultsTableView indexPathForSelectedRow].row :
-		[self.tableView indexPathForSelectedRow].row;
+		[finderTableView indexPathForSelectedRow].row;
 }
 
 - (File*)fileForIndexPath:(int)row;
 {
 	return (self.searchDisplayController.active) ? 
-		[self.filteredFileList objectAtIndex:row] :
-		[self.fileList objectAtIndex:row];
+		[filteredFileList objectAtIndex:row] :
+		[fileList objectAtIndex:row];
 }
 
 - (int)indexPathForPaginationToNextFile:(BOOL)nextFile;
@@ -340,7 +472,7 @@
 	if (self.fileViewController == nil) {
 		self.fileViewController = [[FileViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
 		fileViewController.delegate = self;
-		[self.navigationController presentModalViewController:self.fileViewController animated:YES];
+		[self.navigationController presentModalViewController:fileViewController animated:YES];
 		[fileViewController release];
 	}
 
@@ -374,10 +506,9 @@
 	
 	self.searchDisplayController.active ?
 		[self.searchDisplayController.searchResultsTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] animated:NO scrollPosition:UITableViewScrollPositionMiddle] :
-		[self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] animated:NO scrollPosition:UITableViewScrollPositionMiddle];
+		[finderTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] animated:NO scrollPosition:UITableViewScrollPositionMiddle];
 	
-	File *file = [self fileForIndexPath:index];
-	[self presentFileViewControllerWithFile:file];
+	[self presentFileViewControllerWithFile:[self fileForIndexPath:index]];
 }
 
 
@@ -385,17 +516,19 @@
 #pragma mark -
 #pragma mark Searching
 
+- (void)searchDisplayController:(UISearchDisplayController *)controller willShowSearchResultsTableView:(UITableView *)tableView;
+{
+	[self cancel:self];
+}
+
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar;
 {
-	
 	return YES;
 }
 
-
-
 - (void)filterContentForSearchText:(NSString*)searchText;
 {
-	if (self.filteredFileList == nil) {
+	if (filteredFileList == nil) {
 		self.filteredFileList = [NSMutableArray array];
 	} else {
 		[filteredFileList removeAllObjects];
@@ -421,116 +554,21 @@
 
 
 
-#pragma mark -
-#pragma mark Editing
 
 
 
 
 
-- (void)edit:(id)sender;
-{
-	UIBarButtonItem *cancelButton = [[[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonSystemItemDone target:self action:@selector(cancel:)] autorelease];
-	self.navigationItem.rightBarButtonItem = cancelButton;
-	
-	[self showToolbar:YES];
-	editing = YES;
-	[self.tableView reloadData];
-}
-
-- (void)cancel:(id)sender;
-{
-	UIBarButtonItem *editButton = [[[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(edit:)] autorelease];
-	self.navigationItem.rightBarButtonItem = editButton;
-	[self showToolbar:NO];
-	editing = NO;
-	[self.tableView reloadData];
-}
 
 
 
-- (void)showToolbar:(BOOL)show;
-{
-
-	// Animate show/ hide
-	CGRect toolbarFrame = self.toolbar.frame;
-	CGRect tableViewFrame = self.tableView.frame;
-	
-	if (show) {
-		toolbarFrame.origin.y = 327;
-		tableViewFrame.size.height = self.view.superview.frame.size.height - toolbarFrame.size.height;
-	} else {
-		toolbarFrame.origin.y = self.view.superview.frame.size.height;
-		tableViewFrame.size.height = self.view.superview.frame.size.height;
-	}
-	
-	// this will allow us to animate the checkmarks.
-	[self.tableView reloadData];
-	
-	[UIView beginAnimations:nil context:nil];
-	toolbar.frame = toolbarFrame;
-	self.tableView.frame = tableViewFrame;
-	[UIView commitAnimations];
-	
-}
-
-
-#pragma mark -
-#pragma mark Generic editing controls.
-
-
-// Set the style for the editing mode
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-	return UITableViewCellEditingStyleDelete;
-}
-
-// Update the data source array and delete the row 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-	if (editingStyle == UITableViewCellEditingStyleDelete) {
-	
-		// get the File.
-		File *file = [fileList objectAtIndex:indexPath.row];
-		
-		// remove the file
-		if ([file delete]) {
-
-			if (tableView == self.searchDisplayController.searchResultsTableView) {
-				[filteredFileList removeObjectAtIndex:indexPath.row];
-			} else {
-				[fileList removeObjectAtIndex:indexPath.row];
-			}
-			
-			[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationTop];
-			
-		} else {
-		
-			// display an error.
-		}
-	}
-}
 
 
 
 /*
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-}
-*/
-/*
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-*/
-/*
-- (void)viewWillDisappear:(BOOL)animated {
-	[super viewWillDisappear:animated];
-}
-*/
-/*
-- (void)viewDidDisappear:(BOOL)animated {
-	[super viewDidDisappear:animated];
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+    
 }
 */
 
@@ -541,52 +579,6 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 */
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-
-
-
-
-
-
 
 - (void)didReceiveMemoryWarning {
 	// Releases the view if it doesn't have a superview.
@@ -600,14 +592,7 @@
 	// e.g. self.myOutlet = nil;
 }
 
-//- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation;
-//{
-//	return NO;
-//}
-
-
 
 
 
 @end
-
