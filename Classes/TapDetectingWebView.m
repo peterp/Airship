@@ -44,12 +44,26 @@
 	id webView = [[self superview] superview];
 	UITouch *touch = [touches anyObject];
  
+ 
 	if ([touch tapCount] == 1) {
+		// Single tap... pass on
 		[webView performSelector:@selector(handleSingleTap) withObject:nil afterDelay:DOUBLE_TAP_DELAY];
 	} else if([touch tapCount] == 2) {
+		// Doubletap, ignore...
 		[NSObject cancelPreviousPerformRequestsWithTarget:webView selector:@selector(handleSingleTap) object:nil];
-//		[webView handleDoubleTap];
 	}
+	
+	
+//	- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event;
+//	{
+//	if (!self.dragging) {
+//		[self.nextResponder touchesEnded:touches withEvent:event]; 
+//	} else {
+//		[super touchesEnded:touches withEvent:event];
+//	}
+//	}
+	
+	
 }
 
 @end

@@ -11,6 +11,17 @@
 
 @implementation TapDetectingScrollView
 
+@synthesize tapDetectingDelegate;
+
+- (void)dealloc;
+{
+	
+	self.tapDetectingDelegate = nil;
+
+	[super dealloc];
+	
+	
+}
 
 - (id)initWithFrame:(CGRect)frame;
 {
@@ -21,9 +32,16 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event;
 {
 	if (!self.dragging) {
-		[self.nextResponder touchesEnded:touches withEvent:event]; 
+		//[self.nextResponder touchesEnded:touches withEvent:event]; 
+		if ([self.tapDetectingDelegate respondsToSelector:@selector(tapDetectingScrollViewDidTap:)]) {
+			[self.tapDetectingDelegate tapDetectingScrollViewDidTap:self];
+		}
 	} else {
+		
 		[super touchesEnded:touches withEvent:event];
+		
+		
+			
 	}
 }
 

@@ -16,11 +16,11 @@
 @class TapDetectingWebView;
 
 // Image
-@class TapDetectingScrollView;
+#import "TapDetectingScrollView.h"
 
 
 
-@interface FileViewController : UIViewController <UIScrollViewDelegate, UIWebViewDelegate> {
+@interface FileViewController : UIViewController <UIScrollViewDelegate, TapDetectingScrollViewDelegate, UIWebViewDelegate> {
 
 	id <FileViewDelegate> delegate;
 	File *file;
@@ -64,11 +64,9 @@
 - (void)paginationSegmentControlChanged:(id)sender;
 
 
-
 - (void)determineFileKindAndLoad;
 - (void)loadDocumentFile;
 - (void)loadImageFile;
-
 //- (void)loadAudio;
 //- (void)loadVideo;
 

@@ -11,8 +11,7 @@
 
 // Document
 #import "TapDetectingWebView.h"
-// Image
-#import "TapDetectingScrollView.h"
+
 
 
 @implementation FileViewController
@@ -357,6 +356,7 @@
 	if (self.imageScrollView == nil) {
 		// Loading a "fresh" image.
 		self.imageScrollView = [[TapDetectingScrollView alloc] initWithFrame:self.view.bounds];
+		imageScrollView.tapDetectingDelegate = self;
 		imageScrollView.delegate = self;
 		imageScrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		imageScrollView.bouncesZoom = YES;
@@ -420,15 +420,22 @@
 	}
 }
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event;
+
+
+
+
+
+#pragma mark -
+#pragma mark Tap Detecting/ Scroll View delegate methods
+
+- (void)tapDetectingScrollViewDidTap:(UIScrollView *)scrollView;
 {
 	[self toggleBarsVisibilty];
 }
 
-
+// this is a delegate method from scroll view....
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView;
 {
-	NSLog(@"sadoksoapd");
 	if (self.navigationBar.hidden == NO && self.toolbar.hidden == NO) {
 		[self toggleBarsVisibilty];
 	}

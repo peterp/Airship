@@ -9,7 +9,20 @@
 #import <UIKit/UIKit.h>
 
 
+@protocol TapDetectingScrollViewDelegate <NSObject>
+@optional
+	- (void)tapDetectingScrollViewDidTap:(UIScrollView *)scrollView;
+@end
+
+
+
 @interface TapDetectingScrollView : UIScrollView {
+
+	id <TapDetectingScrollViewDelegate> tapDetectingDelegate;
 }
 
+@property (nonatomic, assign) id <TapDetectingScrollViewDelegate> tapDetectingDelegate;
+
+
 @end
+
