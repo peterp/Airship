@@ -33,8 +33,8 @@
 {
 	if (!self.dragging) {
 		//[self.nextResponder touchesEnded:touches withEvent:event]; 
-		if ([self.tapDetectingDelegate respondsToSelector:@selector(tapDetectingScrollViewDidTap:)]) {
-			[self.tapDetectingDelegate tapDetectingScrollViewDidTap:self];
+		if ([self.tapDetectingDelegate respondsToSelector:@selector(TapDetectingScrollViewWasTapped:)]) {
+			[self.tapDetectingDelegate TapDetectingScrollViewWasTapped:self];
 		}
 	} else {
 		

@@ -53,6 +53,7 @@
 		[NSObject cancelPreviousPerformRequestsWithTarget:webView selector:@selector(handleSingleTap) object:nil];
 	}
 	
+	// uiscroll doesn't have a dragging method.
 	
 //	- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event;
 //	{

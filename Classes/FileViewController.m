@@ -6,11 +6,17 @@
 //  Copyright 2009 appfactory. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
+
 #import "FileViewController.h"
+
+
 #import "File.h";
 
 // Document
 #import "TapDetectingWebView.h"
+
+#import "FileImageView.h";
 
 
 
@@ -26,11 +32,15 @@
 @synthesize activityIndicator;
 
 
+
+@synthesize fileView;
+@synthesize capturedFileViewImage;
+
+
 // Document
 @synthesize documentWebView;
 // Image
-@synthesize imageScrollView;
-@synthesize imageView;
+
 
 
 
@@ -47,12 +57,14 @@
 	self.toolbar = nil;
 	self.activityIndicator = nil;
 	
+	
+	self.fileView = nil;
+	self.capturedFileViewImage = nil;
+	
 	// Document
 	self.documentWebView = nil;
-	// Image
-	self.imageScrollView = nil;
-	self.imageView = nil;
-	
+
+
 
 	[super dealloc];
 }
@@ -65,6 +77,7 @@
 		self.wantsFullScreenLayout = YES;
 		self.view.backgroundColor = [UIColor blackColor];
 		[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:YES];
+		
   }
   return self;
 }
@@ -182,6 +195,8 @@
 
 	if ([self.delegate respondsToSelector:@selector(fileViewControllerDidPaginate:toNextFile:)]) {
 		UISegmentedControl *segmentedControl = (UISegmentedControl *)sender;
+		
+		fileViewAnimationDown = segmentedControl.selectedSegmentIndex ? YES : NO;
 		[self.delegate fileViewControllerDidPaginate:self toNextFile:segmentedControl.selectedSegmentIndex ? YES : NO];
 	}
 }
@@ -239,185 +254,105 @@
 
 
 
-
 - (void)setFile:(File *)aFile;
 {
-	if (self.file != nil && self.file.kind != aFile.kind) {
-	
-		// Unload the view
-		switch (self.file.kind) {
-			case FILE_KIND_AUDIO:
-				break;
-			
-			case FILE_KIND_DOCUMENT:
-				[self.documentWebView removeFromSuperview];
-				self.documentWebView = nil;
-				break;
-				
-			case FILE_KIND_IMAGE:
-				[self.imageScrollView removeFromSuperview];
-				self.imageView = nil;
-				self.imageScrollView = nil;
-				break;
-			
-			case FILE_KIND_VIDEO:
-				break;
-				
-			default:
-				break;
-		}
-		
-	}
-	
-	
 	self.navigationBar.topItem.title = aFile.name;
 	file = aFile;
-	[self determineFileKindAndLoad];
-	
-	
 }
 
 
 
-
-
-- (void)determineFileKindAndLoad;
+- (void)displayFileViewAnimatedDidFinish;
 {
-	self.activityIndicator.hidden = NO;
-	[self.activityIndicator startAnimating];
+	[capturedFileViewImage removeFromSuperview];
+	self.capturedFileViewImage = nil;
+}
+
+- (void)displayFileViewWithKind:(int)kind animated:(BOOL)animated;
+{
 	
-	// Unload the view
-	switch (self.file.kind) {
-		case FILE_KIND_AUDIO:
-			break;
-			
-		case FILE_KIND_DOCUMENT:
-			[self loadDocumentFile];
-			break;
-				
+	if (animated == YES) {
+	
+
+		// capture fileView
+		self.capturedFileViewImage = [[UIImageView alloc] initWithImage:[self captureView:self.fileView]];
+		capturedFileViewImage.frame = fileView.frame;
+		[self.view insertSubview:capturedFileViewImage aboveSubview:fileView];
+		[capturedFileViewImage release];
+		
+		// Remove fileView
+		[fileView removeFromSuperview];
+		self.fileView = nil;
+		
+		// Create
+		[self setFileViewWithKind:kind];
+		[fileView loadFileAtPath:file.absolutePath];
+		// Adjust Frame.
+		CGRect fileViewRect = fileView.frame;
+		fileViewRect.origin.y = (fileViewAnimationDown) ? self.view.frame.size.height : (self.view.frame.size.height * -1);
+		fileView.frame = fileViewRect;
+		[self.view insertSubview:fileView atIndex:0];
+		[fileView release];
+		
+		// Animate
+		[UIView beginAnimations:@"displayFileViewAnimated" context:nil];
+		[UIView setAnimationDelegate:self];
+		[UIView setAnimationDuration:0.3];
+		[UIView setAnimationDidStopSelector:@selector(displayFileViewAnimatedDidFinish)];
+		
+		
+		CGRect capturedFileViewImageRect = capturedFileViewImage.frame;
+		capturedFileViewImageRect.origin.y = (fileViewAnimationDown) ? self.view.frame.size.height * -1 : self.view.frame.size.height;
+		capturedFileViewImage.frame = capturedFileViewImageRect;
+		
+		fileView.frame = self.view.frame;
+		
+		[UIView commitAnimations];
+		
+		
+	} else {
+	
+		[fileView removeFromSuperview];
+		self.fileView = nil;
+		
+		[self setFileViewWithKind:kind];
+		[fileView loadFileAtPath:file.absolutePath];
+		[self.view insertSubview:fileView atIndex:0];
+		[fileView release];
+	}
+}
+
+- (void)setFileViewWithKind:(int)kind;
+{
+	switch (kind) {
 		case FILE_KIND_IMAGE:
-			[self loadImageFile];
+			self.fileView = [[FileImageView alloc] initWithFrame:self.view.frame];
 			break;
-			
-		case FILE_KIND_VIDEO:
-			break;
-				
 		default:
 			break;
 	}
-}
-
-
-
-
-
-
-
-
-#pragma mark -
-#pragma mark DOCUMENTS
-
-- (void)loadDocumentFile;
-{
-	if (self.documentWebView == nil) {
-		self.documentWebView = [[TapDetectingWebView alloc] initWithFrame:self.view.bounds];
-		documentWebView.delegate = self;
-		documentWebView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-		documentWebView.scalesPageToFit = YES;
-		[self.view insertSubview:documentWebView atIndex:0];
-		[documentWebView release];
-	}
 	
-	[documentWebView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:self.file.absolutePath]]];
-}
-
-- (void)tapDetectingWebViewGotSingleTap:(TapDetectingWebView *)aWebView;
-{
-	[self toggleBarsVisibilty];
+	fileView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+	fileView.frame = self.view.frame;
 }
 
 
-- (void)webViewDidStartLoad:(UIWebView *)aWebView;
+
+- (UIImage *)captureView:(UIView *)view;
 {
-	self.activityIndicator.hidden = NO;
-	[self.activityIndicator startAnimating];
-}
+	CGRect viewRect = view.frame;
+	UIGraphicsBeginImageContext(viewRect.size);
 
-- (void)webViewDidFinishLoad:(UIWebView *)aWebView;
-{
-	[self.activityIndicator stopAnimating];
-}
-
-#pragma mark -
-#pragma mark IMAGES
-
-- (void)loadImageFile;
-{
-	if (self.imageScrollView == nil) {
-		// Loading a "fresh" image.
-		self.imageScrollView = [[TapDetectingScrollView alloc] initWithFrame:self.view.bounds];
-		imageScrollView.tapDetectingDelegate = self;
-		imageScrollView.delegate = self;
-		imageScrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-		imageScrollView.bouncesZoom = YES;
-		imageScrollView.alwaysBounceHorizontal = YES;
-		imageScrollView.alwaysBounceVertical = YES;
-		imageScrollView.clipsToBounds = YES;
-		imageScrollView.showsVerticalScrollIndicator = NO;
-		imageScrollView.showsHorizontalScrollIndicator = NO;
-		[self.view insertSubview:imageScrollView atIndex:0];
-		[imageScrollView release];
-	} else {
-		// Loading another image
-		[self.imageView removeFromSuperview];
-		self.imageView = nil;
-	}
-
-	// Load the image!
-	NSData *imageData = [NSData dataWithContentsOfFile:self.file.absolutePath];
-	self.imageView = [[UIImageView alloc] initWithImage:[UIImage imageWithData:imageData]];
-	[self.imageScrollView addSubview:imageView];
-	[imageView release];
+  CGContextRef ctx = UIGraphicsGetCurrentContext();
+  [[UIColor blackColor] set];
+  CGContextFillRect(ctx, viewRect);
 	
-	// Cache image's original dimensions
-	imageWidth = imageView.frame.size.width;
-	imageHeight = imageView.frame.size.height;
-
-  // calculate minimum scale to perfectly fit image width, and begin at that scale
-	float minimumZoomScale = imageWidth > imageHeight ? self.imageScrollView.frame.size.width / imageWidth : self.imageScrollView.frame.size.height / imageHeight;
-	self.imageScrollView.minimumZoomScale = minimumZoomScale;
-	self.imageScrollView.zoomScale = minimumZoomScale;
-	self.imageScrollView.maximumZoomScale = 2.5;
-	[self viewForZoomingInScrollView:self.imageScrollView];
+	[view.layer renderInContext:ctx];
 	
-	[self.activityIndicator stopAnimating];
-}
+	UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+	UIGraphicsEndImageContext();
 
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)aScrollView;
-{
-	// If the image is still smaller than the actual size of the frame, keep it in the center.
-	if (self.imageView.frame.size.height < self.imageScrollView.frame.size.height) {
-		// determine the center of the frame
-		CGPoint p = self.imageView.center;
-		self.imageView.center = CGPointMake(p.x, self.imageScrollView.frame.size.height / 2);
-	}
-	if (self.imageView.frame.size.width < self.imageScrollView.frame.size.width) {
-		// determine the center of the frame
-		CGPoint p = self.imageView.center;
-		self.imageView.center = CGPointMake(self.imageScrollView.frame.size.width / 2, p.y);
-	}
-	return self.imageView;
-}
-
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation;
-{
-	if (self.imageView != nil) {
-		float minimumZoomScale = imageWidth > imageHeight ? self.imageScrollView.frame.size.width / imageWidth : self.imageScrollView.frame.size.height / imageHeight;
-		self.imageScrollView.maximumZoomScale = 2.5;
-		self.imageScrollView.minimumZoomScale = minimumZoomScale;
-		self.imageScrollView.zoomScale = minimumZoomScale;
-		[self viewForZoomingInScrollView:self.imageScrollView];
-	}
+	return newImage;
 }
 
 
@@ -425,21 +360,171 @@
 
 
 
-#pragma mark -
-#pragma mark Tap Detecting/ Scroll View delegate methods
 
-- (void)tapDetectingScrollViewDidTap:(UIScrollView *)scrollView;
-{
-	[self toggleBarsVisibilty];
-}
 
-// this is a delegate method from scroll view....
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView;
-{
-	if (self.navigationBar.hidden == NO && self.toolbar.hidden == NO) {
-		[self toggleBarsVisibilty];
-	}
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
+//
+//
+//
+//
+//
+//
+//
+//#pragma mark -
+//#pragma mark DOCUMENTS
+//
+//- (void)loadDocumentFile;
+//{
+//	if (self.documentWebView == nil) {
+//		self.documentWebView = [[TapDetectingWebView alloc] initWithFrame:self.view.bounds];
+//		documentWebView.delegate = self;
+//		documentWebView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+//		documentWebView.scalesPageToFit = YES;
+//		[self.view insertSubview:documentWebView atIndex:0];
+//		[documentWebView release];
+//	}
+//	
+//	[documentWebView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:self.file.absolutePath]]];
+//}
+//
+//- (void)tapDetectingWebViewGotSingleTap:(TapDetectingWebView *)aWebView;
+//{
+//	[self toggleBarsVisibilty];
+//}
+//
+//
+//- (void)webViewDidStartLoad:(UIWebView *)aWebView;
+//{
+//	self.activityIndicator.hidden = NO;
+//	[self.activityIndicator startAnimating];
+//}
+//
+//- (void)webViewDidFinishLoad:(UIWebView *)aWebView;
+//{
+//	[self.activityIndicator stopAnimating];
+//}
+//
+//#pragma mark -
+//#pragma mark IMAGES
+//
+//- (void)loadImageFile;
+//{
+//}
+//
+//
+//
+//
+//
+//#pragma mark -
+//#pragma mark UNKNOWN
+//
+//
+//- (void)openAsDocumentFile;
+//{
+//	[self unloadFile];
+//	[self loadDocumentFile];
+//}
+//
+//- (void)loadUnknownFile;
+//{
+//	[self.activityIndicator stopAnimating];
+//	
+//	
+//	if (self.unknownFileView == nil) {
+//		self.unknownFileView = [[UIView alloc] initWithFrame:self.view.frame];
+//		unknownFileView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+//		unknownFileView.backgroundColor = [UIColor lightGrayColor];
+//		[self.view insertSubview:unknownFileView atIndex:0];
+//	}
+//	
+//	
+//	
+//	if (self.explinationLabel == nil) {
+//		self.explinationLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, self.navigationBar.frame.size.height + 36, self.view.frame.size.width - 20, 80)];
+//		explinationLabel.backgroundColor = [UIColor clearColor];
+//		explinationLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+//		explinationLabel.shadowColor = [UIColor lightTextColor];
+//		explinationLabel.shadowOffset = CGSizeMake(1, 1);
+//		explinationLabel.numberOfLines = 0;
+//		explinationLabel.font = [UIFont systemFontOfSize:16];
+//		explinationLabel.textAlignment = UITextAlignmentCenter;
+//		[self.unknownFileView addSubview:explinationLabel];
+//		[explinationLabel release];
+//	}
+//	
+//	self.explinationLabel.text = [NSString stringWithFormat:@"airship doesn't know how to display \"%@.\"\n\nChoose to display file as...", self.file.name];
+//	
+//	
+//	if (self.openAudioButton == nil) {
+//	}
+//	
+//	if (self.openDocumentButton == nil) {
+//		self.openDocumentButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 200, 64, 64)];
+//		openDocumentButton.backgroundColor = [UIColor blackColor];
+//		openDocumentButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
+//		[openDocumentButton addTarget:self action:@selector(openAsDocumentFile) forControlEvents:UIControlEventTouchUpInside];
+//
+//		[openDocumentButton setTitle:@"Document" forState:UIControlStateNormal];
+//		[self.unknownFileView addSubview:openDocumentButton];
+//		[openDocumentButton release];
+//		
+////				self.deleteButton = [[UIButton alloc] initWithFrame:CGRectMake(12, 7, 122, 28)];
+////		[deleteButton addTarget:self action:@selector(deleteSelection) forControlEvents:UIControlEventTouchUpInside];
+////		[deleteButton setBackgroundImage:[[UIImage imageNamed: @"button_red.png"] stretchableImageWithLeftCapWidth:7.0 topCapHeight:0.0] forState:UIControlStateNormal];
+////		[deleteButton setImage:[UIImage imageNamed:@"icon_trash.png"] forState:UIControlStateNormal];
+////		[deleteButton setTitle:@"Delete" forState:UIControlStateNormal];
+////		deleteButton.titleLabel.font = [UIFont boldSystemFontOfSize:13];
+////		[toolbar addSubview:deleteButton];
+////		[deleteButton release];
+//		
+//
+//		
+//	}
+//	
+//	
+//	
+//	
+////	UIView *unknownFileView = [[UIView alloc] initWithFrame:self.view.bounds];
+////	unknownFileView.backgroundColor = [UIColor whiteColor];
+////	unknownFileView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+////	
+////	
+////
+////	UILabel *description = [[UILabel alloc] initWithFrame:CGRectMake(10, 60, 300, 300)];
+////	description.backgroundColor = [UIColor lightGrayColor];
+////	description.numberOfLines = 0;
+////	description.shadowColor = [UIColor whiteColor];
+////	description.text = @"Airship doesn't know how to open the file <filename>.";
+////	description.lineBreakMode = UILineBreakModeWordWrap;
+////	
+////	[unknownFileView addSubview:description];
+////	[description release];
+////	
+////	[self.view insertSubview:unknownFileView atIndex:0];
+////	[unknownFileView release];
+////	
+////	
+////	NSLog(@"loading unknown file");
+
+	
+//}
 
 
 

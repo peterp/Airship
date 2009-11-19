@@ -16,11 +16,11 @@
 @class TapDetectingWebView;
 
 // Image
-#import "TapDetectingScrollView.h"
+#import "FileView.h";
 
 
 
-@interface FileViewController : UIViewController <UIScrollViewDelegate, TapDetectingScrollViewDelegate, UIWebViewDelegate> {
+@interface FileViewController : UIViewController <UIWebViewDelegate> {
 
 	id <FileViewDelegate> delegate;
 	File *file;
@@ -32,14 +32,19 @@
 	UIActivityIndicatorView *activityIndicator;
 	
 	
+	
+	FileView *fileView;
+	UIImageView *capturedFileViewImage;
+	
+	BOOL fileViewAnimationDown;
+	
+	
+	
 	// Document
 	TapDetectingWebView *documentWebView;
 	
-	// Image
-	TapDetectingScrollView *imageScrollView;
-	UIImageView *imageView;
-	float imageWidth;
-	float imageHeight;
+	
+	
 }
 
 @property (nonatomic, assign) id <FileViewDelegate> delegate;
@@ -51,24 +56,47 @@
 @property (nonatomic, retain) UIToolbar *toolbar;
 @property (nonatomic, retain) UIActivityIndicatorView *activityIndicator;
 
+
+
+@property (nonatomic, retain) FileView *fileView;
+@property (nonatomic, retain) UIImageView *capturedFileViewImage;
+
+
+
+- (void)displayFileViewWithKind:(int)kind animated:(BOOL)animated;
+
+- (void)setFileViewWithKind:(int)kind;
+- (UIImage *)captureView:(UIView *)view;
+
+
+
+
+
+
+
+
+
 // Document
 @property (nonatomic, retain) TapDetectingWebView *documentWebView;
 
-// Image
-@property (nonatomic, retain) TapDetectingScrollView *imageScrollView;
-@property (nonatomic, retain) UIImageView *imageView;
 
 
 
-- (void)unloadViewController;
-- (void)paginationSegmentControlChanged:(id)sender;
 
 
-- (void)determineFileKindAndLoad;
-- (void)loadDocumentFile;
-- (void)loadImageFile;
-//- (void)loadAudio;
-//- (void)loadVideo;
+//- (void)unloadViewController;
+//- (void)paginationSegmentControlChanged:(id)sender;
+//
+////- (void)openFile;
+////- (void)closeAndUnloadFile;
+//
+//
+//- (void)determineFileKindAndLoad;
+//- (void)unloadFile;
+//- (void)loadDocumentFile;
+////- (void)loadAudio;
+////- (void)loadVideo;
+//- (void)loadUnknownFile;
 
 
 

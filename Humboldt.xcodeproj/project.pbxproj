@@ -14,7 +14,6 @@
 		CE0AEEDE10B05109003FA784 /* cell_notselected.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0AEEDC10B05109003FA784 /* cell_notselected.png */; };
 		CE0AEEDF10B05109003FA784 /* cell_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0AEEDD10B05109003FA784 /* cell_selected.png */; };
 		CE0F139F10A21080002569B6 /* TapDetectingWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0F139E10A21080002569B6 /* TapDetectingWebView.m */; };
-		CE1F40F8109A17B50067DB73 /* FileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1F40F7109A17B50067DB73 /* FileViewController.m */; };
 		CE2B3B0F0F3CD72B0039B355 /* StorageHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2B3B0E0F3CD72B0039B355 /* StorageHTTPConnection.m */; };
 		CE3035D6109BAB1F00A31CCC /* dock_finder.png in Resources */ = {isa = PBXBuildFile; fileRef = CE3035D4109BAB1F00A31CCC /* dock_finder.png */; };
 		CE3035D7109BAB1F00A31CCC /* dock_spotlight.png in Resources */ = {isa = PBXBuildFile; fileRef = CE3035D5109BAB1F00A31CCC /* dock_spotlight.png */; };
@@ -59,6 +58,10 @@
 		CECE390910680DD4000EE1F6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CECE390810680DD4000EE1F6 /* SystemConfiguration.framework */; };
 		CED611271081F5F9000C41CB /* NSArray+CWSortedInsert.m in Sources */ = {isa = PBXBuildFile; fileRef = CED611261081F5F9000C41CB /* NSArray+CWSortedInsert.m */; };
 		CEE04E9F0FD9E82E00C32900 /* AFMultipartParser.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE04E9E0FD9E82E00C32900 /* AFMultipartParser.m */; };
+		CEEFAC1A10B49FDC00B8D906 /* FileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEFAC1810B49FDC00B8D906 /* FileViewController.m */; };
+		CEEFAC3010B4A15200B8D906 /* FileImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEFAC2F10B4A15200B8D906 /* FileImageView.m */; };
+		CEEFACBB10B4A60800B8D906 /* FileView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEFACBA10B4A60800B8D906 /* FileView.m */; };
+		CEEFAE5B10B5F97C00B8D906 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEEFAE5A10B5F97C00B8D906 /* QuartzCore.framework */; };
 		CEF0D6C210B09C0F003E3155 /* SpotlightViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF0D6C110B09C0F003E3155 /* SpotlightViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -76,8 +79,6 @@
 		CE0AEEDD10B05109003FA784 /* cell_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cell_selected.png; sourceTree = "<group>"; };
 		CE0F139D10A21080002569B6 /* TapDetectingWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapDetectingWebView.h; sourceTree = "<group>"; };
 		CE0F139E10A21080002569B6 /* TapDetectingWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapDetectingWebView.m; sourceTree = "<group>"; };
-		CE1F40F6109A17B50067DB73 /* FileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileViewController.h; sourceTree = "<group>"; };
-		CE1F40F7109A17B50067DB73 /* FileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileViewController.m; sourceTree = "<group>"; };
 		CE1F417A109A28AD0067DB73 /* FileViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileViewDelegate.h; sourceTree = "<group>"; };
 		CE2B3B0D0F3CD72B0039B355 /* StorageHTTPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StorageHTTPConnection.h; sourceTree = "<group>"; };
 		CE2B3B0E0F3CD72B0039B355 /* StorageHTTPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StorageHTTPConnection.m; sourceTree = "<group>"; };
@@ -148,6 +149,13 @@
 		CED611251081F5F9000C41CB /* NSArray+CWSortedInsert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+CWSortedInsert.h"; sourceTree = "<group>"; };
 		CED611261081F5F9000C41CB /* NSArray+CWSortedInsert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+CWSortedInsert.m"; sourceTree = "<group>"; };
 		CEE04E9E0FD9E82E00C32900 /* AFMultipartParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFMultipartParser.m; sourceTree = "<group>"; };
+		CEEFAC1810B49FDC00B8D906 /* FileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileViewController.m; sourceTree = "<group>"; };
+		CEEFAC1910B49FDC00B8D906 /* FileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileViewController.h; sourceTree = "<group>"; };
+		CEEFAC2E10B4A15200B8D906 /* FileImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileImageView.h; sourceTree = "<group>"; };
+		CEEFAC2F10B4A15200B8D906 /* FileImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileImageView.m; sourceTree = "<group>"; };
+		CEEFACB910B4A60800B8D906 /* FileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileView.h; sourceTree = "<group>"; };
+		CEEFACBA10B4A60800B8D906 /* FileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileView.m; sourceTree = "<group>"; };
+		CEEFAE5A10B5F97C00B8D906 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		CEF0D6C010B09C0F003E3155 /* SpotlightViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotlightViewController.h; sourceTree = "<group>"; };
 		CEF0D6C110B09C0F003E3155 /* SpotlightViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotlightViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -165,6 +173,7 @@
 				CE5B30DE10539DD100B6A834 /* CoreGraphics.framework in Frameworks */,
 				CE9A6D85105EF74E00E25682 /* AudioToolbox.framework in Frameworks */,
 				CECE390910680DD4000EE1F6 /* SystemConfiguration.framework in Frameworks */,
+				CEEFAE5B10B5F97C00B8D906 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,6 +246,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CEEFAE5A10B5F97C00B8D906 /* QuartzCore.framework */,
 				CE5B30DD10539DD100B6A834 /* CoreGraphics.framework */,
 				CE5B301110539CBC00B6A834 /* AVFoundation.framework */,
 				CE5B301310539CBC00B6A834 /* CFNetwork.framework */,
@@ -364,12 +374,16 @@
 			isa = PBXGroup;
 			children = (
 				CE1F417A109A28AD0067DB73 /* FileViewDelegate.h */,
-				CE1F40F6109A17B50067DB73 /* FileViewController.h */,
-				CE1F40F7109A17B50067DB73 /* FileViewController.m */,
+				CEEFAC1910B49FDC00B8D906 /* FileViewController.h */,
+				CEEFAC1810B49FDC00B8D906 /* FileViewController.m */,
 				CE0F139D10A21080002569B6 /* TapDetectingWebView.h */,
 				CE0F139E10A21080002569B6 /* TapDetectingWebView.m */,
 				CE8CB8CE109CD62A008B3FAE /* TapDetectingScrollView.h */,
 				CE8CB8CF109CD62A008B3FAE /* TapDetectingScrollView.m */,
+				CEEFACB910B4A60800B8D906 /* FileView.h */,
+				CEEFACBA10B4A60800B8D906 /* FileView.m */,
+				CEEFAC2E10B4A15200B8D906 /* FileImageView.h */,
+				CEEFAC2F10B4A15200B8D906 /* FileImageView.m */,
 			);
 			name = "File View + Support";
 			sourceTree = "<group>";
@@ -478,13 +492,15 @@
 				CEAA886B10680D1E009EF7B7 /* Reachability.m in Sources */,
 				CE7A06C5107BC98700CFCCED /* File.m in Sources */,
 				CED611271081F5F9000C41CB /* NSArray+CWSortedInsert.m in Sources */,
-				CE1F40F8109A17B50067DB73 /* FileViewController.m in Sources */,
 				CE303606109C2CD700A31CCC /* FinderTableViewController.m in Sources */,
 				CE8CB8D0109CD62A008B3FAE /* TapDetectingScrollView.m in Sources */,
 				CE0F139F10A21080002569B6 /* TapDetectingWebView.m in Sources */,
 				CE7CB34210A8A62700DC58C0 /* SharingTableViewController.m in Sources */,
 				CE0AECAF10AF842C003FA784 /* FinderViewController.m in Sources */,
 				CEF0D6C210B09C0F003E3155 /* SpotlightViewController.m in Sources */,
+				CEEFAC1A10B49FDC00B8D906 /* FileViewController.m in Sources */,
+				CEEFAC3010B4A15200B8D906 /* FileImageView.m in Sources */,
+				CEEFACBB10B4A60800B8D906 /* FileView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

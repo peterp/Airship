@@ -11,7 +11,7 @@
 
 @protocol TapDetectingScrollViewDelegate <NSObject>
 @optional
-	- (void)tapDetectingScrollViewDidTap:(UIScrollView *)scrollView;
+	- (void)TapDetectingScrollViewWasTapped:(UIScrollView *)scrollView;
 @end
 
 
