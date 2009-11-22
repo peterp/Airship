@@ -11,31 +11,56 @@
 
 @implementation FileView
 
+@synthesize delegate;
 
-- (id)initWithFrame:(CGRect)frame {
-    if (self = [super initWithFrame:frame]) {
-        // Initialization code
-    }
-    return self;
-}
+//
+//- (id)initWithFrame:(CGRect)frame {
+//    if (self = [super initWithFrame:frame]) {
+//        // Initialization code
+//    }
+//    return self;
+//}
+//
+//
+//- (void)drawRect:(CGRect)rect {
+//    // Drawing code
+//}
 
 
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-
-
-- (void)dealloc {
-    [super dealloc];
+- (void)dealloc;
+{
+	self.delegate = nil;
+  [super dealloc];
 }
 
 - (void)loadFileAtPath:(NSString *)path;
 {
 	// This should never be called...
 }
-- (void)didRotateInterfaceOrientation;
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation;
 {
 	// This should never be called...
+}
+
+- (void)didStartLoading;
+{
+	if ([self.delegate respondsToSelector:@selector(fileViewDidStartLoading)]) {
+		[self.delegate fileViewDidStartLoading];
+	}
+}
+- (void)didStopLoading;
+{
+	if ([self.delegate respondsToSelector:@selector(fileViewDidStopLoading)]) {
+		[self.delegate fileViewDidStopLoading];
+	}
+}
+
+- (void)openAs:(int)kind;
+{
+	if ([self.delegate respondsToSelector:@selector(fileViewDidOpenFileAs:)]) {
+		[self.delegate fileViewDidOpenFileAs:kind];
+	}
 }
 
 

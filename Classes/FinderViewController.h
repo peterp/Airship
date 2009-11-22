@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-#import "FileViewDelegate.h"
+#import "FileViewControllerDelegate.h"
 
 
 @class FileViewController;
 @class File;
 
-@interface FinderViewController : UIViewController <FileViewDelegate, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchDisplayDelegate> {
+@interface FinderViewController : UIViewController <FileViewControllerDelegate, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchDisplayDelegate> {
 
 
 	NSString *path;

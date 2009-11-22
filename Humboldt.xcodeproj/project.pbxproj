@@ -58,6 +58,14 @@
 		CECE390910680DD4000EE1F6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CECE390810680DD4000EE1F6 /* SystemConfiguration.framework */; };
 		CED611271081F5F9000C41CB /* NSArray+CWSortedInsert.m in Sources */ = {isa = PBXBuildFile; fileRef = CED611261081F5F9000C41CB /* NSArray+CWSortedInsert.m */; };
 		CEE04E9F0FD9E82E00C32900 /* AFMultipartParser.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE04E9E0FD9E82E00C32900 /* AFMultipartParser.m */; };
+		CEE4A07610B7219700CEDC3C /* FileDocumentView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE4A07510B7219700CEDC3C /* FileDocumentView.m */; };
+		CEE4A13210B74EFB00CEDC3C /* FileUnknownView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE4A13110B74EFB00CEDC3C /* FileUnknownView.m */; };
+		CEE4A55A10B8516A00CEDC3C /* FileAudioView.mm in Sources */ = {isa = PBXBuildFile; fileRef = CEE4A55910B8516A00CEDC3C /* FileAudioView.mm */; };
+		CEE4A6A510B88AB800CEDC3C /* CALevelMeter.mm in Sources */ = {isa = PBXBuildFile; fileRef = CEE4A6A010B88AB800CEDC3C /* CALevelMeter.mm */; };
+		CEE4A6A610B88AB800CEDC3C /* GLLevelMeter.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE4A6A210B88AB800CEDC3C /* GLLevelMeter.m */; };
+		CEE4A6A710B88AB800CEDC3C /* LevelMeter.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE4A6A410B88AB800CEDC3C /* LevelMeter.m */; };
+		CEE4A6BC10B88ACA00CEDC3C /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEE4A6BB10B88ACA00CEDC3C /* OpenGLES.framework */; };
+		CEE4A6DE10B88C2200CEDC3C /* MeterTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CEE4A6DC10B88C2200CEDC3C /* MeterTable.cpp */; };
 		CEEFAC1A10B49FDC00B8D906 /* FileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEFAC1810B49FDC00B8D906 /* FileViewController.m */; };
 		CEEFAC3010B4A15200B8D906 /* FileImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEFAC2F10B4A15200B8D906 /* FileImageView.m */; };
 		CEEFACBB10B4A60800B8D906 /* FileView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEFACBA10B4A60800B8D906 /* FileView.m */; };
@@ -79,7 +87,7 @@
 		CE0AEEDD10B05109003FA784 /* cell_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cell_selected.png; sourceTree = "<group>"; };
 		CE0F139D10A21080002569B6 /* TapDetectingWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapDetectingWebView.h; sourceTree = "<group>"; };
 		CE0F139E10A21080002569B6 /* TapDetectingWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapDetectingWebView.m; sourceTree = "<group>"; };
-		CE1F417A109A28AD0067DB73 /* FileViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileViewDelegate.h; sourceTree = "<group>"; };
+		CE1F417A109A28AD0067DB73 /* FileViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileViewControllerDelegate.h; sourceTree = "<group>"; };
 		CE2B3B0D0F3CD72B0039B355 /* StorageHTTPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StorageHTTPConnection.h; sourceTree = "<group>"; };
 		CE2B3B0E0F3CD72B0039B355 /* StorageHTTPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StorageHTTPConnection.m; sourceTree = "<group>"; };
 		CE3035D4109BAB1F00A31CCC /* dock_finder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dock_finder.png; path = icons/dock_finder.png; sourceTree = "<group>"; };
@@ -149,6 +157,21 @@
 		CED611251081F5F9000C41CB /* NSArray+CWSortedInsert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+CWSortedInsert.h"; sourceTree = "<group>"; };
 		CED611261081F5F9000C41CB /* NSArray+CWSortedInsert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+CWSortedInsert.m"; sourceTree = "<group>"; };
 		CEE04E9E0FD9E82E00C32900 /* AFMultipartParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFMultipartParser.m; sourceTree = "<group>"; };
+		CEE4A07410B7219700CEDC3C /* FileDocumentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileDocumentView.h; sourceTree = "<group>"; };
+		CEE4A07510B7219700CEDC3C /* FileDocumentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileDocumentView.m; sourceTree = "<group>"; };
+		CEE4A13010B74EFB00CEDC3C /* FileUnknownView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileUnknownView.h; sourceTree = "<group>"; };
+		CEE4A13110B74EFB00CEDC3C /* FileUnknownView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileUnknownView.m; sourceTree = "<group>"; };
+		CEE4A55810B8516A00CEDC3C /* FileAudioView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileAudioView.h; sourceTree = "<group>"; };
+		CEE4A55910B8516A00CEDC3C /* FileAudioView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FileAudioView.mm; sourceTree = "<group>"; };
+		CEE4A69F10B88AB800CEDC3C /* CALevelMeter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CALevelMeter.h; sourceTree = "<group>"; };
+		CEE4A6A010B88AB800CEDC3C /* CALevelMeter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CALevelMeter.mm; sourceTree = "<group>"; };
+		CEE4A6A110B88AB800CEDC3C /* GLLevelMeter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLLevelMeter.h; sourceTree = "<group>"; };
+		CEE4A6A210B88AB800CEDC3C /* GLLevelMeter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLLevelMeter.m; sourceTree = "<group>"; };
+		CEE4A6A310B88AB800CEDC3C /* LevelMeter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelMeter.h; sourceTree = "<group>"; };
+		CEE4A6A410B88AB800CEDC3C /* LevelMeter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelMeter.m; sourceTree = "<group>"; };
+		CEE4A6BB10B88ACA00CEDC3C /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		CEE4A6DC10B88C2200CEDC3C /* MeterTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MeterTable.cpp; sourceTree = "<group>"; };
+		CEE4A6DD10B88C2200CEDC3C /* MeterTable.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = MeterTable.h; sourceTree = "<group>"; };
 		CEEFAC1810B49FDC00B8D906 /* FileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileViewController.m; sourceTree = "<group>"; };
 		CEEFAC1910B49FDC00B8D906 /* FileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileViewController.h; sourceTree = "<group>"; };
 		CEEFAC2E10B4A15200B8D906 /* FileImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileImageView.h; sourceTree = "<group>"; };
@@ -174,6 +197,7 @@
 				CE9A6D85105EF74E00E25682 /* AudioToolbox.framework in Frameworks */,
 				CECE390910680DD4000EE1F6 /* SystemConfiguration.framework in Frameworks */,
 				CEEFAE5B10B5F97C00B8D906 /* QuartzCore.framework in Frameworks */,
+				CEE4A6BC10B88ACA00CEDC3C /* OpenGLES.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,6 +249,8 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				CEE4A6DD10B88C2200CEDC3C /* MeterTable.h */,
+				CEE4A6DC10B88C2200CEDC3C /* MeterTable.cpp */,
 				32CA4F630368D1EE00C91783 /* Humboldt_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
@@ -255,6 +281,7 @@
 				CE5B301910539CBC00B6A834 /* UIKit.framework */,
 				CE9A6D84105EF74E00E25682 /* AudioToolbox.framework */,
 				CECE390810680DD4000EE1F6 /* SystemConfiguration.framework */,
+				CEE4A6BB10B88ACA00CEDC3C /* OpenGLES.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -373,19 +400,63 @@
 		CEE2A69D109B4BAC002D99A2 /* File View + Support */ = {
 			isa = PBXGroup;
 			children = (
-				CE1F417A109A28AD0067DB73 /* FileViewDelegate.h */,
+				CE1F417A109A28AD0067DB73 /* FileViewControllerDelegate.h */,
 				CEEFAC1910B49FDC00B8D906 /* FileViewController.h */,
 				CEEFAC1810B49FDC00B8D906 /* FileViewController.m */,
-				CE0F139D10A21080002569B6 /* TapDetectingWebView.h */,
-				CE0F139E10A21080002569B6 /* TapDetectingWebView.m */,
-				CE8CB8CE109CD62A008B3FAE /* TapDetectingScrollView.h */,
-				CE8CB8CF109CD62A008B3FAE /* TapDetectingScrollView.m */,
 				CEEFACB910B4A60800B8D906 /* FileView.h */,
 				CEEFACBA10B4A60800B8D906 /* FileView.m */,
+				CEE4A49810B83AFE00CEDC3C /* Audio */,
+				CEE4A08C10B724B100CEDC3C /* Document */,
+				CEE4A08B10B724A700CEDC3C /* Image */,
+				CEE4A12F10B74EE200CEDC3C /* Unknown */,
+			);
+			name = "File View + Support";
+			sourceTree = "<group>";
+		};
+		CEE4A08B10B724A700CEDC3C /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				CE8CB8CE109CD62A008B3FAE /* TapDetectingScrollView.h */,
+				CE8CB8CF109CD62A008B3FAE /* TapDetectingScrollView.m */,
 				CEEFAC2E10B4A15200B8D906 /* FileImageView.h */,
 				CEEFAC2F10B4A15200B8D906 /* FileImageView.m */,
 			);
-			name = "File View + Support";
+			name = Image;
+			sourceTree = "<group>";
+		};
+		CEE4A08C10B724B100CEDC3C /* Document */ = {
+			isa = PBXGroup;
+			children = (
+				CE0F139D10A21080002569B6 /* TapDetectingWebView.h */,
+				CE0F139E10A21080002569B6 /* TapDetectingWebView.m */,
+				CEE4A07410B7219700CEDC3C /* FileDocumentView.h */,
+				CEE4A07510B7219700CEDC3C /* FileDocumentView.m */,
+			);
+			name = Document;
+			sourceTree = "<group>";
+		};
+		CEE4A12F10B74EE200CEDC3C /* Unknown */ = {
+			isa = PBXGroup;
+			children = (
+				CEE4A13010B74EFB00CEDC3C /* FileUnknownView.h */,
+				CEE4A13110B74EFB00CEDC3C /* FileUnknownView.m */,
+			);
+			name = Unknown;
+			sourceTree = "<group>";
+		};
+		CEE4A49810B83AFE00CEDC3C /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				CEE4A55810B8516A00CEDC3C /* FileAudioView.h */,
+				CEE4A55910B8516A00CEDC3C /* FileAudioView.mm */,
+				CEE4A69F10B88AB800CEDC3C /* CALevelMeter.h */,
+				CEE4A6A010B88AB800CEDC3C /* CALevelMeter.mm */,
+				CEE4A6A110B88AB800CEDC3C /* GLLevelMeter.h */,
+				CEE4A6A210B88AB800CEDC3C /* GLLevelMeter.m */,
+				CEE4A6A310B88AB800CEDC3C /* LevelMeter.h */,
+				CEE4A6A410B88AB800CEDC3C /* LevelMeter.m */,
+			);
+			name = Audio;
 			sourceTree = "<group>";
 		};
 		CEECF85B10302C8200469751 /* HTTP */ = {
@@ -501,6 +572,13 @@
 				CEEFAC1A10B49FDC00B8D906 /* FileViewController.m in Sources */,
 				CEEFAC3010B4A15200B8D906 /* FileImageView.m in Sources */,
 				CEEFACBB10B4A60800B8D906 /* FileView.m in Sources */,
+				CEE4A07610B7219700CEDC3C /* FileDocumentView.m in Sources */,
+				CEE4A13210B74EFB00CEDC3C /* FileUnknownView.m in Sources */,
+				CEE4A55A10B8516A00CEDC3C /* FileAudioView.mm in Sources */,
+				CEE4A6A510B88AB800CEDC3C /* CALevelMeter.mm in Sources */,
+				CEE4A6A610B88AB800CEDC3C /* GLLevelMeter.m in Sources */,
+				CEE4A6A710B88AB800CEDC3C /* LevelMeter.m in Sources */,
+				CEE4A6DE10B88C2200CEDC3C /* MeterTable.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

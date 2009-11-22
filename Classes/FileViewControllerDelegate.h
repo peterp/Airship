@@ -9,7 +9,7 @@
 @class FileViewController;
 
 
-@protocol FileViewDelegate <NSObject>
+@protocol FileViewControllerDelegate <NSObject>
 @optional
 	- (void)fileViewControllerDidFinish:(FileViewController *)controller;
 	- (void)fileViewControllerDidPaginate:(FileViewController *)controller toNextFile:(BOOL)nextFile;

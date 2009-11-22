@@ -9,13 +9,31 @@
 #import <UIKit/UIKit.h>
 
 
+@protocol FileViewDelegate <NSObject>
+@optional
+
+	- (void)fileViewDidOpenFileAs:(int)kind;
+	- (void)fileViewDidStartLoading;
+	- (void)fileViewDidStopLoading;
+@end
+
+
+
 @interface FileView : UIView {
+
+		id <FileViewDelegate> delegate;
+
 
 }
 
+@property (nonatomic, retain) id <FileViewDelegate> delegate;
+
 
 - (void)loadFileAtPath:(NSString *)path;
-- (void)didRotateInterfaceOrientation;
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation;
+
+- (void)didStartLoading;
+- (void)didStopLoading;
 
 
 @end

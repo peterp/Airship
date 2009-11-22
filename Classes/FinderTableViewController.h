@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "FileViewDelegate.h"
+#import "FileViewControllerDelegate.h"
 
 @class FileViewController;
 @class File;
 
 
-@interface FinderTableViewController : UITableViewController <FileViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate> {
+@interface FinderTableViewController : UITableViewController <FileViewControllerDelegate, UISearchBarDelegate, UISearchDisplayDelegate> {
 
 
 	NSString *path;

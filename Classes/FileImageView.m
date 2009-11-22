@@ -27,10 +27,10 @@
 
 - (id)initWithFrame:(CGRect)frame 
 {
+
 	if ([super initWithFrame:frame]) {
 	
 		self.scrollView = [[TapDetectingScrollView alloc] initWithFrame:self.frame];
-		scrollView.backgroundColor = [UIColor darkGrayColor];
 		scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		scrollView.delegate = self;
 		scrollView.tapDetectingDelegate = self;
@@ -66,6 +66,8 @@
 	scrollView.zoomScale = minimumZoomScale;
 	scrollView.maximumZoomScale = 2.5;
 	[self viewForZoomingInScrollView:scrollView];
+	
+	[self didStopLoading];
 }
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)aScrollView;
@@ -84,7 +86,7 @@
 	return imageView;
 }
 
-- (void)didRotateInterfaceOrientation;
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation;
 {
 	float minimumZoomScale = imageWidth > imageHeight ? self.frame.size.width / imageWidth : self.frame.size.height / imageHeight;
 	scrollView.maximumZoomScale = 2.5;

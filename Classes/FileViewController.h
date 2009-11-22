@@ -7,25 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "FileViewDelegate.h"
-// Document
+#import "FileViewControllerDelegate.h"
+#import "FileView.h";
 
 @class File;
 
-// Document
-@class TapDetectingWebView;
-
-// Image
-#import "FileView.h";
 
 
+@interface FileViewController : UIViewController <FileViewDelegate> {
 
-@interface FileViewController : UIViewController <UIWebViewDelegate> {
-
-	id <FileViewDelegate> delegate;
+	id <FileViewControllerDelegate> delegate;
 	File *file;
 
 	UINavigationBar *navigationBar;
+	UILabel *titleViewLabel;
 	UISegmentedControl *paginationSegmentControl;
 	
 	UIToolbar *toolbar;
@@ -35,19 +30,10 @@
 	
 	FileView *fileView;
 	UIImageView *capturedFileViewImage;
-	
 	BOOL fileViewAnimationDown;
-	
-	
-	
-	// Document
-	TapDetectingWebView *documentWebView;
-	
-	
-	
 }
 
-@property (nonatomic, assign) id <FileViewDelegate> delegate;
+@property (nonatomic, assign) id <FileViewControllerDelegate> delegate;
 @property (nonatomic, retain) File *file;
 
 @property (nonatomic, retain) UINavigationBar *navigationBar;
@@ -64,39 +50,8 @@
 
 
 - (void)displayFileViewWithKind:(int)kind animated:(BOOL)animated;
-
 - (void)setFileViewWithKind:(int)kind;
 - (UIImage *)captureView:(UIView *)view;
-
-
-
-
-
-
-
-
-
-// Document
-@property (nonatomic, retain) TapDetectingWebView *documentWebView;
-
-
-
-
-
-
-//- (void)unloadViewController;
-//- (void)paginationSegmentControlChanged:(id)sender;
-//
-////- (void)openFile;
-////- (void)closeAndUnloadFile;
-//
-//
-//- (void)determineFileKindAndLoad;
-//- (void)unloadFile;
-//- (void)loadDocumentFile;
-////- (void)loadAudio;
-////- (void)loadVideo;
-//- (void)loadUnknownFile;
 
 
 

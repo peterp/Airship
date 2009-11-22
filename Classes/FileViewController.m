@@ -9,14 +9,13 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import "FileViewController.h"
-
-
 #import "File.h";
 
-// Document
-#import "TapDetectingWebView.h"
-
+#import "FileAudioView.h";
+#import "FileDocumentView.h"
 #import "FileImageView.h";
+#import "FileUnknownView.h";
+
 
 
 
@@ -35,11 +34,6 @@
 
 @synthesize fileView;
 @synthesize capturedFileViewImage;
-
-
-// Document
-@synthesize documentWebView;
-// Image
 
 
 
@@ -61,10 +55,6 @@
 	self.fileView = nil;
 	self.capturedFileViewImage = nil;
 	
-	// Document
-	self.documentWebView = nil;
-
-
 
 	[super dealloc];
 }
@@ -87,6 +77,8 @@
 {
 	[super viewDidLoad];
 	
+	self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+	
 	
 	
 	// NavigationBar
@@ -97,6 +89,26 @@
 	
 	// NavigationBar + NavigationItem
 	UINavigationItem *navigationItem = [[UINavigationItem alloc] init];
+	
+	
+	UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(100, 0, self.view.frame.size.width - 200, 44)];
+	titleView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+	titleViewLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, titleView.frame.size.width, 44)];
+	titleViewLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+	titleViewLabel.backgroundColor = [UIColor clearColor];
+	titleViewLabel.textAlignment = UITextAlignmentCenter;
+	titleViewLabel.font = [UIFont boldSystemFontOfSize:13];
+	titleViewLabel.textColor = [UIColor whiteColor];
+	titleViewLabel.shadowColor = [UIColor blackColor];
+	titleViewLabel.shadowOffset = CGSizeMake(2, 2);
+	[titleView addSubview:titleViewLabel];
+	[titleViewLabel release];
+	
+	navigationItem.titleView = titleView;
+	[titleView release];
+
+	
+	
 
 	// NavigationBar + NavigationItem + doneBarButtonItem
 	UIBarButtonItem *doneBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(unloadViewController)];
@@ -120,12 +132,20 @@
 	[navigationBar release];
 	
 	
+	
+	
 	// Toolbar
 	self.toolbar = [[UIToolbar alloc] initWithFrame:CGRectZero];
 	toolbar.frame = CGRectMake(0, self.view.frame.size.height - 44, self.view.frame.size.width, 44);
 	toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin;
 	toolbar.barStyle = UIBarStyleBlackTranslucent;
-	[self.view addSubview:toolbar];
+	
+	// star? maybe...
+	// email
+	// revert (if the file is unknown).
+	
+	// delete
+	// activity indicator.
 
 	
 	// Toolbar + ActivityIndicator
@@ -134,27 +154,55 @@
 	UIBarButtonItem *activityIndicatorBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
 	[activityIndicator release];
 	
+	// Toolbar + Email
+	
+	
+	// Toolbar + Revert
+	
+	
+	// Toolbar + Delete
+	
+	
+	
 	
 	[toolbar setItems:[NSArray arrayWithObjects:activityIndicatorBarButtonItem, nil] animated:YES];
 	[activityIndicatorBarButtonItem release];
+
+	[self.view addSubview:toolbar];
 	[toolbar release];
 	
 }
-
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation;
-{
-	return YES;
-}
-
 
 - (void)didReceiveMemoryWarning;
 {
 	[super didReceiveMemoryWarning];
 }
 
-- (void)viewDidUnload;
+
+- (void)viewWillDisappear:(BOOL)animated;
 {
+	[fileView removeFromSuperview];
+}
+
+
+
+#pragma mark -
+#pragma mark Orientation
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation;
+{
+	// Support all orientations.
+	return YES;
+}
+
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+	// Image is a special case when it comes to orientation, so things 
+	// need to be reset, so are we displaying an image?
+	if ([fileView isKindOfClass:[FileImageView class]]) {
+		[fileView didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+	}
 }
 
 
@@ -253,10 +301,13 @@
 
 
 
+#pragma mark -
+#pragma mark Switching file methods
+
 
 - (void)setFile:(File *)aFile;
 {
-	self.navigationBar.topItem.title = aFile.name;
+	titleViewLabel.text = aFile.name;
 	file = aFile;
 }
 
@@ -272,7 +323,6 @@
 {
 	
 	if (animated == YES) {
-	
 
 		// capture fileView
 		self.capturedFileViewImage = [[UIImageView alloc] initWithImage:[self captureView:self.fileView]];
@@ -287,9 +337,10 @@
 		// Create
 		[self setFileViewWithKind:kind];
 		[fileView loadFileAtPath:file.absolutePath];
-		// Adjust Frame.
+
+		// Reposition fileView, above or below the main view's frame.
 		CGRect fileViewRect = fileView.frame;
-		fileViewRect.origin.y = (fileViewAnimationDown) ? self.view.frame.size.height : (self.view.frame.size.height * -1);
+		fileViewRect.origin.y = (fileViewAnimationDown) ? fileViewRect.size.height : (fileViewRect.size.height * -1);
 		fileView.frame = fileViewRect;
 		[self.view insertSubview:fileView atIndex:0];
 		[fileView release];
@@ -300,12 +351,12 @@
 		[UIView setAnimationDuration:0.3];
 		[UIView setAnimationDidStopSelector:@selector(displayFileViewAnimatedDidFinish)];
 		
-		
+		// Reposition image.
 		CGRect capturedFileViewImageRect = capturedFileViewImage.frame;
 		capturedFileViewImageRect.origin.y = (fileViewAnimationDown) ? self.view.frame.size.height * -1 : self.view.frame.size.height;
 		capturedFileViewImage.frame = capturedFileViewImageRect;
 		
-		fileView.frame = self.view.frame;
+		fileView.frame = self.view.bounds;
 		
 		[UIView commitAnimations];
 		
@@ -324,18 +375,33 @@
 
 - (void)setFileViewWithKind:(int)kind;
 {
+	[activityIndicator startAnimating];
+
 	switch (kind) {
-		case FILE_KIND_IMAGE:
-			self.fileView = [[FileImageView alloc] initWithFrame:self.view.frame];
+		
+		case FILE_KIND_AUDIO:
+			self.fileView = [[FileAudioView alloc] initWithFrame:self.view.bounds];
 			break;
+	
+	
+		case FILE_KIND_DOCUMENT:
+			self.fileView = [[FileDocumentView alloc] initWithFrame:self.view.bounds];
+			break;
+
+		case FILE_KIND_IMAGE:
+			self.fileView = [[FileImageView alloc] initWithFrame:self.view.bounds];
+			break;
+
+		case FILE_KIND_UNKNOWN:
+			self.fileView = [[FileUnknownView alloc] initWithFrame:self.view.bounds];
 		default:
 			break;
 	}
 	
-	fileView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-	fileView.frame = self.view.frame;
-}
 
+	fileView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+	fileView.delegate = self;
+}
 
 
 - (UIImage *)captureView:(UIView *)view;
@@ -359,172 +425,30 @@
 
 
 
+#pragma mark -
+#pragma mark FileView delegate methods
 
 
 
 
+- (void)fileViewDidOpenFileAs:(int)kind;
+{
+	[self displayFileViewWithKind:kind animated:NO];
+	// add a little button to revert back to "unknown."
+}
 
 
+- (void)fileViewDidStartLoading;
+{
+	[activityIndicator startAnimating];
+}
+
+- (void)fileViewDidStopLoading;
+{
+	[activityIndicator stopAnimating];
+}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-//
-//
-//
-//
-//
-//
-//#pragma mark -
-//#pragma mark DOCUMENTS
-//
-//- (void)loadDocumentFile;
-//{
-//	if (self.documentWebView == nil) {
-//		self.documentWebView = [[TapDetectingWebView alloc] initWithFrame:self.view.bounds];
-//		documentWebView.delegate = self;
-//		documentWebView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-//		documentWebView.scalesPageToFit = YES;
-//		[self.view insertSubview:documentWebView atIndex:0];
-//		[documentWebView release];
-//	}
-//	
-//	[documentWebView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:self.file.absolutePath]]];
-//}
-//
-//- (void)tapDetectingWebViewGotSingleTap:(TapDetectingWebView *)aWebView;
-//{
-//	[self toggleBarsVisibilty];
-//}
-//
-//
-//- (void)webViewDidStartLoad:(UIWebView *)aWebView;
-//{
-//	self.activityIndicator.hidden = NO;
-//	[self.activityIndicator startAnimating];
-//}
-//
-//- (void)webViewDidFinishLoad:(UIWebView *)aWebView;
-//{
-//	[self.activityIndicator stopAnimating];
-//}
-//
-//#pragma mark -
-//#pragma mark IMAGES
-//
-//- (void)loadImageFile;
-//{
-//}
-//
-//
-//
-//
-//
-//#pragma mark -
-//#pragma mark UNKNOWN
-//
-//
-//- (void)openAsDocumentFile;
-//{
-//	[self unloadFile];
-//	[self loadDocumentFile];
-//}
-//
-//- (void)loadUnknownFile;
-//{
-//	[self.activityIndicator stopAnimating];
-//	
-//	
-//	if (self.unknownFileView == nil) {
-//		self.unknownFileView = [[UIView alloc] initWithFrame:self.view.frame];
-//		unknownFileView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-//		unknownFileView.backgroundColor = [UIColor lightGrayColor];
-//		[self.view insertSubview:unknownFileView atIndex:0];
-//	}
-//	
-//	
-//	
-//	if (self.explinationLabel == nil) {
-//		self.explinationLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, self.navigationBar.frame.size.height + 36, self.view.frame.size.width - 20, 80)];
-//		explinationLabel.backgroundColor = [UIColor clearColor];
-//		explinationLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
-//		explinationLabel.shadowColor = [UIColor lightTextColor];
-//		explinationLabel.shadowOffset = CGSizeMake(1, 1);
-//		explinationLabel.numberOfLines = 0;
-//		explinationLabel.font = [UIFont systemFontOfSize:16];
-//		explinationLabel.textAlignment = UITextAlignmentCenter;
-//		[self.unknownFileView addSubview:explinationLabel];
-//		[explinationLabel release];
-//	}
-//	
-//	self.explinationLabel.text = [NSString stringWithFormat:@"airship doesn't know how to display \"%@.\"\n\nChoose to display file as...", self.file.name];
-//	
-//	
-//	if (self.openAudioButton == nil) {
-//	}
-//	
-//	if (self.openDocumentButton == nil) {
-//		self.openDocumentButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 200, 64, 64)];
-//		openDocumentButton.backgroundColor = [UIColor blackColor];
-//		openDocumentButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
-//		[openDocumentButton addTarget:self action:@selector(openAsDocumentFile) forControlEvents:UIControlEventTouchUpInside];
-//
-//		[openDocumentButton setTitle:@"Document" forState:UIControlStateNormal];
-//		[self.unknownFileView addSubview:openDocumentButton];
-//		[openDocumentButton release];
-//		
-////				self.deleteButton = [[UIButton alloc] initWithFrame:CGRectMake(12, 7, 122, 28)];
-////		[deleteButton addTarget:self action:@selector(deleteSelection) forControlEvents:UIControlEventTouchUpInside];
-////		[deleteButton setBackgroundImage:[[UIImage imageNamed: @"button_red.png"] stretchableImageWithLeftCapWidth:7.0 topCapHeight:0.0] forState:UIControlStateNormal];
-////		[deleteButton setImage:[UIImage imageNamed:@"icon_trash.png"] forState:UIControlStateNormal];
-////		[deleteButton setTitle:@"Delete" forState:UIControlStateNormal];
-////		deleteButton.titleLabel.font = [UIFont boldSystemFontOfSize:13];
-////		[toolbar addSubview:deleteButton];
-////		[deleteButton release];
-//		
-//
-//		
-//	}
-//	
-//	
-//	
-//	
-////	UIView *unknownFileView = [[UIView alloc] initWithFrame:self.view.bounds];
-////	unknownFileView.backgroundColor = [UIColor whiteColor];
-////	unknownFileView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-////	
-////	
-////
-////	UILabel *description = [[UILabel alloc] initWithFrame:CGRectMake(10, 60, 300, 300)];
-////	description.backgroundColor = [UIColor lightGrayColor];
-////	description.numberOfLines = 0;
-////	description.shadowColor = [UIColor whiteColor];
-////	description.text = @"Airship doesn't know how to open the file <filename>.";
-////	description.lineBreakMode = UILineBreakModeWordWrap;
-////	
-////	[unknownFileView addSubview:description];
-////	[description release];
-////	
-////	[self.view insertSubview:unknownFileView atIndex:0];
-////	[unknownFileView release];
-////	
-////	
-////	NSLog(@"loading unknown file");
-
-	
-//}
 
 
 
