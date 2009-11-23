@@ -10,8 +10,6 @@
 #import "FileViewController.h"
 #import "File.h";
 
-//#import "FinderTableViewController.h"
-
 
 @implementation FinderViewController
 

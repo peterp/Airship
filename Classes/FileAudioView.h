@@ -29,10 +29,11 @@
 	MPVolumeView *volumeView;
 	UIButton *playPauseButton;
 	UISlider *songSeekSlider;
+	BOOL ignoreSongSeekSliderValueChange;
 	
 	
 	
-	NSTimer *updateTimer;
+	NSTimer *updateTimeTimer;
 	UILabel *timePlayedLabel;
 	UILabel *timeLeftLabel;
 	
@@ -53,8 +54,14 @@
 
 
 - (void)updateViewForAudioPlayerState;
-
+- (void)updateViewForTimeState;
 - (NSString *)secondsToHoursMinutesAndSeconds:(long)seconds;
+
+- (void)songSeekSliderEditingDidBegin:(id)sender;
+- (void)songSeekSliderEditingDidEnd:(id)sender;
+- (void)songSeekSliderValueDidChange:(id)sender;
+- (void)changeAudioPlayerCurrentTime;
+
 
 
 @end

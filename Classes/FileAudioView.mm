@@ -54,7 +54,7 @@
 		[[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
 
 		// Metering
-		self.levelMeter = [[CALevelMeter alloc] initWithFrame:CGRectMake(30, 130, 260, 60)];
+		self.levelMeter = [[CALevelMeter alloc] initWithFrame:CGRectMake(10, 150, 300, 60)];
 		[self addSubview:levelMeter];
 		[levelMeter release];
 		
@@ -62,17 +62,48 @@
 		// playPauseButton;
 		self.playPauseButton = [[UIButton alloc] initWithFrame:CGRectMake(138, 300, 44, 44)];
 		[playPauseButton addTarget:self action:@selector(playPauseButtonPushed:) forControlEvents:UIControlEventTouchUpInside];
-		playPauseButton.backgroundColor = [UIColor whiteColor];
+		playPauseButton.backgroundColor = [UIColor grayColor];
 		[self addSubview:playPauseButton];
 		[playPauseButton release];
 		
 		
 		// Volume
-		
-		
 		self.volumeView = [[MPVolumeView alloc] initWithFrame:CGRectMake(25, 376, 270, 30)];
 		[self addSubview:volumeView];
 		[volumeView release];
+		
+		// Volume customisation
+		
+		
+		// Seek bar + timers.
+		self.timePlayedLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 90, 50, 20)];
+		timePlayedLabel.textColor = [UIColor whiteColor];
+		timePlayedLabel.adjustsFontSizeToFitWidth = YES;
+		timePlayedLabel.font = [UIFont systemFontOfSize:12];
+		timePlayedLabel.backgroundColor = [UIColor clearColor];
+		[self addSubview:timePlayedLabel];
+		[timePlayedLabel release];
+		
+		
+		self.timeLeftLabel = [[UILabel alloc] initWithFrame:CGRectMake(260, 90, 50, 20)];
+		timeLeftLabel.textAlignment = UITextAlignmentRight;
+		timeLeftLabel.textColor = [UIColor whiteColor];
+		timeLeftLabel.adjustsFontSizeToFitWidth = YES;
+		timeLeftLabel.font = [UIFont systemFontOfSize:12];
+		timeLeftLabel.backgroundColor = [UIColor clearColor];
+		[self addSubview:timeLeftLabel];
+		[timeLeftLabel release];
+
+		
+		self.songSeekSlider = [[UISlider alloc] initWithFrame:CGRectMake(60, 90, 200, 20)];
+		songSeekSlider.minimumValue = 0;
+		
+		[songSeekSlider addTarget:self action:@selector(songSeekSliderEditingDidBegin:) forControlEvents:UIControlEventTouchDown];
+		[songSeekSlider addTarget:self action:@selector(songSeekSliderEditingDidEnd:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
+		[songSeekSlider addTarget:self action:@selector(songSeekSliderValueDidChange:) forControlEvents:UIControlEventValueChanged];
+
+		[self addSubview:songSeekSlider];
+		[songSeekSlider release];
 	}
 	return self;
 }
@@ -97,6 +128,9 @@
 			
 			[self updateViewForAudioPlayerState];
 			
+			songSeekSlider.maximumValue = audioPlayer.duration;
+			[self updateViewForTimeState];
+			
 			
 			
 		}
@@ -109,8 +143,8 @@
 	[audioPlayer stop];
 	[levelMeter setPlayer:nil];
 	
-	[updateTimer invalidate];
-	updateTimer = nil;
+	[updateTimeTimer invalidate];
+	updateTimeTimer = nil;
 	
 	[[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategorySoloAmbient error:nil];
 
@@ -138,8 +172,8 @@
 - (void)updateViewForAudioPlayerState;
 {
 	
-	if (updateTimer)
-		[updateTimer invalidate];
+	if (updateTimeTimer)
+		[updateTimeTimer invalidate];
 
 
 	if (audioPlayer.playing == YES) {
@@ -147,14 +181,23 @@
 		[playPauseButton setTitle:@"Pause" forState:UIControlStateNormal];
 		[levelMeter setPlayer:audioPlayer];
 		
-		updateTimer = nil;
-	
+		// Start timer... to update the scrollbar and time.
+		updateTimeTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateViewForTimeState) userInfo:nil repeats:YES];
 	} else {
 
 		[playPauseButton setTitle:@"Play" forState:UIControlStateNormal];
 		[levelMeter setPlayer:nil];
-		
-		// Start timer... to update the scrollbar and time.
+		updateTimeTimer = nil;
+	}
+}
+
+- (void)updateViewForTimeState;
+{
+	timePlayedLabel.text = [self secondsToHoursMinutesAndSeconds:audioPlayer.currentTime];
+	timeLeftLabel.text = [NSString stringWithFormat:@"-%@", [self secondsToHoursMinutesAndSeconds:audioPlayer.duration - audioPlayer.currentTime]];
+
+	if (updateTimeTimer != nil) {
+		songSeekSlider.value = audioPlayer.currentTime;
 	}
 }
 
@@ -205,8 +248,42 @@
 }
 
 
+#pragma mark -
+#pragma mark UISlider events
 
+- (void)songSeekSliderEditingDidBegin:(id)sender;
+{
+	ignoreSongSeekSliderValueChange = NO;
+	if (updateTimeTimer != nil) {
+		[updateTimeTimer invalidate];
+		updateTimeTimer = nil;
+	}
+}
 
+- (void)songSeekSliderEditingDidEnd:(id)sender;
+{
+	ignoreSongSeekSliderValueChange = YES;
+	
+	if (updateTimeTimer == nil) {
+		updateTimeTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateViewForTimeState) userInfo:nil repeats:YES];
+	}
+}
+
+- (void)songSeekSliderValueDidChange:(id)sender;
+{
+	if (ignoreSongSeekSliderValueChange == YES) {
+		ignoreSongSeekSliderValueChange = NO;
+		return;
+	}
+	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(changeAudioPlayerCurrentTime) object:nil];
+	[self performSelector:@selector(changeAudioPlayerCurrentTime) withObject:nil afterDelay:.5];
+}
+
+- (void)changeAudioPlayerCurrentTime;
+{
+	audioPlayer.currentTime = (int)songSeekSlider.value;
+	[self updateViewForTimeState];
+}
 
 
 @end

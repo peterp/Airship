@@ -317,6 +317,8 @@
 {
 	[capturedFileViewImage removeFromSuperview];
 	self.capturedFileViewImage = nil;
+	
+	[fileView loadFileAtPath:file.absolutePath];
 }
 
 - (void)displayFileViewWithKind:(int)kind animated:(BOOL)animated;
@@ -336,7 +338,7 @@
 		
 		// Create
 		[self setFileViewWithKind:kind];
-		[fileView loadFileAtPath:file.absolutePath];
+
 
 		// Reposition fileView, above or below the main view's frame.
 		CGRect fileViewRect = fileView.frame;
