@@ -96,12 +96,9 @@
 
 		
 		self.songSeekSlider = [[UISlider alloc] initWithFrame:CGRectMake(60, 90, 200, 20)];
-		songSeekSlider.minimumValue = 0;
-		
 		[songSeekSlider addTarget:self action:@selector(songSeekSliderEditingDidBegin:) forControlEvents:UIControlEventTouchDown];
 		[songSeekSlider addTarget:self action:@selector(songSeekSliderEditingDidEnd:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
 		[songSeekSlider addTarget:self action:@selector(songSeekSliderValueDidChange:) forControlEvents:UIControlEventValueChanged];
-
 		[self addSubview:songSeekSlider];
 		[songSeekSlider release];
 	}
@@ -124,19 +121,16 @@
 			// Provide some sort of error message.
 		} else {
 			[audioPlayer prepareToPlay];
-			[audioPlayer play];
-			
-			[self updateViewForAudioPlayerState];
-			
+			songSeekSlider.minimumValue = 0;
 			songSeekSlider.maximumValue = audioPlayer.duration;
-			[self updateViewForTimeState];
-			
-			
-			
+
+			[audioPlayer play];
+			[self updateViewForAudioPlayerState];
 		}
 		
 		[self didStopLoading];
 }
+
 
 - (void)removeFromSuperview;
 {
@@ -171,20 +165,19 @@
 
 - (void)updateViewForAudioPlayerState;
 {
-	
-	if (updateTimeTimer)
+	if (updateTimeTimer) {
 		[updateTimeTimer invalidate];
+	}
 
 
 	if (audioPlayer.playing == YES) {
 	
 		[playPauseButton setTitle:@"Pause" forState:UIControlStateNormal];
 		[levelMeter setPlayer:audioPlayer];
-		
-		// Start timer... to update the scrollbar and time.
 		updateTimeTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateViewForTimeState) userInfo:nil repeats:YES];
+		
 	} else {
-
+		
 		[playPauseButton setTitle:@"Play" forState:UIControlStateNormal];
 		[levelMeter setPlayer:nil];
 		updateTimeTimer = nil;
@@ -193,31 +186,17 @@
 
 - (void)updateViewForTimeState;
 {
-	timePlayedLabel.text = [self secondsToHoursMinutesAndSeconds:audioPlayer.currentTime];
-	timeLeftLabel.text = [NSString stringWithFormat:@"-%@", [self secondsToHoursMinutesAndSeconds:audioPlayer.duration - audioPlayer.currentTime]];
-
+	// We're not dragging...
 	if (updateTimeTimer != nil) {
 		songSeekSlider.value = audioPlayer.currentTime;
 	}
+	
+	NSLog(@"playing from: %f", audioPlayer.currentTime);
+
+	timePlayedLabel.text = [self secondsToHoursMinutesAndSeconds:songSeekSlider.value];
+	timeLeftLabel.text = [NSString stringWithFormat:@"-%@", [self secondsToHoursMinutesAndSeconds:audioPlayer.duration - songSeekSlider.value]];
 }
 
-
-
-- (NSString *)secondsToHoursMinutesAndSeconds:(long)seconds;
-{
-	div_t r = div(seconds, (60 * 60));
-	NSString *formattedTime = @"";
-	int hours = r.quot;
-	if (hours > 0) {
-		seconds = r.rem;
-		formattedTime = [NSString stringWithFormat:@"%0.2d:", hours];
-	}
-	r = div(seconds, 60);
-	int minutes = r.quot;
-	seconds = r.rem;
-
-	return [formattedTime stringByAppendingFormat:@"%0.2d:%0.2d", minutes, seconds];
-}
 
 
 
@@ -227,6 +206,8 @@
 
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag;
 {
+	// Update timers.
+	[self updateViewForTimeState];
 	[self updateViewForAudioPlayerState];
 }
 
@@ -271,19 +252,53 @@
 
 - (void)songSeekSliderValueDidChange:(id)sender;
 {
+
 	if (ignoreSongSeekSliderValueChange == YES) {
 		ignoreSongSeekSliderValueChange = NO;
 		return;
 	}
+	
+	[self updateViewForTimeState];
+
+
 	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(changeAudioPlayerCurrentTime) object:nil];
 	[self performSelector:@selector(changeAudioPlayerCurrentTime) withObject:nil afterDelay:.5];
 }
 
+
+
+
 - (void)changeAudioPlayerCurrentTime;
 {
-	audioPlayer.currentTime = (int)songSeekSlider.value;
-	[self updateViewForTimeState];
+	NSLog(@"please play from: %f", songSeekSlider.value);
+
+	[audioPlayer pause];
+	[audioPlayer setCurrentTime:songSeekSlider.value];
+	[audioPlayer prepareToPlay];
+	[audioPlayer play];
 }
+
+
+
+
+
+
+- (NSString *)secondsToHoursMinutesAndSeconds:(long)seconds;
+{
+	div_t r = div(seconds, (60 * 60));
+	NSString *formattedTime = @"";
+	int hours = r.quot;
+	if (hours > 0) {
+		seconds = r.rem;
+		formattedTime = [NSString stringWithFormat:@"%0.2d:", hours];
+	}
+	r = div(seconds, 60);
+	int minutes = r.quot;
+	seconds = r.rem;
+
+	return [formattedTime stringByAppendingFormat:@"%0.2d:%0.2d", minutes, seconds];
+}
+
 
 
 @end
