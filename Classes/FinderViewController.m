@@ -144,6 +144,10 @@
 		self.navigationItem.rightBarButtonItem = editButton;
 
 	}
+	
+	// Notifications
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFileListForRemovedFile:) name:@"removedFileNotification" object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFileListForAddedFile:) name:@"addedFileNotification" object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated;
@@ -334,12 +338,45 @@
 
 
 
+#pragma mark -
+#pragma mark Default Editing
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+	if (isEditing) {
+		return UITableViewCellEditingStyleNone;
+	} else {
+		return UITableViewCellEditingStyleDelete;
+	}
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	File *file = nil;
+	if (searchDisplayController.active) {
+		file = [filteredFileList objectAtIndex:indexPath.row];
+	} else {
+		file = [fileList objectAtIndex:indexPath.row];
+	}
+//	[file delete];
+
+	// Post notification.
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"removedFileNotification" object:self userInfo:
+		[NSDictionary dictionaryWithObjectsAndKeys:file, @"file", nil]];
+
+//	[fileList removeObjectAtIndex:indexPath.row];
+//
+//	[tableView beginUpdates];
+//	[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+//	[tableView endUpdates];
+}
+
 
 
 
 
 #pragma mark -
-#pragma mark Editing
+#pragma mark Custom Editing
 
 
 - (void)edit:(id)sender;
@@ -394,7 +431,6 @@
 
 - (void)deleteSelection;
 {
-
 	NSArray *indexPaths = [NSArray arrayWithArray:[selectedFileList allKeys]];
 	NSMutableIndexSet *indexes = [NSMutableIndexSet indexSet];
 	for (NSIndexPath *indexPath in indexPaths) {
@@ -566,7 +602,72 @@
 
 
 
+- (void)updateFileListForRemovedFile:(NSNotification *)notification;
+{
+	File *file = [notification.userInfo objectForKey:@"file"];
+	
+	NSLog(@"removing file:%@", [file.absolutePath lastPathComponent]);
+	
+	if (file.kind == FILE_KIND_DIRECTORY) {
+	
+	} else {
+	
+		if ([[file.absolutePath stringByDeletingLastPathComponent] isEqualToString:path]) {
+		
+			// SEARCH
+			if (self.searchDisplayController.active) {
+				int i = 0;
+				for (File *f in filteredFileList) {
+				
+					
+					NSLog(@"%i - %@", i, [f.absolutePath lastPathComponent]);
+				
+					// Compare paths...
+					if ([f.absolutePath isEqualToString:file.absolutePath]) {
+					
+						NSLog(@"match.");
+					
+						// remove from index.
+						[filteredFileList removeObjectAtIndex:i];
+						
+						// Update tableview.
+						[self.searchDisplayController.searchResultsTableView beginUpdates];
+						[self.searchDisplayController.searchResultsTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:i inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+						[self.searchDisplayController.searchResultsTableView endUpdates];
+						
+						break;
+					}
+					i += 1;
+				}
+			}
+			
+			// FILE LIST
+			int i = 0;
+			for (File *f in fileList) {
+				if ([f.absolutePath isEqualToString:file.absolutePath]) {
+					
+					// remove from index.
+					[fileList removeObjectAtIndex:i];
+					
+					// Update tableview.
+					[finderTableView beginUpdates];
+					[finderTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:i inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+					[finderTableView endUpdates];
+					
+					return;
+				}
+				i += 1;
+			}
+		}
+	}
+}
 
+
+- (void)updateFileListForAddedFile:(NSNotification *)notification;
+{	
+	// first, check the path to see if this view is effected.
+	NSLog(@"file was deleted.");
+}
 
 
 

@@ -26,7 +26,7 @@
 - (id)initWithFrame:(CGRect)frame {
 	if (self = [super initWithFrame:frame]) {
 	
-		self.webView = [[UIWebView alloc] initWithFrame:frame];
+		self.webView = [[TapDetectingWebView alloc] initWithFrame:frame];
 		webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		webView.scalesPageToFit = YES;
 		webView.delegate = self;
@@ -48,6 +48,10 @@
 
 - (void)tapDetectingWebViewGotSingleTap:(TapDetectingWebView *)aWebView;
 {
+	NSLog(@"margle");
+	if ([self.delegate respondsToSelector:@selector(fileViewDidToggleToolbars)]) {
+		[self.delegate fileViewDidToggleToolbars];
+	}
 }
 
 

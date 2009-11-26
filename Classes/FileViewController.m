@@ -14,7 +14,9 @@
 #import "FileAudioView.h";
 #import "FileDocumentView.h"
 #import "FileImageView.h";
+#import "FileVideoView.h"
 #import "FileUnknownView.h";
+
 
 
 
@@ -238,61 +240,17 @@
 	}
 }
 
-- (void)paginationSegmentControlChanged:(id)sender;
+- (void)paginationSegmentControlChanged:(UISegmentedControl *)segmentedControl;
 {
 
 	if ([self.delegate respondsToSelector:@selector(fileViewControllerDidPaginate:toNextFile:)]) {
-		UISegmentedControl *segmentedControl = (UISegmentedControl *)sender;
-		
+
 		fileViewAnimationDown = segmentedControl.selectedSegmentIndex ? YES : NO;
 		[self.delegate fileViewControllerDidPaginate:self toNextFile:segmentedControl.selectedSegmentIndex ? YES : NO];
 	}
 }
 
-- (void)setBarsHidden;
-{
-	self.navigationBar.hidden = YES;
-	self.toolbar.hidden = YES;
-}
 
-- (void)toggleBarsVisibilty;
-{
-	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationDuration:UINavigationControllerHideShowBarDuration];
-	[UIView setAnimationDelegate:self];
-
-	if (self.toolbar.hidden && self.navigationBar.hidden) {
-		// SHOW
-		[[UIApplication sharedApplication] setStatusBarHidden:NO animated:YES];
-		self.navigationBar.hidden = NO;
-		self.toolbar.hidden = NO;
-		self.navigationBar.frame = CGRectMake(0, 20, self.navigationBar.frame.size.width, self.navigationBar.frame.size.height);
-		self.toolbar.frame = CGRectMake(0, self.view.bounds.size.height - self.toolbar.frame.size.height, self.toolbar.frame.size.width, self.toolbar.frame.size.height);
-	} else {
-		// HIDE
-		[[UIApplication sharedApplication] setStatusBarHidden:YES animated:YES];
-		self.navigationBar.frame = CGRectMake(0, (self.navigationBar.frame.size.height + 20) * -1, self.navigationBar.frame.size.width, self.navigationBar.frame.size.height);
-		self.toolbar.frame = CGRectMake(0, self.view.bounds.size.height + self.toolbar.frame.size.height, self.toolbar.frame.size.width, self.toolbar.frame.size.height);
-		[UIView setAnimationDidStopSelector:@selector(setBarsHidden)];
-	}
-
-	[UIView commitAnimations];
-}
-
-
-- (void)hideBarsAfterDelay;
-{
-	// if they have already been hidden, then just skip this.
-	if (self.toolbar.hidden == NO && self.navigationBar.hidden == NO) {
-	
-		// only hide if we're not loading...
-		if (self.activityIndicator.hidden) {
-			[self toggleBarsVisibilty];
-		} else {
-			[self performSelector:@selector(hideBarsAfterDelay) withObject:nil afterDelay:1];
-		}
-	}
-}
 
 
 
@@ -393,6 +351,10 @@
 		case FILE_KIND_IMAGE:
 			self.fileView = [[FileImageView alloc] initWithFrame:self.view.bounds];
 			break;
+			
+		case FILE_KIND_VIDEO:
+			self.fileView = [[FileVideoView alloc] initWithFrame:self.view.bounds];
+			break;
 
 		case FILE_KIND_UNKNOWN:
 			self.fileView = [[FileUnknownView alloc] initWithFrame:self.view.bounds];
@@ -449,6 +411,63 @@
 {
 	[activityIndicator stopAnimating];
 }
+
+
+- (void)setBarsHidden;
+{
+	self.navigationBar.hidden = YES;
+	self.toolbar.hidden = YES;
+}
+
+- (void)fileViewDidToggleToolbars;
+{
+	[UIView beginAnimations:nil context:NULL];
+	[UIView setAnimationDuration:UINavigationControllerHideShowBarDuration];
+	[UIView setAnimationDelegate:self];
+
+	if (self.toolbar.hidden && self.navigationBar.hidden) {
+		// SHOW
+		[[UIApplication sharedApplication] setStatusBarHidden:NO animated:YES];
+		self.navigationBar.hidden = NO;
+		self.toolbar.hidden = NO;
+		self.navigationBar.frame = CGRectMake(0, 20, self.navigationBar.frame.size.width, self.navigationBar.frame.size.height);
+		self.toolbar.frame = CGRectMake(0, self.view.bounds.size.height - self.toolbar.frame.size.height, self.toolbar.frame.size.width, self.toolbar.frame.size.height);
+	} else {
+		// HIDE
+		[[UIApplication sharedApplication] setStatusBarHidden:YES animated:YES];
+		self.navigationBar.frame = CGRectMake(0, (self.navigationBar.frame.size.height + 20) * -1, self.navigationBar.frame.size.width, self.navigationBar.frame.size.height);
+		self.toolbar.frame = CGRectMake(0, self.view.bounds.size.height + self.toolbar.frame.size.height, self.toolbar.frame.size.width, self.toolbar.frame.size.height);
+		[UIView setAnimationDidStopSelector:@selector(setBarsHidden)];
+	}
+
+	[UIView commitAnimations];
+}
+
+
+- (BOOL)fileViewToolbarsHidden;
+{
+	return self.navigationBar.hidden == YES && self.toolbar.hidden == YES;
+}
+
+
+
+
+
+
+//
+//- (void)hideBarsAfterDelay;
+//{
+//	// if they have already been hidden, then just skip this.
+//	if (self.toolbar.hidden == NO && self.navigationBar.hidden == NO) {
+//	
+//		// only hide if we're not loading...
+//		if (self.activityIndicator.hidden) {
+//			[self fileViewDidToggleToolbars];
+//		} else {
+//			[self performSelector:@selector(hideBarsAfterDelay) withObject:nil afterDelay:1];
+//		}
+//	}
+//}
 
 
 

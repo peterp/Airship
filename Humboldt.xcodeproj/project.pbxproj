@@ -56,6 +56,7 @@
 		CEC34E2B103594BF008021B0 /* file_kind_0.png in Resources */ = {isa = PBXBuildFile; fileRef = CEC34E25103594BF008021B0 /* file_kind_0.png */; };
 		CEC34E2C103594BF008021B0 /* file_kind_5.png in Resources */ = {isa = PBXBuildFile; fileRef = CEC34E26103594BF008021B0 /* file_kind_5.png */; };
 		CECE390910680DD4000EE1F6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CECE390810680DD4000EE1F6 /* SystemConfiguration.framework */; };
+		CED4D9FD10BDC0FD00716F62 /* FileVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = CED4D9FC10BDC0FD00716F62 /* FileVideoView.m */; };
 		CED611271081F5F9000C41CB /* NSArray+CWSortedInsert.m in Sources */ = {isa = PBXBuildFile; fileRef = CED611261081F5F9000C41CB /* NSArray+CWSortedInsert.m */; };
 		CEE04E9F0FD9E82E00C32900 /* AFMultipartParser.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE04E9E0FD9E82E00C32900 /* AFMultipartParser.m */; };
 		CEE4A07610B7219700CEDC3C /* FileDocumentView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE4A07510B7219700CEDC3C /* FileDocumentView.m */; };
@@ -153,6 +154,8 @@
 		CEC34E25103594BF008021B0 /* file_kind_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = file_kind_0.png; sourceTree = "<group>"; };
 		CEC34E26103594BF008021B0 /* file_kind_5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = file_kind_5.png; sourceTree = "<group>"; };
 		CECE390810680DD4000EE1F6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		CED4D9FB10BDC0FD00716F62 /* FileVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileVideoView.h; sourceTree = "<group>"; };
+		CED4D9FC10BDC0FD00716F62 /* FileVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileVideoView.m; sourceTree = "<group>"; };
 		CED611251081F5F9000C41CB /* NSArray+CWSortedInsert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+CWSortedInsert.h"; sourceTree = "<group>"; };
 		CED611261081F5F9000C41CB /* NSArray+CWSortedInsert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+CWSortedInsert.m"; sourceTree = "<group>"; };
 		CEE04E9E0FD9E82E00C32900 /* AFMultipartParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFMultipartParser.m; sourceTree = "<group>"; };
@@ -214,8 +217,8 @@
 				CE48848110B9B72D003E8631 /* FinderViewController.m */,
 				CE48848410B9B733003E8631 /* SpotlightViewController.h */,
 				CE48848310B9B733003E8631 /* SpotlightViewController.m */,
-				CE0056EA10BAF44300F4D6A0 /* SharingTableViewController.m */,
 				CE0056EB10BAF44300F4D6A0 /* SharingTableViewController.h */,
+				CE0056EA10BAF44300F4D6A0 /* SharingTableViewController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -379,6 +382,15 @@
 			path = icons;
 			sourceTree = "<group>";
 		};
+		CED4D9F810BDC0AC00716F62 /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				CED4D9FB10BDC0FD00716F62 /* FileVideoView.h */,
+				CED4D9FC10BDC0FD00716F62 /* FileVideoView.m */,
+			);
+			name = Video;
+			sourceTree = "<group>";
+		};
 		CED6111A1081F5D7000C41CB /* Misc */ = {
 			isa = PBXGroup;
 			children = (
@@ -401,6 +413,7 @@
 				CEE4A49810B83AFE00CEDC3C /* Audio */,
 				CEE4A08C10B724B100CEDC3C /* Document */,
 				CEE4A08B10B724A700CEDC3C /* Image */,
+				CED4D9F810BDC0AC00716F62 /* Video */,
 				CEE4A12F10B74EE200CEDC3C /* Unknown */,
 			);
 			name = "File View + Support";
@@ -573,6 +586,7 @@
 				CE48848210B9B72D003E8631 /* FinderViewController.m in Sources */,
 				CE48848510B9B733003E8631 /* SpotlightViewController.m in Sources */,
 				CE0056EC10BAF44300F4D6A0 /* SharingTableViewController.m in Sources */,
+				CED4D9FD10BDC0FD00716F62 /* FileVideoView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

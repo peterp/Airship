@@ -73,6 +73,10 @@
 - (void)updateSelectionCount;
 - (void)deleteSelection;
 
+// Notifications
+- (void)updateFileListForRemovedFile:(NSNotification *)notification;
+- (void)updateFileListForAddedFile:(NSNotification *)notification;
+
 
 
 @end

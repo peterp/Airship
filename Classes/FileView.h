@@ -15,6 +15,8 @@
 	- (void)fileViewDidOpenFileAs:(int)kind;
 	- (void)fileViewDidStartLoading;
 	- (void)fileViewDidStopLoading;
+	- (void)fileViewDidToggleToolbars;
+	- (BOOL)fileViewToolbarsHidden;
 @end
 
 

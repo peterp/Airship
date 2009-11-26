@@ -110,6 +110,7 @@ static void installHook()
 
 - (void)handleSingleTap
 {
+	NSLog(@"hahahaha");
 	if ([self.delegate respondsToSelector:@selector(tapDetectingWebViewGotSingleTap:)]) {
 		[(NSObject *)self.delegate tapDetectingWebViewGotSingleTap:self];
 	}

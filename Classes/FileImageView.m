@@ -83,6 +83,8 @@
 		CGPoint p = self.imageView.center;
 		imageView.center = CGPointMake(self.frame.size.width / 2, p.y);
 	}
+	
+	
 	return imageView;
 }
 
@@ -100,16 +102,20 @@
 
 - (void)TapDetectingScrollViewWasTapped:(UIScrollView *)scrollView;
 {
-	NSLog(@"send this along to this view's delegate...");
+	if ([self.delegate respondsToSelector:@selector(fileViewDidToggleToolbars)]) {
+		[self.delegate fileViewDidToggleToolbars];
+	}
 }
 
-// this is a delegate method from scroll view....
+
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView;
 {
-	NSLog(@"send this along to this view's delegate...");
-//	if (self.navigationBar.hidden == NO && self.toolbar.hidden == NO) {
-//		[self toggleBarsVisibilty];
-//	}
+	// Check to see if toolbars are hidden
+	if ([self.delegate respondsToSelector:@selector(fileViewToolbarsHidden)]) {
+		if (![self.delegate fileViewToolbarsHidden]) {
+			[self.delegate fileViewDidToggleToolbars];
+		}
+	}
 }
 
 

@@ -40,7 +40,7 @@
     if (self = [super initWithStyle:style]) {
 		
 			self.title = @"Sharing";
-			self.tabBarItem.image = [UIImage imageNamed:@"audio.png"];
+			self.tabBarItem.image = [UIImage imageNamed:@"dock_finder.png"];
 			
 			// Reachability
 			localWiFiReachable = FALSE;

@@ -106,6 +106,34 @@
 }
 
 
+- (void)layoutSubviews;
+{
+//
+//	CGRect explinationLabelRect = CGRectMake(5, 64, self.frame.size.width - 10, 52);
+//
+//	CGRect openAudioButtonRect = CGRectMake(30, 140, 100, 100);
+//	CGRect openDocumentButtonRect = CGRectMake(190, 140, 100, 100);
+//	CGRect openImageButtonRect = CGRectMake(30, 300, 100, 100);
+//	CGRect openVideoButtonRect = CGRectMake(190, 300, 100, 100);
+//
+//
+//	if (self.frame.size.height == 320) {
+//		explinationLabelRect.origin.y = 55;
+//
+//		openAudioButtonRect = CGRectMake(30, 150, 82.5, 82.5);
+//		openDocumentButtonRect = CGRectMake(142.5, 150, 82.5, 82.5);
+//		openImageButtonRect = CGRectMake(255, 150, 82.5, 82.5);
+//		openVideoButtonRect = CGRectMake(367.5, 150, 82.5, 82.5);
+//	}
+//	
+//	explinationLabel.frame = explinationLabelRect;
+//	openAudioButton.frame = openAudioButtonRect;
+//	openDocumentButton.frame = openDocumentButtonRect;
+//	openImageButton.frame = openImageButtonRect;
+//	openVideoButton.frame = openVideoButtonRect;
+}
+
+
 - (void)loadFileAtPath:(NSString *)path;
 {
 		// Create the audio player

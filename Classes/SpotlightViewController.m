@@ -222,6 +222,32 @@
 
 
 
+#pragma mark -
+#pragma mark Notification methods
+- (void)updateFileListForRemovedFile:(NSNotification *)notification;
+{
+	File *file = [notification.userInfo objectForKey:@"file"];
+	
+	// Loop through results, check to see if we have this object.
+	int i = 0;
+	for (File *f in fileList) {
+		if ([f.absolutePath isEqualToString:file.absolutePath]) {
+			
+			// remove from index.
+			[fileList removeObjectAtIndex:i];
+			
+			// Update tableview.
+			[finderTableView beginUpdates];
+			[finderTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:i inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+			[finderTableView endUpdates];
+			
+			break;
+		}
+		i += 1;
+	}
+}
+
+
 
 
 /*
