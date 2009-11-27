@@ -51,7 +51,7 @@
 
 	// Search TextField.
 	self.searchTextField = [[UITextField alloc] init];
-	self.searchTextField.frame = CGRectMake(0, 0, self.navigationController.navigationBar.frame.size.width - 50, 22);
+	self.searchTextField.frame = CGRectMake(0, 0, self.navigationController.navigationBar.frame.size.width - 100, 22);
 	searchTextField.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
 	searchTextField.delegate = self;
 	searchTextField.placeholder = @"Search";
@@ -224,27 +224,29 @@
 
 #pragma mark -
 #pragma mark Notification methods
-- (void)updateFileListForRemovedFile:(NSNotification *)notification;
+- (void)updateTableViewForRemovedFile:(NSNotification *)notification;
 {
-	File *file = [notification.userInfo objectForKey:@"file"];
-	
-	// Loop through results, check to see if we have this object.
-	int i = 0;
-	for (File *f in fileList) {
-		if ([f.absolutePath isEqualToString:file.absolutePath]) {
+	NSMutableArray *removedFiles = [notification.userInfo objectForKey:@"removedFiles"];
+	for (File *rmFile in removedFiles) {
+		
+		// Loop, and check through, FileList
+		int i = 0;
+		for (File *f in fileList) {
+		
+			// Is the file been deleted in this tableView?
+			if ([f.absolutePath isEqualToString:rmFile.absolutePath]) {
 			
-			// remove from index.
-			[fileList removeObjectAtIndex:i];
-			
-			// Update tableview.
-			[finderTableView beginUpdates];
-			[finderTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:i inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
-			[finderTableView endUpdates];
-			
-			break;
+				// Remove from datasource and tableView.
+				[fileList removeObjectAtIndex:i];
+				[finderTableView beginUpdates];
+				[finderTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:i inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+				[finderTableView endUpdates];
+				break;
+			}
+			i += 1;
 		}
-		i += 1;
 	}
+	
 }
 
 

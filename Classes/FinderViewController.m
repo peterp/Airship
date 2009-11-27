@@ -122,32 +122,36 @@
 		searchDisplayController.searchResultsDelegate = self;
 		searchDisplayController.searchResultsDataSource = self;
 
-		self.toolbar = [[UIToolbar alloc] initWithFrame:CGRectZero];
-		toolbar.frame = CGRectMake(0, 367, 320, 40);
-		
-		
-		self.deleteButton = [[UIButton alloc] initWithFrame:CGRectMake(12, 7, 122, 28)];
-		[deleteButton addTarget:self action:@selector(deleteSelection) forControlEvents:UIControlEventTouchUpInside];
-		[deleteButton setBackgroundImage:[[UIImage imageNamed: @"button_red.png"] stretchableImageWithLeftCapWidth:7.0 topCapHeight:0.0] forState:UIControlStateNormal];
-		[deleteButton setImage:[UIImage imageNamed:@"icon_trash.png"] forState:UIControlStateNormal];
-		[deleteButton setTitle:@"Delete" forState:UIControlStateNormal];
-		deleteButton.titleLabel.font = [UIFont boldSystemFontOfSize:13];
-		[toolbar addSubview:deleteButton];
-		[deleteButton release];
-		
-		[self.view addSubview:toolbar];
-		[toolbar release];
-		
-		
-		// Editing
-		UIBarButtonItem *editButton = [[[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonSystemItemEdit target:self action:@selector(edit:)] autorelease];
-		self.navigationItem.rightBarButtonItem = editButton;
-
 	}
 	
+	
+	// Delete methods
+	self.toolbar = [[UIToolbar alloc] initWithFrame:CGRectZero];
+	toolbar.frame = CGRectMake(0, 367, 320, 40);
+	self.deleteButton = [[UIButton alloc] initWithFrame:CGRectMake(12, 7, 122, 28)];
+	[deleteButton addTarget:self action:@selector(deleteSelection) forControlEvents:UIControlEventTouchUpInside];
+	[deleteButton setBackgroundImage:[[UIImage imageNamed: @"button_red.png"] stretchableImageWithLeftCapWidth:7.0 topCapHeight:0.0] forState:UIControlStateNormal];
+	[deleteButton setImage:[UIImage imageNamed:@"icon_trash.png"] forState:UIControlStateNormal];
+	[deleteButton setTitle:@"Delete" forState:UIControlStateNormal];
+	deleteButton.titleLabel.font = [UIFont boldSystemFontOfSize:13];
+	[toolbar addSubview:deleteButton];
+	[deleteButton release];
+		
+	[self.view addSubview:toolbar];
+	[toolbar release];
+	
+	// Editing
+	UIBarButtonItem *editButton = [[[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonSystemItemEdit target:self action:@selector(edit:)] autorelease];
+	self.navigationItem.rightBarButtonItem = editButton;
+
+
+	
+		
 	// Notifications
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFileListForRemovedFile:) name:@"removedFileNotification" object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTableViewForRemovedFile:) name:@"removedFileNotification" object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFileListForAddedFile:) name:@"addedFileNotification" object:nil];
+
+
 }
 
 - (void)viewWillAppear:(BOOL)animated;
@@ -338,118 +342,7 @@
 
 
 
-#pragma mark -
-#pragma mark Default Editing
 
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath;
-{
-	if (isEditing) {
-		return UITableViewCellEditingStyleNone;
-	} else {
-		return UITableViewCellEditingStyleDelete;
-	}
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-	File *file = nil;
-	if (searchDisplayController.active) {
-		file = [filteredFileList objectAtIndex:indexPath.row];
-	} else {
-		file = [fileList objectAtIndex:indexPath.row];
-	}
-//	[file delete];
-
-	// Post notification.
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"removedFileNotification" object:self userInfo:
-		[NSDictionary dictionaryWithObjectsAndKeys:file, @"file", nil]];
-
-//	[fileList removeObjectAtIndex:indexPath.row];
-//
-//	[tableView beginUpdates];
-//	[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-//	[tableView endUpdates];
-}
-
-
-
-
-
-#pragma mark -
-#pragma mark Custom Editing
-
-
-- (void)edit:(id)sender;
-{
-	UIBarButtonItem *cancelButton = [[[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonSystemItemDone target:self action:@selector(cancel:)] autorelease];
-	self.navigationItem.rightBarButtonItem = cancelButton;
-	
-	[self showToolbar:YES];
-	[self updateSelectionCount];
-	isEditing = YES;
-	[finderTableView reloadData];
-}
-
-- (void)cancel:(id)sender;
-{
-	UIBarButtonItem *editButton = [[[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(edit:)] autorelease];
-	self.navigationItem.rightBarButtonItem = editButton;
-	[self showToolbar:NO];
-	isEditing = NO;
-	[selectedFileList removeAllObjects];
-	self.selectedFileList = nil;
-	[finderTableView reloadData];
-}
-
-- (void)showToolbar:(BOOL)show;
-{
-	// Animate show/ hide
-	CGRect toolbarFrame = toolbar.frame;
-	CGRect tableViewFrame = finderTableView.frame;
-	
-	if (show) {
-		toolbarFrame.origin.y = 327;
-		tableViewFrame.size.height = 327;
-	} else {
-		toolbarFrame.origin.y = 367;
-		tableViewFrame.size.height = 367;
-	}
-	
-	[UIView beginAnimations:nil context:nil];
-	toolbar.frame = toolbarFrame;
-	finderTableView.frame = tableViewFrame;
-	[UIView commitAnimations];
-}
-
-- (void)updateSelectionCount;
-{
-	int count = [selectedFileList count];
-	
-	[deleteButton setTitle:[NSString stringWithFormat:@"Delete (%ld)", count] forState:UIControlStateNormal];
-	deleteButton.enabled = (count != 0);
-}
-
-- (void)deleteSelection;
-{
-	NSArray *indexPaths = [NSArray arrayWithArray:[selectedFileList allKeys]];
-	NSMutableIndexSet *indexes = [NSMutableIndexSet indexSet];
-	for (NSIndexPath *indexPath in indexPaths) {
-	
-		// delete the file object.
-		File *file = [fileList objectAtIndex:indexPath.row];
-		[file delete];
-	
-		[indexes addIndex:indexPath.row];
-	}
-	[fileList removeObjectsAtIndexes:indexes];
-
-
-	[finderTableView beginUpdates];
-	[finderTableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
-	[finderTableView endUpdates];
-	
-	[self cancel:self];
-}
 
 
 
@@ -517,9 +410,6 @@
 	self.fileViewController.file = file;
 	[self.fileViewController displayFileViewWithKind:file.kind animated:animated];
 	
-	
-	
-	
 	[self.fileViewController.paginationSegmentControl setEnabled:[self indexPathForPaginationToNextFile:NO] >= 0 ? YES : NO forSegmentAtIndex:0];
 	[self.fileViewController.paginationSegmentControl setEnabled:[self indexPathForPaginationToNextFile:YES] >= 0 ? YES : NO forSegmentAtIndex:1];
 }
@@ -564,6 +454,12 @@
 	[self cancel:self];
 }
 
+- (void)searchDisplayControllerDidEndSearch:(UISearchDisplayController *)controller
+{
+	[filteredFileList removeAllObjects];
+}
+
+
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar;
 {
 	return YES;
@@ -602,72 +498,241 @@
 
 
 
-- (void)updateFileListForRemovedFile:(NSNotification *)notification;
+
+
+
+#pragma mark -
+#pragma mark Default Editing
+
+//- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath;
+//{
+//	if (isEditing) {
+//		return UITableViewCellEditingStyleNone;
+//	} else {
+//		return UITableViewCellEditingStyleDelete;
+//	}
+//}
+
+//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//	File *file = nil;
+//	if (searchDisplayController.active) {
+//		file = [filteredFileList objectAtIndex:indexPath.row];
+//	} else {
+//		file = [fileList objectAtIndex:indexPath.row];
+//	}
+//	[file delete];
+//
+//
+//	// Post notification.
+//	[[NSNotificationCenter defaultCenter] postNotificationName:@"removedFileNotification" object:self userInfo:
+//		[NSDictionary dictionaryWithObjectsAndKeys:file, @"file", nil]];
+//}
+
+#pragma mark -
+#pragma mark Custom Editing
+
+
+- (void)edit:(id)sender;
 {
-	File *file = [notification.userInfo objectForKey:@"file"];
+
+	UIBarButtonItem *cancelButton = [[[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonSystemItemDone target:self action:@selector(cancel:)] autorelease];
+	self.navigationItem.rightBarButtonItem = cancelButton;
 	
-	NSLog(@"removing file:%@", [file.absolutePath lastPathComponent]);
+	[self showToolbar:YES];
+	[self updateSelectionCount];
+	isEditing = YES;
+	[finderTableView reloadData];
+}
+
+- (void)cancel:(id)sender;
+{
+	UIBarButtonItem *editButton = [[[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(edit:)] autorelease];
+	self.navigationItem.rightBarButtonItem = editButton;
+	[self showToolbar:NO];
+	isEditing = NO;
+	[selectedFileList removeAllObjects];
+	self.selectedFileList = nil;
+	[finderTableView reloadData];
+}
+
+- (void)showToolbar:(BOOL)show;
+{
+	// Animate show/ hide
+	CGRect toolbarFrame = toolbar.frame;
+	CGRect tableViewFrame = finderTableView.frame;
 	
-	if (file.kind == FILE_KIND_DIRECTORY) {
-	
+	if (show) {
+		toolbarFrame.origin.y = 327;
+		tableViewFrame.size.height = 327;
 	} else {
+		toolbarFrame.origin.y = 367;
+		tableViewFrame.size.height = 367;
+	}
 	
-		if ([[file.absolutePath stringByDeletingLastPathComponent] isEqualToString:path]) {
-		
-			// SEARCH
-			if (self.searchDisplayController.active) {
-				int i = 0;
-				for (File *f in filteredFileList) {
-				
-					
-					NSLog(@"%i - %@", i, [f.absolutePath lastPathComponent]);
-				
-					// Compare paths...
-					if ([f.absolutePath isEqualToString:file.absolutePath]) {
-					
-						NSLog(@"match.");
-					
-						// remove from index.
-						[filteredFileList removeObjectAtIndex:i];
-						
-						// Update tableview.
-						[self.searchDisplayController.searchResultsTableView beginUpdates];
-						[self.searchDisplayController.searchResultsTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:i inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
-						[self.searchDisplayController.searchResultsTableView endUpdates];
-						
-						break;
-					}
-					i += 1;
-				}
-			}
+	[UIView beginAnimations:nil context:nil];
+	toolbar.frame = toolbarFrame;
+	finderTableView.frame = tableViewFrame;
+	[UIView commitAnimations];
+}
+
+- (void)updateSelectionCount;
+{
+	int count = [selectedFileList count];
+	
+	[deleteButton setTitle:[NSString stringWithFormat:@"Delete (%ld)", count] forState:UIControlStateNormal];
+	deleteButton.enabled = (count != 0);
+}
+
+- (void)deleteSelection;
+{
+	NSArray *indexPaths = [NSArray arrayWithArray:[selectedFileList allKeys]];
+	NSMutableArray *removedFiles = [NSMutableArray array];
+	for (NSIndexPath *indexPath in indexPaths) {
+	
+		// delete the file object.
+		File *file = [fileList objectAtIndex:indexPath.row];
+		[removedFiles addObject:file];
+		[file delete];
+	}
 			
-			// FILE LIST
+	// Post notification.
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"removedFileNotification" object:self userInfo:
+	[NSDictionary dictionaryWithObjectsAndKeys:removedFiles, @"removedFiles", nil]];
+	
+	
+	[self cancel:self];
+}
+
+
+
+
+- (void)updateTableViewForRemovedFile:(NSNotification *)notification;
+{
+
+	
+
+
+	NSMutableArray *removedFiles = [notification.userInfo objectForKey:@"removedFiles"];
+	for (File *rmFile in removedFiles) {
+	
+		// Is this a folder that's deleted, and is this the visible view controller?
+		if (self.navigationController.visibleViewController == self && rmFile.kind == FILE_KIND_DIRECTORY) {
+	
+			// Does our folder still exist?
+			if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
+			
+				// It's gone, reset the view.
+				[self.navigationController popToRootViewControllerAnimated:YES];
+			}
+		}
+
+	
+		// Loop, and check through, filteredFileList
+		if (self.searchDisplayController.active) {
 			int i = 0;
-			for (File *f in fileList) {
-				if ([f.absolutePath isEqualToString:file.absolutePath]) {
-					
-					// remove from index.
-					[fileList removeObjectAtIndex:i];
-					
-					// Update tableview.
-					[finderTableView beginUpdates];
-					[finderTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:i inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
-					[finderTableView endUpdates];
-					
-					return;
+			for (File *f in filteredFileList) {
+			
+				// Is the file been deleted in this tableView?
+				if ([f.absolutePath isEqualToString:rmFile.absolutePath]) {
+				
+					// Remove from datasource and tableView.
+					[filteredFileList removeObjectAtIndex:i];
+					[self.searchDisplayController.searchResultsTableView beginUpdates];
+					[self.searchDisplayController.searchResultsTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:i inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+					[self.searchDisplayController.searchResultsTableView endUpdates];
+					break;
 				}
 				i += 1;
 			}
 		}
+	
+	
+		// Loop, and check through, FileList
+		int i = 0;
+		for (File *f in fileList) {
+		
+			// Is the file been deleted in this tableView?
+			if ([f.absolutePath isEqualToString:rmFile.absolutePath]) {
+			
+				// Remove from datasource and tableView.
+				[fileList removeObjectAtIndex:i];
+				[finderTableView beginUpdates];
+				[finderTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:i inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+				[finderTableView endUpdates];
+				break;
+			}
+			i += 1;
+		}
 	}
+	
+	
+
+
+//	File *file = [notification.userInfo objectForKey:@"file"];
+//	
+//	
+//	
+//	
+//	if ([[file.absolutePath stringByDeletingLastPathComponent] isEqualToString:path]) {
+//	
+//		// SEARCH
+//		if (self.searchDisplayController.active) {
+//			int i = 0;
+//			for (File *f in filteredFileList) {
+//			
+//				// Compare paths...
+//				if ([f.absolutePath isEqualToString:file.absolutePath]) {
+//				
+//					// remove from index.
+//					[filteredFileList removeObjectAtIndex:i];
+//					
+//					// Update tableview.
+//					[self.searchDisplayController.searchResultsTableView beginUpdates];
+//					[self.searchDisplayController.searchResultsTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:i inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+//					[self.searchDisplayController.searchResultsTableView endUpdates];
+//					
+//					break;
+//				}
+//				i += 1;
+//			}
+//		}
+//		
+//		// FILE LIST
+//		int i = 0;
+//		for (File *f in fileList) {
+//			if ([f.absolutePath isEqualToString:file.absolutePath]) {
+//				
+//				// remove from index.
+//				[fileList removeObjectAtIndex:i];
+//				
+//				// Update tableview.
+//				[finderTableView beginUpdates];
+//				[finderTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:i inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+//				[finderTableView endUpdates];
+//				
+//				return;
+//			}
+//			i += 1;
+//		}
+//	}
 }
+
+
 
 
 - (void)updateFileListForAddedFile:(NSNotification *)notification;
 {	
 	// first, check the path to see if this view is effected.
-	NSLog(@"file was deleted.");
+	NSLog(@"file was added.");
 }
+
+
+
+
+
+
+
 
 
 
@@ -699,6 +764,9 @@
 	// Release any retained subviews of the main view.
 	// e.g. self.myOutlet = nil;
 }
+
+
+
 
 
 

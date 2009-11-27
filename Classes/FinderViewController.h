@@ -74,7 +74,7 @@
 - (void)deleteSelection;
 
 // Notifications
-- (void)updateFileListForRemovedFile:(NSNotification *)notification;
+- (void)updateTableViewForRemovedFile:(NSNotification *)notification;
 - (void)updateFileListForAddedFile:(NSNotification *)notification;
 
 
