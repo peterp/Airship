@@ -30,6 +30,7 @@
 	FileViewController *fileViewController;
 	
 	UIToolbar *toolbar;
+	UIButton *editButton;
 	UIButton *deleteButton;
 	NSMutableDictionary *selectedFileList;
 	BOOL isEditing;
@@ -46,6 +47,7 @@
 @property (nonatomic, retain) UISearchDisplayController *searchDisplayController;
 
 @property (nonatomic, retain) FileViewController *fileViewController;
+
 
 @property (nonatomic, retain) UIToolbar *toolbar;
 @property (nonatomic, retain) UIButton *deleteButton;

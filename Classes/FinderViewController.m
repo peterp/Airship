@@ -83,11 +83,39 @@
 - (void)viewDidLoad;
 {
 	[super viewDidLoad];
+	
+	// Navigation Bar Style.
+	UIImageView *navigationBarBackground = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ui_navigationBar.png"]];
+	navigationBarBackground.frame = CGRectMake(0, 0, 320, 44);
+	[self.navigationController.navigationBar insertSubview:navigationBarBackground atIndex:0];
+	[navigationBarBackground release];
+	
+	// NavigationBar + titleView;
+	UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(100, 0, self.view.frame.size.width - 200, 44)];
+
+	UILabel *titleViewLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, titleView.frame.size.width, 44)];
+	titleViewLabel.backgroundColor = [UIColor clearColor];
+	titleViewLabel.textAlignment = UITextAlignmentCenter;
+	titleViewLabel.text = self.title;
+	titleViewLabel.font = [UIFont systemFontOfSize:18];
+	titleViewLabel.textColor = [UIColor colorWithRed:35/255 green:36/255 blue:48/255 alpha:1];
+	
+	[titleView addSubview:titleViewLabel];
+	[titleViewLabel release];
+	
+	self.navigationItem.titleView = titleView;
+	[titleView release];
+
+	
+	
 
 	self.finderTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
 	finderTableView.frame = CGRectMake(0, 0, 320, 367);
 	finderTableView.delegate = self;
 	finderTableView.dataSource = self;
+	finderTableView.separatorColor = [UIColor whiteColor];
+	finderTableView.rowHeight = 44;
+
 
 	[self.view addSubview:finderTableView];
 	[finderTableView release];
@@ -113,6 +141,17 @@
 		searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 		searchBar.delegate = self;
 		searchBar.placeholder = [NSString stringWithFormat:@"Search %@", self.title];
+		searchBar.backgroundColor = [UIColor redColor];
+		searchBar.tintColor = [UIColor blackColor];
+//		searchBar.tintColor = [UIColor redColor];
+		
+		// Navigation Bar Style.
+		UIImageView *searchBarBackground = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ui_searchBar.png"]];
+		searchBarBackground.frame = CGRectMake(0, 0, 320, 44);
+		[searchBar insertSubview:searchBarBackground atIndex:1];
+		[[searchBar.subviews objectAtIndex:0] setHidden:YES];
+		[searchBarBackground release];
+
 		self.finderTableView.tableHeaderView = searchBar;
 	
 		
@@ -140,9 +179,19 @@
 	[self.view addSubview:toolbar];
 	[toolbar release];
 	
+
+
 	// Editing
-	UIBarButtonItem *editButton = [[[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonSystemItemEdit target:self action:@selector(edit:)] autorelease];
-	self.navigationItem.rightBarButtonItem = editButton;
+	editButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 57, 28)];
+	[editButton addTarget:self action:@selector(edit:) forControlEvents:UIControlEventTouchUpInside];
+	[editButton setBackgroundImage:[[UIImage imageNamed: @"button_navigationBar.png"] stretchableImageWithLeftCapWidth:7.0 topCapHeight:0.0] forState:UIControlStateNormal];
+	[editButton setTitle:@"Edit" forState:UIControlStateNormal];
+	[editButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+	editButton.titleLabel.textColor = [UIColor colorWithRed:35/255.0 green:36/255.0 blue:48/255.0 alpha:1];
+	editButton.titleLabel.font = [UIFont systemFontOfSize:12.6];
+	UIBarButtonItem *editBarButton = [[[UIBarButtonItem alloc] initWithCustomView:editButton] autorelease];
+	[editButton release];
+	self.navigationItem.rightBarButtonItem = editBarButton;
 
 
 	
@@ -230,19 +279,19 @@
 		[cell.contentView addSubview:iconImageView];
 		
 		// Name 
-		nameLabel = [[[UILabel alloc] initWithFrame:CGRectMake(43, 0, 270, 22)] autorelease];
+		nameLabel = [[[UILabel alloc] initWithFrame:CGRectMake(43, 2, 270, 22)] autorelease];
 		nameLabel.backgroundColor = [UIColor clearColor];
 		nameLabel.tag = NAME_TAG;
-		nameLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize] - 2];
-		nameLabel.textColor = [UIColor darkGrayColor];
+		nameLabel.font = [UIFont systemFontOfSize:15];
+		nameLabel.textColor = [UIColor blackColor];
 		[cell.contentView addSubview:nameLabel];
 		
 		// Meta
-		metaLabel = [[[UILabel alloc] initWithFrame:CGRectMake(43, 22, 270, 22)] autorelease];
+		metaLabel = [[[UILabel alloc] initWithFrame:CGRectMake(43, 20, 270, 22)] autorelease];
 		metaLabel.backgroundColor = [UIColor clearColor];
 		metaLabel.tag = META_TAG;
-		metaLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize] - 4];
-		metaLabel.textColor = [UIColor grayColor];
+		metaLabel.font = [UIFont systemFontOfSize:12];
+		metaLabel.textColor = [UIColor colorWithRed:85/255.0 green:85/255.0 blue:85/255.0 alpha:1];
 		[cell.contentView addSubview:metaLabel];
 			
 			
@@ -263,7 +312,8 @@
 	
 	// this is always the default colour
 	cell.selectionStyle = UITableViewCellSelectionStyleGray;
-	cell.contentView.backgroundColor = [UIColor clearColor];
+	cell.contentView.backgroundColor = indexPath.row % 2 ? [UIColor colorWithRed:223.0/255.0f green:225.0/255.0f blue:235.0/255.0f alpha:1] : [UIColor colorWithRed:234.0/255.0 green:235.0/255.0f blue:242.0/255.0 alpha:1];
+//	cell.contentView.backgroundColor = [UIColor clearColor];
 	
 	if (isEditing == YES) {
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -291,8 +341,8 @@
 		pickImageView.frame = CGRectMake(-22, 11, 22, 22);
 		pickImageView.alpha = 0;
 		iconImageView.frame = CGRectMake(7, 11, 22, 22);
-		nameLabel.frame = CGRectMake(43, 0, 270, 22);
-		metaLabel.frame = CGRectMake(43, 22, 270, 22);
+		nameLabel.frame = CGRectMake(43, 2, 270, 22);
+		metaLabel.frame = CGRectMake(43, 20, 270, 22);
 	}
 	
 	[UIView commitAnimations];
@@ -423,7 +473,7 @@
 - (void)fileViewControllerDidFinish:(FileViewController *)controller;
 {
 	[[UIApplication sharedApplication] setStatusBarHidden:NO animated:YES];
-	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:YES];
 	[self.navigationController dismissModalViewControllerAnimated:YES];
 
 	self.fileViewController = nil;
@@ -536,8 +586,8 @@
 - (void)edit:(id)sender;
 {
 
-	UIBarButtonItem *cancelButton = [[[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonSystemItemDone target:self action:@selector(cancel:)] autorelease];
-	self.navigationItem.rightBarButtonItem = cancelButton;
+//	UIBarButtonItem *cancelButton = [[[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonSystemItemDone target:self action:@selector(cancel:)] autorelease];
+//	self.navigationItem.rightBarButtonItem = cancelButton;
 	
 	[self showToolbar:YES];
 	[self updateSelectionCount];
@@ -547,8 +597,8 @@
 
 - (void)cancel:(id)sender;
 {
-	UIBarButtonItem *editButton = [[[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(edit:)] autorelease];
-	self.navigationItem.rightBarButtonItem = editButton;
+//	UIBarButtonItem *editButton = [[[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(edit:)] autorelease];
+//	self.navigationItem.rightBarButtonItem = editButton;
 	[self showToolbar:NO];
 	isEditing = NO;
 	[selectedFileList removeAllObjects];
@@ -609,10 +659,6 @@
 
 - (void)updateTableViewForRemovedFile:(NSNotification *)notification;
 {
-
-	
-
-
 	NSMutableArray *removedFiles = [notification.userInfo objectForKey:@"removedFiles"];
 	for (File *rmFile in removedFiles) {
 	
@@ -627,104 +673,82 @@
 			}
 		}
 
-	
-		// Loop, and check through, filteredFileList
-		if (self.searchDisplayController.active) {
+		if ([path isEqualToString:[rmFile.absolutePath stringByDeletingLastPathComponent]]) {
+			// Loop, and check through, filteredFileList
+			if (self.searchDisplayController.active) {
+				int i = 0;
+				for (File *f in filteredFileList) {
+				
+					// Is the file been deleted in this tableView?
+					if ([f.absolutePath isEqualToString:rmFile.absolutePath]) {
+					
+						// Remove from datasource and tableView.
+						[filteredFileList removeObjectAtIndex:i];
+						[self.searchDisplayController.searchResultsTableView beginUpdates];
+						[self.searchDisplayController.searchResultsTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:i inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+						[self.searchDisplayController.searchResultsTableView endUpdates];
+						break;
+					}
+					i += 1;
+				}
+			}
+		
+		
+			// Loop, and check through, FileList
 			int i = 0;
-			for (File *f in filteredFileList) {
+			for (File *f in fileList) {
 			
 				// Is the file been deleted in this tableView?
 				if ([f.absolutePath isEqualToString:rmFile.absolutePath]) {
 				
 					// Remove from datasource and tableView.
-					[filteredFileList removeObjectAtIndex:i];
-					[self.searchDisplayController.searchResultsTableView beginUpdates];
-					[self.searchDisplayController.searchResultsTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:i inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
-					[self.searchDisplayController.searchResultsTableView endUpdates];
+					[fileList removeObjectAtIndex:i];
+					[finderTableView beginUpdates];
+					[finderTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:i inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+					[finderTableView endUpdates];
 					break;
 				}
 				i += 1;
 			}
 		}
-	
-	
-		// Loop, and check through, FileList
-		int i = 0;
-		for (File *f in fileList) {
-		
-			// Is the file been deleted in this tableView?
-			if ([f.absolutePath isEqualToString:rmFile.absolutePath]) {
-			
-				// Remove from datasource and tableView.
-				[fileList removeObjectAtIndex:i];
-				[finderTableView beginUpdates];
-				[finderTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:i inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
-				[finderTableView endUpdates];
-				break;
-			}
-			i += 1;
-		}
 	}
-	
-	
-
-
-//	File *file = [notification.userInfo objectForKey:@"file"];
-//	
-//	
-//	
-//	
-//	if ([[file.absolutePath stringByDeletingLastPathComponent] isEqualToString:path]) {
-//	
-//		// SEARCH
-//		if (self.searchDisplayController.active) {
-//			int i = 0;
-//			for (File *f in filteredFileList) {
-//			
-//				// Compare paths...
-//				if ([f.absolutePath isEqualToString:file.absolutePath]) {
-//				
-//					// remove from index.
-//					[filteredFileList removeObjectAtIndex:i];
-//					
-//					// Update tableview.
-//					[self.searchDisplayController.searchResultsTableView beginUpdates];
-//					[self.searchDisplayController.searchResultsTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:i inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
-//					[self.searchDisplayController.searchResultsTableView endUpdates];
-//					
-//					break;
-//				}
-//				i += 1;
-//			}
-//		}
-//		
-//		// FILE LIST
-//		int i = 0;
-//		for (File *f in fileList) {
-//			if ([f.absolutePath isEqualToString:file.absolutePath]) {
-//				
-//				// remove from index.
-//				[fileList removeObjectAtIndex:i];
-//				
-//				// Update tableview.
-//				[finderTableView beginUpdates];
-//				[finderTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:i inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
-//				[finderTableView endUpdates];
-//				
-//				return;
-//			}
-//			i += 1;
-//		}
-//	}
 }
 
 
 
 
 - (void)updateFileListForAddedFile:(NSNotification *)notification;
-{	
-	// first, check the path to see if this view is effected.
-	NSLog(@"file was added.");
+{
+
+	NSMutableArray *addedFiles = [notification.userInfo objectForKey:@"addedFiles"];
+	for (File *newFile in addedFiles) {
+	
+		if ([path isEqualToString:[newFile.absolutePath stringByDeletingLastPathComponent]]) {
+		
+			int indexPathRow = 0;
+			int i = 0;
+			for (File *f in fileList) {
+				
+				if ([newFile.name compare:f.name options:NSCaseInsensitiveSearch | NSDiacriticInsensitiveSearch] < 1) {
+					
+					indexPathRow = i;
+					break;
+				}
+				
+				
+				if (i == [fileList count] - 1) {
+					indexPathRow = i + 1;
+					break;
+				}
+				
+			}
+			
+			[fileList insertObject:newFile atIndex:indexPathRow];
+			[finderTableView beginUpdates];
+			[finderTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:indexPathRow inSection:0]] withRowAnimation:UITableViewRowAnimationRight];
+			[finderTableView endUpdates];
+		}
+	}
 }
 
 

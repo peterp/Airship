@@ -56,19 +56,19 @@
     $.fn.airshipUI = function() {
         
         // upload
-		$('#action-upload').click(function() {
-			
-			
-			// Open a new popup window.
-			$('#dialog-upload').modal({
-				
-			});
-			
-			
-			
-			
-			return false;
-		});
+        // $('#action-upload').click(function() {
+        //  
+        //  
+        //  // Open a new popup window.
+        //  $('#dialog-upload').modal({
+        //      
+        //  });
+        //  
+        //  
+        //  
+        //  
+        //  return false;
+        // });
         // $('#action-file-upload').fancybox({
         //     'hideOnContentClick': false,
         //     'padding': 18,
@@ -79,31 +79,37 @@
         // });
         
         // create folder
-        $('#action-directory-create').click(function() {
-            
-            if ($('#item-list').find('input').length > 0) {
-                return;
-            }
-            
-            var d = new Date();
-            var ul = createItemRow('directory', 'untitled folder', 'Today, ' + d.getHours() + ':' + d.getMinutes(), '--', 'pseudo');
-            $('#item-list').append(ul);
-            renameItem(ul);
-            
-            return false;
-        });
+        // $('#action-directory-create').click(function() {
+        //     
+        //     if ($('#item-list').find('input').length > 0) {
+        //         return;
+        //     }
+        //     
+        //     var d = new Date();
+        //     var ul = createItemRow('directory', 'untitled folder', 'Today, ' + d.getHours() + ':' + d.getMinutes(), '--', 'pseudo');
+        //     $('#item-list').append(ul);
+        //     renameItem(ul);
+        //     
+        //     return false;
+        // });
         
         
         // load up the "Storage" directory.
         loadDirectoryItems('Files');
+        
+        
+        // Set the height of this window according to the browsers height.
     };
+    
+    
+    
     
     function loadDirectoryItems(atPath)
     {
         currentRelativePath = atPath;
         fileManager = $().fileManager(atPath);
 
-        var list = $('#storage-item-list');
+        var list = $('.scroll div');
         list.html('');
         
         fileManager.ls(function(r) {
@@ -112,8 +118,8 @@
                 // empty
                 return;
             }
-
-			console.log(r);
+            
+            list.css('height', (r.length + 1) * 36);
             
             $(r).each(function(i) {
                 list.append(createItemRow(this.kind, this.name, this.date, this.size));
@@ -158,7 +164,6 @@
     function createItemRow(kind, name, date, size, mode)
     {
         var ul = $('<ul/>').addClass(mode);
-		$('<li class="mark"></li>').appendTo(ul);
         $('<li class="icon"></li>').appendTo(ul).addClass(kind)
         $('<li class="name"></li>').appendTo(ul).html('<a href="#/' + currentRelativePath + '/' + name + '">' + name + '</a>');
         $('<li class="date"></li>').appendTo(ul).html(date);

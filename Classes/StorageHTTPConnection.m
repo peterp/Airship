@@ -95,6 +95,16 @@
 			NSString *relativePath = [[multipartParser.parts valueForKey:@"relativePath"] valueForKey:@"value"];
 			NSError *error;
 			[[NSFileManager defaultManager] moveItemAtPath:[[multipartParser.parts valueForKey:@"Filedata"] valueForKey:@"tmpFilePath"] toPath:[[server.documentRoot.path stringByAppendingPathComponent:relativePath] stringByAppendingPathComponent:filename] error:&error];
+			
+			
+			// Create file.
+			File *file = [[File alloc] initWithName:filename atPath:[server.documentRoot.path stringByAppendingPathComponent:relativePath]]; 
+			// Post notification.
+			[[NSNotificationCenter defaultCenter] postNotificationName:@"addedFileNotification" object:self userInfo:
+			[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObject:file], @"addedFiles", nil]];
+			[file release];
+
+
 			// Notification
 			//[[NSNotificationCenter defaultCenter] postNotificationName:@"newItem" object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:relativePath, @"relativePath",filename, @"name", nil]];
 
