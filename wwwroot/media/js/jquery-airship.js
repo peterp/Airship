@@ -23,7 +23,7 @@
     
     function mkdir(name, callback)
     {
-        $.post('/__/directory/create/', {'directoryName': name, 'relativePath': relativePath}, function(r) {
+        $.post('/__/directory/create/', {'name': name, 'path': relativePath}, function(r) {
             callback(r);
         });
     };
@@ -36,9 +36,7 @@
     function mv(oldName, newName)
     {
     };
-    // list directory items.
     // delete
-    // createDirectory
     // rename
     // move (should be the same as rename)
     
@@ -55,50 +53,41 @@
     
     $.fn.airshipUI = function() {
         
-        // upload
-        // $('#action-upload').click(function() {
-        //  
-        //  
-        //  // Open a new popup window.
-        //  $('#dialog-upload').modal({
-        //      
-        //  });
-        //  
-        //  
-        //  
-        //  
-        //  return false;
-        // });
-        // $('#action-file-upload').fancybox({
-        //     'hideOnContentClick': false,
-        //     'padding': 18,
-        //     'callbackOnStart': function() {
-        //         var href = 'upload.html?currentRelativePath=' + encodeURIComponent(currentRelativePath);
-        //         $('#action-file-upload').attr('href', href);
-        //     }
-        // });
-        
-        // create folder
-        // $('#action-directory-create').click(function() {
-        //     
-        //     if ($('#item-list').find('input').length > 0) {
-        //         return;
-        //     }
-        //     
-        //     var d = new Date();
-        //     var ul = createItemRow('directory', 'untitled folder', 'Today, ' + d.getHours() + ':' + d.getMinutes(), '--', 'pseudo');
-        //     $('#item-list').append(ul);
-        //     renameItem(ul);
-        //     
-        //     return false;
-        // });
-        
+        //create folder
+        $('a[href=#new-folder]').mouseup(function() {
+            
+            // deselect selected rows.
+            $('.selected').removeClass('selected');
+            
+            // find a suitable folder name
+            var name = '';
+            $('.scroll .name').each(function(i) {
+                basename = i == 0 ? 'untitled folder' : 'untitled folder ' + i;
+                if ($('.scroll .name a[href="#/' + currentRelativePath + '/' + basename + '"]').length <= 0) {
+                    name = basename;
+                    return false;
+                }
+            });
+            
+            var d = new Date();
+            var ul = createItemRow('Directory', name, 'Today, ' + d.getHours() + ':' + d.getMinutes(), '--', 'pseudo')
+                .addClass('selected');
+            $('.scroll div')
+                .css('height', $('.scroll ul').length * 38)
+                .append(ul);
+            
+            // edit this row.
+            renameItem(ul);
+            
+            return false;
+        }).click(function() {
+            return false;
+        });
+
+
         
         // load up the "Storage" directory.
         loadDirectoryItems('Files');
-        
-        
-        // Set the height of this window according to the browsers height.
     };
     
     
@@ -119,14 +108,14 @@
                 return;
             }
             
-            list.css('height', (r.length + 1) * 36);
+            list.css('height', r.length * 38);
             
             $(r).each(function(i) {
                 list.append(createItemRow(this.kind, this.name, this.date, this.size));
             });
         });
         
-        // update the path bar... at the top or at the bottom?
+        // update the path bar...
         updatePathTree();
     };
     
@@ -153,7 +142,8 @@
             }).appendTo(pt);
             
             if (i < dirTree.length - 1) {
-                $('<span>&gt;</span>').appendTo(bc);
+                console.lo
+                $('<span>&gt;</span>').appendTo(pt);
             }
             
         }
@@ -171,7 +161,6 @@
         ul.mousedown(function(e) {
             
             // if row is deselected, return it back to normal
-            
             if (!e.metaKey) {
                 // deselect all
                 $('.selected').removeClass('selected');
@@ -186,19 +175,23 @@
             }
         })
         .mouseup(function(e) {
-                
+            
+            if (e.metaKey) {
+                return;
+            }
+
             var row = $(this);
             if (e.detail == 1) {
                 // set a timeout...
                 timeoutID = setTimeout(function() {
                     openItemRow(row);
                 }, 250);
+                
+                
             } else if (e.detail == 2) {
                 // cancel the timer...
                 clearTimeout(timeoutID);
-                if (!e.metaKey) {
-                    renameItem(row);
-                }
+                renameItem(row);
             }
         });
         return ul;
@@ -207,11 +200,10 @@
     
     function openItemRow(row)
     {
-        var row = $(row);
-        var kind = row.find('.icon')[0].className.split(' ')[1];
-        var name = row.find('.name').text();
+        var kind = $(row).find('.icon')[0].className.split(' ')[1];
+        var name = $(row).find('.name').text();
 
-        if (kind == 'directory') {
+        if (kind == 'Directory') {
             loadDirectoryItems(currentRelativePath + '/' + name);
         } else {
             // view/ preview a file.
@@ -219,53 +211,83 @@
         }
     };
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     function renameItem(ul)
     {
-        // we don't want the user to create more than 1 row...
         var pseudoMode = ul.hasClass('pseudo');
         var cachedName = ul.find('.name').text();
+
+
         
         var input = $('<input type="text" value="' + cachedName + '">')
             .keydown(function(e) {
                 if (e.keyCode == 27) {
-                    // check the mode...
+
+                    
                     if (pseudoMode) {
+                        // Remove, cancel if creating.
                         $(this).parent().parent().remove();
                     } else {
-
+                        // Restore to default if renaming
                         revertFromRenameToDefault($(this).parent(), cachedName);
                     }
                 } else if (e.keyCode == 13) {
+                    // Blur is save...
                     $(this).blur();
                 }
             })
             .blur(function() {
                 
-                
-                console.log('iasjdaiosjd')
-                
                 fileManager = $().fileManager(currentRelativePath);
-
                 if (pseudoMode) {
-                    fileManager.mkdir($(this).val(), function(r) {
-                            
+                    
+                    var val = $(this).val();
+                    
+                    fileManager.mkdir(val, function(r) {
+                        
                         if (r.length <= 0) {
-                            // error;
-                            alert('no return value')
+                            // Response is empty?
                             return;
                         }
                         
-                        var c = parseInt(r[0], 10);
-                        if (c <= 0) {
-                            // something bad happended dude.
-                            alert(r.split(';')[1]);
-                        } else if (c == 1) {
-                            revertFromRenameToDefault(ul.find('.name'), r.substr(2));
+                        var c = parseInt(r, 10);
+                        if (c > 0) {
+                            revertFromRenameToDefault(ul.find('.name'), val);
                         } else {
-                            alert('not a valid return...');
+                            // error
+                            
+                            switch(c) {
+                                case -1:
+                                    //You have to give your folder a name.
+                                    break;
+                                case -2:
+                                    //You cannot use a name that begins with a \".,\" because those names are reserved for the system.
+                                    break;
+                                case -10:
+                                    //\"%@\" could not be created, because its parent folder doesn't exist.
+                                    break;
+                                case -11:
+                                    //The name \"%@\" is already taken. Please choose a different name.
+                                    break;
+                            }
                         }
                     });
-                } else {
+            
+
+
+
+                    
+                } else { // Rename directory.
                     // move...
                 }
             });
@@ -274,10 +296,12 @@
         input.select().focus();
     };
     
+    
+    
+    
     function revertFromRenameToDefault(nameColumn, name)
     {
-        
-        nameColumn.html($('<a href="#' + currentRelativePath + name + '/">' + name + '</a>'));
+        nameColumn.html($('<a href="#/' + currentRelativePath + '/' + name + '">' + name + '</a>'));
     };
     
 }(jQuery));

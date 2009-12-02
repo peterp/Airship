@@ -720,27 +720,26 @@
 - (void)updateFileListForAddedFile:(NSNotification *)notification;
 {
 
-	NSMutableArray *addedFiles = [notification.userInfo objectForKey:@"addedFiles"];
-	for (File *newFile in addedFiles) {
+	for (File *newFile in [notification.userInfo objectForKey:@"addedFiles"]) {
 	
 		if ([path isEqualToString:[newFile.absolutePath stringByDeletingLastPathComponent]]) {
+		
 		
 			int indexPathRow = 0;
 			int i = 0;
 			for (File *f in fileList) {
-				
+			
 				if ([newFile.name compare:f.name options:NSCaseInsensitiveSearch | NSDiacriticInsensitiveSearch] < 1) {
-					
 					indexPathRow = i;
 					break;
 				}
-				
 				
 				if (i == [fileList count] - 1) {
 					indexPathRow = i + 1;
 					break;
 				}
 				
+				i += 1;
 			}
 			
 			[fileList insertObject:newFile atIndex:indexPathRow];

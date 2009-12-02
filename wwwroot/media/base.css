@@ -110,6 +110,10 @@ body {
     padding:0 18px;
 }
 #path-tree a:link, #path-tree a:visited { color:#888992; }
+#path-tree span {
+    padding:0 9px;
+    color:#eee;
+}
 
 
 
@@ -169,37 +173,20 @@ ul.selected, ul.selected li {
 
 li.Directory, li.Unknown, li.Audio, li.Document, li.Image, li.Video { background:transparent url(/media/gfx/icons.png) no-repeat; }
 .selected li.Directory { background-position:-46px 0; }
-
 li.Unknown { background-position:0 -38px; }
 .selected li.Unknown { background-position:-46px -38px; }
-
 li.Audio { background-position:0 -76px; }
 .selected li.Audio { background-position:-46px -76px; }
-
 li.Document {  background-position:0 -114px;  }
 .selected li.Document { background-position:-46px -114px; }
-
 li.Image {  background-position:0 -152px;  }
 .selected li.Image { background-position:-46px -152px;  }
-
 li.Video {  background-position:0 -190px;  }
 .selected li.Video { background-position:-46px -190px;  }
 
 
 
 
-
-
-
-
-
-
-
-
-#footer {
-	height:36px;
-	background:#ccc;
-}
 
 
 

@@ -98,6 +98,9 @@
 		case FILE_KIND_VIDEO:
 			return @"Video";
 			break;
+		case FILE_KIND_DIRECTORY:
+			return @"Directory";
+			break;
 		default:
 			return @"Unknown";
 			break;

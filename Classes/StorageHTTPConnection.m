@@ -83,12 +83,19 @@
 		
 		
 		
+		
 		if ([URL.path isEqualToString:@"/__/directory/list"]) {
 			
 			NSDictionary *args = [self getPOSTRequestArguments];
 			return [[[HTTPDataResponse alloc] initWithData:[self JSONForDirectoryContentsAtPath:[args valueForKey:@"relativePath"]]] autorelease];
 			
 			
+		} else if ([URL.path isEqualToString:@"/__/directory/create"]) {
+		
+			NSDictionary *args = [self getPOSTRequestArguments];
+			return [[[HTTPDataResponse alloc] initWithData:[[self createDirectory:[args valueForKey:@"name"] atPath:[args valueForKey:@"path"]] dataUsingEncoding:NSUTF8StringEncoding]] autorelease];
+			
+		 
 		} else if (requestIsMultipart) {
 
 			NSString *filename = [[multipartParser.parts valueForKey:@"Filedata"] valueForKey:@"filename"];
@@ -217,49 +224,51 @@
 
 
 # pragma mark -
-# pragma mark Requestions actions with response objects
+# pragma mark Actions with response objects
 
 
-- (NSString *)createDirectory:(NSString *)name atPath:(NSString *)path
+- (NSString *)createDirectory:(NSString *)name atPath:(NSString *)path;
 {
-	NSString *absPath = [server.documentRoot.path stringByAppendingPathComponent:path];
-	
-	NSFileManager *fileManager = [NSFileManager defaultManager];
-	BOOL isDir;
-	
-	
-	// don't allow empty file names
-	if (name.length <= 0) {
-		return @"0;You have to give your folder a name.";
-	}
-	
-	// does the parent directory still exist?
-	if ([fileManager fileExistsAtPath:absPath isDirectory:&isDir] == NO && isDir == NO) {
-		return	[NSString stringWithFormat:@"0;\"%@\" could not be created, because its parent folder doesn't exist. (Anymore?)", name];
-	}
-	
-	// cannot create hidden folders.
-	if ([name hasPrefix:@"."]) {
-		return @"0;You cannot use a name that begins with a \".,\" because those names are reserved for the system.";
-	}
 
-	// Does a folder of this name already exist?
-	absPath = [absPath stringByAppendingPathComponent:name];
-	if ([fileManager fileExistsAtPath:absPath]) {
-		return [NSString stringWithFormat:@"-3;The name \"%@\" is already taken. Please choose a different name.", name];
+	// File name needs a length
+	if (name.length <= 0) {
+		return @"-1";
+	}
+	// No hidden files.
+	if ([name hasPrefix:@"."]) {
+		return @"-2";
 	}
 	
-	// Create the directory
-	if ([fileManager createDirectoryAtPath:absPath attributes:nil]) {
+
+	// Parent path exists?
+	BOOL isDirectory;
+	path = [server.documentRoot.path stringByAppendingPathComponent:path];
+	if ([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDirectory] == NO && isDirectory == NO) {
+		return @"-10";
+	}
 	
-		[[NSNotificationCenter defaultCenter] postNotificationName:@"newItem" object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:path, @"relativePath", name, @"name", nil]];
-		return [NSString stringWithFormat:@"1;%@", name];
+	// Folder does exist?
+	if ([[NSFileManager defaultManager] fileExistsAtPath:[path stringByAppendingPathComponent:name]]) {
+		return @"-11";
+	}
+	
+	
+
+	// Create
+	if ([[NSFileManager defaultManager] createDirectoryAtPath:[path stringByAppendingPathComponent:name] attributes:nil]) {
+		// Notify.
+		
+		
+		File *newFile = [[File alloc] initWithName:name atPath:path];
+		[[NSNotificationCenter defaultCenter] postNotificationName:@"addedFileNotification" object:self userInfo:
+			[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObject:newFile], @"addedFiles", nil]];
+			
+		[newFile release];
+		
+		return @"1";
 	} else {
-		return [NSString stringWithFormat:@"0;The folder \"%@\" could not be created."];
+		return @"0";
 	}
-	
-	// return a data response that the webserver can use directly.
-	return @"0;";
 }
 
 
