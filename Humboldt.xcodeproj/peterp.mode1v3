@@ -277,9 +277,9 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>33</integer>
-									<integer>32</integer>
-									<integer>31</integer>
+									<integer>9</integer>
+									<integer>6</integer>
+									<integer>5</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -321,7 +321,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>FinderViewController.m</string>
+								<string>FileViewController.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -329,11 +329,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>FinderViewController.m</string>
+										<string>FileViewController.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>CE4C695010C2A48000D910E7</string>
+										<string>CE363B8110C5CE9100AF1AF7</string>
 										<key>history</key>
 										<array>
 											<string>CE2F887F109F6D4B00E87D08</string>
@@ -389,9 +389,9 @@
 											<string>CE4C677C10C1361E00D910E7</string>
 											<string>CE4C677D10C1361E00D910E7</string>
 											<string>CE4C677F10C1361E00D910E7</string>
-											<string>CE4C678010C1361E00D910E7</string>
+											<string>CE363B7F10C5CE9100AF1AF7</string>
+											<string>CE363B8010C5CE9100AF1AF7</string>
 											<string>CE4C67DC10C13B5B00D910E7</string>
-											<string>CE4C68D810C1DE2A00D910E7</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -449,9 +449,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>CE4C678310C1361E00D910E7</string>
+				<string>CE363B8210C5CE9100AF1AF7</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>CE4C678410C1361E00D910E7</string>
+				<string>CE363B8310C5CE9100AF1AF7</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -587,10 +587,6 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>CE4C687310C144EC00D910E7</string>
-		<string>CE4C687410C144EC00D910E7</string>
-		<string>1C78EAAD065D492600B07095</string>
-		<string>1CD10A99069EF8BA00B06720</string>
 		<string>CE2B3ACC0F3CCF090039B355</string>
 		<string>/Volumes/Storage/Development/apps/Humboldt/Humboldt.xcodeproj</string>
 	</array>
@@ -616,7 +612,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>FinderViewController.m</string>
+								<string></string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -633,8 +629,6 @@
 							<string>205pt</string>
 						</dict>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -674,7 +668,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>CE2B3ACC0F3CCF090039B355</string>
-				<string>CE4C674410C12CA300D910E7</string>
+				<string>CE363B8410C5CE9100AF1AF7</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>

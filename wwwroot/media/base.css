@@ -58,9 +58,37 @@ body {
     display:inline;
 }
 #gutter {
+    background:transparent url(/media/gfx/sprites.png) no-repeat right 0;
     width:162px;
     margin:0 8px 0 0;
+    text-align:center;
 }
+#gutter div {
+    background:#232430;
+    border-right:1px #5e5e68 solid;
+    margin:8px 0 0 0;
+    height:200px;
+}
+#gutter .foot {
+    display:block;
+    height:8px;
+    background:transparent url(/media/gfx/sprites.png) no-repeat right bottom;
+}
+#gutter a:link, #gutter a:visited {
+    display:block;
+    width:126px;
+    height:30px;
+    line-height:30px;
+    padding:0 9px;
+    background:transparent url(/media/gfx/sprites.png) no-repeat 0 -74px;
+    margin:0 auto 6px auto;
+    text-align:left;
+    color:#303031;
+    font-size:1.2em;
+}
+
+
+
 #finder {
     width:780px;
     background:#eee;
@@ -70,16 +98,18 @@ body {
 
 
 .toolbar {
-    background:#232430 url(/media/gfx/sprites.png) no-repeat;
+    background:transparent url(/media/gfx/sprites.png) no-repeat;
     height:36px;
     line-height:36px;
     padding:0 6px;
 }
-#path-info {
+#path-tree {
     height:38px;
     line-height:38px;
     background-position:0 -36px;
+    padding:0 18px;
 }
+#path-tree a:link, #path-tree a:visited { color:#888992; }
 
 
 
@@ -94,24 +124,35 @@ body {
     height:532px;
 }
 
-#files .scroll div {
+#files .scroll .overflow {
     background:transparent url(/media/gfx/bg_row.png) repeat-y;
     background-attachment:scroll;
     height:532px;
 }
 
-#files ul, .toolbar ul { list-style:none; }
+#files ul, .toolbar ul { 
+    list-style:none;
+    padding:0;
+    margin:0;
+    width:100%;
+    height:37px;
+    border-bottom:1px #a0a1ac dotted;
+}
 #files li, .toolbar li {
 	float:left;
 	display:inline;
-	height:38px;
-	line-height:38px;
+	height:37px;
+	line-height:37px;
     text-indent:9px;
+}
+.toolbar ul {
+    border:0;
+    height:36px;
 }
 .toolbar li {
     height:36px;
     line-height:36px;
-    color:#fff; 
+    color:#fff;
 }
 
 
@@ -119,18 +160,37 @@ li.icon { width:46px;  }
 li.name { width:404px; }
 li.date { width:181px; }
 li.size { width:121px; }
+ul.selected, ul.selected li { 
+    background-color:#999bb7;
+    border-bottom:1px #fff dotted;
+}
+
+
+
+li.Directory, li.Unknown, li.Audio, li.Document, li.Image, li.Video { background:transparent url(/media/gfx/icons.png) no-repeat; }
+.selected li.Directory { background-position:-46px 0; }
+
+li.Unknown { background-position:0 -38px; }
+.selected li.Unknown { background-position:-46px -38px; }
+
+li.Audio { background-position:0 -76px; }
+.selected li.Audio { background-position:-46px -76px; }
+
+li.Document {  background-position:0 -114px;  }
+.selected li.Document { background-position:-46px -114px; }
+
+li.Image {  background-position:0 -152px;  }
+.selected li.Image { background-position:-46px -152px;  }
+
+li.Video {  background-position:0 -190px;  }
+.selected li.Video { background-position:-46px -190px;  }
 
 
 
 
-li.Unknown, li.Directory, li.Audio, li.Document, li.Image, li.Video { background:transparent url(/media/gfx/icon_unknown.png) no-repeat 50% 50%; }
-li.Directory { background-image:url(/media/gfx/icon_directory.png); }
-li.Audio { background-image:url(/media/gfx/icon_audio.png); }
-li.Document { background-image:url(/media/gfx/icon_document.png); }
-li.Image { background-image:url(/media/gfx/icon_image.png); }
-li.Video { background-image:url(/media/gfx/icon_video.png); }
 
-ul.selected, ul.selected li { background-color:#fff; }
+
+
 
 
 

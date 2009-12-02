@@ -145,8 +145,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 281090807;
-			PBXWorkspaceStateSaveDate = 281090807;
+			PBXPerProjectTemplateStateSaveDate = 281398000;
+			PBXWorkspaceStateSaveDate = 281398000;
 		};
 		perUserProjectItems = {
 			CE00579B10BB1C1400F4D6A0 /* PBXTextBookmark */ = CE00579B10BB1C1400F4D6A0 /* PBXTextBookmark */;
@@ -160,6 +160,9 @@
 			CE0AEEA110B01337003FA784 /* PBXBookmark */ = CE0AEEA110B01337003FA784 /* PBXBookmark */;
 			CE0AEEB210B04C11003FA784 /* PBXBookmark */ = CE0AEEB210B04C11003FA784 /* PBXBookmark */;
 			CE2F887F109F6D4B00E87D08 /* PBXTextBookmark */ = CE2F887F109F6D4B00E87D08 /* PBXTextBookmark */;
+			CE363B7F10C5CE9100AF1AF7 /* PBXTextBookmark */ = CE363B7F10C5CE9100AF1AF7 /* PBXTextBookmark */;
+			CE363B8010C5CE9100AF1AF7 /* PBXTextBookmark */ = CE363B8010C5CE9100AF1AF7 /* PBXTextBookmark */;
+			CE363B8110C5CE9100AF1AF7 /* PBXTextBookmark */ = CE363B8110C5CE9100AF1AF7 /* PBXTextBookmark */;
 			CE4C677710C1361E00D910E7 /* PBXTextBookmark */ = CE4C677710C1361E00D910E7 /* PBXTextBookmark */;
 			CE4C677810C1361E00D910E7 /* PBXTextBookmark */ = CE4C677810C1361E00D910E7 /* PBXTextBookmark */;
 			CE4C677910C1361E00D910E7 /* PBXTextBookmark */ = CE4C677910C1361E00D910E7 /* PBXTextBookmark */;
@@ -167,10 +170,7 @@
 			CE4C677C10C1361E00D910E7 /* PBXTextBookmark */ = CE4C677C10C1361E00D910E7 /* PBXTextBookmark */;
 			CE4C677D10C1361E00D910E7 /* PBXTextBookmark */ = CE4C677D10C1361E00D910E7 /* PBXTextBookmark */;
 			CE4C677F10C1361E00D910E7 /* PBXBookmark */ = CE4C677F10C1361E00D910E7 /* PBXBookmark */;
-			CE4C678010C1361E00D910E7 /* PBXTextBookmark */ = CE4C678010C1361E00D910E7 /* PBXTextBookmark */;
 			CE4C67DC10C13B5B00D910E7 /* PBXTextBookmark */ = CE4C67DC10C13B5B00D910E7 /* PBXTextBookmark */;
-			CE4C68D810C1DE2A00D910E7 /* PBXTextBookmark */ = CE4C68D810C1DE2A00D910E7 /* PBXTextBookmark */;
-			CE4C695010C2A48000D910E7 /* PBXTextBookmark */ = CE4C695010C2A48000D910E7 /* PBXTextBookmark */;
 			CE9C504210BDDC05006AA0B4 /* PBXTextBookmark */ = CE9C504210BDDC05006AA0B4 /* PBXTextBookmark */;
 			CE9C505210BDE3C5006AA0B4 /* PBXTextBookmark */ = CE9C505210BDE3C5006AA0B4 /* PBXTextBookmark */;
 			CE9C505310BDE3C5006AA0B4 /* PBXTextBookmark */ = CE9C505310BDE3C5006AA0B4 /* PBXTextBookmark */;
@@ -399,6 +399,36 @@
 		path = /Users/peterp/Desktop/Classes/GenericFileViewController.m;
 		sourceTree = "<absolute>";
 	};
+	CE363B7F10C5CE9100AF1AF7 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE48848010B9B72D003E8631 /* FinderViewController.h */;
+		name = "FinderViewController.h: 51";
+		rLen = 0;
+		rLoc = 1244;
+		rType = 0;
+		vrLen = 1778;
+		vrLoc = 255;
+	};
+	CE363B8010C5CE9100AF1AF7 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CE48848110B9B72D003E8631 /* FinderViewController.m */;
+		name = "FinderViewController.m: 300";
+		rLen = 0;
+		rLoc = 9135;
+		rType = 0;
+		vrLen = 1394;
+		vrLoc = 20787;
+	};
+	CE363B8110C5CE9100AF1AF7 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = CEEFAC1810B49FDC00B8D906 /* FileViewController.m */;
+		name = "FileViewController.m: 376";
+		rLen = 27;
+		rLoc = 9443;
+		rType = 0;
+		vrLen = 1335;
+		vrLoc = 8465;
+	};
 	CE38A3790FF6AD1200E93C29 /* AsyncSocket.m */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1156, 47696}}";
@@ -501,14 +531,14 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1209, 1190}}";
 			sepNavSelRange = "{1244, 0}";
-			sepNavVisRange = "{428, 1603}";
+			sepNavVisRange = "{255, 1778}";
 		};
 	};
 	CE48848110B9B72D003E8631 /* FinderViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1183, 11424}}";
-			sepNavSelRange = "{17591, 0}";
-			sepNavVisRange = "{15614, 360}";
+			sepNavIntBoundsRect = "{{0, 0}, {1545, 11424}}";
+			sepNavSelRange = "{9135, 0}";
+			sepNavVisRange = "{20787, 1394}";
 		};
 	};
 	CE48848410B9B733003E8631 /* SpotlightViewController.h */ = {
@@ -582,16 +612,6 @@
 		isa = PBXBookmark;
 		fRef = CE4C675910C1344600D910E7 /* button_navigationBar.png */;
 	};
-	CE4C678010C1361E00D910E7 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = CE48848010B9B72D003E8631 /* FinderViewController.h */;
-		name = "FinderViewController.h: 51";
-		rLen = 0;
-		rLoc = 1244;
-		rType = 0;
-		vrLen = 1603;
-		vrLoc = 428;
-	};
 	CE4C67DC10C13B5B00D910E7 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = CEEFAC1810B49FDC00B8D906 /* FileViewController.m */;
@@ -601,26 +621,6 @@
 		rType = 0;
 		vrLen = 2819;
 		vrLoc = 1158;
-	};
-	CE4C68D810C1DE2A00D910E7 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = CE48848110B9B72D003E8631 /* FinderViewController.m */;
-		name = "FinderViewController.m: 137";
-		rLen = 0;
-		rLoc = 3455;
-		rType = 0;
-		vrLen = 2519;
-		vrLoc = 2712;
-	};
-	CE4C695010C2A48000D910E7 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = CE48848110B9B72D003E8631 /* FinderViewController.m */;
-		name = "FinderViewController.m: 300";
-		rLen = 0;
-		rLoc = 9135;
-		rType = 0;
-		vrLen = 2556;
-		vrLoc = 8296;
 	};
 	CE70DA090FFABC0400D606B3 /* AFMultipartParser.h */ = {
 		uiCtxt = {
@@ -1194,9 +1194,9 @@
 	};
 	CEEFAC1810B49FDC00B8D906 /* FileViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1202, 6258}}";
-			sepNavSelRange = "{1856, 0}";
-			sepNavVisRange = "{1158, 2819}";
+			sepNavIntBoundsRect = "{{0, 0}, {1202, 6762}}";
+			sepNavSelRange = "{9443, 27}";
+			sepNavVisRange = "{8465, 1335}";
 		};
 	};
 	CEEFAC1910B49FDC00B8D906 /* FileViewController.h */ = {

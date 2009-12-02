@@ -127,14 +127,14 @@
         });
         
         // update the path bar... at the top or at the bottom?
-        updatePathBreadcrumbs();
+        updatePathTree();
     };
     
     
-    function updatePathBreadcrumbs()
+    function updatePathTree()
     {
-        var bc = $('#path-breadcrumbs');
-        bc.html('');
+        var pt = $('#path-tree');
+        pt.html('');
         
         var dirPath = ''
         var dirTree = currentRelativePath.split('/');
@@ -150,10 +150,9 @@
             var a = $('<a href="#' + dirPath + '">' + dirTree[i] + '</a>').click(function() {
                 // might be different in diff browsers.
                 loadDirectoryItems($(this).attr('href').substr(1));
-            }).appendTo(bc);
+            }).appendTo(pt);
             
             if (i < dirTree.length - 1) {
-            
                 $('<span>&gt;</span>').appendTo(bc);
             }
             
@@ -170,8 +169,21 @@
         $('<li class="size"></li>').appendTo(ul).html(size);
         
         ul.mousedown(function(e) {
-            $('#storage-item-list').find('.selected').removeClass('selected');
-            $(this).addClass('selected');
+            
+            // if row is deselected, return it back to normal
+            
+            if (!e.metaKey) {
+                // deselect all
+                $('.selected').removeClass('selected');
+                $(this).addClass('selected');
+            } else {
+                
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                } else {
+                    $(this).addClass('selected');
+                }
+            }
         })
         .mouseup(function(e) {
                 
@@ -184,7 +196,9 @@
             } else if (e.detail == 2) {
                 // cancel the timer...
                 clearTimeout(timeoutID);
-                renameItem(row);
+                if (!e.metaKey) {
+                    renameItem(row);
+                }
             }
         });
         return ul;
@@ -226,6 +240,10 @@
                 }
             })
             .blur(function() {
+                
+                
+                console.log('iasjdaiosjd')
+                
                 fileManager = $().fileManager(currentRelativePath);
 
                 if (pseudoMode) {
