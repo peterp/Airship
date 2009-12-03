@@ -63,19 +63,22 @@
 
 	NSURL *URL = [NSURL URLWithString:URI];
 	
-
-	NSLog(@"response: %@ (%@)", URL.path, method);
-	
 	// Normal Response
 	if ([method isEqualToString:@"GET"]) {
 	
 		NSString *URLpath = URL.path;
-	
-		if ([URLpath isEqualToString:@"/"]) {
+		
+		// File download
+		if ([URLpath hasPrefix:@"/Files"]) {
+		
+			return [[[HTTPFileResponse alloc] initWithFilePath:[server.documentRoot.path stringByAppendingPathComponent:URLpath]] autorelease];
+		
+		} else	if ([URLpath isEqualToString:@"/"]) {
+		
 			URLpath = @"index.html";
-		} else if ([URLpath isEqualToString:@"/upload"]) {
-			URLpath = @"upload.html";
 		}
+		
+		
 		return [[[HTTPFileResponse alloc] initWithFilePath:[[server.documentRoot.path stringByAppendingPathComponent:@"wwwroot"] stringByAppendingPathComponent:URLpath]] autorelease];
 	
 	} else if ([method isEqualToString:@"POST"]) {
@@ -96,6 +99,11 @@
 			return [[[HTTPDataResponse alloc] initWithData:[[self createDirectory:[args valueForKey:@"name"] atPath:[args valueForKey:@"path"]] dataUsingEncoding:NSUTF8StringEncoding]] autorelease];
 			
 		 
+		} else if ([URL.path isEqualToString:@"/__/item/delete"]) {
+		
+			NSDictionary *args = [self getPOSTRequestArguments];
+			return [[[HTTPDataResponse alloc] initWithData:[self deleteFiles:[args objectForKey:@"files"]]] autorelease];
+			
 		} else if (requestIsMultipart) {
 
 			NSString *filename = [[multipartParser.parts valueForKey:@"Filedata"] valueForKey:@"filename"];
@@ -124,65 +132,6 @@
 	}
 	
 	return nil; // 404
-
-
-
-
-
-
-	// We need to seperate action responses from server responses...
-	
-	
-//	if ([method isEqualToString:@"GET"]) {
-//		// GET METHODS
-//		
-//		
-//		
-//		
-//			
-//
-//
-//			NSString *path = url.path;
-//			if ([url.path isEqualToString:@"/"]) {
-//				path = @"index.html";
-//			}
-//			path = [[server.documentRoot.path stringByAppendingPathComponent:@"wwwroot"] stringByAppendingPathComponent:path];
-//			return [[[HTTPFileResponse alloc] initWithFilePath:path] autorelease];
-//		
-//		
-//		
-//	} else if ([method isEqualToString:@"POST"]) {
-//		// POST METHODS
-//		
-//		if ([url.path isEqualToString:@"/__/directory/create"]) {
-//
-//			// Create a directory
-//			NSDictionary *vars = [self variablesForPostRequest];
-//			return [[[HTTPDataResponse alloc] initWithData:[[self createDirectory:[vars valueForKey:@"directoryName"] atPath:[vars valueForKey:@"relativePath"]] dataUsingEncoding:NSUTF8StringEncoding]] autorelease];
-//
-//		} else if ([url.path isEqualToString:@"/__/directory/open"]) {
-//
-//			// Open a directory
-//			NSDictionary *vars = [self variablesForPostRequest];
-//			return [[[HTTPDataResponse alloc] initWithData:[self JSONForDirectoryContentsAtPath:[vars valueForKey:@"relativePath"]]] autorelease];
-//			
-//		} else if (requestIsMultipart) {
-//		
-//			// check to see if the fileupload was correctly done?
-//			if ([[[multipartParser.parts valueForKey:@"Filedata"] valueForKey:@"filename"] length] <= 0) {
-//				// Bad upload, cleanup.
-//				[multipartParser release];
-//				requestIsMultipart = NO;
-//				return [[[HTTPDataResponse alloc] initWithData:[@"0" dataUsingEncoding:NSUTF8StringEncoding]] autorelease];
-//			}
-//			// File upload is complete, move the file to it's proper directory and release all used resources.
-//			[self fileUploadComplete];
-//			return [[[HTTPDataResponse alloc] initWithData:[@"1" dataUsingEncoding:NSUTF8StringEncoding]] autorelease];
-//		}
-//		
-//	}
-//	
-//	return nil;
 }
 
 
@@ -205,16 +154,39 @@
 	CFDataRef postData = CFHTTPMessageCopyBody(request);
 	NSString *postBody = [[NSString alloc] initWithData:(NSData *)postData encoding:NSUTF8StringEncoding];
 	
-	NSMutableDictionary *variables= [NSMutableDictionary dictionary];
+	NSMutableDictionary *args= [NSMutableDictionary dictionary];
+
 	for (NSString *postBodyPart in [postBody componentsSeparatedByString:@"&"]) {
-		NSArray *keyValue = [postBodyPart componentsSeparatedByString:@"="];
-		[variables setValue:[[[keyValue objectAtIndex:1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByReplacingOccurrencesOfString:@"+" withString:@" "] forKey:[keyValue objectAtIndex:0]];
+	
+		NSArray *keyValuePair = [postBodyPart componentsSeparatedByString:@"="];
+		NSString *key = [[[keyValuePair objectAtIndex:0] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByReplacingOccurrencesOfString:@"+" withString:@" "];
+		NSString *value = [[[keyValuePair objectAtIndex:1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByReplacingOccurrencesOfString:@"+" withString:@" "];
+		
+		// check to see if the key is an array, check the suffix for []
+		if ([key hasSuffix:@"[]"]) {
+			// it's an array... fetch or create the array from the dictionary.
+			key = [key stringByReplacingOccurrencesOfString:@"[]" withString:@""];
+			
+			NSMutableArray *argArray;
+			// does this key exist in the array?
+			if ([args objectForKey:key] == nil) {
+			
+				argArray = [NSMutableArray arrayWithObject:value];
+				[args setObject:argArray forKey:key];
+			} else {
+			
+				argArray = [args objectForKey:key];
+				[argArray addObject:value];
+			}
+		} else {
+			[args setValue:value forKey:key];
+		}
 	}
 
 	CFRelease(postData);
 	[postBody release];
 	
-	return variables;
+	return args;
 }
 
 
@@ -285,6 +257,30 @@
 	}
 	directoryContents = nil;
 	return [[[CJSONSerializer serializer] serializeObject:storageItemList] dataUsingEncoding:NSUTF8StringEncoding];
+}
+
+
+- (NSData *)deleteFiles:(NSMutableArray *)files;
+{
+	NSLog(@"%@", files);
+	
+	NSMutableArray *removedFiles = [NSMutableArray arrayWithCapacity:[files count]];
+	for (NSString *filepath in files) {
+	
+		File *file = [[File alloc] initWithName:[filepath lastPathComponent] atPath:[server.documentRoot.path stringByAppendingPathComponent:[filepath stringByDeletingLastPathComponent]]];
+		if (![file delete]) {
+			// return 0?
+			NSLog(@"error whilst trying to delete file, http connection.");
+		};
+		[removedFiles addObject:file];
+		[file release];
+	}
+	// Post notification.
+
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"removedFileNotification" object:self userInfo:
+		[NSDictionary dictionaryWithObjectsAndKeys:removedFiles, @"removedFiles", nil]];
+	
+	return [@"1" dataUsingEncoding:NSUTF8StringEncoding];
 }
 
 

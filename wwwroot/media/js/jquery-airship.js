@@ -28,8 +28,11 @@
         });
     };
     
-    function rm()
+    function rm(files, callback)
     {
+        $.post('/__/item/delete/', {'files[]': files, 'path': relativePath}, function(r) {
+            callback(r);
+        });
     };
     
     
@@ -63,7 +66,7 @@
             var name = '';
             $('.scroll .name').each(function(i) {
                 basename = i == 0 ? 'untitled folder' : 'untitled folder ' + i;
-                if ($('.scroll .name a[href="#/' + currentRelativePath + '/' + basename + '"]').length <= 0) {
+                if ($('.scroll .name a[href="#' + currentRelativePath + '/' + basename + '"]').length <= 0) {
                     name = basename;
                     return false;
                 }
@@ -83,11 +86,55 @@
         }).click(function() {
             return false;
         });
-
-
         
-        // load up the "Storage" directory.
-        loadDirectoryItems('Files');
+        // delete
+        $('a[href=#delete]').mouseup(function() {
+            
+            var rmFiles = new Array();
+            // grab selected rows
+            $('.selected .name a').each(function(i) {
+                rmFiles.push(currentRelativePath + '/' + $(this).text());
+            });
+            
+            if (rmFiles.length <= 0) {
+                return;
+            }
+            
+            // we should actually ask if you're sure if you want to delete these files.
+
+            // delete these rows.
+            fileManager.rm(rmFiles, function(r) {
+                
+                if (r == '1') {
+                    $('.selected').remove();
+                } else {
+                    // error message.
+                }
+            });
+
+            
+        }).click(function() {
+            return false;
+        });
+        
+        
+        $(window).resize(resizeFinderToFitWindow);
+        resizeFinderToFitWindow();
+
+
+        // only method we make public, 
+        this.loadDirectoryItems = loadDirectoryItems;
+        return this;
+    };
+    
+    function resizeFinderToFitWindow(e)
+    {
+        var h = $(window).height() - 270;
+        
+        $('.scroll').css('height', h);
+        $('.scroll div').css('height', h);
+        
+        
     };
     
     
@@ -108,7 +155,14 @@
                 return;
             }
             
-            list.css('height', r.length * 38);
+            // yargle, here we need to make sure the list isn't smaller than
+            // the height of this thing.
+            var h = r.length * 38;
+            if (h > parseInt(list.css('height'), 10)) {
+                list.css('height', h);
+            } else {
+                list.css('height', $('.scroll').css('height'));
+            }
             
             $(r).each(function(i) {
                 list.append(createItemRow(this.kind, this.name, this.date, this.size));
@@ -127,39 +181,31 @@
         
         var dirPath = ''
         var dirTree = currentRelativePath.split('/');
-        
-        
-        for (i = 0; i < dirTree.length; i++) {
-            
-            if (i > 0) {
-                 dirPath += '/';
-            }
-            dirPath += dirTree[i];
-            
-            var a = $('<a href="#' + dirPath + '">' + dirTree[i] + '</a>').click(function() {
-                // might be different in diff browsers.
-                loadDirectoryItems($(this).attr('href').substr(1));
-            }).appendTo(pt);
-            
+
+        // need to rewrite this.
+        for (i = 1; i < dirTree.length; i++) {
+
+            dirPath += '/' + dirTree[i];
+            $('<a href="#' + dirPath + '">' + dirTree[i] + '</a>').appendTo(pt);
             if (i < dirTree.length - 1) {
-                console.lo
                 $('<span>&gt;</span>').appendTo(pt);
             }
-            
         }
     };
+    
+    
+    
     
     // given the parameters it returns the appropriate row 
     function createItemRow(kind, name, date, size, mode)
     {
         var ul = $('<ul/>').addClass(mode);
         $('<li class="icon"></li>').appendTo(ul).addClass(kind)
-        $('<li class="name"></li>').appendTo(ul).html('<a href="#/' + currentRelativePath + '/' + name + '">' + name + '</a>');
+        $('<li class="name"></li>').appendTo(ul).html('<a href="' + (kind == 'Directory' ? '#' + currentRelativePath + '/' + name : currentRelativePath + '/' + name) + '">' + name + '</a>');
         $('<li class="date"></li>').appendTo(ul).html(date);
         $('<li class="size"></li>').appendTo(ul).html(size);
         
         ul.mousedown(function(e) {
-            
             // if row is deselected, return it back to normal
             if (!e.metaKey) {
                 // deselect all
@@ -181,35 +227,14 @@
             }
 
             var row = $(this);
-            if (e.detail == 1) {
-                // set a timeout...
-                timeoutID = setTimeout(function() {
-                    openItemRow(row);
-                }, 250);
-                
-                
-            } else if (e.detail == 2) {
-                // cancel the timer...
-                clearTimeout(timeoutID);
+            if (e.detail == 2) {
                 renameItem(row);
             }
         });
+        
         return ul;
     };
     
-    
-    function openItemRow(row)
-    {
-        var kind = $(row).find('.icon')[0].className.split(' ')[1];
-        var name = $(row).find('.name').text();
-
-        if (kind == 'Directory') {
-            loadDirectoryItems(currentRelativePath + '/' + name);
-        } else {
-            // view/ preview a file.
-            
-        }
-    };
     
     
     
@@ -248,7 +273,6 @@
             })
             .blur(function() {
                 
-                fileManager = $().fileManager(currentRelativePath);
                 if (pseudoMode) {
                     
                     var val = $(this).val();
@@ -301,7 +325,7 @@
     
     function revertFromRenameToDefault(nameColumn, name)
     {
-        nameColumn.html($('<a href="#/' + currentRelativePath + '/' + name + '">' + name + '</a>'));
+        nameColumn.html($('<a href="#' + currentRelativePath + '/' + name + '">' + name + '</a>'));
     };
     
 }(jQuery));

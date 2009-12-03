@@ -162,6 +162,10 @@ body {
 
 li.icon { width:46px;  }
 li.name { width:404px; }
+li.name a { 
+    text-decoration:underline; 
+    padding:5px 4px 7px 0;
+}
 li.date { width:181px; }
 li.size { width:121px; }
 ul.selected, ul.selected li { 

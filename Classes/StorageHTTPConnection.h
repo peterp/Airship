@@ -20,9 +20,10 @@
 
 
 - (NSData *)JSONForDirectoryContentsAtPath:(NSString *)path;
-- (NSMutableDictionary *)getPOSTRequestArguments;
-
 - (NSString *)createDirectory:(NSString *)name atPath:(NSString *)path;
+- (NSData *)deleteFiles:(NSMutableArray *)files;
+
+- (NSMutableDictionary *)getPOSTRequestArguments;
 - (void)fileUploadComplete;
 
 
