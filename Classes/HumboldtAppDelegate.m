@@ -14,6 +14,19 @@
 #import "SharingTableViewController.h"
 
 
+@implementation UINavigationBar (CustomBackgroundImage)
+
+//-(void)drawRect:(CGRect)rect;
+//{
+//	UIImage *image = [UIImage imageNamed:@"ui_navigationBar.png"];
+//	[image drawInRect:rect];
+//
+//}
+
+
+@end
+
+
 @implementation HumboldtAppDelegate
 
 
@@ -44,10 +57,13 @@
 	UINavigationController *finderNavigationController = [[UINavigationController alloc] initWithRootViewController:finder];
 	[finder release];
 	
+
 	SpotlightViewController *spotlight = [[SpotlightViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
 	UINavigationController *spotlightNavigationController = [[UINavigationController alloc] initWithRootViewController:spotlight];
 	[spotlight release];
 	
+
+
 	// Server view controller...
 	SharingTableViewController *sharingTableViewController = [[SharingTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
 	UINavigationController *sharingNavigationController = [[UINavigationController alloc] initWithRootViewController:sharingTableViewController];

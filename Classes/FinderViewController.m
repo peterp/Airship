@@ -37,7 +37,6 @@
 	FinderViewController *finderViewControlller = [[FinderViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
 	finderViewControlller.path = path;
 	finderViewControlller.title = [path lastPathComponent];
-
 	return finderViewControlller;
 }
 
@@ -67,12 +66,10 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
 {
-    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-			
-			self.title = @"Files";
-			self.tabBarItem.image = [UIImage imageNamed:@"dock_finder.png"];
-    }
-    return self;
+	if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+		self.tabBarItem.image = [UIImage imageNamed:@"dock_finder.png"];
+	}
+  return self;
 }
 
 
@@ -84,29 +81,23 @@
 {
 	[super viewDidLoad];
 	
-	// Navigation Bar Style.
-	UIImageView *navigationBarBackground = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ui_navigationBar.png"]];
-	navigationBarBackground.frame = CGRectMake(0, 0, 320, 44);
-	[self.navigationController.navigationBar insertSubview:navigationBarBackground atIndex:0];
-	[navigationBarBackground release];
-	
+	self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:35.0/255.0 green:36.0/255.0 blue:48.0/255.0 alpha:1];
+
 	// NavigationBar + titleView;
-	UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(100, 0, self.view.frame.size.width - 200, 44)];
-
-	UILabel *titleViewLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, titleView.frame.size.width, 44)];
-	titleViewLabel.backgroundColor = [UIColor clearColor];
-	titleViewLabel.textAlignment = UITextAlignmentCenter;
-	titleViewLabel.text = self.title;
-	titleViewLabel.font = [UIFont systemFontOfSize:18];
-	titleViewLabel.textColor = [UIColor colorWithRed:35/255 green:36/255 blue:48/255 alpha:1];
-	
-	[titleView addSubview:titleViewLabel];
-	[titleViewLabel release];
-	
-	self.navigationItem.titleView = titleView;
-	[titleView release];
+//	UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(100, 0, self.view.frame.size.width - 200, 43)];
+//	UILabel *titleViewLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, titleView.frame.size.width, 43)];
+//	titleViewLabel.backgroundColor = [UIColor clearColor];
+//	titleViewLabel.textAlignment = UITextAlignmentCenter;
+//	titleViewLabel.text = @"margle";
+//	titleViewLabel.font = [UIFont systemFontOfSize:18];
+//	titleViewLabel.textColor = [UIColor whiteColor];
+//	[titleView addSubview:titleViewLabel];
+//	[titleViewLabel release];
+//	self.navigationItem.titleView = titleView;
+//	[titleView release];
 
 	
+		
 	
 
 	self.finderTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
@@ -115,8 +106,7 @@
 	finderTableView.dataSource = self;
 	finderTableView.separatorColor = [UIColor whiteColor];
 	finderTableView.rowHeight = 44;
-
-
+//	finderTableView.backgroundColor = [UIColor colorWithRed:227.0/255.0 green:227.0/255.0 blue:238.0/255.0 alpha:1];
 	[self.view addSubview:finderTableView];
 	[finderTableView release];
 	
@@ -141,17 +131,14 @@
 		searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 		searchBar.delegate = self;
 		searchBar.placeholder = [NSString stringWithFormat:@"Search %@", self.title];
-		searchBar.backgroundColor = [UIColor redColor];
-		searchBar.tintColor = [UIColor blackColor];
-//		searchBar.tintColor = [UIColor redColor];
+		searchBar.backgroundColor = [UIColor clearColor];
 		
-		// Navigation Bar Style.
-		UIImageView *searchBarBackground = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ui_searchBar.png"]];
-		searchBarBackground.frame = CGRectMake(0, 0, 320, 44);
-		[searchBar insertSubview:searchBarBackground atIndex:1];
-		[[searchBar.subviews objectAtIndex:0] setHidden:YES];
-		[searchBarBackground release];
-
+		// Search Bar Background
+//		UIImageView *searchBarBackground = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ui_searchBar.png"]];
+//		searchBarBackground.frame = CGRectMake(0, 0, 320, 44);
+//		[searchBar insertSubview:searchBarBackground atIndex:1];
+//		[[searchBar.subviews objectAtIndex:0] setHidden:YES];
+//		[searchBarBackground release];
 		self.finderTableView.tableHeaderView = searchBar;
 	
 		
@@ -182,17 +169,17 @@
 
 
 	// Editing
-	editButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 57, 28)];
-	[editButton addTarget:self action:@selector(edit:) forControlEvents:UIControlEventTouchUpInside];
-	[editButton setBackgroundImage:[[UIImage imageNamed: @"button_navigationBar.png"] stretchableImageWithLeftCapWidth:7.0 topCapHeight:0.0] forState:UIControlStateNormal];
-	[editButton setTitle:@"Edit" forState:UIControlStateNormal];
-	[editButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-	editButton.titleLabel.textColor = [UIColor colorWithRed:35/255.0 green:36/255.0 blue:48/255.0 alpha:1];
-	editButton.titleLabel.font = [UIFont systemFontOfSize:12.6];
-	UIBarButtonItem *editBarButton = [[[UIBarButtonItem alloc] initWithCustomView:editButton] autorelease];
-	[editButton release];
-	self.navigationItem.rightBarButtonItem = editBarButton;
-
+//	editButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 57, 28)];
+//	[editButton addTarget:self action:@selector(edit:) forControlEvents:UIControlEventTouchUpInside];
+//	[editButton setBackgroundImage:[[UIImage imageNamed: @"button_navigationBar.png"] stretchableImageWithLeftCapWidth:7.0 topCapHeight:0.0] forState:UIControlStateNormal];
+//	[editButton setTitle:@"Edit" forState:UIControlStateNormal];
+//	[editButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+//	editButton.titleLabel.textColor = [UIColor colorWithRed:35/255.0 green:36/255.0 blue:48/255.0 alpha:1];
+//	editButton.titleLabel.font = [UIFont systemFontOfSize:12.6];
+//	UIBarButtonItem *editBarButton = [[[UIBarButtonItem alloc] initWithCustomView:editButton] autorelease];
+//	[editButton release];
+//	
+//	self.navigationItem.rightBarButtonItem = editBarButton;
 
 	
 		
@@ -205,6 +192,19 @@
 
 - (void)viewWillAppear:(BOOL)animated;
 {
+
+
+	
+
+
+
+
+
+
+
+
+
+
 	if (self.searchDisplayController.active) {
 		[self.searchDisplayController.searchResultsTableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:[self indexPathForActiveTableView] inSection:0] animated:animated];
 	} else {
@@ -312,8 +312,7 @@
 	
 	// this is always the default colour
 	cell.selectionStyle = UITableViewCellSelectionStyleGray;
-	cell.contentView.backgroundColor = indexPath.row % 2 ? [UIColor colorWithRed:223.0/255.0f green:225.0/255.0f blue:235.0/255.0f alpha:1] : [UIColor colorWithRed:234.0/255.0 green:235.0/255.0f blue:242.0/255.0 alpha:1];
-//	cell.contentView.backgroundColor = [UIColor clearColor];
+	cell.contentView.backgroundColor = indexPath.row % 2 ? [UIColor colorWithRed:227.0/255.0 green:227.0/255.0 blue:238.0/255.0 alpha:1] : [UIColor colorWithRed:204.0/255.0 green:203.0/255.0 blue:221.0/255.0 alpha:1];
 	
 	if (isEditing == YES) {
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -375,8 +374,12 @@
 
 		File *file = [self fileForIndexPath:indexPath.row];
 		if (file.kind == FILE_KIND_DIRECTORY) {
+		
 			FinderViewController *finderViewController = [FinderViewController finderWithPath:file.absolutePath];
 			[self.navigationController pushViewController:finderViewController animated:YES];
+			
+			
+			
 			[finderViewController release];
 
 		} else {
@@ -468,6 +471,10 @@
 
 
 
+
+
+
+
 #pragma mark FileViewDelegate methods
 
 - (void)fileViewControllerDidFinish:(FileViewController *)controller;
@@ -496,11 +503,21 @@
 
 
 
+
+
+
+
+
+
+
+
+
 #pragma mark -
 #pragma mark Searching
 
 - (void)searchDisplayController:(UISearchDisplayController *)controller willShowSearchResultsTableView:(UITableView *)tableView;
 {
+	NSLog(@"margle");
 	[self cancel:self];
 }
 
@@ -599,6 +616,7 @@
 {
 //	UIBarButtonItem *editButton = [[[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(edit:)] autorelease];
 //	self.navigationItem.rightBarButtonItem = editButton;
+	
 	[self showToolbar:NO];
 	isEditing = NO;
 	[selectedFileList removeAllObjects];

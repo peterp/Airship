@@ -75,9 +75,20 @@
             var d = new Date();
             var ul = createItemRow('Directory', name, 'Today, ' + d.getHours() + ':' + d.getMinutes(), '--', 'pseudo')
                 .addClass('selected');
-            $('.scroll div')
-                .css('height', $('.scroll ul').length * 38)
-                .append(ul);
+                
+            // have to check which height is the higher...
+			var list = $('.scroll div');
+			list.append(ul);
+			
+			
+			var h = $('.scroll div a').length * 38;
+            if (h > parseInt(list.css('height'), 10)) {
+                list.css('height', h);
+            } else {
+                list.css('height', $('.scroll').css('height'));
+            }
+			
+	        
             
             // edit this row.
             renameItem(ul);
@@ -92,7 +103,7 @@
             
             var rmFiles = new Array();
             // grab selected rows
-            $('.selected .name a').each(function(i) {
+            $('.selected .name').each(function(i) {
                 rmFiles.push(currentRelativePath + '/' + $(this).text());
             });
             
@@ -111,11 +122,27 @@
                     // error message.
                 }
             });
-
-            
         }).click(function() {
             return false;
         });
+
+		
+		// upload
+		$('a[href=#upload]').mouseup(function() {
+			
+			var w = window.open('/upload.html', 'upload-' + currentRelativePath, 'height=600,width=505,location=false,resizable=false');
+			if (window.focus) {
+				w.focus();
+			}
+			
+			w.uploadRelativePath = currentRelativePath;
+			
+			
+			
+		}).click(function() {
+			return false;
+		});
+		
         
         
         $(window).resize(resizeFinderToFitWindow);
@@ -133,8 +160,6 @@
         
         $('.scroll').css('height', h);
         $('.scroll div').css('height', h);
-        
-        
     };
     
     
@@ -155,8 +180,6 @@
                 return;
             }
             
-            // yargle, here we need to make sure the list isn't smaller than
-            // the height of this thing.
             var h = r.length * 38;
             if (h > parseInt(list.css('height'), 10)) {
                 list.css('height', h);
@@ -196,43 +219,38 @@
     
     
     
-    // given the parameters it returns the appropriate row 
     function createItemRow(kind, name, date, size, mode)
     {
-        var ul = $('<ul/>').addClass(mode);
-        $('<li class="icon"></li>').appendTo(ul).addClass(kind)
-        $('<li class="name"></li>').appendTo(ul).html('<a href="' + (kind == 'Directory' ? '#' + currentRelativePath + '/' + name : currentRelativePath + '/' + name) + '">' + name + '</a>');
-        $('<li class="date"></li>').appendTo(ul).html(date);
-        $('<li class="size"></li>').appendTo(ul).html(size);
-        
-        ul.mousedown(function(e) {
-            // if row is deselected, return it back to normal
-            if (!e.metaKey) {
-                // deselect all
-                $('.selected').removeClass('selected');
-                $(this).addClass('selected');
-            } else {
-                
-                if ($(this).hasClass('selected')) {
-                    $(this).removeClass('selected');
-                } else {
-                    $(this).addClass('selected');
-                }
-            }
-        })
-        .mouseup(function(e) {
-            
-            if (e.metaKey) {
-                return;
-            }
+		var a = $('<a />')
+			.addClass(mode)
+			.attr('href', kind == 'Directory' ? '#' + currentRelativePath + '/' + name : currentRelativePath + '/' + name);
+		
+		$('<span class="mark" />').appendTo(a);
+		$('<span class="icon" />').appendTo(a).addClass(kind);
+		$('<span class="name" />').appendTo(a).html(name);
+		$('<span class="date" />').appendTo(a).html(date);
+		$('<span class="size" />').appendTo(a).html(size);
+		
+		a.mousedown(function() {
+//			$(this).addClass('selected');
+		})
+		.mouseup(function() {
+			
+//			$(this).removeClass('selected');
+		})
+		.find('.mark').click(function(e) {
 
-            var row = $(this);
-            if (e.detail == 2) {
-                renameItem(row);
-            }
-        });
+			var row = $(this).parent();
+			if (row.hasClass('selected')) {
+				row.removeClass('selected');
+			} else {
+				row.addClass('selected');
+			}
+			
+			return false;
+		});
         
-        return ul;
+        return a;
     };
     
     

@@ -16,7 +16,6 @@
 			$(function() {
                 var a = $().airshipUI();
                 
-                
                 $.address.change(function(event) {
                     var v = event.value;
                     if (v == '/') {
@@ -48,18 +47,18 @@
 			
 			<div id="finder">
                 <div class="toolbar">
-                    <ul>
-                        <li class="icon"></li>
-                        <li class="name">Name</li>
-                        <li class="date">Date</li>
-                        <li class="size">Size</li>
-                    </ul>
+                    <div>
+                        <span class="mark"></span>
+                        <span class="icon"></span>
+                        <span class="name">Name</span>
+                        <span class="date">Date</span>
+                        <span class="size">Size</span>
+                    </div>
                 </div>
                 
                 <div id="files">
                     <div class="scroll">
                         <div class="overflow">
-                            . . .
                         </div>
                     </div>
                 </div>

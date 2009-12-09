@@ -84,9 +84,6 @@
 	} else if ([method isEqualToString:@"POST"]) {
 		
 		
-		
-		
-		
 		if ([URL.path isEqualToString:@"/__/directory/list"]) {
 			
 			NSDictionary *args = [self getPOSTRequestArguments];
