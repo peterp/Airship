@@ -1,4 +1,41 @@
 
+;(function($) {
+   
+   	$.fn.airshipDialog = function(message, actions) {
+
+		var o = $('<div />').css({
+			top:0,
+			left:0,
+			position: 'absolute',
+			width:'100%',
+			height:'100%',
+			background:'#000',
+			opacity:0,
+		}).attr('id', 'dialogBG').appendTo('body').animate({opacity:.4}, 400);
+		
+		
+		var d  = $('<div />')
+			.append(
+				$('<div class="message">' + message + '</div><div class="actions"></div>')
+			)
+			.attr('id', 'dialog')
+			.css('opacity', 0)
+		.appendTo('body').animate({opacity:1}, 300);
+		
+		
+		// loop through actions, make them available as buttons...
+		for (action in actions) {
+			
+			var a = $('')
+			
+			
+		}
+		
+   	};
+
+}(jQuery));
+
+
 // FileManager, performs all the basic file management things that a person should expect.
 
 ;(function($) {
@@ -101,6 +138,12 @@
         // delete
         $('a[href=#delete]').mouseup(function() {
             
+			$().airshipDialog('Are you sure you want to delete the selected files?');
+			
+			
+			return;
+
+
             var rmFiles = new Array();
             // grab selected rows
             $('.selected .name').each(function(i) {
@@ -347,3 +390,6 @@
     };
     
 }(jQuery));
+
+
+

@@ -168,6 +168,9 @@ body {
 	cursor:default;
 	outline:none;
 }
+#files a:hover .name {
+	text-decoration:underline;
+}
 
 #files a.selected {
 	background-color:#999bb7; 
@@ -266,12 +269,12 @@ ul.selected .mark {	shift background  }
 	overflow:auto;
 	height:360px;
 	margin:18px 0;
-	background:#aaa;
+	background:#fff;
 }
 #queue .item {
 	border-bottom:1px #ccc solid;
 	padding:9px;
-	background:#fff;
+	background:#eee;
 	color:#444;
 	overflow:auto;
 }
@@ -303,7 +306,35 @@ ul.selected .mark {	shift background  }
 }
 .item .status .mode {
 	float:right;
-	text-align:right;
+	margin-right:50px;
+}
+
+#queue .active { 
+	background:#fff;
+}
+#queue .complete {
+	background:#999;
+}
+.active .cancel, .complete .cancel { display:none; }
+
+
+
+#dialog {
+	position:absolute;
+	top:120px;
+	left:50%;
+	width:370px;
+	margin:0 0 0 -195px;
+	background:#fff;
+}
+
+#dialog .message {
+	padding:10px 10px 20px 10px;
+	margin:10px;
+	border-bottom:1px #ccc solid;
+}
+#dialog .actions {
+	height:20px;
 }
 
 

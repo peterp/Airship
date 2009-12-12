@@ -64,12 +64,11 @@
                 $('#uploader').uploadify({
                     uploader: '/media/js/uploadify/uploadify.swf',
                     script: '/__/file/upload/',
-    //                   checkScript: '/__/file/exists/',
+                    checkScript: '/__/file/exists/',
                     scriptData: {'relativePath': uploadRelativePath}, // additional post vars
                     cancelImg: '/media/js/uploadify/cancel.png',
                     fileDataName: 'Filedata', // post name
                     folder: '../' + uploadRelativePath,
-                    queueID: 'upload-queue',
                     multi: true,
                     auto: true,
                     buttonText: 'Choose files to upload...',
@@ -123,10 +122,9 @@
                      onProgress: function(event, queueID, fileObj, data) {
                          
                      
-                        $('#' + queueID).addClass('active')
-                            .find('.status span').eq(0).html(humanize_bytes(data.bytesLoaded))
-                            .find('.status .mode').html('Uploading...')
-                            .find('.percentage').css('width', (data.percentage *4) + 'px');
+                        $('#' + queueID).addClass('active').find('.percentage').css('width', (data.percentage * 4) + 'px');
+                        $('#' + queueID).find('.status span').eq(0).html(humanize_bytes(data.bytesLoaded));
+                        $('#' + queueID).find('.status .mode').html('Uploading...');
                      },
 
                      onComplete: function(event, queueID, fileObj, response, data) {
@@ -134,7 +132,29 @@
                          $('#' + queueID).addClass('complete')
                             .find('.mode').html('Upload complete');
 
-                         $('#upload-count-completed').html($('#queue .done').length);
+                         $('#upload-count-completed').html($('#queue .complete').length);
+                     },
+                     
+                     onAllComplete: function(filesUploaded, errors, allBytesLoaded, speed)
+                     {
+                         // filesUploaded – The total number of files uploaded
+                         // errors – The total number of errors while uploading
+                         // allBytesLoaded – The total number of bytes uploaded
+                         // speed – The average speed of all uploaded files
+                         
+                     },
+                     
+                     onCheck: function(event, checkScript, fileQueue, folder, single)
+                     {
+                         console.log('wtf just happened?')
+                         // event: The event object.
+                         // checkScript: The path to the file checking script.
+                         // fileQueue: A file queue object consisting of key/value pairs with the queue ID as the key and the filename as the value.
+                         // folder: The path to the upload folder.
+                         // single: True if only one file is being uploaded from the queue.
+
+                         
+                         
                      }
                  });
 
