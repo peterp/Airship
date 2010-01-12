@@ -116,10 +116,6 @@
 			[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObject:file], @"addedFiles", nil]];
 			[file release];
 
-
-			// Notification
-			//[[NSNotificationCenter defaultCenter] postNotificationName:@"newItem" object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:relativePath, @"relativePath",filename, @"name", nil]];
-
 			// Cleanup...
 			[multipartParser release];
 			requestIsMultipart = NO;
@@ -216,7 +212,7 @@
 		return @"-10";
 	}
 	
-	// Folder does exist?
+	// Folder already exists?
 	if ([[NSFileManager defaultManager] fileExistsAtPath:[path stringByAppendingPathComponent:name]]) {
 		return @"-11";
 	}
@@ -236,6 +232,7 @@
 		
 		return @"1";
 	} else {
+		// Unknown error.
 		return @"0";
 	}
 }
@@ -283,17 +280,6 @@
 
 
 
-
-
-
-
-
-
-
-- (void)fileUploadComplete
-{
-
-}
 
 
 

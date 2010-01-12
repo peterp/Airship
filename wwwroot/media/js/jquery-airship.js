@@ -3,6 +3,16 @@
    
    	$.fn.airshipDialog = function(message, actions) {
 
+	
+		
+		this.show = show;
+		this.close = close;
+		
+		return this;
+   	};
+
+	function show(message, actions)
+	{
 		var o = $('<div />').css({
 			top:0,
 			left:0,
@@ -12,8 +22,8 @@
 			background:'#000',
 			opacity:0,
 		}).attr('id', 'dialogBG').appendTo('body').animate({opacity:.4}, 400);
-		
-		
+
+
 		var d  = $('<div />')
 			.append(
 				$('<div class="message">' + message + '</div><div class="actions"></div>')
@@ -21,17 +31,26 @@
 			.attr('id', 'dialog')
 			.css('opacity', 0)
 		.appendTo('body').animate({opacity:1}, 300);
-		
-		
-		// loop through actions, make them available as buttons...
-		for (action in actions) {
-			
-			var a = $('')
-			
-			
+
+
+		for (i = 0; i < actions.length; i++) {
+			var action = actions[i];
+			var a = $('<a/>').text(action.title).click(action.event);
+			d.find('.actions').append(a);
 		}
-		
-   	};
+	};
+
+
+	function close()
+	{
+		$('#dialogBG').animate({opacity:0}, 300, function() {
+			$('#dialogBG').remove();
+		});
+
+		$('#dialog').animate({opacity:0}, 400, function() {
+			$('#dialog').remove();
+		});
+	};
 
 }(jQuery));
 
@@ -101,32 +120,26 @@
             
             // find a suitable folder name
             var name = '';
-            $('.scroll .name').each(function(i) {
-                basename = i == 0 ? 'untitled folder' : 'untitled folder ' + i;
-                if ($('.scroll .name a[href="#' + currentRelativePath + '/' + basename + '"]').length <= 0) {
-                    name = basename;
-                    return false;
-                }
-            });
             
+            for (i = 0; i <= $('.scroll .name').length; i++) {
+                
+                basename = i ? 'untitled folder ' + i : 'untitled folder';
+                // try and find an element that matches basename, if it doesn't
+                // match then this name is available.
+                if ($('.scroll a[href=#' + currentRelativePath + '/' + basename + ']').length == 0) {
+                    name = basename;
+                    break;
+                }
+            };
             var d = new Date();
             var ul = createItemRow('Directory', name, 'Today, ' + d.getHours() + ':' + d.getMinutes(), '--', 'pseudo')
                 .addClass('selected');
-                
-            // have to check which height is the higher...
+
 			var list = $('.scroll div');
 			list.append(ul);
 			
 			
-			var h = $('.scroll div a').length * 38;
-            if (h > parseInt(list.css('height'), 10)) {
-                list.css('height', h);
-            } else {
-                list.css('height', $('.scroll').css('height'));
-            }
-			
-	        
-            
+		    resizeOverflowToFitFiles();
             // edit this row.
             renameItem(ul);
             
@@ -137,13 +150,7 @@
         
         // delete
         $('a[href=#delete]').mouseup(function() {
-            
-			$().airshipDialog('Are you sure you want to delete the selected files?');
-			
-			
-			return;
-
-
+	
             var rmFiles = new Array();
             // grab selected rows
             $('.selected .name').each(function(i) {
@@ -154,17 +161,37 @@
                 return;
             }
             
-            // we should actually ask if you're sure if you want to delete these files.
+           	$().airshipDialog().show('Are you sure you want to delete the selected items?', [
+				{
+					title: 'Cancel',
+					event: function() {
+						// close the dialog.
+						$().airshipDialog().close();
+					}
+				},
+				{
+					title: 'Delete items',
+					event: function() {
+						
+						$().airshipDialog().close();
+					
+						// Do the ajax call, the methods below should be in the ajax callback method
+						// delete these rows.
+			            fileManager.rm(rmFiles, function(r) {
 
-            // delete these rows.
-            fileManager.rm(rmFiles, function(r) {
-                
-                if (r == '1') {
-                    $('.selected').remove();
-                } else {
-                    // error message.
-                }
-            });
+			                if (r == '1') {
+			                    $('.selected').remove();
+			                    resizeOverflowToFitFiles();
+			                } else {
+			                    // error message.
+			                }
+			            });
+					
+					}
+				}
+			]);
+
+            
         }).click(function() {
             return false;
         });
@@ -187,7 +214,6 @@
 		});
 		
         
-        
         $(window).resize(resizeFinderToFitWindow);
         resizeFinderToFitWindow();
 
@@ -202,11 +228,18 @@
         var h = $(window).height() - 270;
         
         $('.scroll').css('height', h);
-        $('.scroll div').css('height', h);
     };
     
-    
-    
+    function resizeOverflowToFitFiles()
+    {
+        var sh = parseInt($('.scroll').css('height'), 10);
+        var oh = $('.overflow a').length * 38;
+        if (oh > sh) {
+            $('.overflow').height(oh);
+        } else {
+            $('.overflow').height(sh);
+        }
+    };
     
     function loadDirectoryItems(atPath)
     {
@@ -223,17 +256,16 @@
                 return;
             }
             
-            var h = r.length * 38;
-            if (h > parseInt(list.css('height'), 10)) {
-                list.css('height', h);
-            } else {
-                list.css('height', $('.scroll').css('height'));
-            }
+       
             
             $(r).each(function(i) {
                 list.append(createItemRow(this.kind, this.name, this.date, this.size));
             });
+            
+            
         });
+        
+        resizeOverflowToFitFiles();
         
         // update the path bar...
         updatePathTree();
@@ -386,7 +418,7 @@
     
     function revertFromRenameToDefault(nameColumn, name)
     {
-        nameColumn.html($('<a href="#' + currentRelativePath + '/' + name + '">' + name + '</a>'));
+        nameColumn.html(name);
     };
     
 }(jQuery));

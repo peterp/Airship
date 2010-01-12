@@ -24,7 +24,6 @@
 - (NSData *)deleteFiles:(NSMutableArray *)files;
 
 - (NSMutableDictionary *)getPOSTRequestArguments;
-- (void)fileUploadComplete;
 
 
 
