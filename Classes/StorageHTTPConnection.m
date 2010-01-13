@@ -101,6 +101,12 @@
 			NSDictionary *args = [self getPOSTRequestArguments];
 			return [[[HTTPDataResponse alloc] initWithData:[self deleteFiles:[args objectForKey:@"files"]]] autorelease];
 			
+			
+			
+		} else if ([URL.path isEqualToString:@"/__/file/exists/"]) {
+			
+			NSLog(@"margle");
+
 		} else if (requestIsMultipart) {
 
 			NSString *filename = [[multipartParser.parts valueForKey:@"Filedata"] valueForKey:@"filename"];

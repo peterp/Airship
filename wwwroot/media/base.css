@@ -11,6 +11,7 @@ a img {border:none;}
 
 /* typography.css */
 html {font-size:100.01%;}
+html, body { height:100%; }
 h1, h2, h3, h4, h5, h6 {font-weight:normal;}
 h1 {font-size:3em;line-height:1;margin-bottom:0.5em;}
 h2 {font-size:2em;margin-bottom:0.75em;}
@@ -69,7 +70,7 @@ body {
 #gutter .foot {
     display:block;
     height:8px;
-    background:transparent url(/media/gfx/sprites.png) no-repeat right bottom;
+    background:transparent url(/media/gfx/sprites.png) no-repeat right -492px;
 }
 #gutter a:link, #gutter a:visited {
     display:block;

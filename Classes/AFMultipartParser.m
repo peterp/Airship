@@ -131,6 +131,8 @@
 					NSData *lineData = [postDataChunk subdataWithRange:NSMakeRange(lineStartIndex, i - lineStartIndex)];
 					NSString *line = [self stringFromData:lineData];
 					
+					NSLog(@"%@", line);
+					
 					//Content-Disposition: form-data; name="new_file"; filename="iPhone HIG.pdf"
 					// The first line of the header contains the field's name as well. And if it's a 
 					// file field, it contains the name of the file.
@@ -140,7 +142,13 @@
 						if ([bits count] == 5) {
 							if ([[bits objectAtIndex:2] isEqualToString:@"; filename="]) {
 								// confirmed file upload
-								[part setObject:[bits objectAtIndex:3] forKey:@"filename"];
+								
+								
+								// replacing \ with / because windows uploads the entire file path... Can you imagine the fail.
+								NSString *filename = [[[bits objectAtIndex:3] stringByReplacingOccurrencesOfString:@"\\" withString:@"//"] lastPathComponent];
+								[part setObject:filename forKey:@"filename"];
+								
+								
 							}
 						}
 						// Add this to the "parts" array.

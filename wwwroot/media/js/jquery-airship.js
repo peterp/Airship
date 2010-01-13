@@ -13,31 +13,29 @@
 
 	function show(message, actions)
 	{
-		var o = $('<div />').css({
-			top:0,
-			left:0,
-			position: 'absolute',
-			width:'100%',
-			height:'100%',
-			background:'#000',
-			opacity:0,
-		}).attr('id', 'dialogBG').appendTo('body').animate({opacity:.4}, 400);
-
-
-		var d  = $('<div />')
-			.append(
-				$('<div class="message">' + message + '</div><div class="actions"></div>')
-			)
-			.attr('id', 'dialog')
-			.css('opacity', 0)
-		.appendTo('body').animate({opacity:1}, 300);
-
-
-		for (i = 0; i < actions.length; i++) {
-			var action = actions[i];
-			var a = $('<a/>').text(action.title).click(action.event);
-			d.find('.actions').append(a);
-		}
+        var o = $('<div />').css({
+            top:0,
+            left:0,
+            position: 'absolute',
+            width:'100%',
+            height:'100%',
+            background:'#000',
+            opacity:0
+        }).attr('id', 'dialogBG').appendTo('body').animate({opacity:.4}, 400);
+       
+       
+        var d  = $('<div />')
+            .append($('<div class="message">' + message + '</div><div class="actions"></div>'))
+            .attr('id', 'dialog')
+            .css('opacity', 0)
+        .appendTo('body').animate({opacity:1}, 300);
+       
+       
+        for (i = 0; i < actions.length; i++) {
+            var action = actions[i];
+            var a = $('<a/>').text(action.title).click(action.event);
+            d.find('.actions').append(a);
+        }
 	};
 
 
@@ -199,15 +197,15 @@
 		
 		// upload
 		$('a[href=#upload]').mouseup(function() {
+		    
+			// suppose I need to test if the window exists?
+            var w = window.open('/upload.html', 'upload' + currentRelativePath.replace(/[^\w0-9]+/g, '_'), 'height=600,width=505,location=false,resizable=false');
 			
-			var w = window.open('/upload.html', 'upload-' + currentRelativePath, 'height=600,width=505,location=false,resizable=false');
-			if (window.focus) {
-				w.focus();
-			}
-			
-			w.uploadRelativePath = currentRelativePath;
-			
-			
+            if (window.focus) {
+                w.focus();
+            }
+               
+            w.uploadRelativePath = currentRelativePath;
 			
 		}).click(function() {
 			return false;
