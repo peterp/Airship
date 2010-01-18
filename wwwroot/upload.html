@@ -18,6 +18,7 @@
 		<script src="/media/js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/media/js/uploadify/swfobject.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/media/js/uploadify/jquery.uploadify.v2.1.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/media/js/jquery-airship.js" type="text/javascript" charset="utf-8"></script>
 		
 		<script type="text/javascript" charset="utf-8">
 		
@@ -60,7 +61,6 @@
                 });
 
 
-
                 $('#uploader').uploadify({
                     uploader: '/media/js/uploadify/uploadify.swf',
                     script: '/__/file/upload/',
@@ -68,7 +68,7 @@
                     scriptData: {'relativePath': uploadRelativePath}, // additional post vars
                     cancelImg: '/media/js/uploadify/cancel.png',
                     fileDataName: 'Filedata', // post name
-                    folder: '../' + uploadRelativePath,
+                    folder: uploadRelativePath.substr(1),
                     multi: true,
                     auto: true,
                     buttonText: 'Choose files to upload...',
@@ -133,6 +133,18 @@
                             .find('.mode').html('Upload complete');
 
                          $('#upload-count-completed').html($('#queue .complete').length);
+                         
+                         if (window.opener.a) {
+                             
+                             var pw = window.opener.a;
+                             if (pw.currentRelativePath() == uploadRelativePath) {
+                                 
+                                 console.log('insert a new row into the window...')
+                                 pw.insertItemRow('margle', '1235');
+                                 
+                             }
+                         }
+                         
                      },
                      
                      onAllComplete: function(filesUploaded, errors, allBytesLoaded, speed)
@@ -144,17 +156,8 @@
                          
                      },
                      
-                     onCheck: function(event, checkScript, fileQueue, folder, single)
+                     onCheck: function(event, checkScript, fileQueueObj, folder, single)
                      {
-                         console.log('wtf just happened?')
-                         // event: The event object.
-                         // checkScript: The path to the file checking script.
-                         // fileQueue: A file queue object consisting of key/value pairs with the queue ID as the key and the filename as the value.
-                         // folder: The path to the upload folder.
-                         // single: True if only one file is being uploaded from the queue.
-
-                         
-                         
                      }
                  });
 

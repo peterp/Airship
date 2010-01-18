@@ -63,6 +63,10 @@
 
 	NSURL *URL = [NSURL URLWithString:URI];
 	
+	
+	
+	NSLog(@"URL: %@", URL.path);
+	
 	// Normal Response
 	if ([method isEqualToString:@"GET"]) {
 	
@@ -103,9 +107,29 @@
 			
 			
 			
-		} else if ([URL.path isEqualToString:@"/__/file/exists/"]) {
+		} else if ([URL.path isEqualToString:@"/__/file/exists"]) {
 			
-			NSLog(@"margle");
+			
+			NSDictionary *args = [self getPOSTRequestArguments];
+			// get the folder path first...
+			
+			NSString *storagePath = [server.documentRoot.path stringByAppendingPathComponent:[args objectForKey:@"folder"]];
+			NSMutableDictionary *existingFiles = [NSMutableDictionary dictionary];
+			
+			
+			NSString *filename = nil;
+			for (NSString *key in args) {
+				
+				if (![key isEqualToString:@"folder"]) {
+					filename = [args objectForKey:key];
+					// check to see if this filename exists....
+					if ([[NSFileManager defaultManager] fileExistsAtPath:[storagePath stringByAppendingPathComponent:filename]]) {
+						[existingFiles setObject:filename forKey:key];
+					}
+				}
+			}
+			
+			return [[[HTTPDataResponse alloc] initWithData:[[[CJSONSerializer serializer] serializeObject:existingFiles] dataUsingEncoding:NSUTF8StringEncoding]] autorelease];
 
 		} else if (requestIsMultipart) {
 
@@ -126,7 +150,7 @@
 			[multipartParser release];
 			requestIsMultipart = NO;
 			
-			return [[[HTTPDataResponse alloc] initWithData:[@"true" dataUsingEncoding:NSUTF8StringEncoding]] autorelease];
+			return [[[HTTPDataResponse alloc] initWithData:[@"1" dataUsingEncoding:NSUTF8StringEncoding]] autorelease];
 		}
 	}
 	
@@ -282,6 +306,9 @@
 	
 	return [@"1" dataUsingEncoding:NSUTF8StringEncoding];
 }
+
+
+
 
 
 

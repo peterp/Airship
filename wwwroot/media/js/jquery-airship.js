@@ -137,7 +137,6 @@
 			list.append(ul);
 			
 			
-		    resizeOverflowToFitFiles();
             // edit this row.
             renameItem(ul);
             
@@ -179,7 +178,6 @@
 
 			                if (r == '1') {
 			                    $('.selected').remove();
-			                    resizeOverflowToFitFiles();
 			                } else {
 			                    // error message.
 			                }
@@ -200,44 +198,31 @@
 		    
 			// suppose I need to test if the window exists?
             var w = window.open('/upload.html', 'upload' + currentRelativePath.replace(/[^\w0-9]+/g, '_'), 'height=600,width=505,location=false,resizable=false');
+            w.uploadRelativePath = currentRelativePath;
 			
             if (window.focus) {
                 w.focus();
             }
                
-            w.uploadRelativePath = currentRelativePath;
+            
 			
 		}).click(function() {
 			return false;
 		});
 		
         
-        $(window).resize(resizeFinderToFitWindow);
-        resizeFinderToFitWindow();
-
 
         // only method we make public, 
         this.loadDirectoryItems = loadDirectoryItems;
+        this.insertItemRow = insertItemRow;
+        this.currentRelativePath = function() {
+            return currentRelativePath;
+        };
+        
         return this;
     };
     
-    function resizeFinderToFitWindow(e)
-    {
-        var h = $(window).height() - 270;
-        
-        $('.scroll').css('height', h);
-    };
     
-    function resizeOverflowToFitFiles()
-    {
-        var sh = parseInt($('.scroll').css('height'), 10);
-        var oh = $('.overflow a').length * 38;
-        if (oh > sh) {
-            $('.overflow').height(oh);
-        } else {
-            $('.overflow').height(sh);
-        }
-    };
     
     function loadDirectoryItems(atPath)
     {
@@ -263,7 +248,7 @@
             
         });
         
-        resizeOverflowToFitFiles();
+
         
         // update the path bar...
         updatePathTree();
@@ -324,6 +309,40 @@
 		});
         
         return a;
+    };
+    
+    function insertItemRow(name, size)
+    {
+        
+        console.log('I come here... to insert item row')
+        // determine "kind" by extension
+        
+        
+        // var d = new Date();
+        // var ul = createItemRow('Directory', name, 'Today, ' + d.getHours() + ':' + d.getMinutes(), '--', 'pseudo')
+        //     .addClass('selected');
+        
+        // Kind by Extension
+            // NSArray  *aud = [NSArray arrayWithObjects:@"aac", @"mp3", @"aiff", @"wav", nil];
+            // NSArray  *doc = [NSArray arrayWithObjects:@"doc", @"docx", @"htm", @"html", @"key", @"numbers", @"pages", @"pdf", @"ppt", @"pptx", @"txt", @"rtf", @"xls", @"xlsx", nil];
+            // NSArray  *img = [NSArray arrayWithObjects:@"jpg", @"jpeg", @"gif", @"tiff", @"png", nil];
+            // NSArray  *vid = [NSArray arrayWithObjects:@"m4v", @"mp4", @"mov", nil];
+            // 
+            // NSString *ext = [[self.name pathExtension] lowercaseString];
+            // 
+            // if ([aud containsObject:ext]) {
+            //  return FILE_KIND_AUDIO;
+            // } else if ([doc containsObject:ext]) {
+            //  return FILE_KIND_DOCUMENT;
+            // } else if ([img containsObject:ext]) {
+            //  return FILE_KIND_IMAGE;
+            // } else if ([vid containsObject:ext]) {
+            //  return FILE_KIND_VIDEO;
+            // }
+            // 
+            // return FILE_KIND_UNKNOWN;
+        
+        
     };
     
     

@@ -131,8 +131,6 @@
 					NSData *lineData = [postDataChunk subdataWithRange:NSMakeRange(lineStartIndex, i - lineStartIndex)];
 					NSString *line = [self stringFromData:lineData];
 					
-					NSLog(@"%@", line);
-					
 					//Content-Disposition: form-data; name="new_file"; filename="iPhone HIG.pdf"
 					// The first line of the header contains the field's name as well. And if it's a 
 					// file field, it contains the name of the file.

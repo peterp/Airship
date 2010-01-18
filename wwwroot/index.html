@@ -14,9 +14,13 @@
 
 		
 		<script type="text/javascript" charset="utf-8">
+		
+		    var a = null;
+		
+		
 			$(function() {
-                var a = $().airshipUI();
-                
+                a = $().airshipUI();
+
                 $.address.change(function(event) {
                     var v = event.value;
                     if (v == '/') {
@@ -67,6 +71,10 @@
                 
                 <div class="toolbar" id="path-tree">
                 </div>
+			</div>
+			
+			
+			<div id="footer">
 			</div>
 
 		</div>
