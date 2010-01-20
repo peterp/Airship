@@ -139,9 +139,8 @@
                              var pw = window.opener.a;
                              if (pw.currentRelativePath() == uploadRelativePath) {
                                  
-                                 console.log('insert a new row into the window...')
-                                 pw.insertItemRow('margle', '1235');
-                                 
+                                //
+                                 pw.insertItemRow(fileObj.name, humanize_bytes(fileObj.size));
                              }
                          }
                          

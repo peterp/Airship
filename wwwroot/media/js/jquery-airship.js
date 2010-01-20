@@ -130,15 +130,14 @@
                 }
             };
             var d = new Date();
-            var ul = createItemRow('Directory', name, 'Today, ' + d.getHours() + ':' + d.getMinutes(), '--', 'pseudo')
+            var row = createItemRow('Directory', name, 'Today, ' + d.getHours() + ':' + d.getMinutes(), '--', 'pseudo')
                 .addClass('selected');
-
-			var list = $('.scroll div');
-			list.append(ul);
-			
-			
+            
+            
+            insertItemRowAlphabetically(row, name);
+            
             // edit this row.
-            renameItem(ul);
+            renameItem(row);
             
             return false;
         }).click(function() {
@@ -314,34 +313,55 @@
     function insertItemRow(name, size)
     {
         
-        console.log('I come here... to insert item row')
-        // determine "kind" by extension
+        var ext = name.split('.')
+        ext = ext[ext.length - 1];
+        var kind = 'Unknown';
+        if (ext == 'jpg' || ext == 'jpeg' || ext == 'gif' || ext == 'tiff' || ext == 'png') {
+            kind = 'Image';
+        } else if (ext == 'aac' || ext == 'mp3' || ext == 'aiff' || ext == 'wav') {
+            kind = 'Audio';
+        } else if (ext == 'doc' || ext == 'docx' || ext == 'htm' || ext == 'html' || ext == 'key' || ext == 'numbers' || ext == 'pages' || ext == 'pdf' || ext == 'ppt' || ext == 'pptx' || ext == 'txt' || ext == 'rtf' || ext == 'xls' || ext == 'xlsx') {
+            kind = 'Document';
+        } else if (ext == 'm4v', ext == 'mp4', ext == 'mov') {
+            kind = 'Video';
+        }
         
         
-        // var d = new Date();
-        // var ul = createItemRow('Directory', name, 'Today, ' + d.getHours() + ':' + d.getMinutes(), '--', 'pseudo')
-        //     .addClass('selected');
+        var d = new Date();
+        var row = createItemRow(kind, name, 'Today, ' + d.getHours() + ':' + d.getMinutes(), size)
         
-        // Kind by Extension
-            // NSArray  *aud = [NSArray arrayWithObjects:@"aac", @"mp3", @"aiff", @"wav", nil];
-            // NSArray  *doc = [NSArray arrayWithObjects:@"doc", @"docx", @"htm", @"html", @"key", @"numbers", @"pages", @"pdf", @"ppt", @"pptx", @"txt", @"rtf", @"xls", @"xlsx", nil];
-            // NSArray  *img = [NSArray arrayWithObjects:@"jpg", @"jpeg", @"gif", @"tiff", @"png", nil];
-            // NSArray  *vid = [NSArray arrayWithObjects:@"m4v", @"mp4", @"mov", nil];
-            // 
-            // NSString *ext = [[self.name pathExtension] lowercaseString];
-            // 
-            // if ([aud containsObject:ext]) {
-            //  return FILE_KIND_AUDIO;
-            // } else if ([doc containsObject:ext]) {
-            //  return FILE_KIND_DOCUMENT;
-            // } else if ([img containsObject:ext]) {
-            //  return FILE_KIND_IMAGE;
-            // } else if ([vid containsObject:ext]) {
-            //  return FILE_KIND_VIDEO;
-            // }
-            // 
-            // return FILE_KIND_UNKNOWN;
+        $('.scroll div').append(row);
+    };
+    
+    
+    
+    
+    function insertItemRowAlphabetically(row, name)
+    {
+        // inser the row based on the name...
+        var itemRows = $('.scroll .name');
+
+        if (itemRows.length <= 1) {
+
+            $('.scroll div').append(row);
+            return;
+        }
         
+        itemRows.each(function(i) {
+            
+            // FIX THIS TOMORROW
+            console.log($(this).parent().hasClass('pseudo'))
+            
+            var n = $(this).text();
+            if (n.toLowerCase().localeCompare(name) >= 0) {
+                $(this).parent().before(row)
+                return false;
+            }
+            
+            if (i == itemRows.length - 1) {
+                $('.scroll div').append(row);
+            }
+        });
         
     };
     
@@ -357,23 +377,27 @@
     
     
     
-    function renameItem(ul)
+    function renameItem(row)
     {
-        var pseudoMode = ul.hasClass('pseudo');
-        var cachedName = ul.find('.name').text();
+        var pseudoMode = row.hasClass('pseudo');
+        var cachedName = row.find('.name').text();
 
-
+        // disable the link...
         
+        console.log(row);
+
+
+
         var input = $('<input type="text" value="' + cachedName + '">')
             .keydown(function(e) {
                 if (e.keyCode == 27) {
 
-                    
+
                     if (pseudoMode) {
                         // Remove, cancel if creating.
                         $(this).parent().parent().remove();
                     } else {
-                        // Restore to default if renaming
+                        // Restore to defarowt if renaming
                         revertFromRenameToDefault($(this).parent(), cachedName);
                     }
                 } else if (e.keyCode == 13) {
@@ -382,24 +406,26 @@
                 }
             })
             .blur(function() {
-                
+
                 if (pseudoMode) {
-                    
+
                     var val = $(this).val();
-                    
+
                     fileManager.mkdir(val, function(r) {
-                        
+
                         if (r.length <= 0) {
                             // Response is empty?
                             return;
                         }
-                        
+
                         var c = parseInt(r, 10);
                         if (c > 0) {
-                            revertFromRenameToDefault(ul.find('.name'), val);
+                            revertFromRenameToDefault(row.find('.name'), val);
+
+
                         } else {
                             // error
-                            
+
                             switch(c) {
                                 case -1:
                                     //You have to give your folder a name.
@@ -408,7 +434,7 @@
                                     //You cannot use a name that begins with a \".,\" because those names are reserved for the system.
                                     break;
                                 case -10:
-                                    //\"%@\" could not be created, because its parent folder doesn't exist.
+                                    //\"%@\" corowd not be created, because its parent folder doesn't exist.
                                     break;
                                 case -11:
                                     //The name \"%@\" is already taken. Please choose a different name.
@@ -416,17 +442,17 @@
                             }
                         }
                     });
-            
 
 
 
-                    
+
+
                 } else { // Rename directory.
                     // move...
                 }
             });
 
-        ul.find('.name').html('').append(input);
+        row.find('.name').html('').append(input);
         input.select().focus();
     };
     
@@ -435,7 +461,11 @@
     
     function revertFromRenameToDefault(nameColumn, name)
     {
+        // enable / update the link...
+        
         nameColumn.html(name);
+        nameColumn.parent().removeClass('pseudo');
+        insertItemRowAlphabetically(nameColumn.parent(), name);
     };
     
 }(jQuery));
