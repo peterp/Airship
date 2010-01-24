@@ -11,6 +11,10 @@
 #import "File.h";
 
 
+
+
+
+
 @implementation FinderViewController
 
 @synthesize path;
@@ -64,6 +68,7 @@
 }
 
 
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
 {
 	if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
@@ -81,7 +86,9 @@
 {
 	[super viewDidLoad];
 	
-	self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:35.0/255.0 green:36.0/255.0 blue:48.0/255.0 alpha:1];
+	
+	self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:46/255.0 green:46/255.0 blue:58/255.0 alpha:1];
+
 
 	// NavigationBar + titleView;
 //	UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(100, 0, self.view.frame.size.width - 200, 43)];
@@ -98,22 +105,35 @@
 
 	
 		
-	
-
 	self.finderTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
 	finderTableView.frame = CGRectMake(0, 0, 320, 367);
 	finderTableView.delegate = self;
 	finderTableView.dataSource = self;
-	finderTableView.separatorColor = [UIColor whiteColor];
-	finderTableView.rowHeight = 44;
-//	finderTableView.backgroundColor = [UIColor colorWithRed:227.0/255.0 green:227.0/255.0 blue:238.0/255.0 alpha:1];
+	finderTableView.rowHeight = 42;
+	finderTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+	finderTableView.backgroundColor = [UIColor clearColor];
+	
+	// TABLE VIEW HEADER / FOOTER
+	UIImageView *tableViewFooter = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ui_tableViewFooter.png"]];
+	tableViewFooter.frame = CGRectMake(0, 0, 320, 44);
+	finderTableView.tableFooterView = tableViewFooter;
+	[tableViewFooter release];
+	UIImageView *tableViewHeader = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ui_tableViewHeader.png"]];
+	tableViewHeader.frame = CGRectMake(0, 0, 320, 44);
+	finderTableView.tableHeaderView = tableViewHeader;
+	[tableViewHeader release];
+	// Ignore the two views when computing size...
+	finderTableView.contentInset = UIEdgeInsetsMake(-44, 0, -44, 0);
+	
 	[self.view addSubview:finderTableView];
 	[finderTableView release];
 	
-	if (self.path != nil) {
 	
+	
+	if (self.path != nil) {
 		
-		// DATA SOURCE
+		
+	  // DATA SOURCE
 		NSArray *directoryContents = [[NSFileManager defaultManager] directoryContentsAtPath:self.path];
 		self.fileList = [NSMutableArray arrayWithCapacity:[directoryContents count]];
 		for (NSString *name in directoryContents) {
@@ -122,38 +142,47 @@
 			[file release];
 		}
 		directoryContents = nil;
-
-	
 	
 		// Search
-		searchBar = [[UISearchBar alloc] init];
-		searchBar.frame = CGRectMake(0, 0, self.view.frame.size.width, 44);
-		searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-		searchBar.delegate = self;
-		searchBar.placeholder = [NSString stringWithFormat:@"Search %@", self.title];
-		searchBar.backgroundColor = [UIColor clearColor];
-		
-		// Search Bar Background
+//		searchBar = [[UISearchBar alloc] init];
+//		searchBar.frame = CGRectMake(0, 0, self.view.frame.size.width, 44);
+//		searchBar.delegate = self;
+//		searchBar.placeholder = [NSString stringWithFormat:@"Search %@", self.title];
+//		searchBar.tintColor = [UIColor redColor];	
+//		searchBar.backgroundColor = [UIColor redColor];
+//		searchBar.barStyle = UIBarStyleBlack;
+//
+//		// Search Bar Background
 //		UIImageView *searchBarBackground = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ui_searchBar.png"]];
 //		searchBarBackground.frame = CGRectMake(0, 0, 320, 44);
+////		searchBarBackground.backgroundColor = [UIColor redColor];
 //		[searchBar insertSubview:searchBarBackground atIndex:1];
-//		[[searchBar.subviews objectAtIndex:0] setHidden:YES];
 //		[searchBarBackground release];
-		self.finderTableView.tableHeaderView = searchBar;
-	
-		
-		// Search Display Controller
-		searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
-		searchDisplayController.delegate = self;
-		searchDisplayController.searchResultsDelegate = self;
-		searchDisplayController.searchResultsDataSource = self;
-
+//		self.finderTableView.tableHeaderView = searchBar;
+//	
+//		// Search Display Controller
+//		searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
+//		searchDisplayController.delegate = self;
+//		searchDisplayController.searchResultsDelegate = self;
+//		searchDisplayController.searchResultsDataSource = self;
 	}
 	
 	
-	// Delete methods
-	self.toolbar = [[UIToolbar alloc] initWithFrame:CGRectZero];
-	toolbar.frame = CGRectMake(0, 367, 320, 40);
+	// EDIT METHODS!
+	
+	editButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 57, 32)];
+	[editButton setBackgroundImage:[[UIImage imageNamed: @"ui_navigationBarButton.png"] stretchableImageWithLeftCapWidth:25.5 topCapHeight:0.0]  forState:UIControlStateNormal];
+	[editButton setTitle:@"Edit" forState:UIControlStateNormal];
+	[editButton setTitleColor:[UIColor colorWithRed:168/255.0 green:169/255.0 blue:183/255.0 alpha:1] forState:UIControlStateNormal];
+	[editButton setTitleShadowColor:[UIColor blackColor] forState:UIControlStateNormal];
+	[editButton addTarget:self action:@selector(edit:) forControlEvents:UIControlEventTouchUpInside];
+	editButton.titleLabel.font = [UIFont systemFontOfSize:12.6];
+	editButton.titleLabel.shadowOffset = CGSizeMake(0, -1);
+	UIBarButtonItem *editBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:editButton];
+	self.navigationItem.rightBarButtonItem = editBarButtonItem;
+	[editBarButtonItem release];
+	
+	self.toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 367, 320, 40)];
 	self.deleteButton = [[UIButton alloc] initWithFrame:CGRectMake(12, 7, 122, 28)];
 	[deleteButton addTarget:self action:@selector(deleteSelection) forControlEvents:UIControlEventTouchUpInside];
 	[deleteButton setBackgroundImage:[[UIImage imageNamed: @"button_red.png"] stretchableImageWithLeftCapWidth:7.0 topCapHeight:0.0] forState:UIControlStateNormal];
@@ -162,49 +191,17 @@
 	deleteButton.titleLabel.font = [UIFont boldSystemFontOfSize:13];
 	[toolbar addSubview:deleteButton];
 	[deleteButton release];
-		
 	[self.view addSubview:toolbar];
 	[toolbar release];
-	
-
-
-	// Editing
-//	editButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 57, 28)];
-//	[editButton addTarget:self action:@selector(edit:) forControlEvents:UIControlEventTouchUpInside];
-//	[editButton setBackgroundImage:[[UIImage imageNamed: @"button_navigationBar.png"] stretchableImageWithLeftCapWidth:7.0 topCapHeight:0.0] forState:UIControlStateNormal];
-//	[editButton setTitle:@"Edit" forState:UIControlStateNormal];
-//	[editButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-//	editButton.titleLabel.textColor = [UIColor colorWithRed:35/255.0 green:36/255.0 blue:48/255.0 alpha:1];
-//	editButton.titleLabel.font = [UIFont systemFontOfSize:12.6];
-//	UIBarButtonItem *editBarButton = [[[UIBarButtonItem alloc] initWithCustomView:editButton] autorelease];
-//	[editButton release];
-//	
-//	self.navigationItem.rightBarButtonItem = editBarButton;
-
 	
 		
 	// Notifications
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTableViewForRemovedFile:) name:@"removedFileNotification" object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFileListForAddedFile:) name:@"addedFileNotification" object:nil];
-
-
 }
 
 - (void)viewWillAppear:(BOOL)animated;
 {
-
-
-	
-
-
-
-
-
-
-
-
-
-
 	if (self.searchDisplayController.active) {
 		[self.searchDisplayController.searchResultsTableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:[self indexPathForActiveTableView] inSection:0] animated:animated];
 	} else {
@@ -264,37 +261,42 @@
 
 		// Create cell
 		cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"Cell"] autorelease];
+		cell.backgroundView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ui_tableViewCellNotSelectedBackground.png"]] autorelease];
+		cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ui_tableViewCellSelectedBackground.png"]];
 		
-		// Pick Image
-		pickImageView = [[[UIImageView alloc] initWithFrame:CGRectMake(-22, 11, 22, 22)] autorelease];
-		pickImageView.tag = PICK_TAG;
-		pickImageView.alpha = 0;
+//		cell.selectionStyle = UITableViewCellSelectionStyleGray;
+
+
+		// this is always the default colour
+		
+		// Icon
+		pickImageView = [[[UIImageView alloc] initWithFrame:CGRectMake(-20, 0, 20, 42)] autorelease];
 		pickImageView.contentMode = UIViewContentModeCenter;
+		pickImageView.tag = PICK_TAG;
 		[cell.contentView addSubview:pickImageView];
 		
 		// Icon
-		iconImageView = [[[UIImageView alloc] initWithFrame:CGRectMake(7, 11, 22, 22)] autorelease];
+		iconImageView = [[[UIImageView alloc] initWithFrame:CGRectMake(9, 0, 30, 42)] autorelease];
 		iconImageView.contentMode = UIViewContentModeCenter;
 		iconImageView.tag = ICON_TAG;
 		[cell.contentView addSubview:iconImageView];
 		
 		// Name 
-		nameLabel = [[[UILabel alloc] initWithFrame:CGRectMake(43, 2, 270, 22)] autorelease];
+		nameLabel = [[[UILabel alloc] initWithFrame:CGRectMake(48, 2, 270, 21)] autorelease];
 		nameLabel.backgroundColor = [UIColor clearColor];
 		nameLabel.tag = NAME_TAG;
 		nameLabel.font = [UIFont systemFontOfSize:15];
-		nameLabel.textColor = [UIColor blackColor];
+		nameLabel.textColor = [UIColor colorWithRed:68/255.0 green:64/255.0 blue:81/255.0 alpha:1];
 		[cell.contentView addSubview:nameLabel];
 		
 		// Meta
-		metaLabel = [[[UILabel alloc] initWithFrame:CGRectMake(43, 20, 270, 22)] autorelease];
+		metaLabel = [[[UILabel alloc] initWithFrame:CGRectMake(48, 20, 270, 21)] autorelease];
 		metaLabel.backgroundColor = [UIColor clearColor];
 		metaLabel.tag = META_TAG;
 		metaLabel.font = [UIFont systemFontOfSize:12];
 		metaLabel.textColor = [UIColor colorWithRed:85/255.0 green:85/255.0 blue:85/255.0 alpha:1];
 		[cell.contentView addSubview:metaLabel];
-			
-			
+
 	} else {
 		// Restore cell
 		pickImageView = (UIImageView *)[cell viewWithTag:PICK_TAG];
@@ -310,40 +312,35 @@
 		file = [fileList objectAtIndex:indexPath.row];
 	}
 	
-	// this is always the default colour
-	cell.selectionStyle = UITableViewCellSelectionStyleGray;
-	cell.contentView.backgroundColor = indexPath.row % 2 ? [UIColor colorWithRed:227.0/255.0 green:227.0/255.0 blue:238.0/255.0 alpha:1] : [UIColor colorWithRed:204.0/255.0 green:203.0/255.0 blue:221.0/255.0 alpha:1];
-	
-	if (isEditing == YES) {
-		cell.selectionStyle = UITableViewCellSelectionStyleNone;
-		
-		if ([selectedFileList objectForKey:indexPath] == nil) {
-			[pickImageView setImage:[UIImage imageNamed:@"cell_notselected.png"]];
-		} else {
-			[pickImageView setImage:[UIImage imageNamed:@"cell_selected.png"]];
-			cell.contentView.backgroundColor = [UIColor lightGrayColor];
-		}
-	}
 	
 	[iconImageView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"file_kind_%d.png", file.kind]]];
 	nameLabel.text = file.name;
 	metaLabel.text = file.date;
 	
-	[UIView beginAnimations:nil context:nil];
 	if (isEditing == YES) {
-		pickImageView.frame = CGRectMake(7, 11, 22, 22);
-		pickImageView.alpha = 1;
-		iconImageView.frame = CGRectMake(43, 11, 22, 22);
-		nameLabel.frame = CGRectMake(79, 0, 234, 22);
-		metaLabel.frame = CGRectMake(79, 22, 234, 22);
-	} else {
-		pickImageView.frame = CGRectMake(-22, 11, 22, 22);
-		pickImageView.alpha = 0;
-		iconImageView.frame = CGRectMake(7, 11, 22, 22);
-		nameLabel.frame = CGRectMake(43, 2, 270, 22);
-		metaLabel.frame = CGRectMake(43, 20, 270, 22);
+		if ([selectedFileList objectForKey:indexPath] == nil) {
+			[pickImageView setImage:[UIImage imageNamed:@"ui_tableViewCellNotSelected.png"]];
+			cell.backgroundView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ui_tableViewCellNotSelectedBackground.png"]] autorelease];
+		} else {
+			[pickImageView setImage:[UIImage imageNamed:@"ui_tableViewCellSelected.png"]];
+			cell.backgroundView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ui_tableViewCellSelectedBackground.png"]] autorelease];
+		}
 	}
 	
+	
+	[UIView beginAnimations:nil context:nil];
+	if (isEditing != YES) {
+		pickImageView.frame = CGRectMake(-20, 0, 20, 42);
+		iconImageView.frame = CGRectMake(9, 0, 30, 42);
+		nameLabel.frame = CGRectMake(48, 2, 270, 21);
+		metaLabel.frame = CGRectMake(48, 20, 270, 21);
+
+	} else {
+		pickImageView.frame = CGRectMake(9, 0, 20, 42);
+		iconImageView.frame = CGRectMake(38, 0, 30, 42);
+		nameLabel.frame = CGRectMake(77, 2, 270, 21);
+		metaLabel.frame = CGRectMake(77, 20, 270, 21);
+	}
 	[UIView commitAnimations];
 
 	return cell;
@@ -602,9 +599,11 @@
 
 - (void)edit:(id)sender;
 {
-
-//	UIBarButtonItem *cancelButton = [[[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonSystemItemDone target:self action:@selector(cancel:)] autorelease];
-//	self.navigationItem.rightBarButtonItem = cancelButton;
+	// Create a cancel button.
+	[editButton setTitle:@"Cancel" forState:UIControlStateNormal];
+	[editButton addTarget:self action:@selector(cancel:) forControlEvents:UIControlEventTouchUpInside];	
+	[editButton setBackgroundImage:[[UIImage imageNamed: @"ui_navigationBarButtonDone.png"] stretchableImageWithLeftCapWidth:25.5 topCapHeight:0.0]  forState:UIControlStateNormal];
+	
 	
 	[self showToolbar:YES];
 	[self updateSelectionCount];
@@ -614,8 +613,10 @@
 
 - (void)cancel:(id)sender;
 {
-//	UIBarButtonItem *editButton = [[[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(edit:)] autorelease];
-//	self.navigationItem.rightBarButtonItem = editButton;
+	[editButton setTitle:@"Edit" forState:UIControlStateNormal];
+	[editButton addTarget:self action:@selector(edit:) forControlEvents:UIControlEventTouchUpInside];	
+	[editButton setBackgroundImage:[[UIImage imageNamed: @"ui_navigationBarButton.png"] stretchableImageWithLeftCapWidth:25.5 topCapHeight:0.0]  forState:UIControlStateNormal];
+	
 	
 	[self showToolbar:NO];
 	isEditing = NO;
@@ -722,7 +723,7 @@
 					// Remove from datasource and tableView.
 					[fileList removeObjectAtIndex:i];
 					[finderTableView beginUpdates];
-					[finderTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:i inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+					[finderTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:i inSection:0]] withRowAnimation:UITableViewRowAnimationLeft];
 					[finderTableView endUpdates];
 					break;
 				}

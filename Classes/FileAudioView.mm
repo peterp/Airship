@@ -50,6 +50,11 @@
 {
 	if (self = [super initWithFrame:frame]) {
 		
+		
+		NSLog(@"initWithFrame");
+		NSLog(@"%@", self);
+
+		
 		// Set Audio Session
 		[[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
 

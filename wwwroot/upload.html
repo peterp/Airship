@@ -140,7 +140,7 @@
                              if (pw.currentRelativePath() == uploadRelativePath) {
                                  
                                 //
-                                 pw.insertItemRow(fileObj.name, humanize_bytes(fileObj.size));
+                                 pw.determineKindCreateAndInsertItemRow(fileObj.name, humanize_bytes(fileObj.size));
                              }
                          }
                          

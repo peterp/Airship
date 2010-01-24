@@ -14,17 +14,17 @@
 #import "SharingTableViewController.h"
 
 
+
 @implementation UINavigationBar (CustomBackgroundImage)
 
-//-(void)drawRect:(CGRect)rect;
-//{
-//	UIImage *image = [UIImage imageNamed:@"ui_navigationBar.png"];
-//	[image drawInRect:rect];
-//
-//}
-
+-(void)drawRect:(CGRect)rect;
+{
+	UIImage *image = [UIImage imageNamed:@"ui_navigationBar.png"];
+	[image drawInRect:rect];	
+}
 
 @end
+
 
 
 @implementation HumboldtAppDelegate
@@ -48,11 +48,6 @@
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application 
 {
-
-	// Prevent sleep
-	[UIApplication sharedApplication].idleTimerDisabled = YES;
-	
-
 	FinderViewController *finder = [FinderViewController finderWithPath:[NSHomeDirectory() stringByAppendingPathComponent:@"Documents/Files/"]];
 	UINavigationController *finderNavigationController = [[UINavigationController alloc] initWithRootViewController:finder];
 	[finder release];
@@ -61,13 +56,13 @@
 	SpotlightViewController *spotlight = [[SpotlightViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
 	UINavigationController *spotlightNavigationController = [[UINavigationController alloc] initWithRootViewController:spotlight];
 	[spotlight release];
-	
 
-
-	// Server view controller...
+	// Sharing view controller
 	SharingTableViewController *sharingTableViewController = [[SharingTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
 	UINavigationController *sharingNavigationController = [[UINavigationController alloc] initWithRootViewController:sharingTableViewController];
 	[sharingTableViewController release];
+	
+	
 
 	// Tab bar controller
 	self.tabBarController = [[UITabBarController alloc] init];
@@ -78,8 +73,19 @@
 	[spotlightNavigationController release];
 	[sharingNavigationController release];
 
+
+	// window background
+	
+	UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ui_tableViewBackground.png"]];
+	backgroundImageView.frame = CGRectMake(0, 44, 320, 392);
+	[window addSubview:backgroundImageView];
+	[backgroundImageView release];
+	window.backgroundColor = [UIColor blackColor];
 	[window addSubview:tabBarController.view];
 	[window makeKeyAndVisible];
+	
+	// Prevent sleep
+	[UIApplication sharedApplication].idleTimerDisabled = YES;
 }
 
 

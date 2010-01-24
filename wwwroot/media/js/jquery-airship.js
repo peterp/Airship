@@ -14,12 +14,6 @@
 	function show(message, actions)
 	{
         var o = $('<div />').css({
-            top:0,
-            left:0,
-            position: 'absolute',
-            width:'100%',
-            height:'100%',
-            background:'#000',
             opacity:0
         }).attr('id', 'dialogBG').appendTo('body').animate({opacity:.4}, 400);
        
@@ -209,11 +203,40 @@
 			return false;
 		});
 		
+		
+		
+		
+		// keyboard events
+		
+		$(document).keydown(function(e) {
+		    
+		    console.log(e.keyCode)
+		    
+		    if (e.target.tagName != 'INPUT') {
+		        
+		        console.log(e.keyCode);
+
+		        switch (e.keyCode) {
+		            
+		            case 27:
+		                $('.selected').removeClass('selected');
+		                break;
+		            
+		            case 38:
+		            case 40:
+		                selectRowWithKeyBoard(e);
+		                return false;
+		                break;
+		        }
+		        
+		    }
+		});
+		
         
 
         // only method we make public, 
         this.loadDirectoryItems = loadDirectoryItems;
-        this.insertItemRow = insertItemRow;
+        this.determineKindCreateAndInsertItemRow = determineKindCreateAndInsertItemRow;
         this.currentRelativePath = function() {
             return currentRelativePath;
         };
@@ -234,7 +257,7 @@
         fileManager.ls(function(r) {
             
             if (r.length == 0) {
-                // empty
+                // empty, let the user know?
                 return;
             }
             
@@ -310,7 +333,44 @@
         return a;
     };
     
-    function insertItemRow(name, size)
+    function insertItemRowAlphabetically(row, name)
+    {
+        // inser the row based on the name...
+        var itemRows = $('.scroll .name');
+
+        if (itemRows.length <= 1) {
+            $('.scroll div').append(row);
+            return;
+        }
+        
+        itemRows.each(function(i) {
+            
+            var n = $(this).text();
+            
+            // insert at correct position
+            if (n.toLowerCase().localeCompare(name) >= 0) {
+                
+                // same position, do nothing
+                if (n == name) {
+                    // same row, do nothing
+                    return false;
+                } else {
+                    // insert before.
+                    $(this).parent().before(row)
+                    return false;
+                }
+            }
+            
+            // insert as last row
+            if (i == itemRows.length - 1) {
+                $('.scroll div').append(row);
+            }
+        });
+        
+    };
+    
+    
+    function determineKindCreateAndInsertItemRow(name, size)
     {
         
         var ext = name.split('.')
@@ -326,51 +386,11 @@
             kind = 'Video';
         }
         
-        
         var d = new Date();
         var row = createItemRow(kind, name, 'Today, ' + d.getHours() + ':' + d.getMinutes(), size)
         
-        $('.scroll div').append(row);
+        insertItemRowAlphabetically(row, name);
     };
-    
-    
-    
-    
-    function insertItemRowAlphabetically(row, name)
-    {
-        // inser the row based on the name...
-        var itemRows = $('.scroll .name');
-
-        if (itemRows.length <= 1) {
-
-            $('.scroll div').append(row);
-            return;
-        }
-        
-        itemRows.each(function(i) {
-            
-            // FIX THIS TOMORROW
-            console.log($(this).parent().hasClass('pseudo'))
-            
-            var n = $(this).text();
-            if (n.toLowerCase().localeCompare(name) >= 0) {
-                $(this).parent().before(row)
-                return false;
-            }
-            
-            if (i == itemRows.length - 1) {
-                $('.scroll div').append(row);
-            }
-        });
-        
-    };
-    
-    
-    
-    
-    
-    
-    
     
     
     
@@ -383,9 +403,7 @@
         var cachedName = row.find('.name').text();
 
         // disable the link...
-        
-        console.log(row);
-
+        row.click(function() { return false; });
 
 
         var input = $('<input type="text" value="' + cachedName + '">')
@@ -456,17 +474,53 @@
         input.select().focus();
     };
     
-    
-    
-    
     function revertFromRenameToDefault(nameColumn, name)
     {
-        // enable / update the link...
+        
+        var row = nameColumn.parent();
+        // enable the link.
+        row.attr('href', row.find('.icon').hasClass('Directory') ? '#' + currentRelativePath + '/' + name : currentRelativePath + '/' + name);
+        row.unbind('click');
         
         nameColumn.html(name);
-        nameColumn.parent().removeClass('pseudo');
-        insertItemRowAlphabetically(nameColumn.parent(), name);
+        row.removeClass('pseudo');
+        insertItemRowAlphabetically(row, name);
     };
+    
+    function selectRowWithKeyBoard(e) 
+    {
+        var goUp = e.keyCode == 38 ? true : false;
+        var selected = $('.selected').length > 0 ? true : false;
+        var multiple = e.shiftKey;
+        
+        console.log(multiple);
+        
+        if (!selected) {
+            if (goUp) {
+                $('.scroll a:last').addClass('selected').focus();
+            } else {
+                $('.scroll a:first').addClass('selected').focus();
+            }
+        } else {
+            
+            var selectedRow = $('.selected:last');
+            var nextSelectedRow;
+            
+            if (goUp) {
+                nextSelectedRow = selectedRow.prev();
+            } else {
+                nextSelectedRow = selectedRow.next()
+            }
+            
+            $('.selected').removeClass('selected');
+            
+            if (nextSelectedRow.length > 0) {
+                nextSelectedRow.addClass('selected').focus();
+            } else {
+                selectedRow.addClass('selected').focus();
+            }
+        }
+    }
     
 }(jQuery));
 

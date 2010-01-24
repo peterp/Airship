@@ -19,8 +19,6 @@
 
 
 
-
-
 @implementation FileViewController
 
 @synthesize delegate;
@@ -68,6 +66,9 @@
 		
 		self.wantsFullScreenLayout = YES;
 		self.view.backgroundColor = [UIColor blackColor];
+		
+		
+		
 		[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:YES];
 		
   }
@@ -79,59 +80,64 @@
 {
 	[super viewDidLoad];
 	
+	
 	self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	
 	
-	
 	// NavigationBar
-	self.navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectZero];
+	self.navigationBar = [[UIToolbar alloc] initWithFrame:CGRectZero];
 	navigationBar.frame = CGRectMake(0, 20, self.view.frame.size.width, 44);
 	navigationBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleBottomMargin;
 	navigationBar.barStyle = UIBarStyleBlackTranslucent;
 	
-	// NavigationBar + NavigationItem
-	UINavigationItem *navigationItem = [[UINavigationItem alloc] init];
-	
-	
-	UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(100, 0, self.view.frame.size.width - 200, 44)];
-	titleView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-	titleViewLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, titleView.frame.size.width, 44)];
-	titleViewLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-	titleViewLabel.backgroundColor = [UIColor clearColor];
-	titleViewLabel.textAlignment = UITextAlignmentCenter;
-	titleViewLabel.font = [UIFont boldSystemFontOfSize:13];
-	titleViewLabel.textColor = [UIColor whiteColor];
-	titleViewLabel.shadowColor = [UIColor blackColor];
-	titleViewLabel.shadowOffset = CGSizeMake(2, 2);
-	[titleView addSubview:titleViewLabel];
-	[titleViewLabel release];
-	
-	navigationItem.titleView = titleView;
-	[titleView release];
-
-	
-	
-
-	// NavigationBar + NavigationItem + doneBarButtonItem
-	UIBarButtonItem *doneBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(unloadViewController)];
-	navigationItem.leftBarButtonItem = doneBarButtonItem;
-	[doneBarButtonItem release];
-	
-	// NavigationBar + NavigationItem + paginationSegmentControl
-	self.paginationSegmentControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"-", @"+", nil]];
-	paginationSegmentControl.frame = CGRectMake(0, 0, 90, 30);
-	paginationSegmentControl.momentary = YES;
-	paginationSegmentControl.segmentedControlStyle = UISegmentedControlStyleBar;
-	[paginationSegmentControl addTarget:self action:@selector(paginationSegmentControlChanged:) forControlEvents:UIControlEventValueChanged];
-	UIBarButtonItem *paginationBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:paginationSegmentControl];
-	[paginationSegmentControl release];
-	navigationItem.rightBarButtonItem = paginationBarButtonItem;
-	[paginationBarButtonItem release];
-	
-	[navigationBar setItems:[NSArray arrayWithObject:navigationItem]];
-	[navigationItem release];
 	[self.view addSubview:navigationBar];
 	[navigationBar release];
+
+	
+	
+	
+	
+//	// NavigationBar + NavigationItem
+//	UINavigationItem *navigationItem = [[UINavigationItem alloc] init];
+//	
+//	
+//	UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(100, 0, self.view.frame.size.width - 200, 44)];
+//	titleView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+//	titleViewLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, titleView.frame.size.width, 44)];
+//	titleViewLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+//	titleViewLabel.backgroundColor = [UIColor clearColor];
+//	titleViewLabel.textAlignment = UITextAlignmentCenter;
+//	titleViewLabel.font = [UIFont boldSystemFontOfSize:13];
+//	titleViewLabel.textColor = [UIColor whiteColor];
+//	titleViewLabel.shadowColor = [UIColor blackColor];
+//	titleViewLabel.shadowOffset = CGSizeMake(2, 2);
+//	[titleView addSubview:titleViewLabel];
+//	[titleViewLabel release];
+//	
+//	navigationItem.titleView = titleView;
+//	[titleView release];
+
+	
+	
+
+//	// NavigationBar + NavigationItem + doneBarButtonItem
+//	UIBarButtonItem *doneBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(unloadViewController)];
+//	navigationItem.leftBarButtonItem = doneBarButtonItem;
+//	[doneBarButtonItem release];
+//	
+//	// NavigationBar + NavigationItem + paginationSegmentControl
+//	self.paginationSegmentControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"-", @"+", nil]];
+//	paginationSegmentControl.frame = CGRectMake(0, 0, 90, 30);
+//	paginationSegmentControl.momentary = YES;
+//	paginationSegmentControl.segmentedControlStyle = UISegmentedControlStyleBar;
+//	[paginationSegmentControl addTarget:self action:@selector(paginationSegmentControlChanged:) forControlEvents:UIControlEventValueChanged];
+//	UIBarButtonItem *paginationBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:paginationSegmentControl];
+//	[paginationSegmentControl release];
+//	navigationItem.rightBarButtonItem = paginationBarButtonItem;
+//	[paginationBarButtonItem release];
+//	
+//	[navigationBar setItems:[NSArray arrayWithObject:navigationItem]];
+//	[navigationItem release];
 	
 	
 	
@@ -163,8 +169,6 @@
 	
 	
 	// Toolbar + Delete
-	
-	
 	
 	
 	[toolbar setItems:[NSArray arrayWithObjects:activityIndicatorBarButtonItem, nil] animated:YES];

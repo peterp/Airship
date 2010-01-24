@@ -19,7 +19,7 @@
 	id <FileViewControllerDelegate> delegate;
 	File *file;
 
-	UINavigationBar *navigationBar;
+	UIToolbar *navigationBar;
 	UILabel *titleViewLabel;
 	UISegmentedControl *paginationSegmentControl;
 	
@@ -36,7 +36,7 @@
 @property (nonatomic, assign) id <FileViewControllerDelegate> delegate;
 @property (nonatomic, retain) File *file;
 
-@property (nonatomic, retain) UINavigationBar *navigationBar;
+@property (nonatomic, retain) UIToolbar *navigationBar;
 @property (nonatomic, retain) UISegmentedControl *paginationSegmentControl;
 
 @property (nonatomic, retain) UIToolbar *toolbar;
