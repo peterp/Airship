@@ -68,7 +68,7 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 		_showsPeaks = YES;
 		_channelNumbers = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:0], nil];
 		_vertical = NO;
-		_useGL = NO;
+		_useGL = YES;
 		_meterTable = new MeterTable(kMinDBvalue);
 		[self layoutSubLevelMeters];
 	}

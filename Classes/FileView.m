@@ -15,22 +15,11 @@
 
 
 
-- (id)initWithFrame:(CGRect)frame 
-{
-	if (self = [super initWithFrame:frame]) {
-		
-		UIImageView *background = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ui_fileViewBackground.png"]];
-		background.frame = frame;
-		[self insertSubview:background atIndex:0];
-		[background release];
-	}
-	return self;
-}
-//}
-//
-//
-//- (void)drawRect:(CGRect)rect {
-//    // Drawing code
+//- (id)initWithFrame:(CGRect)frame 
+//{
+//	if (self = [super initWithFrame:frame]) {
+//	}
+//	return self;
 //}
 
 

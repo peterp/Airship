@@ -50,69 +50,106 @@
 {
 	if (self = [super initWithFrame:frame]) {
 		
+		UIImageView *viewBackground = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ui_fileViewBackground.png"]];
+		viewBackground.frame = frame;
+		viewBackground.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+		[self insertSubview:viewBackground atIndex:0];
+		[viewBackground release];
 		
-		NSLog(@"initWithFrame");
-		NSLog(@"%@", self);
+		
 
 		
 		// Set Audio Session
 		[[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
 
 		// Metering
-		self.levelMeter = [[CALevelMeter alloc] initWithFrame:CGRectMake(10, 150, 300, 60)];
+		self.levelMeter = [[CALevelMeter alloc] initWithFrame:CGRectMake(10, 89, 300, 60)];
+		levelMeter.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 		[self addSubview:levelMeter];
 		[levelMeter release];
 		
 		
+		
+		// Sliders
+		
+		self.songSeekSlider = [[UISlider alloc] initWithFrame:CGRectZero];
+		[songSeekSlider addTarget:self action:@selector(songSeekSliderEditingDidBegin:) forControlEvents:UIControlEventTouchDown];
+		[songSeekSlider addTarget:self action:@selector(songSeekSliderEditingDidEnd:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
+		[songSeekSlider addTarget:self action:@selector(songSeekSliderValueDidChange:) forControlEvents:UIControlEventValueChanged];
+		[songSeekSlider setMinimumTrackImage:[[UIImage imageNamed:@"ui_sliderTrack.png"] stretchableImageWithLeftCapWidth:3 topCapHeight:0] forState:UIControlStateNormal];
+		[songSeekSlider setMaximumTrackImage:[[UIImage imageNamed:@"ui_sliderTrack.png"] stretchableImageWithLeftCapWidth:3 topCapHeight:0] forState:UIControlStateNormal];
+		[songSeekSlider setThumbImage:[UIImage imageNamed:@"ui_sliderThumb.png"] forState:UIControlStateNormal];
+		[self addSubview:songSeekSlider];
+		[songSeekSlider release];
+
+		self.timeLeftLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+		timeLeftLabel.textColor = [UIColor colorWithRed:61/255.0 green:62/255.0 blue:81/255.0 alpha:1];
+		timeLeftLabel.text = @"-00:00";
+		timeLeftLabel.backgroundColor = [UIColor clearColor];
+		timeLeftLabel.adjustsFontSizeToFitWidth = YES;
+		timeLeftLabel.textAlignment = UITextAlignmentRight;
+		timeLeftLabel.font = [UIFont systemFontOfSize:12];
+		
+		self.timePlayedLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+		timePlayedLabel.textColor = [UIColor colorWithRed:61/255.0 green:62/255.0 blue:81/255.0 alpha:1];
+		timePlayedLabel.text = @"00:00";
+		timePlayedLabel.backgroundColor = [UIColor clearColor];
+		timePlayedLabel.adjustsFontSizeToFitWidth = YES;
+		timePlayedLabel.font = [UIFont systemFontOfSize:12];
+		[self addSubview:timePlayedLabel];
+		[timePlayedLabel release];
+		
+		[self addSubview:timeLeftLabel];
+		[timeLeftLabel release];
+		
+
 		// playPauseButton;
-		self.playPauseButton = [[UIButton alloc] initWithFrame:CGRectMake(138, 300, 44, 44)];
+		self.playPauseButton = [[UIButton alloc] initWithFrame:CGRectZero];
 		[playPauseButton addTarget:self action:@selector(playPauseButtonPushed:) forControlEvents:UIControlEventTouchUpInside];
-		playPauseButton.backgroundColor = [UIColor grayColor];
+		[playPauseButton setImage:[UIImage imageNamed:@"ui_buttonPause.png"] forState:UIControlStateNormal];
 		[self addSubview:playPauseButton];
 		[playPauseButton release];
 		
 		
 		// Volume
 		self.volumeView = [[MPVolumeView alloc] initWithFrame:CGRectMake(25, 376, 270, 30)];
-		[self addSubview:volumeView];
+//		[self addSubview:volumeView];
 		[volumeView release];
 		
 		// Volume customisation
 		
 		
-		// Seek bar + timers.
-		self.timePlayedLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 90, 50, 20)];
-		timePlayedLabel.textColor = [UIColor whiteColor];
-		timePlayedLabel.adjustsFontSizeToFitWidth = YES;
-		timePlayedLabel.font = [UIFont systemFontOfSize:12];
-		timePlayedLabel.backgroundColor = [UIColor clearColor];
-		[self addSubview:timePlayedLabel];
-		[timePlayedLabel release];
-		
-		
-		self.timeLeftLabel = [[UILabel alloc] initWithFrame:CGRectMake(260, 90, 50, 20)];
-		timeLeftLabel.textAlignment = UITextAlignmentRight;
-		timeLeftLabel.textColor = [UIColor whiteColor];
-		timeLeftLabel.adjustsFontSizeToFitWidth = YES;
-		timeLeftLabel.font = [UIFont systemFontOfSize:12];
-		timeLeftLabel.backgroundColor = [UIColor clearColor];
-		[self addSubview:timeLeftLabel];
-		[timeLeftLabel release];
-
-		
-		self.songSeekSlider = [[UISlider alloc] initWithFrame:CGRectMake(60, 90, 200, 20)];
-		[songSeekSlider addTarget:self action:@selector(songSeekSliderEditingDidBegin:) forControlEvents:UIControlEventTouchDown];
-		[songSeekSlider addTarget:self action:@selector(songSeekSliderEditingDidEnd:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
-		[songSeekSlider addTarget:self action:@selector(songSeekSliderValueDidChange:) forControlEvents:UIControlEventValueChanged];
-		[self addSubview:songSeekSlider];
-		[songSeekSlider release];
-	}
+		}
 	return self;
 }
 
 
 - (void)layoutSubviews;
 {
+	CGRect levelMeterRect = CGRectMake(10, 89, 300, 60);
+	CGRect songSeekSliderRect = CGRectMake(60, 170, 200, 20);
+	CGRect timeLeftLabelRect = CGRectMake(10, 170, 45, 16);
+	CGRect timePlayedLabelRect = CGRectMake(265, 170, 40, 16);
+	CGRect playPauseButtonRect = CGRectMake(125, 207, 70, 70);
+	
+
+	
+	if (self.frame.size.height == 320) {
+		
+		levelMeterRect = CGRectMake(10, 64, 20, 30);
+		songSeekSliderRect = CGRectMake(60, 140, 360, 20);
+		
+		
+	}
+	
+	levelMeter.frame = levelMeterRect;
+	songSeekSlider.frame = songSeekSliderRect;
+	timeLeftLabel.frame = timeLeftLabelRect;
+	timePlayedLabel.frame = timePlayedLabelRect;
+	playPauseButton.frame = playPauseButtonRect;
+	
+	
+	
 //
 //	CGRect explinationLabelRect = CGRectMake(5, 64, self.frame.size.width - 10, 52);
 //
@@ -144,7 +181,7 @@
 		// Create the audio player
 		self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:nil];
 		audioPlayer.delegate = self;
-		audioPlayer.volume = 1;
+		audioPlayer.volume = 0;
 		audioPlayer.meteringEnabled = YES;
 	
 		if (audioPlayer == nil) {
@@ -205,13 +242,13 @@
 
 	if (audioPlayer.playing == YES) {
 	
-		[playPauseButton setTitle:@"Pause" forState:UIControlStateNormal];
+		[playPauseButton setImage:[UIImage imageNamed:@"ui_buttonPause.png"] forState:UIControlStateNormal];
 		[levelMeter setPlayer:audioPlayer];
 		updateTimeTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateViewForTimeState) userInfo:nil repeats:YES];
 		
 	} else {
 		
-		[playPauseButton setTitle:@"Play" forState:UIControlStateNormal];
+		[playPauseButton setImage:[UIImage imageNamed:@"ui_buttonPlay.png"] forState:UIControlStateNormal];
 		[levelMeter setPlayer:nil];
 		updateTimeTimer = nil;
 	}

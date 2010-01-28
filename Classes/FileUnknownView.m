@@ -38,8 +38,14 @@
 - (id)initWithFrame:(CGRect)frame;
 {
 	if (self = [super initWithFrame:frame]) {
+		
+		UIImageView *viewBackground = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ui_fileViewBackground.png"]];
+		viewBackground.frame = frame;
+		viewBackground.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+		[self insertSubview:viewBackground atIndex:0];
+		[viewBackground release];
 	
-		self.backgroundColor = [UIColor whiteColor];
+
 		self.explinationLabel = [[UILabel alloc] init];
 
 		explinationLabel.textAlignment = UITextAlignmentCenter;

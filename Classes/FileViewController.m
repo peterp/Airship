@@ -90,56 +90,37 @@
 	navigationBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleBottomMargin;
 	navigationBar.barStyle = UIBarStyleBlackTranslucent;
 	
+	UIBarButtonItem *doneBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(unloadViewController)];	
+	[navigationBar setItems:[NSArray arrayWithObject:doneBarButtonItem]];
+	[doneBarButtonItem release];
+		
+	titleViewLabel = [[UILabel alloc] initWithFrame:CGRectMake(95, 0, 130, 44)];
+	titleViewLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+	titleViewLabel.backgroundColor = [UIColor clearColor];
+	titleViewLabel.textAlignment = UITextAlignmentCenter;
+	titleViewLabel.font = [UIFont boldSystemFontOfSize:13];
+	titleViewLabel.textColor = [UIColor whiteColor];
+	titleViewLabel.shadowColor = [UIColor blackColor];
+	titleViewLabel.shadowOffset = CGSizeMake(2, 2);
+	[navigationBar addSubview:titleViewLabel];
+	[titleViewLabel release];
+	
+	self.paginationSegmentControl = [[UISegmentedControl alloc] init];
+	[paginationSegmentControl insertSegmentWithImage:[UIImage imageNamed:@"ui_segmentUpArrow.png"] atIndex:0 animated:NO];
+	[paginationSegmentControl insertSegmentWithImage:[UIImage imageNamed:@"ui_segmentDownArrow.png"] atIndex:1 animated:NO];
+	
+	paginationSegmentControl.frame = CGRectMake(225, 7, 90, 30);
+	paginationSegmentControl.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin;
+	paginationSegmentControl.momentary = YES;
+	paginationSegmentControl.segmentedControlStyle = UISegmentedControlStyleBar;
+	paginationSegmentControl.tintColor = [UIColor blackColor];
+	[paginationSegmentControl addTarget:self action:@selector(paginationSegmentControlChanged:) forControlEvents:UIControlEventValueChanged];	
+	[navigationBar addSubview:paginationSegmentControl];
+	[paginationSegmentControl release];
+	
+	
 	[self.view addSubview:navigationBar];
 	[navigationBar release];
-
-	
-	
-	
-	
-//	// NavigationBar + NavigationItem
-//	UINavigationItem *navigationItem = [[UINavigationItem alloc] init];
-//	
-//	
-//	UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(100, 0, self.view.frame.size.width - 200, 44)];
-//	titleView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-//	titleViewLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, titleView.frame.size.width, 44)];
-//	titleViewLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-//	titleViewLabel.backgroundColor = [UIColor clearColor];
-//	titleViewLabel.textAlignment = UITextAlignmentCenter;
-//	titleViewLabel.font = [UIFont boldSystemFontOfSize:13];
-//	titleViewLabel.textColor = [UIColor whiteColor];
-//	titleViewLabel.shadowColor = [UIColor blackColor];
-//	titleViewLabel.shadowOffset = CGSizeMake(2, 2);
-//	[titleView addSubview:titleViewLabel];
-//	[titleViewLabel release];
-//	
-//	navigationItem.titleView = titleView;
-//	[titleView release];
-
-	
-	
-
-//	// NavigationBar + NavigationItem + doneBarButtonItem
-//	UIBarButtonItem *doneBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(unloadViewController)];
-//	navigationItem.leftBarButtonItem = doneBarButtonItem;
-//	[doneBarButtonItem release];
-//	
-//	// NavigationBar + NavigationItem + paginationSegmentControl
-//	self.paginationSegmentControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"-", @"+", nil]];
-//	paginationSegmentControl.frame = CGRectMake(0, 0, 90, 30);
-//	paginationSegmentControl.momentary = YES;
-//	paginationSegmentControl.segmentedControlStyle = UISegmentedControlStyleBar;
-//	[paginationSegmentControl addTarget:self action:@selector(paginationSegmentControlChanged:) forControlEvents:UIControlEventValueChanged];
-//	UIBarButtonItem *paginationBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:paginationSegmentControl];
-//	[paginationSegmentControl release];
-//	navigationItem.rightBarButtonItem = paginationBarButtonItem;
-//	[paginationBarButtonItem release];
-//	
-//	[navigationBar setItems:[NSArray arrayWithObject:navigationItem]];
-//	[navigationItem release];
-	
-	
 	
 	
 	// Toolbar
