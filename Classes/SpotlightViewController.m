@@ -42,16 +42,18 @@
 	
 	// Setup
 	self.finderTableView.hidden = YES;
-	self.navigationController.view.backgroundColor = [UIColor darkGrayColor];
+	self.navigationController.view.backgroundColor = [UIColor clearColor];
 
 	// Data Store
 	self.path = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/Files/"];
 	self.fileList = [NSMutableArray array];
+	[editButton removeFromSuperview];
+	[editButton release];
 	
 
 	// Search TextField.
 	self.searchTextField = [[UITextField alloc] init];
-	self.searchTextField.frame = CGRectMake(0, 0, self.navigationController.navigationBar.frame.size.width - 100, 22);
+	self.searchTextField.frame = CGRectMake(0, 0, 200, 21);
 	searchTextField.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
 	searchTextField.delegate = self;
 	searchTextField.placeholder = @"Search";
@@ -64,6 +66,8 @@
 	searchTextField.returnKeyType = UIReturnKeySearch;
 	searchTextField.enablesReturnKeyAutomatically = YES;
 	self.navigationController.navigationBar.topItem.titleView = searchTextField;
+	
+
 	[searchTextField release];
 
 	// Search Interstitial

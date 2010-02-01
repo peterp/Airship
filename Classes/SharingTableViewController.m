@@ -41,6 +41,7 @@
 		
 			self.title = @"Sharing";
 			self.tabBarItem.image = [UIImage imageNamed:@"dock_finder.png"];
+			self.tableView.backgroundColor = [UIColor clearColor];
 			
 			// Reachability
 			localWiFiReachable = FALSE;
@@ -241,10 +242,10 @@
 
 - (void)initReachability;
 {
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
-	localWiFiReachable = [[Reachability reachabilityForLocalWiFi] retain];
-	[localWiFiReachable startNotifer];
-	[self updateInterfaceWithReachability:localWiFiReachable];
+//	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+//	localWiFiReachable = [[Reachability reachabilityForLocalWiFi] retain];
+//	[localWiFiReachable startNotifer];
+//	[self updateInterfaceWithReachability:localWiFiReachable];
 }
 
 

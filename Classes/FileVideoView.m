@@ -14,6 +14,7 @@
 
 
 @synthesize playButton;
+@synthesize playLabel;
 @synthesize moviePlayerController;
 @synthesize moviePath;
 
@@ -21,6 +22,7 @@
 - (void)dealloc;
 {
 	self.playButton = nil;
+	self.playLabel = nil;
 	self.moviePlayerController = nil;
 	self.moviePath = nil;
 
@@ -32,15 +34,52 @@
 - (id)initWithFrame:(CGRect)frame;
 {
 	if (self = [super initWithFrame:frame]) {
+		
+		UIImageView *viewBackground = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ui_fileViewBackground.png"]];
+		viewBackground.frame = frame;
+		viewBackground.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+		[self insertSubview:viewBackground atIndex:0];
+		[viewBackground release];
 
-		self.playButton = [[UIButton alloc] initWithFrame:CGRectMake(138, 300, 44, 44)];
+		self.playButton = [[UIButton alloc] initWithFrame:CGRectMake(125, 280, 70, 70)];
+		[playButton setImage:[UIImage imageNamed:@"ui_buttonPlay.png"] forState:UIControlStateNormal];
 		[playButton addTarget:self action:@selector(playVideo:) forControlEvents:UIControlEventTouchUpInside];
-		playButton.backgroundColor = [UIColor grayColor];
+		playButton.backgroundColor = [UIColor clearColor];
 		[self addSubview:playButton];
 		[playButton release];
+		
+		
+		self.playLabel = [[UILabel alloc] initWithFrame:CGRectMake(90, 350, 140, 30)];
+		playLabel.text = @"PLAY VIDEO";
+		playLabel.textAlignment = UITextAlignmentCenter;
+		playLabel.backgroundColor = [UIColor clearColor];
+		playLabel.textColor = [UIColor colorWithRed:25/255.0 green:25/255.0 blue:46/255.0 alpha:1];
+		playLabel.font = [UIFont systemFontOfSize:16];
+		[self addSubview:playLabel];
+		[playLabel release];
+		
 	}
 	return self;
 }
+
+
+- (void)layoutSubviews;
+{
+	CGRect playButtonRect = CGRectMake(125, 280, 70, 70);
+	CGRect playLabelRect = CGRectMake(90, 350, 140, 30);
+
+	if (self.frame.size.height == 320) {
+		
+		playButtonRect = CGRectMake(205, 170, 70, 70);
+		playLabelRect = CGRectMake(170, 240, 140, 30);
+		
+	}
+
+	playButton.frame = playButtonRect;
+	playLabel.frame = playLabelRect;
+}
+
+
 
 - (void)loadFileAtPath:(NSString *)path;
 {

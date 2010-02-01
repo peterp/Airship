@@ -16,9 +16,11 @@
 	UIButton *playButton;
 	MPMoviePlayerController *moviePlayerController;
 	NSString *moviePath;
+	UILabel *playLabel;
 }
 
 @property (nonatomic, retain) UIButton *playButton;
+@property (nonatomic, retain) UILabel *playLabel;
 @property (nonatomic, retain) MPMoviePlayerController *moviePlayerController;
 @property (nonatomic, copy) NSString *moviePath;
 

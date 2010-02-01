@@ -89,7 +89,6 @@
 	
 	self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:46/255.0 green:46/255.0 blue:58/255.0 alpha:1];
 
-
 	// NavigationBar + titleView;
 //	UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(100, 0, self.view.frame.size.width - 200, 43)];
 //	UILabel *titleViewLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, titleView.frame.size.width, 43)];
@@ -118,17 +117,10 @@
 	tableViewFooter.frame = CGRectMake(0, 0, 320, 44);
 	finderTableView.tableFooterView = tableViewFooter;
 	[tableViewFooter release];
-	UIImageView *tableViewHeader = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ui_tableViewHeader.png"]];
-	tableViewHeader.frame = CGRectMake(0, 0, 320, 44);
-	finderTableView.tableHeaderView = tableViewHeader;
-	[tableViewHeader release];
-	// Ignore the two views when computing size...
-	finderTableView.contentInset = UIEdgeInsetsMake(-44, 0, -44, 0);
-	
 	[self.view addSubview:finderTableView];
 	[finderTableView release];
 	
-	
+	finderTableView.contentInset = UIEdgeInsetsMake(0, 0, -44, 0);
 	
 	if (self.path != nil) {
 		
@@ -144,27 +136,28 @@
 		directoryContents = nil;
 	
 		// Search
-//		searchBar = [[UISearchBar alloc] init];
-//		searchBar.frame = CGRectMake(0, 0, self.view.frame.size.width, 44);
-//		searchBar.delegate = self;
-//		searchBar.placeholder = [NSString stringWithFormat:@"Search %@", self.title];
-//		searchBar.tintColor = [UIColor redColor];	
-//		searchBar.backgroundColor = [UIColor redColor];
-//		searchBar.barStyle = UIBarStyleBlack;
-//
-//		// Search Bar Background
-//		UIImageView *searchBarBackground = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ui_searchBar.png"]];
-//		searchBarBackground.frame = CGRectMake(0, 0, 320, 44);
-////		searchBarBackground.backgroundColor = [UIColor redColor];
-//		[searchBar insertSubview:searchBarBackground atIndex:1];
-//		[searchBarBackground release];
-//		self.finderTableView.tableHeaderView = searchBar;
-//	
-//		// Search Display Controller
-//		searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
-//		searchDisplayController.delegate = self;
-//		searchDisplayController.searchResultsDelegate = self;
-//		searchDisplayController.searchResultsDataSource = self;
+		searchBar = [[UISearchBar alloc] init];
+		searchBar.frame = CGRectMake(0, 0, self.view.frame.size.width, 44);
+		searchBar.delegate = self;
+		searchBar.placeholder = [NSString stringWithFormat:@"Search %@", self.title];
+		searchBar.tintColor = [UIColor blackColor];	
+		searchBar.backgroundColor = [UIColor blackColor];
+		searchBar.barStyle = UIBarStyleBlack;
+		finderTableView.contentOffset = CGPointMake(0, 44); // this makes the content inset by 44 pixels, in order
+		
+		
+		// Search Bar Background
+		UIImageView *searchBarBackground = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ui_searchBar.png"]];
+		searchBarBackground.frame = CGRectMake(0, 0, 320, 44);
+		[searchBar insertSubview:searchBarBackground atIndex:1];
+		[searchBarBackground release];
+		self.finderTableView.tableHeaderView = searchBar;
+	
+		// Search Display Controller
+		searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
+		searchDisplayController.delegate = self;
+		searchDisplayController.searchResultsDelegate = self;
+		searchDisplayController.searchResultsDataSource = self;
 	}
 	
 	

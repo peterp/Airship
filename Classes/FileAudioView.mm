@@ -63,10 +63,9 @@
 		[[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
 
 		// Metering
-		self.levelMeter = [[CALevelMeter alloc] initWithFrame:CGRectMake(10, 89, 300, 60)];
-		levelMeter.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-		[self addSubview:levelMeter];
-		[levelMeter release];
+//		self.levelMeter = [[CALevelMeter alloc] initWithFrame:CGRectMake(10, 89, 300, 60)];
+//		[self addSubview:levelMeter];
+//		[levelMeter release];
 		
 		
 		
@@ -112,12 +111,12 @@
 		
 		
 		// Volume
-		self.volumeView = [[MPVolumeView alloc] initWithFrame:CGRectMake(25, 376, 270, 30)];
-//		[self addSubview:volumeView];
+		self.volumeView = [[MPVolumeView alloc] initWithFrame:CGRectZero];
+		volumeView.backgroundColor = [UIColor whiteColor];
+		[self addSubview:volumeView];
 		[volumeView release];
 		
 		// Volume customisation
-		
 		
 		}
 	return self;
@@ -126,53 +125,43 @@
 
 - (void)layoutSubviews;
 {
+	
+	
 	CGRect levelMeterRect = CGRectMake(10, 89, 300, 60);
 	CGRect songSeekSliderRect = CGRectMake(60, 170, 200, 20);
 	CGRect timeLeftLabelRect = CGRectMake(10, 170, 45, 16);
-	CGRect timePlayedLabelRect = CGRectMake(265, 170, 40, 16);
-	CGRect playPauseButtonRect = CGRectMake(125, 207, 70, 70);
+	CGRect timePlayedLabelRect = CGRectMake(265, 170, 45, 16);
+	CGRect playPauseButtonRect = CGRectMake(125, 217, 70, 70);	
+	CGRect volumeViewRect = CGRectMake(60, 370, 200, 20);
 	
 
 	
 	if (self.frame.size.height == 320) {
 		
-		levelMeterRect = CGRectMake(10, 64, 20, 30);
+		levelMeterRect = CGRectMake(20, 64, 440, 60);
 		songSeekSliderRect = CGRectMake(60, 140, 360, 20);
-		
-		
+		timeLeftLabelRect = CGRectMake(10, 140, 45, 16);
+		timePlayedLabelRect = CGRectMake(425, 140, 45, 16);
+		playPauseButtonRect = CGRectMake(205, 170, 70, 70);
+		volumeViewRect = CGRectMake(90, 260, 300, 20);
 	}
 	
-	levelMeter.frame = levelMeterRect;
+	[levelMeter setPlayer:nil];
+	[levelMeter removeFromSuperview];
+	self.levelMeter = nil;
+	
+	
 	songSeekSlider.frame = songSeekSliderRect;
 	timeLeftLabel.frame = timeLeftLabelRect;
 	timePlayedLabel.frame = timePlayedLabelRect;
 	playPauseButton.frame = playPauseButtonRect;
+	volumeView.frame = volumeViewRect;
 	
 	
-	
-//
-//	CGRect explinationLabelRect = CGRectMake(5, 64, self.frame.size.width - 10, 52);
-//
-//	CGRect openAudioButtonRect = CGRectMake(30, 140, 100, 100);
-//	CGRect openDocumentButtonRect = CGRectMake(190, 140, 100, 100);
-//	CGRect openImageButtonRect = CGRectMake(30, 300, 100, 100);
-//	CGRect openVideoButtonRect = CGRectMake(190, 300, 100, 100);
-//
-//
-//	if (self.frame.size.height == 320) {
-//		explinationLabelRect.origin.y = 55;
-//
-//		openAudioButtonRect = CGRectMake(30, 150, 82.5, 82.5);
-//		openDocumentButtonRect = CGRectMake(142.5, 150, 82.5, 82.5);
-//		openImageButtonRect = CGRectMake(255, 150, 82.5, 82.5);
-//		openVideoButtonRect = CGRectMake(367.5, 150, 82.5, 82.5);
-//	}
-//	
-//	explinationLabel.frame = explinationLabelRect;
-//	openAudioButton.frame = openAudioButtonRect;
-//	openDocumentButton.frame = openDocumentButtonRect;
-//	openImageButton.frame = openImageButtonRect;
-//	openVideoButton.frame = openVideoButtonRect;
+	self.levelMeter = [[CALevelMeter alloc] initWithFrame:levelMeterRect];
+	[levelMeter setPlayer:audioPlayer];
+	[self addSubview:levelMeter];
+	[levelMeter release];
 }
 
 
@@ -181,7 +170,7 @@
 		// Create the audio player
 		self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:nil];
 		audioPlayer.delegate = self;
-		audioPlayer.volume = 0;
+		audioPlayer.volume = 1;
 		audioPlayer.meteringEnabled = YES;
 	
 		if (audioPlayer == nil) {
