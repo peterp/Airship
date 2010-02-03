@@ -64,7 +64,7 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 
 - (id)initWithFrame:(CGRect)frame {
 	if (self = [super initWithFrame:frame]) {
-		_refreshHz = 1. / 60.;
+		_refreshHz = 1. / 28.;
 		_showsPeaks = YES;
 		_channelNumbers = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:0], nil];
 		_vertical = NO;
@@ -132,7 +132,9 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 		if (_useGL) newMeter = [[GLLevelMeter alloc] initWithFrame:fr];
 		else newMeter = [[LevelMeter alloc] initWithFrame:fr];
 		
-		newMeter.numLights = 30;
+		
+		
+		newMeter.numLights = fr.size.width / 7;
 		newMeter.vertical = self.vertical;
 		[meters_build addObject:newMeter];
 		[self addSubview:newMeter];

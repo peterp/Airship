@@ -139,7 +139,7 @@ extern NSString *const kReachabilityChangedNotification;
 @private
 	NSString                *key_;
 	SCNetworkReachabilityRef reachabilityRef;
-
+	
 }
 
 @property (copy) NSString *key; // Atomic because network operations are asynchronous.

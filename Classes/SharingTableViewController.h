@@ -32,7 +32,8 @@
 // Reachability
 - (void)initReachability;
 - (void)reachabilityChanged:(NSNotification *)notification;
-- (void)updateInterfaceWithReachability:(Reachability *)currentReach;
+- (void)updateInterface;
+//- (void)updateInterfaceWithReachability:(Reachability *)currentReach;
 - (NSString *)WiFiIPAddress;
 
 

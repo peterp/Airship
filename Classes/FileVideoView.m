@@ -43,6 +43,7 @@
 
 		self.playButton = [[UIButton alloc] initWithFrame:CGRectMake(125, 280, 70, 70)];
 		[playButton setImage:[UIImage imageNamed:@"ui_buttonPlay.png"] forState:UIControlStateNormal];
+		[playButton setImage:[UIImage imageNamed:@"ui_buttonPlayHighlight.png"] forState:UIControlStateHighlighted];
 		[playButton addTarget:self action:@selector(playVideo:) forControlEvents:UIControlEventTouchUpInside];
 		playButton.backgroundColor = [UIColor clearColor];
 		[self addSubview:playButton];

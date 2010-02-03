@@ -108,7 +108,7 @@
 	finderTableView.frame = CGRectMake(0, 0, 320, 367);
 	finderTableView.delegate = self;
 	finderTableView.dataSource = self;
-	finderTableView.rowHeight = 42;
+	finderTableView.rowHeight = 44;
 	finderTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 	finderTableView.backgroundColor = [UIColor clearColor];
 	
@@ -137,12 +137,10 @@
 	
 		// Search
 		searchBar = [[UISearchBar alloc] init];
-		searchBar.frame = CGRectMake(0, 0, self.view.frame.size.width, 44);
+		searchBar.frame = CGRectMake(0, 0, 320, 45);
 		searchBar.delegate = self;
 		searchBar.placeholder = [NSString stringWithFormat:@"Search %@", self.title];
 		searchBar.tintColor = [UIColor blackColor];	
-		searchBar.backgroundColor = [UIColor blackColor];
-		searchBar.barStyle = UIBarStyleBlack;
 		finderTableView.contentOffset = CGPointMake(0, 44); // this makes the content inset by 44 pixels, in order
 		
 		
@@ -150,6 +148,7 @@
 		UIImageView *searchBarBackground = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ui_searchBar.png"]];
 		searchBarBackground.frame = CGRectMake(0, 0, 320, 44);
 		[searchBar insertSubview:searchBarBackground atIndex:1];
+
 		[searchBarBackground release];
 		self.finderTableView.tableHeaderView = searchBar;
 	
@@ -263,13 +262,13 @@
 		// this is always the default colour
 		
 		// Icon
-		pickImageView = [[[UIImageView alloc] initWithFrame:CGRectMake(-20, 0, 20, 42)] autorelease];
+		pickImageView = [[[UIImageView alloc] initWithFrame:CGRectMake(-20, 0, 20, 44)] autorelease];
 		pickImageView.contentMode = UIViewContentModeCenter;
 		pickImageView.tag = PICK_TAG;
 		[cell.contentView addSubview:pickImageView];
 		
 		// Icon
-		iconImageView = [[[UIImageView alloc] initWithFrame:CGRectMake(9, 0, 30, 42)] autorelease];
+		iconImageView = [[[UIImageView alloc] initWithFrame:CGRectMake(9, 0, 30, 44)] autorelease];
 		iconImageView.contentMode = UIViewContentModeCenter;
 		iconImageView.tag = ICON_TAG;
 		[cell.contentView addSubview:iconImageView];
@@ -323,14 +322,14 @@
 	
 	[UIView beginAnimations:nil context:nil];
 	if (isEditing != YES) {
-		pickImageView.frame = CGRectMake(-20, 0, 20, 42);
-		iconImageView.frame = CGRectMake(9, 0, 30, 42);
+		pickImageView.frame = CGRectMake(-20, 0, 20, 44);
+		iconImageView.frame = CGRectMake(9, 0, 30, 44);
 		nameLabel.frame = CGRectMake(48, 2, 270, 21);
 		metaLabel.frame = CGRectMake(48, 20, 270, 21);
 
 	} else {
-		pickImageView.frame = CGRectMake(9, 0, 20, 42);
-		iconImageView.frame = CGRectMake(38, 0, 30, 42);
+		pickImageView.frame = CGRectMake(9, 0, 20, 44);
+		iconImageView.frame = CGRectMake(38, 0, 30, 44);
 		nameLabel.frame = CGRectMake(77, 2, 270, 21);
 		metaLabel.frame = CGRectMake(77, 20, 270, 21);
 	}

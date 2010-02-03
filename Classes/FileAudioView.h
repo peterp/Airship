@@ -22,8 +22,11 @@
 
 	
 	AVAudioPlayer *audioPlayer;
+	
+	UIImageView *levelMeterBackground;
 	CALevelMeter *levelMeter;
-	NSTimer *updateMeteringInterfaceTimer;
+	UIImageView *levelMeterGlare;
+
 
 	UIView	*volumeViewContainer;
 	MPVolumeView *volumeView;
@@ -41,7 +44,11 @@
 
 
 @property (nonatomic, retain) AVAudioPlayer *audioPlayer;
+
+@property (nonatomic, retain) UIImageView *levelMeterBackground;
 @property (nonatomic, retain) CALevelMeter *levelMeter;
+@property (nonatomic, retain) UIImageView *levelMeterGlare;
+
 
 @property (nonatomic, retain) UIView *volumeViewContainer;
 @property (nonatomic, retain) MPVolumeView *volumeView;

@@ -40,7 +40,7 @@
     if (self = [super initWithStyle:style]) {
 		
 			self.title = @"Sharing";
-			self.tabBarItem.image = [UIImage imageNamed:@"dock_finder.png"];
+			self.tabBarItem.image = [UIImage imageNamed:@"dock_sharing.png"];
 			self.tableView.backgroundColor = [UIColor clearColor];
 			
 			// Reachability
@@ -59,10 +59,6 @@
 - (void)viewDidLoad 
 {
 	[super viewDidLoad];
-	
-	
-
-	
 }
 
 
@@ -132,7 +128,7 @@
 {
 	if (section == 0) {
 		if (localWiFiConnected) {
-			return [NSString stringWithFormat:@"Web sharing is available at this address:\nhttp://%@:%d", [self WiFiIPAddress], 8000];
+			return [NSString stringWithFormat:@"Web sharing is available at this address:\nhttp://%@:%d", [self WiFiIPAddress], 8080];
 		} else {
 			return @"Web sharing requires a Wi-Fi connection.";
 		}
@@ -177,7 +173,7 @@
 				}
 				case 1: {
 					cell.textLabel.text = @"IP Address";
-					cell.detailTextLabel.text = localWiFiConnected ? [self WiFiIPAddress] : @"None";
+					cell.detailTextLabel.text = [self WiFiIPAddress];
 					break;
 				}
 			}
@@ -242,47 +238,33 @@
 
 - (void)initReachability;
 {
-//	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
-//	localWiFiReachable = [[Reachability reachabilityForLocalWiFi] retain];
-//	[localWiFiReachable startNotifer];
-//	[self updateInterfaceWithReachability:localWiFiReachable];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+	localWiFiReachable = [[Reachability reachabilityForLocalWiFi] retain];
+//	[localWiFiReachable connectionRequired];
+	[localWiFiReachable startNotifier];
+	[self updateInterface];//WithReachability:localWiFiReachable];
 }
 
 
 - (void)reachabilityChanged:(NSNotification *)notification;
 {
-	Reachability *currentReach = [notification object];
-	[self updateInterfaceWithReachability:currentReach];
+	[self updateInterface];
+//	Reachability *currentReach = [notification object];
+//	[self updateInterfaceWithReachability:currentReach];
 }
 
 
-- (void)updateInterfaceWithReachability:(Reachability *)currentReach;
+- (void)updateInterface;//- (void)updateInterfaceWithReachability:(Reachability *)currentReach;
 {
+	// if we get an IP address then we have a connection, if we don't, then we don't.
 	
 
-
-	switch ([currentReach currentReachabilityStatus]) {
-		
-		case NotReachable:
-		{
-			self.tabBarItem.badgeValue = @"!";
-			localWiFiConnected = FALSE;
-			break;
-		}
-					
-		case ReachableViaWWAN:
-		{
-			self.tabBarItem.badgeValue = @"?";
-			localWiFiConnected = FALSE;
-			break;
-		}
-		
-		case ReachableViaWiFi:
-		{
-			self.tabBarItem.badgeValue = nil;
-			localWiFiConnected = TRUE;
-			break;
-		}
+	if ([[self WiFiIPAddress] length] > 0) {
+		self.tabBarItem.badgeValue = nil;
+		localWiFiConnected = TRUE;
+	} else {
+		self.tabBarItem.badgeValue = @"!";
+		localWiFiConnected = FALSE;
 	}
 	
 	[self.tableView reloadData];
@@ -291,6 +273,8 @@
 
 - (NSString *)WiFiIPAddress;
 {
+	
+	
 	struct ifaddrs *addrs;
 	
 	BOOL success = (getifaddrs(&addrs) == 0);
@@ -324,7 +308,7 @@
 		freeifaddrs(addrs);
 	}
 
-	return nil;
+	return @"";
 }
 
 
@@ -371,10 +355,6 @@
 }
 
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation;
-{
-	return YES;
-}
 
 
 

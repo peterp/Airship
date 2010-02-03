@@ -14,7 +14,10 @@
 @implementation FileAudioView
 
 @synthesize audioPlayer;
+
+@synthesize levelMeterBackground;
 @synthesize levelMeter;
+@synthesize levelMeterGlare;
 
 @synthesize playPauseButton;
 @synthesize volumeViewContainer;
@@ -31,7 +34,12 @@
 - (void)dealloc;
 {
 	self.audioPlayer = nil;
+	
+	[levelMeter setPlayer:nil];
+	[levelMeter removeFromSuperview];
 	self.levelMeter = nil;
+	self.levelMeterBackground = nil;
+	self.levelMeterGlare = nil;
 	
 	self.playPauseButton = nil;
 	self.volumeViewContainer = nil;
@@ -50,6 +58,11 @@
 {
 	if (self = [super initWithFrame:frame]) {
 		
+		
+		// Set Audio Session
+		[[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+
+		
 		UIImageView *viewBackground = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ui_fileViewBackground.png"]];
 		viewBackground.frame = frame;
 		viewBackground.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -57,20 +70,18 @@
 		[viewBackground release];
 		
 		
+		// Level Meter
+		self.levelMeterBackground = [[UIImageView alloc] initWithFrame:CGRectZero];
+		[self addSubview:levelMeterBackground];
+		[levelMeterBackground release];
 
-		
-		// Set Audio Session
-		[[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
-
-		// Metering
-//		self.levelMeter = [[CALevelMeter alloc] initWithFrame:CGRectMake(10, 89, 300, 60)];
-//		[self addSubview:levelMeter];
-//		[levelMeter release];
+		self.levelMeterGlare = [[UIImageView alloc] initWithFrame:CGRectZero];
+		[levelMeterBackground addSubview:levelMeterGlare];
+		[levelMeterGlare release];
 		
 		
 		
 		// Sliders
-		
 		self.songSeekSlider = [[UISlider alloc] initWithFrame:CGRectZero];
 		[songSeekSlider addTarget:self action:@selector(songSeekSliderEditingDidBegin:) forControlEvents:UIControlEventTouchDown];
 		[songSeekSlider addTarget:self action:@selector(songSeekSliderEditingDidEnd:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
@@ -106,61 +117,73 @@
 		self.playPauseButton = [[UIButton alloc] initWithFrame:CGRectZero];
 		[playPauseButton addTarget:self action:@selector(playPauseButtonPushed:) forControlEvents:UIControlEventTouchUpInside];
 		[playPauseButton setImage:[UIImage imageNamed:@"ui_buttonPause.png"] forState:UIControlStateNormal];
+		[playPauseButton setImage:[UIImage imageNamed:@"ui_buttonPauseHighlight.png"] forState:UIControlStateHighlighted];
 		[self addSubview:playPauseButton];
 		[playPauseButton release];
 		
 		
 		// Volume
 		self.volumeView = [[MPVolumeView alloc] initWithFrame:CGRectZero];
-		volumeView.backgroundColor = [UIColor whiteColor];
 		[self addSubview:volumeView];
 		[volumeView release];
 		
 		// Volume customisation
-		
+		for (UIView *view in volumeView.subviews) {
+			if ([[view class] isSubclassOfClass:[UISlider class]]) {
+				UISlider *volumeSlider = (UISlider*)view;
+				[volumeSlider setMinimumTrackImage:songSeekSlider.currentMinimumTrackImage forState:UIControlStateNormal];
+				[volumeSlider setMaximumTrackImage:songSeekSlider.currentMaximumTrackImage forState:UIControlStateNormal];
+				[volumeSlider setThumbImage:songSeekSlider.currentThumbImage forState:UIControlStateNormal];
+			}
 		}
+		
+	}
 	return self;
 }
 
 
 - (void)layoutSubviews;
 {
-	
-	
-	CGRect levelMeterRect = CGRectMake(10, 89, 300, 60);
-	CGRect songSeekSliderRect = CGRectMake(60, 170, 200, 20);
-	CGRect timeLeftLabelRect = CGRectMake(10, 170, 45, 16);
-	CGRect timePlayedLabelRect = CGRectMake(265, 170, 45, 16);
-	CGRect playPauseButtonRect = CGRectMake(125, 217, 70, 70);	
-	CGRect volumeViewRect = CGRectMake(60, 370, 200, 20);
-	
-
-	
-	if (self.frame.size.height == 320) {
-		
-		levelMeterRect = CGRectMake(20, 64, 440, 60);
-		songSeekSliderRect = CGRectMake(60, 140, 360, 20);
-		timeLeftLabelRect = CGRectMake(10, 140, 45, 16);
-		timePlayedLabelRect = CGRectMake(425, 140, 45, 16);
-		playPauseButtonRect = CGRectMake(205, 170, 70, 70);
-		volumeViewRect = CGRectMake(90, 260, 300, 20);
-	}
-	
+	CGRect levelMeterRect;
 	[levelMeter setPlayer:nil];
 	[levelMeter removeFromSuperview];
 	self.levelMeter = nil;
 	
 	
-	songSeekSlider.frame = songSeekSliderRect;
-	timeLeftLabel.frame = timeLeftLabelRect;
-	timePlayedLabel.frame = timePlayedLabelRect;
-	playPauseButton.frame = playPauseButtonRect;
-	volumeView.frame = volumeViewRect;
 	
+	if (self.frame.size.width == 320) {
+		
+		levelMeterBackground.frame = CGRectMake(15, 89, 290, 50);
+		levelMeterBackground.image = [UIImage imageNamed:@"ui_levelMeter290.png"];
+		levelMeterGlare.frame = CGRectMake(3, 3, 284, 44);
+		levelMeterGlare.image = [UIImage imageNamed:@"ui_levelMeter290Glare.png"];
+		levelMeterRect = CGRectMake(5, 5, 280, 40);
+		
+		songSeekSlider.frame = CGRectMake(60, 170, 200, 20);
+		timeLeftLabel.frame = CGRectMake(10, 170, 45, 16);
+		timePlayedLabel.frame = CGRectMake(265, 170, 45, 16);
+		
+		playPauseButton.frame = CGRectMake(125, 217, 70, 70);
+		volumeView.frame = CGRectMake(60, 370, 200, 20);
+	} else {
+		
+		levelMeterBackground.frame = CGRectMake(20, 64, 440, 50);
+		levelMeterBackground.image = [UIImage imageNamed:@"ui_levelMeter440.png"];
+		levelMeterGlare.frame = CGRectMake(3, 3, 434, 44);
+		levelMeterGlare.image = [UIImage imageNamed:@"ui_levelMeter440Glare.png"];
+		levelMeterRect = CGRectMake(5, 5, 430, 40);
+		
+		songSeekSlider.frame = CGRectMake(60, 140, 360, 20);
+		timeLeftLabel.frame = CGRectMake(10, 140, 45, 16);
+		timePlayedLabel.frame = CGRectMake(425, 140, 45, 16);
+		
+		playPauseButton.frame = CGRectMake(205, 170, 70, 70);
+		volumeView.frame = CGRectMake(140, 255, 200, 20);
+	}
 	
 	self.levelMeter = [[CALevelMeter alloc] initWithFrame:levelMeterRect];
 	[levelMeter setPlayer:audioPlayer];
-	[self addSubview:levelMeter];
+	[levelMeterBackground insertSubview:levelMeter belowSubview:levelMeterGlare];
 	[levelMeter release];
 }
 
@@ -175,7 +198,9 @@
 	
 		if (audioPlayer == nil) {
 			
-			NSLog(@"error playing...");
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The audio file could not play" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+			[alert show];
+			[alert release];
 			
 			// Provide some sort of error message.
 		} else {
@@ -232,12 +257,14 @@
 	if (audioPlayer.playing == YES) {
 	
 		[playPauseButton setImage:[UIImage imageNamed:@"ui_buttonPause.png"] forState:UIControlStateNormal];
+		[playPauseButton setImage:[UIImage imageNamed:@"ui_buttonPauseHighlight.png"] forState:UIControlStateHighlighted];
 		[levelMeter setPlayer:audioPlayer];
 		updateTimeTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateViewForTimeState) userInfo:nil repeats:YES];
 		
 	} else {
 		
 		[playPauseButton setImage:[UIImage imageNamed:@"ui_buttonPlay.png"] forState:UIControlStateNormal];
+		[playPauseButton setImage:[UIImage imageNamed:@"ui_buttonPlayHighlight.png"] forState:UIControlStateHighlighted];
 		[levelMeter setPlayer:nil];
 		updateTimeTimer = nil;
 	}
@@ -250,8 +277,6 @@
 		songSeekSlider.value = audioPlayer.currentTime;
 	}
 	
-	NSLog(@"playing from: %f", audioPlayer.currentTime);
-
 	timePlayedLabel.text = [self secondsToHoursMinutesAndSeconds:songSeekSlider.value];
 	timeLeftLabel.text = [NSString stringWithFormat:@"-%@", [self secondsToHoursMinutesAndSeconds:audioPlayer.duration - songSeekSlider.value]];
 }
@@ -329,7 +354,6 @@
 
 - (void)changeAudioPlayerCurrentTime;
 {
-	NSLog(@"please play from: %f", songSeekSlider.value);
 
 	[audioPlayer pause];
 	[audioPlayer setCurrentTime:songSeekSlider.value];

@@ -112,22 +112,32 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 {
 	_level = 0.;
 	_numLights = 0;
-	_numColorThresholds = 5;
+	_numColorThresholds = 10;
 	_variableLightIntensity = YES;
 	_bgColor = [[UIColor alloc] initWithRed:0. green:0. blue:0. alpha:0.6];
 	_borderColor = [[UIColor alloc] initWithRed:0. green:0. blue:0. alpha:1.];
-	_colorThresholds = (LevelMeterColorThreshold*)malloc(5 * sizeof(LevelMeterColorThreshold));
-
-	_colorThresholds[0].maxValue = 0.2;
-	_colorThresholds[0].color = [[UIColor alloc] initWithRed:.2 green:.2 blue:.2 alpha:1];
-	_colorThresholds[1].maxValue = 0.4;
-	_colorThresholds[1].color = [[UIColor alloc] initWithRed:.4 green:.4 blue:.4 alpha:1];
-	_colorThresholds[2].maxValue = 0.6;
-	_colorThresholds[2].color = [[UIColor alloc] initWithRed:.6 green:.6 blue:.6 alpha:1];
-	_colorThresholds[3].maxValue = 0.8;
-	_colorThresholds[3].color = [[UIColor alloc] initWithRed:.8 green:.8 blue:.8 alpha:1];
-	_colorThresholds[4].maxValue = 1.;
-	_colorThresholds[4].color = [[UIColor alloc] initWithRed:1. green:1. blue:1. alpha:1];
+	_colorThresholds = (LevelMeterColorThreshold*)malloc(10 * sizeof(LevelMeterColorThreshold));
+	_colorThresholds[0].maxValue = 0.1;
+	_colorThresholds[0].color = [[UIColor alloc] initWithRed:.1 green:.1 blue:.1 alpha:1];
+	_colorThresholds[1].maxValue = 0.2;
+	_colorThresholds[1].color = [[UIColor alloc] initWithRed:.2 green:.2 blue:.2 alpha:1];
+	_colorThresholds[2].maxValue = 0.3;
+	_colorThresholds[2].color = [[UIColor alloc] initWithRed:.3 green:.3 blue:.3 alpha:1];
+	_colorThresholds[3].maxValue = 0.4;
+	_colorThresholds[3].color = [[UIColor alloc] initWithRed:.4 green:.4 blue:.4 alpha:1];
+	_colorThresholds[4].maxValue = 0.5;
+	_colorThresholds[4].color = [[UIColor alloc] initWithRed:.5 green:.5 blue:.5 alpha:1];
+	_colorThresholds[5].maxValue = 0.6;
+	_colorThresholds[5].color = [[UIColor alloc] initWithRed:.6 green:.6 blue:.6 alpha:1];
+	_colorThresholds[6].maxValue = 0.7;
+	_colorThresholds[6].color = [[UIColor alloc] initWithRed:.7 green:.7 blue:.7 alpha:1];
+	_colorThresholds[7].maxValue = 0.8;
+	_colorThresholds[7].color = [[UIColor alloc] initWithRed:.8 green:.8 blue:.8 alpha:1];
+	_colorThresholds[8].maxValue = 0.9;
+	_colorThresholds[8].color = [[UIColor alloc] initWithRed:.9 green:.9 blue:.9 alpha:1];
+	_colorThresholds[9].maxValue = 1;
+	_colorThresholds[9].color = [[UIColor alloc] initWithRed:1 green:1 blue:1 alpha:1];
+	
 	_vertical = ([self frame].size.width < [self frame].size.height) ? YES : NO;
 
 	CAEAGLLayer *eaglLayer = (CAEAGLLayer*) self.layer;
