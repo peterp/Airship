@@ -20,14 +20,16 @@
 @synthesize levelMeterGlare;
 
 @synthesize playPauseButton;
-@synthesize volumeViewContainer;
-@synthesize volumeView;
 @synthesize songSeekSlider;
-
-
 
 @synthesize timePlayedLabel;
 @synthesize timeLeftLabel;
+
+@synthesize volumeViewContainer;
+@synthesize volumeView;
+@synthesize volumeLabelMinus;
+@synthesize volumeLabelPlus;
+
 
 
 
@@ -35,21 +37,20 @@
 {
 	self.audioPlayer = nil;
 	
-	[levelMeter setPlayer:nil];
-	[levelMeter removeFromSuperview];
 	self.levelMeter = nil;
 	self.levelMeterBackground = nil;
 	self.levelMeterGlare = nil;
 	
 	self.playPauseButton = nil;
-	self.volumeViewContainer = nil;
-	self.volumeView = nil;
+
 	self.songSeekSlider = nil;
-	
 	self.timePlayedLabel = nil;
 	self.timeLeftLabel = nil;
 	
-
+	self.volumeViewContainer = nil;
+	self.volumeView = nil;
+	self.volumeLabelMinus = nil;
+	self.volumeLabelPlus = nil;
 
 	[super dealloc];
 }
@@ -124,6 +125,7 @@
 		
 		// Volume
 		self.volumeView = [[MPVolumeView alloc] initWithFrame:CGRectZero];
+//		volumeView.backgroundColor = [UIColor whiteColor];
 		[self addSubview:volumeView];
 		[volumeView release];
 		
@@ -136,6 +138,32 @@
 				[volumeSlider setThumbImage:songSeekSlider.currentThumbImage forState:UIControlStateNormal];
 			}
 		}
+		
+		
+		self.volumeLabelMinus = [[UILabel alloc] initWithFrame:CGRectZero];
+		volumeLabelMinus.textColor = [UIColor colorWithRed:61/255.0 green:62/255.0 blue:81/255.0 alpha:1];
+		volumeLabelMinus.text = @"-";
+		volumeLabelMinus.backgroundColor = [UIColor clearColor];
+		volumeLabelMinus.adjustsFontSizeToFitWidth = YES;
+		volumeLabelMinus.font = [UIFont boldSystemFontOfSize:13];
+		volumeLabelMinus.textAlignment = UITextAlignmentCenter;
+	//	volumeLabelMinus.backgroundColor = [UIColor blackColor];
+		[self addSubview:volumeLabelMinus];
+		[volumeLabelMinus release];
+		
+		self.volumeLabelPlus = [[UILabel alloc] initWithFrame:CGRectZero];
+		volumeLabelPlus.textColor = [UIColor colorWithRed:61/255.0 green:62/255.0 blue:81/255.0 alpha:1];
+		volumeLabelPlus.text = @"+";
+		volumeLabelPlus.backgroundColor = [UIColor clearColor];
+		volumeLabelPlus.adjustsFontSizeToFitWidth = YES;
+		volumeLabelPlus.font = [UIFont boldSystemFontOfSize:13];
+		volumeLabelPlus.textAlignment = UITextAlignmentCenter;
+//		volumeLabelPlus.backgroundColor = [UIColor blackColor];
+		[self addSubview:volumeLabelPlus];
+		[volumeLabelPlus release];
+		
+		
+
 		
 	}
 	return self;
@@ -165,6 +193,8 @@
 		
 		playPauseButton.frame = CGRectMake(125, 217, 70, 70);
 		volumeView.frame = CGRectMake(60, 370, 200, 20);
+		volumeLabelMinus.frame = CGRectMake(60, 365, 10, 10);
+		volumeLabelPlus.frame = CGRectMake(250, 365, 10, 10);
 	} else {
 		
 		levelMeterBackground.frame = CGRectMake(20, 64, 440, 50);
@@ -178,7 +208,10 @@
 		timePlayedLabel.frame = CGRectMake(425, 140, 45, 16);
 		
 		playPauseButton.frame = CGRectMake(205, 170, 70, 70);
-		volumeView.frame = CGRectMake(140, 255, 200, 20);
+		volumeView.frame = CGRectMake(90, 255, 300, 20);
+		volumeLabelMinus.frame = CGRectMake(90, 250, 10, 10);
+		volumeLabelPlus.frame = CGRectMake(380, 250, 10, 10);
+
 	}
 	
 	self.levelMeter = [[CALevelMeter alloc] initWithFrame:levelMeterRect];
@@ -193,7 +226,7 @@
 		// Create the audio player
 		self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:nil];
 		audioPlayer.delegate = self;
-		audioPlayer.volume = 1;
+		audioPlayer.volume = 0;
 		audioPlayer.meteringEnabled = YES;
 	
 		if (audioPlayer == nil) {

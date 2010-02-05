@@ -27,18 +27,22 @@
 	CALevelMeter *levelMeter;
 	UIImageView *levelMeterGlare;
 
-
-	UIView	*volumeViewContainer;
-	MPVolumeView *volumeView;
-	UIButton *playPauseButton;
 	UISlider *songSeekSlider;
-	BOOL ignoreSongSeekSliderValueChange;
-	
-	
-	
 	NSTimer *updateTimeTimer;
 	UILabel *timePlayedLabel;
 	UILabel *timeLeftLabel;
+	BOOL ignoreSongSeekSliderValueChange;
+	
+	UIButton *playPauseButton;
+	
+	
+	
+	UIView	*volumeViewContainer;
+	MPVolumeView *volumeView;
+	UILabel *volumeLabelMinus;
+	UILabel *volumeLabelPlus;
+	
+	
 	
 }
 
@@ -49,15 +53,18 @@
 @property (nonatomic, retain) CALevelMeter *levelMeter;
 @property (nonatomic, retain) UIImageView *levelMeterGlare;
 
+@property (nonatomic, retain) UISlider *songSeekSlider;
+@property (nonatomic, retain) UILabel *timePlayedLabel;
+@property (nonatomic, retain) UILabel *timeLeftLabel;
+
+@property (nonatomic, retain) UIButton *playPauseButton;
 
 @property (nonatomic, retain) UIView *volumeViewContainer;
 @property (nonatomic, retain) MPVolumeView *volumeView;
-@property (nonatomic, retain) UIButton *playPauseButton;
-@property (nonatomic, retain) UISlider *songSeekSlider;
+@property (nonatomic, retain) UILabel *volumeLabelMinus;
+@property (nonatomic, retain) UILabel *volumeLabelPlus;
 
 
-@property (nonatomic, retain) UILabel *timePlayedLabel;
-@property (nonatomic, retain) UILabel *timeLeftLabel;
 
 
 - (void)updateViewForAudioPlayerState;
