@@ -119,11 +119,10 @@
 	[tableViewFooter release];
 	[self.view addSubview:finderTableView];
 	[finderTableView release];
-	
-	finderTableView.contentInset = UIEdgeInsetsMake(0, 0, -44, 0);
+	finderTableView.contentInset = UIEdgeInsetsMake(0, 0, -44, 0); // This makes the content 44 pixels smaller, so that our shadow isn't
+	// considered an actual row.
 	
 	if (self.path != nil) {
-		
 		
 	  // DATA SOURCE
 		NSArray *directoryContents = [[NSFileManager defaultManager] directoryContentsAtPath:self.path];
@@ -136,21 +135,14 @@
 		directoryContents = nil;
 	
 		// Search
-		searchBar = [[UISearchBar alloc] init];
-		searchBar.frame = CGRectMake(0, 0, 320, 45);
+		searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+		searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
+		searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
 		searchBar.delegate = self;
 		searchBar.placeholder = [NSString stringWithFormat:@"Search %@", self.title];
-		searchBar.tintColor = [UIColor blackColor];	
-		finderTableView.contentOffset = CGPointMake(0, 44); // this makes the content inset by 44 pixels, in order
-		
-		
-		// Search Bar Background
-		UIImageView *searchBarBackground = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ui_searchBar.png"]];
-		searchBarBackground.frame = CGRectMake(0, 0, 320, 44);
-		[searchBar insertSubview:searchBarBackground atIndex:1];
-
-		[searchBarBackground release];
+		searchBar.tintColor = [UIColor colorWithRed:115/255.0 green:114/255.0 blue:121/255.0 alpha:1];	
 		self.finderTableView.tableHeaderView = searchBar;
+		finderTableView.contentOffset = CGPointMake(0, 44); // hide the search bar by default.
 	
 		// Search Display Controller
 		searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
@@ -163,7 +155,7 @@
 	// EDIT METHODS!
 	
 	editButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 57, 32)];
-	[editButton setBackgroundImage:[[UIImage imageNamed: @"ui_navigationBarButton.png"] stretchableImageWithLeftCapWidth:25.5 topCapHeight:0.0]  forState:UIControlStateNormal];
+	[editButton setBackgroundImage:[[UIImage imageNamed: @"ui_barButtonBlue.png"] stretchableImageWithLeftCapWidth:25.5 topCapHeight:0.0]  forState:UIControlStateNormal];
 	[editButton setTitle:@"Edit" forState:UIControlStateNormal];
 	[editButton setTitleColor:[UIColor colorWithRed:168/255.0 green:169/255.0 blue:183/255.0 alpha:1] forState:UIControlStateNormal];
 	[editButton setTitleShadowColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -174,13 +166,25 @@
 	self.navigationItem.rightBarButtonItem = editBarButtonItem;
 	[editBarButtonItem release];
 	
+	
+	
 	self.toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 367, 320, 40)];
-	self.deleteButton = [[UIButton alloc] initWithFrame:CGRectMake(12, 7, 122, 28)];
+	UIImageView *toolbarBackgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 40)];
+	toolbarBackgroundImage.image = [UIImage imageNamed:@"ui_tableViewToolbarBackground.png"];
+	[toolbar addSubview:toolbarBackgroundImage];
+	[toolbarBackgroundImage release];
+	
+	
+	
+	
+	self.deleteButton = [[UIButton alloc] initWithFrame:CGRectMake(5, 5, 122, 32)];
 	[deleteButton addTarget:self action:@selector(deleteSelection) forControlEvents:UIControlEventTouchUpInside];
-	[deleteButton setBackgroundImage:[[UIImage imageNamed: @"button_red.png"] stretchableImageWithLeftCapWidth:7.0 topCapHeight:0.0] forState:UIControlStateNormal];
-	[deleteButton setImage:[UIImage imageNamed:@"icon_trash.png"] forState:UIControlStateNormal];
+	[deleteButton setBackgroundImage:[[UIImage imageNamed: @"ui_barButtonSilver.png"] stretchableImageWithLeftCapWidth:25.5 topCapHeight:0.0] forState:UIControlStateNormal];
+	[deleteButton setTitleColor:[UIColor colorWithRed:25/255.0 green:25/255.0 blue:46/255.0 alpha:1] forState:UIControlStateNormal];
+	[deleteButton setTitleShadowColor:[UIColor clearColor] forState:UIControlStateNormal];
 	[deleteButton setTitle:@"Delete" forState:UIControlStateNormal];
-	deleteButton.titleLabel.font = [UIFont boldSystemFontOfSize:13];
+	deleteButton.titleLabel.font = [UIFont systemFontOfSize:13];
+	[deleteButton setImage:[UIImage imageNamed:@"ui_iconTrash.png"] forState:UIControlStateNormal];
 	[toolbar addSubview:deleteButton];
 	[deleteButton release];
 	[self.view addSubview:toolbar];
@@ -255,8 +259,6 @@
 		cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"Cell"] autorelease];
 		cell.backgroundView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ui_tableViewCellNotSelectedBackground.png"]] autorelease];
 		cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ui_tableViewCellSelectedBackground.png"]];
-		
-//		cell.selectionStyle = UITableViewCellSelectionStyleGray;
 
 
 		// this is always the default colour
@@ -317,6 +319,8 @@
 			[pickImageView setImage:[UIImage imageNamed:@"ui_tableViewCellSelected.png"]];
 			cell.backgroundView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ui_tableViewCellSelectedBackground.png"]] autorelease];
 		}
+	} else {
+		cell.backgroundView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ui_tableViewCellNotSelectedBackground.png"]] autorelease];
 	}
 	
 	
@@ -506,7 +510,6 @@
 
 - (void)searchDisplayController:(UISearchDisplayController *)controller willShowSearchResultsTableView:(UITableView *)tableView;
 {
-	NSLog(@"margle");
 	[self cancel:self];
 }
 
@@ -557,33 +560,7 @@
 
 
 
-#pragma mark -
-#pragma mark Default Editing
 
-//- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath;
-//{
-//	if (isEditing) {
-//		return UITableViewCellEditingStyleNone;
-//	} else {
-//		return UITableViewCellEditingStyleDelete;
-//	}
-//}
-
-//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//	File *file = nil;
-//	if (searchDisplayController.active) {
-//		file = [filteredFileList objectAtIndex:indexPath.row];
-//	} else {
-//		file = [fileList objectAtIndex:indexPath.row];
-//	}
-//	[file delete];
-//
-//
-//	// Post notification.
-//	[[NSNotificationCenter defaultCenter] postNotificationName:@"removedFileNotification" object:self userInfo:
-//		[NSDictionary dictionaryWithObjectsAndKeys:file, @"file", nil]];
-//}
 
 #pragma mark -
 #pragma mark Custom Editing
@@ -594,8 +571,9 @@
 	// Create a cancel button.
 	[editButton setTitle:@"Cancel" forState:UIControlStateNormal];
 	[editButton addTarget:self action:@selector(cancel:) forControlEvents:UIControlEventTouchUpInside];	
-	[editButton setBackgroundImage:[[UIImage imageNamed: @"ui_navigationBarButtonDone.png"] stretchableImageWithLeftCapWidth:25.5 topCapHeight:0.0]  forState:UIControlStateNormal];
-	
+	[editButton setBackgroundImage:[[UIImage imageNamed: @"ui_barButtonSilver.png"] stretchableImageWithLeftCapWidth:25.5 topCapHeight:0.0]  forState:UIControlStateNormal];
+	[editButton setTitleColor:[UIColor colorWithRed:25/255.0 green:25/255.0 blue:46/255.0 alpha:1] forState:UIControlStateNormal];
+	[editButton setTitleShadowColor:[UIColor clearColor] forState:UIControlStateNormal];
 	
 	[self showToolbar:YES];
 	[self updateSelectionCount];
@@ -607,8 +585,11 @@
 {
 	[editButton setTitle:@"Edit" forState:UIControlStateNormal];
 	[editButton addTarget:self action:@selector(edit:) forControlEvents:UIControlEventTouchUpInside];	
-	[editButton setBackgroundImage:[[UIImage imageNamed: @"ui_navigationBarButton.png"] stretchableImageWithLeftCapWidth:25.5 topCapHeight:0.0]  forState:UIControlStateNormal];
+	[editButton setBackgroundImage:[[UIImage imageNamed: @"ui_barButtonBlue.png"] stretchableImageWithLeftCapWidth:25.5 topCapHeight:0.0]  forState:UIControlStateNormal];
+	[editButton setTitleColor:[UIColor colorWithRed:168/255.0 green:169/255.0 blue:183/255.0 alpha:1] forState:UIControlStateNormal];
+	[editButton setTitleShadowColor:[UIColor blackColor] forState:UIControlStateNormal];
 	
+
 	
 	[self showToolbar:NO];
 	isEditing = NO;
@@ -619,21 +600,18 @@
 
 - (void)showToolbar:(BOOL)show;
 {
-	// Animate show/ hide
-	CGRect toolbarFrame = toolbar.frame;
-	CGRect tableViewFrame = finderTableView.frame;
-	
-	if (show) {
-		toolbarFrame.origin.y = 327;
-		tableViewFrame.size.height = 327;
-	} else {
-		toolbarFrame.origin.y = 367;
-		tableViewFrame.size.height = 367;
-	}
-	
 	[UIView beginAnimations:nil context:nil];
-	toolbar.frame = toolbarFrame;
-	finderTableView.frame = tableViewFrame;
+	if (show) {
+		if ([fileList count] > 7) {
+			finderTableView.contentInset = UIEdgeInsetsMake(0, 0, -4, 0);
+		}
+		toolbar.frame = CGRectMake(0, 327, 320, 40);
+	} else {
+		if ([fileList count] > 7) {
+			finderTableView.contentInset = UIEdgeInsetsMake(0, 0, -44, 0);
+		}
+		toolbar.frame = CGRectMake(0, 367, 320, 40);
+	}
 	[UIView commitAnimations];
 }
 
