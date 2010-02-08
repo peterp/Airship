@@ -226,7 +226,7 @@
 		// Create the audio player
 		self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:nil];
 		audioPlayer.delegate = self;
-		audioPlayer.volume = 0;
+		audioPlayer.volume = 1;
 		audioPlayer.meteringEnabled = YES;
 	
 		if (audioPlayer == nil) {

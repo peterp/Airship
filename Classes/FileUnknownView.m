@@ -73,7 +73,8 @@
 		self.openAudioButton = [[UIButton alloc] init];
 		openAudioButton.backgroundColor = [UIColor clearColor];
 		[openAudioButton addTarget:self action:@selector(openAsAudio) forControlEvents:UIControlEventTouchUpInside];
-		[openAudioButton setImage:[UIImage imageNamed:@"ui_openAudio.png"] forState:UIControlStateNormal];
+		[openAudioButton setImage:[UIImage imageNamed:@"ui_buttonAudio.png"] forState:UIControlStateNormal];
+		[openAudioButton setImage:[UIImage imageNamed:@"ui_buttonAudioHighlight.png"] forState:UIControlStateHighlighted];
 		[self addSubview:openAudioButton];
 		[openAudioButton release];
 		
@@ -81,14 +82,16 @@
 		self.openDocumentButton = [[UIButton alloc] init];
 		openDocumentButton.backgroundColor = [UIColor clearColor];
 		[openDocumentButton addTarget:self action:@selector(openAsDocument) forControlEvents:UIControlEventTouchUpInside];
-		[openDocumentButton setImage:[UIImage imageNamed:@"ui_openDocument.png"] forState:UIControlStateNormal];
+		[openDocumentButton setImage:[UIImage imageNamed:@"ui_buttonDocument.png"] forState:UIControlStateNormal];
+		[openDocumentButton setImage:[UIImage imageNamed:@"ui_buttonDocumentHighlight.png"] forState:UIControlStateHighlighted];
 		[self addSubview:openDocumentButton];
 		[openDocumentButton release];
 		
 		self.openImageButton = [[UIButton alloc] init];
 		openImageButton.backgroundColor = [UIColor clearColor];
 		[openImageButton addTarget:self action:@selector(openAsImage) forControlEvents:UIControlEventTouchUpInside];
-		[openImageButton setImage:[UIImage imageNamed:@"ui_openImage.png"] forState:UIControlStateNormal];
+		[openImageButton setImage:[UIImage imageNamed:@"ui_buttonImage.png"] forState:UIControlStateNormal];
+		[openImageButton setImage:[UIImage imageNamed:@"ui_buttonImageHighlight.png"] forState:UIControlStateHighlighted];
 		[self addSubview:openImageButton];
 		[openImageButton release];
 		
@@ -96,7 +99,8 @@
 		self.openVideoButton = [[UIButton alloc] init];
 		openVideoButton.backgroundColor = [UIColor clearColor];
 		[openVideoButton addTarget:self action:@selector(openAsVideo) forControlEvents:UIControlEventTouchUpInside];
-		[openVideoButton setImage:[UIImage imageNamed:@"ui_openVideo.png"] forState:UIControlStateNormal];
+		[openVideoButton setImage:[UIImage imageNamed:@"ui_buttonVideo.png"] forState:UIControlStateNormal];
+		[openVideoButton setImage:[UIImage imageNamed:@"ui_buttonVideoHighlight.png"] forState:UIControlStateHighlighted];
 		[self addSubview:openVideoButton];
 		[openVideoButton release];
   }
@@ -107,7 +111,7 @@
 
 - (void)loadFileAtPath:(NSString *)path;
 {
-	explinationLabel.text = [NSString stringWithFormat:@"Airship doesn't know how to display \"%@\".\n\nOpen file as...", [path lastPathComponent]];
+	explinationLabel.text = [NSString stringWithFormat:@"Airship doesn't know how to open \"%@\".\n\nTry to open file as...", [path lastPathComponent]];
 	[self didStopLoading];
 }
 
