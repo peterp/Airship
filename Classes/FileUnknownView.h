@@ -12,10 +12,8 @@
 @interface FileUnknownView : FileView {
 
 
-	UIView *explinationBackground;
-	
+	UIImageView *explinationBackground;
 	UILabel *explinationLabel;
-	UILabel *warningLabel;
 	
 	UIButton *openAudioButton;
 	UIButton *openDocumentButton;
@@ -30,10 +28,8 @@
 	int openAsKind;
 }
 
-@property (nonatomic, retain) UIView *explinationBackground;
-
+@property (nonatomic, retain) UIImageView *explinationBackground;
 @property (nonatomic, retain) UILabel *explinationLabel;
-@property (nonatomic, retain) UILabel *warningLabel;
 
 @property (nonatomic, retain) UIButton *openAudioButton;
 @property (nonatomic, retain) UIButton *openDocumentButton;

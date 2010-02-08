@@ -13,7 +13,6 @@
 
 @synthesize explinationBackground;
 @synthesize explinationLabel;
-@synthesize warningLabel;
 	
 @synthesize openAudioButton;
 @synthesize openDocumentButton;
@@ -30,7 +29,6 @@
 {
 	self.explinationBackground = nil;
 	self.explinationLabel = nil;
-	self.warningLabel = nil;
 	
 	self.openAudioButton = nil;
 	self.openDocumentButton = nil;
@@ -59,9 +57,7 @@
 		[viewBackground release];
 		
 		
-		self.explinationBackground = [[UIView alloc] initWithFrame:CGRectZero];
-		explinationBackground.backgroundColor = [UIColor colorWithRed:5/255.0 green:5/255.0 blue:13/255.0 alpha:.69];
-		
+		self.explinationBackground = [[UIImageView alloc] initWithFrame:CGRectZero];
 		[self addSubview:explinationBackground];
 		[explinationBackground release];
 		
@@ -75,6 +71,7 @@
 		explinationLabel.shadowOffset = CGSizeMake(1,1);
 		explinationLabel.textAlignment = UITextAlignmentCenter;
 		explinationLabel.textColor = [UIColor  colorWithRed:147/255.0 green:147/255.0 blue:161/255.0 alpha:1];
+
 		
 		[explinationBackground addSubview:explinationLabel];
 		[explinationLabel release];
@@ -152,7 +149,7 @@
 
 - (void)loadFileAtPath:(NSString *)path;
 {
-	explinationLabel.text = [NSString stringWithFormat:@"Airship doesn't know how to open \"%@\".\n\nTry to open file as...", [path lastPathComponent]];
+	explinationLabel.text = [NSString stringWithFormat:@"Airship doesn't know how to open \"%@\"\nTry to open the file as...", [path lastPathComponent]];
 	[self didStopLoading];
 }
 
@@ -187,8 +184,9 @@
 
 - (void)layoutSubviews;
 {
-	CGRect explinationBackgroundRect = CGRectMake(0, 64, 320, 100);
-	CGRect explinationLabelRect = CGRectMake(15, 10, 290, 80);
+	CGRect explinationBackgroundRect = CGRectMake(0, 0, 320, 168);
+	explinationBackground.image = [UIImage imageNamed:@"ui_extraInfo320.png"];
+	CGRect explinationLabelRect = CGRectMake(15, 74, 290, 80);
 
 	CGRect openAudioButtonRect = CGRectMake(15, 200, 65, 65);
 	CGRect openDocumentButtonRect = CGRectMake(91, 200, 65, 65);
@@ -203,8 +201,9 @@
 	
 
 	if (self.frame.size.height == 320) {
-		explinationBackgroundRect = CGRectMake(0, 49, 480, 80);
-		explinationLabelRect = CGRectMake(15, 10, 450, 60);
+		explinationBackgroundRect = CGRectMake(0, 0, 480, 143);
+		explinationBackground.image = [UIImage imageNamed:@"ui_extraInfo480.png"];
+		explinationLabelRect = CGRectMake(15, 59, 450, 60);
 		
 		openAudioButtonRect = CGRectMake(50, 170, 65, 65);
 		openDocumentButtonRect = CGRectMake(156, 170, 65, 65);

@@ -710,7 +710,7 @@
 			int indexPathRow = 0;
 			int i = 0;
 			for (File *f in fileList) {
-			
+				
 				if ([newFile.name compare:f.name options:NSCaseInsensitiveSearch | NSDiacriticInsensitiveSearch] < 1) {
 					indexPathRow = i;
 					break;

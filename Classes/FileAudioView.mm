@@ -231,7 +231,7 @@
 	
 		if (audioPlayer == nil) {
 			
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The audio file could not play" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[NSString stringWithFormat:@"A problem occured whilst trying to play the audio file \"%@.\"", [path lastPathComponent]] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
 			[alert show];
 			[alert release];
 			

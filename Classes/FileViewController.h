@@ -53,6 +53,8 @@
 - (void)setFileViewWithKind:(int)kind;
 - (UIImage *)captureView:(UIView *)view;
 
+- (void)deleteFile:(id)sender;
+
 
 
 

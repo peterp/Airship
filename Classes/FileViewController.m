@@ -151,9 +151,19 @@
 	
 	// Toolbar + Delete
 	
+	UIBarButtonItem *spaceBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
 	
-	[toolbar setItems:[NSArray arrayWithObjects:activityIndicatorBarButtonItem, nil] animated:YES];
+	
+	UIBarButtonItem *deleteBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteFile:)];
+	
+	
+	
+
+	
+	
+	[toolbar setItems:[NSArray arrayWithObjects:activityIndicatorBarButtonItem, spaceBarButtonItem, deleteBarButtonItem, nil] animated:YES];
 	[activityIndicatorBarButtonItem release];
+	[deleteBarButtonItem release];
 
 	[self.view addSubview:toolbar];
 	[toolbar release];
@@ -457,7 +467,10 @@
 
 
 
-
+- (void)deleteFile:(id)sender;
+{
+	NSLog(@"MARGLE!");
+}
 
 
 

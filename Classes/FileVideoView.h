@@ -17,6 +17,9 @@
 	MPMoviePlayerController *moviePlayerController;
 	NSString *moviePath;
 	UILabel *playLabel;
+	
+	UIImageView *explinationBackground;
+	UILabel *explinationLabel;
 }
 
 @property (nonatomic, retain) UIButton *playButton;
