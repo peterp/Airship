@@ -20,6 +20,12 @@
 @synthesize openImageButton;
 @synthesize openVideoButton;
 
+
+@synthesize openAudioLabel;
+@synthesize openDocumentLabel;
+@synthesize openImageLabel;
+@synthesize openVideoLabel;
+
 - (void)dealloc;
 {
 	self.explinationBackground = nil;
@@ -30,6 +36,11 @@
 	self.openDocumentButton = nil;
 	self.openImageButton = nil;
 	self.openVideoButton = nil;
+	
+	self.openAudioLabel = nil;
+	self.openDocumentLabel = nil;
+	self.openImageLabel = nil;
+	self.openVideoLabel = nil;
 
 	[super dealloc];
 }
@@ -78,7 +89,6 @@
 		[self addSubview:openAudioButton];
 		[openAudioButton release];
 		
-		
 		self.openDocumentButton = [[UIButton alloc] init];
 		openDocumentButton.backgroundColor = [UIColor clearColor];
 		[openDocumentButton addTarget:self action:@selector(openAsDocument) forControlEvents:UIControlEventTouchUpInside];
@@ -103,6 +113,37 @@
 		[openVideoButton setImage:[UIImage imageNamed:@"ui_buttonVideoHighlight.png"] forState:UIControlStateHighlighted];
 		[self addSubview:openVideoButton];
 		[openVideoButton release];
+		
+		
+		self.openAudioLabel = [[UILabel alloc] init];
+		openAudioLabel.text = @"Audio";
+		openAudioLabel.font = [UIFont systemFontOfSize:12];
+		openAudioLabel.textAlignment = UITextAlignmentCenter;
+		openAudioLabel.backgroundColor = [UIColor clearColor];
+		[self addSubview:openAudioLabel];
+		
+		self.openDocumentLabel = [[UILabel alloc] init];
+		openDocumentLabel.text = @"Document";
+		openDocumentLabel.font = [UIFont systemFontOfSize:12];
+		openDocumentLabel.textAlignment = UITextAlignmentCenter;
+		openDocumentLabel.backgroundColor = [UIColor clearColor];
+		[self addSubview:openDocumentLabel];
+		
+		self.openImageLabel = [[UILabel alloc] init];
+		openImageLabel.text = @"Image";
+		openImageLabel.font = [UIFont systemFontOfSize:12];
+		openImageLabel.textAlignment = UITextAlignmentCenter;
+		openImageLabel.backgroundColor = [UIColor clearColor];
+		[self addSubview:openImageLabel];
+		
+		self.openVideoLabel = [[UILabel alloc] init];
+		openVideoLabel.text = @"Video";
+		openVideoLabel.font = [UIFont systemFontOfSize:12];
+		openVideoLabel.textAlignment = UITextAlignmentCenter;
+		openVideoLabel.backgroundColor = [UIColor clearColor];
+		[self addSubview:openVideoLabel];
+		
+		
   }
 
 	return self;
@@ -149,20 +190,33 @@
 	CGRect explinationBackgroundRect = CGRectMake(0, 64, 320, 100);
 	CGRect explinationLabelRect = CGRectMake(15, 10, 290, 80);
 
-	CGRect openAudioButtonRect = CGRectMake(15, 200, 61, 80);
-	CGRect openDocumentButtonRect = CGRectMake(91, 200, 61, 80);
-	CGRect openImageButtonRect = CGRectMake(167, 200, 61, 80);
-	CGRect openVideoButtonRect = CGRectMake(244, 200, 61, 80);
-
+	CGRect openAudioButtonRect = CGRectMake(15, 200, 65, 65);
+	CGRect openDocumentButtonRect = CGRectMake(91, 200, 65, 65);
+	CGRect openImageButtonRect = CGRectMake(167, 200, 65, 65);
+	CGRect openVideoButtonRect = CGRectMake(244, 200, 65, 65);
+	
+	
+	CGRect openAudioLabelRect = CGRectMake(15, 265, 65, 20);
+	CGRect openDocumentLabelRect = CGRectMake(91, 265, 65, 20);
+	CGRect openImageLabelRect = CGRectMake(167, 265, 65, 20);
+	CGRect openVideoLabelRect = CGRectMake(244, 265, 65, 20);
+	
 
 	if (self.frame.size.height == 320) {
 		explinationBackgroundRect = CGRectMake(0, 49, 480, 80);
 		explinationLabelRect = CGRectMake(15, 10, 450, 60);
 		
-		openAudioButtonRect = CGRectMake(50, 170, 61, 80);
-		openDocumentButtonRect = CGRectMake(156, 170, 61, 80);
-		openImageButtonRect = CGRectMake(262, 170, 61, 80);
-		openVideoButtonRect = CGRectMake(369, 170, 61, 80);
+		openAudioButtonRect = CGRectMake(50, 170, 65, 65);
+		openDocumentButtonRect = CGRectMake(156, 170, 65, 65);
+		openImageButtonRect = CGRectMake(262, 170, 65, 65);
+		openVideoButtonRect = CGRectMake(369, 170, 65, 65);
+		
+		
+		openAudioLabelRect = CGRectMake(50, 235, 65, 20);
+		openDocumentLabelRect = CGRectMake(156, 235, 65, 20);
+		openImageLabelRect = CGRectMake(262, 235, 65, 20);
+		openVideoLabelRect = CGRectMake(369, 235, 65, 20);
+		
 	}
 	
 	
@@ -172,6 +226,12 @@
 	openDocumentButton.frame = openDocumentButtonRect;
 	openImageButton.frame = openImageButtonRect;
 	openVideoButton.frame = openVideoButtonRect;
+	
+	
+	openAudioLabel.frame = openAudioLabelRect;
+	openDocumentLabel.frame = openDocumentLabelRect;
+	openImageLabel.frame = openImageLabelRect;
+	openVideoLabel.frame = openVideoLabelRect;
 }
 
 

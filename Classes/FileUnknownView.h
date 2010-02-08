@@ -21,6 +21,11 @@
 	UIButton *openDocumentButton;
 	UIButton *openImageButton;
 	UIButton *openVideoButton;
+
+	UILabel *openAudioLabel;
+	UILabel *openDocumentLabel;
+	UILabel *openImageLabel;
+	UILabel *openVideoLabel;
 	
 	int openAsKind;
 }
@@ -34,6 +39,12 @@
 @property (nonatomic, retain) UIButton *openDocumentButton;
 @property (nonatomic, retain) UIButton *openImageButton;
 @property (nonatomic, retain) UIButton *openVideoButton;
+
+@property (nonatomic, retain) UILabel *openAudioLabel;
+@property (nonatomic, retain) UILabel *openDocumentLabel;
+@property (nonatomic, retain) UILabel *openImageLabel;
+@property (nonatomic, retain) UILabel *openVideoLabel;
+
 
 
 
