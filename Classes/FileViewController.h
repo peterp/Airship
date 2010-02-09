@@ -28,6 +28,7 @@
 	
 	
 	
+	
 	FileView *fileView;
 	UIImageView *capturedFileViewImage;
 	BOOL fileViewAnimationDown;

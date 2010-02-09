@@ -268,6 +268,7 @@
 								<string>CED6111A1081F5D7000C41CB</string>
 								<string>080E96DDFE201D6D7F000001</string>
 								<string>CEE2A69D109B4BAC002D99A2</string>
+								<string>CEE4A08C10B724B100CEDC3C</string>
 								<string>CEE4A12F10B74EE200CEDC3C</string>
 								<string>29B97317FDCFA39411CA2CEA</string>
 								<string>CE530F5410AD8F7A00A16550</string>
@@ -333,7 +334,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>CEEAF1B21120A11F004F067E</string>
+										<string>CEE152EB1120BBC0009C4831</string>
 										<key>history</key>
 										<array>
 											<string>CE0AE92610AEF67C003FA784</string>
@@ -349,7 +350,6 @@
 											<string>CED4DA8410BDCBD100716F62</string>
 											<string>CED4DA8510BDCBD100716F62</string>
 											<string>CED4DA8610BDCBD100716F62</string>
-											<string>CED4DA8F10BDCD9300716F62</string>
 											<string>CE9C505210BDE3C5006AA0B4</string>
 											<string>CE9C505310BDE3C5006AA0B4</string>
 											<string>CE9C505410BDE3C5006AA0B4</string>
@@ -412,8 +412,9 @@
 											<string>CEEAF1A311209EAA004F067E</string>
 											<string>CEEAF1A411209EAA004F067E</string>
 											<string>CEEAF1A511209EAA004F067E</string>
-											<string>CEEAF1A611209EAA004F067E</string>
-											<string>CEEAF1A711209EAA004F067E</string>
+											<string>CEE152A11120B76B009C4831</string>
+											<string>CEE152A21120B76B009C4831</string>
+											<string>CEE152A31120B76B009C4831</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -471,9 +472,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>CEEAF0EE112085EE004F067E</string>
+				<string>CEE1528E1120B3B8009C4831</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>CEEAF0EF112085EE004F067E</string>
+				<string>CEE1528F1120B3B8009C4831</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -609,9 +610,9 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>1C78EAAD065D492600B07095</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>CE2B3ACC0F3CCF090039B355</string>
-		<string>1C78EAAD065D492600B07095</string>
 		<string>/Users/peterp/Development/Humboldt/Humboldt.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
@@ -631,14 +632,12 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>FileUnknownView.m</string>
+								<string></string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -694,7 +693,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>CE2B3ACC0F3CCF090039B355</string>
-				<string>CEEAF0F0112085EE004F067E</string>
+				<string>CEE152901120B3B8009C4831</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -814,13 +813,13 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>CEEAF0F41120893E004F067E</string>
+				<string>CEE1529A1120B4FE009C4831</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>CEEAF0F51120893E004F067E</string>
-				<string>CEEAF0F61120893E004F067E</string>
-				<string>CEEAF0F71120893E004F067E</string>
-				<string>CEEAF0F81120893E004F067E</string>
-				<string>CEEAF0F91120893E004F067E</string>
+				<string>CEE1529B1120B4FE009C4831</string>
+				<string>CEE1529C1120B4FE009C4831</string>
+				<string>CEE1529D1120B4FE009C4831</string>
+				<string>CEE1529E1120B4FE009C4831</string>
+				<string>CEE1529F1120B4FE009C4831</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>
@@ -939,8 +938,6 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -976,7 +973,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C78EAAD065D492600B07095</string>
-				<string>CEEAF0FA1120893E004F067E</string>
+				<string>CEE152A01120B4FE009C4831</string>
 				<string>1C78EAAC065D492600B07095</string>
 			</array>
 			<key>ToolbarConfiguration</key>
@@ -986,7 +983,7 @@
 			<key>WindowToolGUID</key>
 			<string>1C78EAAD065D492600B07095</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>Identifier</key>

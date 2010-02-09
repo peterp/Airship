@@ -145,26 +145,41 @@
 	
 	// Toolbar + Email
 	
+	UIBarButtonItem *composeBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:nil action:nil];
+	UIBarButtonItem *deleteBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:nil action:nil];
+	
+	UIBarButtonItem *flexibleSpaceBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+	UIBarButtonItem *fixedSpaceBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+	fixedSpaceBarButtonItem.width =50.0;
+	
+
+	
+	
+	
+	
+	
+	
+	
 	
 	// Toolbar + Revert
 	
 	
 	// Toolbar + Delete
 	
-	UIBarButtonItem *spaceBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-	
-	
-	UIBarButtonItem *deleteBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteFile:)];
+//	UIBarButtonItem *spaceBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+//	
+//	
+//	UIBarButtonItem *deleteBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteFile:)];
 	
 	
 	
 
 	
 	
-	[toolbar setItems:[NSArray arrayWithObjects:activityIndicatorBarButtonItem, spaceBarButtonItem, deleteBarButtonItem, nil] animated:YES];
+	[toolbar setItems:[NSArray arrayWithObjects:flexibleSpaceBarButtonItem, composeBarButtonItem,  flexibleSpaceBarButtonItem, activityIndicatorBarButtonItem, flexibleSpaceBarButtonItem, deleteBarButtonItem, flexibleSpaceBarButtonItem, nil] animated:NO];
 	[activityIndicatorBarButtonItem release];
-	[deleteBarButtonItem release];
 
+	
 	[self.view addSubview:toolbar];
 	[toolbar release];
 	
