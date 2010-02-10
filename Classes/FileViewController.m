@@ -25,10 +25,16 @@
 @synthesize file;
 
 @synthesize navigationBar;
-@synthesize paginationSegmentControl;
+@synthesize activityIndicator;
+
 
 @synthesize toolbar;
-@synthesize activityIndicator;
+@synthesize systemActionBarButtonItem;
+@synthesize paginateLeftBarButtonItem;
+@synthesize paginateRightBarButtonItem;
+@synthesize deleteBarButtonItem;
+
+
 
 
 
@@ -46,10 +52,15 @@
 	
 	
 	self.navigationBar = nil;
-	self.paginationSegmentControl = nil;
+	self.activityIndicator = nil;
 
 	self.toolbar = nil;
-	self.activityIndicator = nil;
+	self.systemActionBarButtonItem = nil;
+	self.paginateLeftBarButtonItem = nil;
+	self.paginateRightBarButtonItem = nil;
+	self.deleteBarButtonItem = nil;
+	
+	
 	
 	
 	self.fileView = nil;
@@ -91,8 +102,16 @@
 	navigationBar.barStyle = UIBarStyleBlackTranslucent;
 	
 	UIBarButtonItem *doneBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(unloadViewController)];	
-	[navigationBar setItems:[NSArray arrayWithObject:doneBarButtonItem]];
+	
+	self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+	activityIndicator.hidesWhenStopped = YES;
+	UIBarButtonItem *activityIndicatorBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
+	
+	UIBarButtonItem *flexibleSpaceBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+	
+	[navigationBar setItems:[NSArray arrayWithObjects:doneBarButtonItem, flexibleSpaceBarButtonItem, activityIndicatorBarButtonItem, nil]];
 	[doneBarButtonItem release];
+	[activityIndicatorBarButtonItem release];
 		
 	titleViewLabel = [[UILabel alloc] initWithFrame:CGRectMake(95, 0, 130, 44)];
 	titleViewLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -105,18 +124,6 @@
 	[navigationBar addSubview:titleViewLabel];
 	[titleViewLabel release];
 	
-	self.paginationSegmentControl = [[UISegmentedControl alloc] init];
-	[paginationSegmentControl insertSegmentWithImage:[UIImage imageNamed:@"ui_segmentUpArrow.png"] atIndex:0 animated:NO];
-	[paginationSegmentControl insertSegmentWithImage:[UIImage imageNamed:@"ui_segmentDownArrow.png"] atIndex:1 animated:NO];
-	
-	paginationSegmentControl.frame = CGRectMake(225, 7, 90, 30);
-	paginationSegmentControl.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin;
-	paginationSegmentControl.momentary = YES;
-	paginationSegmentControl.segmentedControlStyle = UISegmentedControlStyleBar;
-	paginationSegmentControl.tintColor = [UIColor blackColor];
-	[paginationSegmentControl addTarget:self action:@selector(paginationSegmentControlChanged:) forControlEvents:UIControlEventValueChanged];	
-	[navigationBar addSubview:paginationSegmentControl];
-	[paginationSegmentControl release];
 	
 	
 	[self.view addSubview:navigationBar];
@@ -129,56 +136,20 @@
 	toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin;
 	toolbar.barStyle = UIBarStyleBlackTranslucent;
 	
-	// star? maybe...
-	// email
-	// revert (if the file is unknown).
+	self.systemActionBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:nil action:nil];
+	self.paginateLeftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRewind target:self action:@selector(paginationWasPushed:)];
+	paginateLeftBarButtonItem.tag = 2001;
+	self.paginateRightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFastForward target:self action:@selector(paginationWasPushed:)];
+	paginateRightBarButtonItem.tag = 2002;
+	self.deleteBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:nil action:nil];
 	
-	// delete
-	// activity indicator.
-
+	[toolbar setItems:[NSArray arrayWithObjects:systemActionBarButtonItem, flexibleSpaceBarButtonItem, paginateLeftBarButtonItem, flexibleSpaceBarButtonItem, paginateRightBarButtonItem, flexibleSpaceBarButtonItem, deleteBarButtonItem, nil]];
 	
-	// Toolbar + ActivityIndicator
-	self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-	activityIndicator.hidesWhenStopped = YES;
-	UIBarButtonItem *activityIndicatorBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
-	[activityIndicator release];
-	
-	// Toolbar + Email
-	
-	UIBarButtonItem *composeBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:nil action:nil];
-	UIBarButtonItem *deleteBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:nil action:nil];
-	
-	UIBarButtonItem *flexibleSpaceBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-	UIBarButtonItem *fixedSpaceBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-	fixedSpaceBarButtonItem.width =50.0;
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	// Toolbar + Revert
-	
-	
-	// Toolbar + Delete
-	
-//	UIBarButtonItem *spaceBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-//	
-//	
-//	UIBarButtonItem *deleteBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteFile:)];
-	
-	
-	
-
-	
-	
-	[toolbar setItems:[NSArray arrayWithObjects:flexibleSpaceBarButtonItem, composeBarButtonItem,  flexibleSpaceBarButtonItem, activityIndicatorBarButtonItem, flexibleSpaceBarButtonItem, deleteBarButtonItem, flexibleSpaceBarButtonItem, nil] animated:NO];
-	[activityIndicatorBarButtonItem release];
-
+	[systemActionBarButtonItem release];
+	[paginateLeftBarButtonItem release];
+	[paginateRightBarButtonItem release];
+	[deleteBarButtonItem release];
+	[flexibleSpaceBarButtonItem release];
 	
 	[self.view addSubview:toolbar];
 	[toolbar release];
@@ -250,14 +221,19 @@
 	}
 }
 
-- (void)paginationSegmentControlChanged:(UISegmentedControl *)segmentedControl;
+
+- (void)paginationWasPushed:(id)sender;
 {
-
 	if ([self.delegate respondsToSelector:@selector(fileViewControllerDidPaginate:toNextFile:)]) {
-
-		fileViewAnimationDown = segmentedControl.selectedSegmentIndex ? YES : NO;
-		[self.delegate fileViewControllerDidPaginate:self toNextFile:segmentedControl.selectedSegmentIndex ? YES : NO];
+		
+		UIView *item = (UIView *)sender;
+		
+		
+		// have to figure out which "arrow" was pushed here.
+		fileViewAnimationLeft = item.tag == 2001 ? NO : YES;
+		[self.delegate fileViewControllerDidPaginate:self toNextFile:item.tag == 2001 ? NO : YES];
 	}
+	
 }
 
 
@@ -308,12 +284,24 @@
 		[self setFileViewWithKind:kind];
 
 
-		// Reposition fileView, above or below the main view's frame.
+//		// Reposition fileView, above or below the main view's frame.
+//		CGRect fileViewRect = fileView.frame;
+//		fileViewRect.origin.y = (fileViewAnimationDown) ? fileViewRect.size.height : (fileViewRect.size.height * -1);
+//		fileView.frame = fileViewRect;
+//		[self.view insertSubview:fileView atIndex:0];
+//		[fileView release];
+		
+		// Reposition the new FileView To the Left, or Right, of the CapturedFileViewImage;
 		CGRect fileViewRect = fileView.frame;
-		fileViewRect.origin.y = (fileViewAnimationDown) ? fileViewRect.size.height : (fileViewRect.size.height * -1);
+		fileViewRect.origin.x = fileViewAnimationLeft ? fileViewRect.size.width : (fileViewRect.size.width * -1);
 		fileView.frame = fileViewRect;
 		[self.view insertSubview:fileView atIndex:0];
 		[fileView release];
+		
+		
+		
+		
+		
 		
 		// Animate
 		[UIView beginAnimations:@"displayFileViewAnimated" context:nil];
@@ -321,9 +309,11 @@
 		[UIView setAnimationDuration:0.3];
 		[UIView setAnimationDidStopSelector:@selector(displayFileViewAnimatedDidFinish)];
 		
-		// Reposition image.
+		// Reposition Captured FileView.
 		CGRect capturedFileViewImageRect = capturedFileViewImage.frame;
-		capturedFileViewImageRect.origin.y = (fileViewAnimationDown) ? self.view.frame.size.height * -1 : self.view.frame.size.height;
+//		capturedFileViewImageRect.origin.y = (fileViewAnimationDown) ? self.view.frame.size.height * -1 : self.view.frame.size.height;
+		capturedFileViewImageRect.origin.x = (fileViewAnimationLeft) ? self.view.frame.size.width * -1 : self.view.frame.size.width;
+
 		capturedFileViewImage.frame = capturedFileViewImageRect;
 		
 		fileView.frame = self.view.bounds;
@@ -342,6 +332,10 @@
 		[fileView release];
 	}
 }
+
+
+
+
 
 - (void)setFileViewWithKind:(int)kind;
 {

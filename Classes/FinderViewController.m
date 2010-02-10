@@ -449,8 +449,8 @@
 	self.fileViewController.file = file;
 	[self.fileViewController displayFileViewWithKind:file.kind animated:animated];
 	
-	[self.fileViewController.paginationSegmentControl setEnabled:[self indexPathForPaginationToNextFile:NO] >= 0 ? YES : NO forSegmentAtIndex:0];
-	[self.fileViewController.paginationSegmentControl setEnabled:[self indexPathForPaginationToNextFile:YES] >= 0 ? YES : NO forSegmentAtIndex:1];
+	[self.fileViewController.paginateLeftBarButtonItem setEnabled:[self indexPathForPaginationToNextFile:NO] >= 0 ? YES : NO];
+	[self.fileViewController.paginateRightBarButtonItem setEnabled:[self indexPathForPaginationToNextFile:YES] >= 0 ? YES : NO];
 }
 
 

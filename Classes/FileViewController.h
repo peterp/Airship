@@ -21,27 +21,33 @@
 
 	UIToolbar *navigationBar;
 	UILabel *titleViewLabel;
-	UISegmentedControl *paginationSegmentControl;
-	
-	UIToolbar *toolbar;
 	UIActivityIndicatorView *activityIndicator;
 	
+	UIToolbar *toolbar;
+	UIBarButtonItem *systemActionBarButtonItem;
+	UIBarButtonItem *paginateLeftBarButtonItem;
+	UIBarButtonItem *paginateRightBarButtonItem;
+	UIBarButtonItem *deleteBarButtonItem;
 	
 	
 	
 	FileView *fileView;
 	UIImageView *capturedFileViewImage;
-	BOOL fileViewAnimationDown;
+	BOOL fileViewAnimationLeft;
 }
 
 @property (nonatomic, assign) id <FileViewControllerDelegate> delegate;
 @property (nonatomic, retain) File *file;
 
 @property (nonatomic, retain) UIToolbar *navigationBar;
-@property (nonatomic, retain) UISegmentedControl *paginationSegmentControl;
+@property (nonatomic, retain) UIActivityIndicatorView *activityIndicator;
 
 @property (nonatomic, retain) UIToolbar *toolbar;
-@property (nonatomic, retain) UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, retain) UIBarButtonItem *systemActionBarButtonItem;
+@property (nonatomic, retain) UIBarButtonItem *paginateLeftBarButtonItem;
+@property (nonatomic, retain) UIBarButtonItem *paginateRightBarButtonItem;
+@property (nonatomic, retain) UIBarButtonItem *deleteBarButtonItem;
+
 
 
 
