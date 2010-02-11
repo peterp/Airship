@@ -415,6 +415,8 @@
 	// Currently selected row
 	int index = [self indexPathForActiveTableView];
 	
+	NSLog(@"index for currently selected row: %d", index);
+	
 	index = nextFile ? ++index : --index;
 	while (index >= 0 && index <= [self numberOfRowsForActiveTableView] - 1) {
 
@@ -479,6 +481,8 @@
 	if (index < 0) {
 		return;
 	}
+	
+	NSLog(@"next file index: %d", index);
 	
 	self.searchDisplayController.active ?
 		[self.searchDisplayController.searchResultsTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] animated:NO scrollPosition:UITableViewScrollPositionMiddle] :
@@ -638,6 +642,18 @@
 
 
 
+// When a file is removed or added, the possibility exists that the 
+// prev + next pagination controls can be altered.
+
+// we need to ensur that we update these controls according to 
+// the currently active rows...
+// the best place to do that is below, using these two method calls
+
+//	[self.fileViewController.paginateLeftBarButtonItem setEnabled:[self indexPathForPaginationToNextFile:NO] >= 0 ? YES : NO];
+//	[self.fileViewController.paginateRightBarButtonItem setEnabled:[self indexPathForPaginationToNextFile:YES] >= 0 ? YES : NO];
+
+
+
 
 - (void)updateTableViewForRemovedFile:(NSNotification *)notification;
 {
@@ -691,6 +707,18 @@
 					break;
 				}
 				i += 1;
+			}
+			
+			// files have been removed, are we currently display a file... do the prev + next
+			// pagination controls need to be updated?
+			NSLog(@"%@", fileViewController);
+			
+			if (fileViewController != nil) {
+			
+				
+				[self.fileViewController.paginateLeftBarButtonItem setEnabled:[self indexPathForPaginationToNextFile:NO] > 0 ? YES : NO];
+				[self.fileViewController.paginateRightBarButtonItem setEnabled:[self indexPathForPaginationToNextFile:YES] >= 0 ? YES : NO];
+
 			}
 		}
 	}

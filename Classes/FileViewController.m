@@ -484,27 +484,29 @@
 
 - (void)deleteFile;
 {
+	// Store the "file" that has to be removed
+	// Remove the file from the device.
 	NSMutableArray *removedFile = [NSArray arrayWithObject:file];
-	[file delete];
+//	[file delete];
 
-	// Post notification.
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"removedFileNotification" object:self userInfo:
-	 [NSDictionary dictionaryWithObjectsAndKeys:removedFile, @"removedFiles", nil]];
-	
 
-	
+	// Paginate to the next file, or previous file.
 	if (paginateRightBarButtonItem.enabled) {
-		
 		[self paginationWasPushed:paginateRightBarButtonItem];
 	} else if (paginateLeftBarButtonItem.enabled) {
 		[self paginationWasPushed:paginateLeftBarButtonItem];
 	} else {
 		[self unloadViewController];
 	}
+
+	
+	// Post the notification, removing the file from the tableview below.
+	// Update the controls again based on the new "tableview" information/.
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"removedFileNotification" object:self userInfo:
+	 [NSDictionary dictionaryWithObjectsAndKeys:removedFile, @"removedFiles", nil]];
+
+	// hide the toolbar, cleanup time.
 	[self hideModalToolbar];
-	
-	// boom, easy... Oh, we have to remove it from the mainview... Fuuuuck. Use a notification.
-	
 }
 
 
