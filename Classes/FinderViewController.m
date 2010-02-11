@@ -415,8 +415,6 @@
 	// Currently selected row
 	int index = [self indexPathForActiveTableView];
 	
-	NSLog(@"index for currently selected row: %d", index);
-	
 	index = nextFile ? ++index : --index;
 	while (index >= 0 && index <= [self numberOfRowsForActiveTableView] - 1) {
 
@@ -482,13 +480,44 @@
 		return;
 	}
 	
-	NSLog(@"next file index: %d", index);
-	
 	self.searchDisplayController.active ?
 		[self.searchDisplayController.searchResultsTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] animated:NO scrollPosition:UITableViewScrollPositionMiddle] :
 		[finderTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] animated:NO scrollPosition:UITableViewScrollPositionMiddle];
 	
 	[self presentFileViewControllerWithFile:[self fileForIndexPath:index]];
+}
+
+
+- (void)fileViewControllerDidDeleteFile:(FileViewController *)controller;
+{
+	
+		
+	int deleteFileIndexPath = [self indexPathForActiveTableView];
+	File *file = [self fileForIndexPath:deleteFileIndexPath];
+	[file delete];
+
+	// remove the file... from the tableview.
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"removedFileNotification" object:self userInfo:
+	 [NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObject:file], @"removedFiles", nil]];
+	
+	
+	
+	if (fileViewController.paginateRightBarButtonItem.enabled) {	
+		[fileViewController setFileViewAnimationLeft:YES];
+		[self presentFileViewControllerWithFile:[self fileForIndexPath:deleteFileIndexPath]];
+	} else if (fileViewController.paginateLeftBarButtonItem.enabled) {		
+
+		deleteFileIndexPath -= 1;
+		[fileViewController setFileViewAnimationLeft:NO];
+		self.searchDisplayController.active ?
+			[self.searchDisplayController.searchResultsTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:deleteFileIndexPath inSection:0] animated:NO scrollPosition:UITableViewScrollPositionMiddle] :
+			[finderTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:deleteFileIndexPath inSection:0] animated:NO scrollPosition:UITableViewScrollPositionMiddle];
+		
+		[self presentFileViewControllerWithFile:[self fileForIndexPath:deleteFileIndexPath]];
+		
+	} else {
+		[self fileViewControllerDidFinish:fileViewController];
+	}
 }
 
 
@@ -707,18 +736,6 @@
 					break;
 				}
 				i += 1;
-			}
-			
-			// files have been removed, are we currently display a file... do the prev + next
-			// pagination controls need to be updated?
-			NSLog(@"%@", fileViewController);
-			
-			if (fileViewController != nil) {
-			
-				
-				[self.fileViewController.paginateLeftBarButtonItem setEnabled:[self indexPathForPaginationToNextFile:NO] > 0 ? YES : NO];
-				[self.fileViewController.paginateRightBarButtonItem setEnabled:[self indexPathForPaginationToNextFile:YES] >= 0 ? YES : NO];
-
 			}
 		}
 	}

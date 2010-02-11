@@ -227,13 +227,16 @@
 	if ([self.delegate respondsToSelector:@selector(fileViewControllerDidPaginate:toNextFile:)]) {
 		
 		UIView *item = (UIView *)sender;
-		
-		
 		// have to figure out which "arrow" was pushed here.
 		fileViewAnimationLeft = item.tag == 2001 ? NO : YES;
 		[self.delegate fileViewControllerDidPaginate:self toNextFile:item.tag == 2001 ? NO : YES];
 	}
 	
+}
+
+- (void)setFileViewAnimationLeft:(BOOL)YesOrNo;
+{
+	fileViewAnimationLeft = YesOrNo;
 }
 
 
@@ -484,27 +487,24 @@
 
 - (void)deleteFile;
 {
-	// Store the "file" that has to be removed
-	// Remove the file from the device.
-	NSMutableArray *removedFile = [NSArray arrayWithObject:file];
-//	[file delete];
-
-
-	// Paginate to the next file, or previous file.
-	if (paginateRightBarButtonItem.enabled) {
-		[self paginationWasPushed:paginateRightBarButtonItem];
-	} else if (paginateLeftBarButtonItem.enabled) {
-		[self paginationWasPushed:paginateLeftBarButtonItem];
-	} else {
-		[self unloadViewController];
+//	// Store the "file" that has to be removed
+//	// Remove the file from the device.
+//	NSMutableArray *removedFile = [NSArray arrayWithObject:file];
+////	[file delete];
+//	
+//	
+//
+	// use this method to "shift" to the next file.
+	if ([self.delegate respondsToSelector:@selector(fileViewControllerDidDeleteFile:)]) {
+		[self.delegate fileViewControllerDidDeleteFile:self];
 	}
-
+//	
+//	// Post the notification, removing the file from the tableview below.
+//	// Update the controls again based on the new "tableview" information/.
+//	[[NSNotificationCenter defaultCenter] postNotificationName:@"removedFileNotification" object:self userInfo:
+//	 [NSDictionary dictionaryWithObjectsAndKeys:removedFile, @"removedFiles", nil]];
+//	
 	
-	// Post the notification, removing the file from the tableview below.
-	// Update the controls again based on the new "tableview" information/.
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"removedFileNotification" object:self userInfo:
-	 [NSDictionary dictionaryWithObjectsAndKeys:removedFile, @"removedFiles", nil]];
-
 	// hide the toolbar, cleanup time.
 	[self hideModalToolbar];
 }

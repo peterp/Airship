@@ -13,4 +13,5 @@
 @optional
 	- (void)fileViewControllerDidFinish:(FileViewController *)controller;
 	- (void)fileViewControllerDidPaginate:(FileViewController *)controller toNextFile:(BOOL)nextFile;
+	- (void)fileViewControllerDidDeleteFile:(FileViewController *)controller;
 @end

@@ -71,6 +71,7 @@
 - (void)showModalToolbar;
 - (void)hideModalToolbar;
 
+- (void)setFileViewAnimationLeft:(BOOL)YesOrNo;
 
 
 
