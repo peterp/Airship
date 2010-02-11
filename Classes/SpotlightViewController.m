@@ -9,6 +9,21 @@
 #import "SpotlightViewController.h"
 #import "File.h"
 
+
+@implementation UITextField (CustomTextRect)
+- (CGRect)textRectForBounds:(CGRect)bounds
+{
+	return CGRectMake(30, 7, 168, 22);
+}
+
+- (CGRect)editingRectForBounds:(CGRect)bounds
+{
+	return CGRectMake(30, 7, 168, 22);
+}
+
+
+@end
+
 @implementation SpotlightViewController
 
 @synthesize searchTextField;
@@ -35,6 +50,20 @@
 }
 
 
+- (void)cancelSearch:(id)sender;
+{
+	
+	[self setSearchInterstitialHidden:YES animated:YES];
+	searchResultsEmptyLabel.hidden = YES;
+	searchTextField.text = @"";
+	[searchTextField resignFirstResponder];
+	self.finderTableView.hidden = YES;
+	[fileList removeAllObjects];
+	[self.finderTableView reloadData];
+}
+
+
+
 
 - (void)viewDidLoad;
 {
@@ -47,17 +76,24 @@
 	// Data Store
 	self.path = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/Files/"];
 	self.fileList = [NSMutableArray array];
-	[editButton removeFromSuperview];
-	[editButton release];
+	// hide the edit button, this will become the cancel button.
+	editButton.alpha = 0;
+	[editButton setTitle:@"Cancel" forState:UIControlStateNormal];
+	[editButton removeTarget:self action:@selector(cancel:) forControlEvents:UIControlEventTouchUpInside];
+	[editButton addTarget:self action:@selector(cancelSearch:) forControlEvents:UIControlEventTouchUpInside];
+	[editButton setBackgroundImage:[[UIImage imageNamed: @"ui_barButtonSilver.png"] stretchableImageWithLeftCapWidth:25.5 topCapHeight:0.0]  forState:UIControlStateNormal];
+	[editButton setTitleColor:[UIColor colorWithRed:25/255.0 green:25/255.0 blue:46/255.0 alpha:1] forState:UIControlStateNormal];
+	[editButton setTitleShadowColor:[UIColor clearColor] forState:UIControlStateNormal];
 	
-
+	
+	
 	// Search TextField.
 	self.searchTextField = [[UITextField alloc] init];
-	self.searchTextField.frame = CGRectMake(0, 0, 200, 21);
-	searchTextField.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
+	searchTextField.frame = CGRectMake(0, 0, 222, 31);
 	searchTextField.delegate = self;
 	searchTextField.placeholder = @"Search";
-	searchTextField.backgroundColor = [UIColor whiteColor];
+	searchTextField.backgroundColor = [UIColor clearColor];
+	searchTextField.background = [UIImage imageNamed:@"ui_navigationSearchBar.png"];
 	searchTextField.font = [UIFont systemFontOfSize:[UIFont systemFontSize]];
 	searchTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
 	searchTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
@@ -65,14 +101,12 @@
 	searchTextField.keyboardAppearance = UIKeyboardTypeDefault;
 	searchTextField.returnKeyType = UIReturnKeySearch;
 	searchTextField.enablesReturnKeyAutomatically = YES;
-	self.navigationController.navigationBar.topItem.titleView = searchTextField;
-	
 
+	self.navigationController.navigationBar.topItem.titleView = searchTextField;
 	[searchTextField release];
 
 	// Search Interstitial
 	self.searchInterstitial = [[UIControl alloc] initWithFrame:CGRectZero];
-	
 	searchInterstitial.backgroundColor = [UIColor blackColor];
 	searchInterstitial.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	searchInterstitial.hidden = YES;
@@ -139,6 +173,7 @@
 			[UIView beginAnimations:@"hideInterstitial" context:nil];
 			[UIView setAnimationDuration:0.3];
 			searchInterstitial.alpha = 0;
+			editButton.alpha = 0;
 			[UIView commitAnimations];
 
 		} else {
@@ -148,7 +183,12 @@
 			[UIView beginAnimations:@"showInterstitial" context:nil];
 			[UIView setAnimationDuration:0.3];
 			searchInterstitial.alpha = 0.8;
+			editButton.alpha = 1;
 			[UIView commitAnimations];
+			
+			
+			// add a cancel button to the navigation bar.
+			
 			
 		}
 	} else {
@@ -178,6 +218,8 @@
 	[self setSearchInterstitialHidden:([string length] <= 0 ? NO : YES) animated:NO];
 	if ([string length] > 0) {
 		[self filterContentForSearchText:string];
+	} else if ([string length] <= 0) {
+		[self setSearchInterstitialHidden:NO animated:YES];
 	}
 
 	return YES;

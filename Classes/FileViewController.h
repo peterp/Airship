@@ -34,6 +34,10 @@
 	FileView *fileView;
 	UIImageView *capturedFileViewImage;
 	BOOL fileViewAnimationLeft;
+	
+	UIView *modalBackground;
+	UIToolbar *modalToolbar;
+	
 }
 
 @property (nonatomic, assign) id <FileViewControllerDelegate> delegate;
@@ -55,13 +59,17 @@
 @property (nonatomic, retain) UIImageView *capturedFileViewImage;
 
 
-
 - (void)displayFileViewWithKind:(int)kind animated:(BOOL)animated;
 - (void)setFileViewWithKind:(int)kind;
 - (UIImage *)captureView:(UIView *)view;
 
-- (void)deleteFile:(id)sender;
 
+// Delete file.
+- (void)showDeleteModalToolbar;
+- (void)deleteFile;
+
+- (void)showModalToolbar;
+- (void)hideModalToolbar;
 
 
 

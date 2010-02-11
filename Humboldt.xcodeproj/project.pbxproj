@@ -50,6 +50,7 @@
 		CE8CB8D0109CD62A008B3FAE /* TapDetectingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8CB8CF109CD62A008B3FAE /* TapDetectingScrollView.m */; };
 		CE9A6D85105EF74E00E25682 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE9A6D84105EF74E00E25682 /* AudioToolbox.framework */; };
 		CECE390910680DD4000EE1F6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CECE390810680DD4000EE1F6 /* SystemConfiguration.framework */; };
+		CED36F4011234D26006091CB /* ui_navigationSearchBar.png in Resources */ = {isa = PBXBuildFile; fileRef = CED36F3F11234D26006091CB /* ui_navigationSearchBar.png */; };
 		CED4D9FD10BDC0FD00716F62 /* FileVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = CED4D9FC10BDC0FD00716F62 /* FileVideoView.m */; };
 		CED77EF8110CA5EC0029273A /* ui_tableViewCellNotSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = CED77EF6110CA5EC0029273A /* ui_tableViewCellNotSelected.png */; };
 		CED77EF9110CA5EC0029273A /* ui_tableViewCellSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = CED77EF7110CA5EC0029273A /* ui_tableViewCellSelected.png */; };
@@ -178,6 +179,7 @@
 		CE8CB8CF109CD62A008B3FAE /* TapDetectingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapDetectingScrollView.m; sourceTree = "<group>"; };
 		CE9A6D84105EF74E00E25682 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		CECE390810680DD4000EE1F6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		CED36F3F11234D26006091CB /* ui_navigationSearchBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ui_navigationSearchBar.png; sourceTree = "<group>"; };
 		CED4D9FB10BDC0FD00716F62 /* FileVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileVideoView.h; sourceTree = "<group>"; };
 		CED4D9FC10BDC0FD00716F62 /* FileVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileVideoView.m; sourceTree = "<group>"; };
 		CED77EF6110CA5EC0029273A /* ui_tableViewCellNotSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ui_tableViewCellNotSelected.png; sourceTree = "<group>"; };
@@ -445,6 +447,7 @@
 		CED77FBE110CB3AA0029273A /* TableViews */ = {
 			isa = PBXGroup;
 			children = (
+				CED36F3F11234D26006091CB /* ui_navigationSearchBar.png */,
 				CEF1198D111F1EC100C66D0E /* ui_barButtonBlue.png */,
 				CEF1198E111F1EC100C66D0E /* ui_barButtonSilver.png */,
 				CE0E6BC8111B8480002F11C1 /* ui_tableViewCellNotSelectedBackground.png */,
@@ -688,6 +691,7 @@
 				CEEAF19211209C8B004F067E /* ui_buttonDocumentHighlight.png in Resources */,
 				CEEAF19411209C91004F067E /* ui_buttonImageHighlight.png in Resources */,
 				CEEAF19611209C95004F067E /* ui_buttonVideoHighlight.png in Resources */,
+				CED36F4011234D26006091CB /* ui_navigationSearchBar.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

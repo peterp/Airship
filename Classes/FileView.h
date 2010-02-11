@@ -17,6 +17,7 @@
 	- (void)fileViewDidStopLoading;
 	- (void)fileViewDidToggleToolbars;
 	- (BOOL)fileViewToolbarsHidden;
+
 @end
 
 
@@ -36,6 +37,8 @@
 
 - (void)didStartLoading;
 - (void)didStopLoading;
+
+
 
 
 @end

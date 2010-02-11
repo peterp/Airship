@@ -16,7 +16,7 @@
 
 
 	TapDetectingWebView *webView;
-
+	NSString *path;
 }
 
 @property (nonatomic, retain) TapDetectingWebView *webView;

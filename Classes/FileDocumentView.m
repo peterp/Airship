@@ -38,8 +38,9 @@
   return self;
 }
 
-- (void)loadFileAtPath:(NSString *)path;
+- (void)loadFileAtPath:(NSString *)atPath;
 {
+	path = atPath;
 	[webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:path]]];
 }
 
@@ -48,7 +49,6 @@
 
 - (void)tapDetectingWebViewGotSingleTap:(TapDetectingWebView *)aWebView;
 {
-	NSLog(@"margle");
 	if ([self.delegate respondsToSelector:@selector(fileViewDidToggleToolbars)]) {
 		[self.delegate fileViewDidToggleToolbars];
 	}
@@ -64,6 +64,17 @@
 {
 	[self didStopLoading];
 }
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+	[self didStopLoading];
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[NSString stringWithFormat:@"A problem occured whilst trying to open the document \"%@.\"", [path lastPathComponent]] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+	[alert show];
+	[alert release];
+	
+}
+
+
 
 
 

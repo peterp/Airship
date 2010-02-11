@@ -113,7 +113,7 @@
 	[doneBarButtonItem release];
 	[activityIndicatorBarButtonItem release];
 		
-	titleViewLabel = [[UILabel alloc] initWithFrame:CGRectMake(95, 0, 130, 44)];
+	titleViewLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 0, 200, 44)];
 	titleViewLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	titleViewLabel.backgroundColor = [UIColor clearColor];
 	titleViewLabel.textAlignment = UITextAlignmentCenter;
@@ -141,7 +141,7 @@
 	paginateLeftBarButtonItem.tag = 2001;
 	self.paginateRightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFastForward target:self action:@selector(paginationWasPushed:)];
 	paginateRightBarButtonItem.tag = 2002;
-	self.deleteBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:nil action:nil];
+	self.deleteBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(showDeleteModalToolbar)];
 	
 	[toolbar setItems:[NSArray arrayWithObjects:systemActionBarButtonItem, flexibleSpaceBarButtonItem, paginateLeftBarButtonItem, flexibleSpaceBarButtonItem, paginateRightBarButtonItem, flexibleSpaceBarButtonItem, deleteBarButtonItem, nil]];
 	
@@ -455,31 +455,112 @@
 
 
 
+#pragma mark -
+#pragma mark DELETE
 
-
-
-//
-//- (void)hideBarsAfterDelay;
-//{
-//	// if they have already been hidden, then just skip this.
-//	if (self.toolbar.hidden == NO && self.navigationBar.hidden == NO) {
-//	
-//		// only hide if we're not loading...
-//		if (self.activityIndicator.hidden) {
-//			[self fileViewDidToggleToolbars];
-//		} else {
-//			[self performSelector:@selector(hideBarsAfterDelay) withObject:nil afterDelay:1];
-//		}
-//	}
-//}
-
-
-
-
-- (void)deleteFile:(id)sender;
+- (void)showDeleteModalToolbar;
 {
-	NSLog(@"MARGLE!");
+	[self showModalToolbar];
+	
+	UIButton *deleteFileButton = [UIButton buttonWithType:UIButtonTypeCustom];	
+	deleteFileButton.frame = CGRectMake(20, 20, self.view.frame.size.width - 40, 46);
+	//	[sampleButton setBackgroundImage:[[UIImage imageNamed:@"redButton.png"] stretchableImageWithLeftCapWidth:10.0 topCapHeight:0.0] forState:UIControlStateNormal];
+	[deleteFileButton setTitle:@"Delete" forState:UIControlStateNormal];
+	deleteFileButton.titleLabel.font = [UIFont boldSystemFontOfSize:20];
+	deleteFileButton.backgroundColor = [UIColor redColor];
+	[deleteFileButton addTarget:self action:@selector(deleteFile) forControlEvents:UIControlEventTouchUpInside];
+	[modalToolbar addSubview:deleteFileButton];
+	
+	UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	cancelButton.frame = CGRectMake(20, 90, self.view.frame.size.width - 40, 46);
+	//	[sampleButton setBackgroundImage:[[UIImage imageNamed:@"redButton.png"] stretchableImageWithLeftCapWidth:10.0 topCapHeight:0.0] forState:UIControlStateNormal];
+	[cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
+	cancelButton.titleLabel.font = [UIFont boldSystemFontOfSize:20];
+	cancelButton.backgroundColor = [UIColor darkGrayColor];
+	[cancelButton addTarget:self action:@selector(hideModalToolbar) forControlEvents:UIControlEventTouchUpInside];
+	[modalToolbar addSubview:cancelButton];
 }
+
+
+- (void)deleteFile;
+{
+	NSMutableArray *removedFile = [NSArray arrayWithObject:file];
+	[file delete];
+
+	// Post notification.
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"removedFileNotification" object:self userInfo:
+	 [NSDictionary dictionaryWithObjectsAndKeys:removedFile, @"removedFiles", nil]];
+	
+
+	
+	if (paginateRightBarButtonItem.enabled) {
+		
+		[self paginationWasPushed:paginateRightBarButtonItem];
+	} else if (paginateLeftBarButtonItem.enabled) {
+		[self paginationWasPushed:paginateLeftBarButtonItem];
+	} else {
+		[self unloadViewController];
+	}
+	[self hideModalToolbar];
+	
+	// boom, easy... Oh, we have to remove it from the mainview... Fuuuuck. Use a notification.
+	
+}
+
+
+- (void)showModalToolbar;
+{
+	
+	// interstitial.
+	modalBackground = [[UIView alloc] initWithFrame:self.view.frame];
+	modalBackground.backgroundColor = [UIColor blackColor];
+	modalBackground.alpha = 0;
+	[self.view addSubview:modalBackground];
+	[modalBackground release];
+	
+	modalToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 154)];
+	modalToolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin;
+	modalToolbar.barStyle = UIBarStyleBlackTranslucent;
+	[self.view addSubview:modalToolbar];
+	[modalToolbar release];
+	
+	
+	
+	[UIView beginAnimations:nil context:nil];
+	[UIView setAnimationDuration:0.3];
+	
+	modalToolbar.frame = CGRectMake(0, self.view.frame.size.height - 154, self.view.frame.size.width, 154);
+	toolbar.alpha = 0;
+	modalBackground.alpha = 0.4;
+	
+	[UIView commitAnimations];
+}
+
+
+- (void)hideModalToolbarAnimationDone;
+{
+	[modalBackground removeFromSuperview];
+	[modalToolbar removeFromSuperview];
+}
+
+- (void)hideModalToolbar;
+{
+	[UIView beginAnimations:@"hideModalToolbar" context:nil];
+	[UIView setAnimationDuration:0.3];
+	[UIView setAnimationDelegate:self];
+	[UIView setAnimationDidStopSelector:@selector(hideModalToolbarAnimationDone)];
+	
+	modalBackground.alpha = 0;
+	modalToolbar.frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 154);
+	toolbar.alpha = 1;
+	
+	[UIView commitAnimations];	
+}
+
+
+
+
+
 
 
 

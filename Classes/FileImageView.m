@@ -51,8 +51,14 @@
 - (void)loadFileAtPath:(NSString *)path;
 {
 	// Load and display the image
-	NSData *imageData = [NSData dataWithContentsOfFile:path];
-	self.imageView = [[UIImageView alloc] initWithImage:[UIImage imageWithData:imageData]];
+	UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfFile:path]];
+	if (image == nil) {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[NSString stringWithFormat:@"A problem occured whilst trying to display the image \"%@.\"", [path lastPathComponent]] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+		[alert show];
+		[alert release];
+		[self didStopLoading];
+	}
+	self.imageView = [[UIImageView alloc] initWithImage:image];
 	[scrollView addSubview:imageView];
 	[imageView release];
 
