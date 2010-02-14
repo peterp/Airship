@@ -35,6 +35,7 @@
 	UIImageView *capturedFileViewImage;
 	BOOL fileViewAnimationLeft;
 	
+	
 	UIView *modalBackground;
 	UIToolbar *modalToolbar;
 	

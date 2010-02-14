@@ -447,10 +447,13 @@
 	}
 
 	self.fileViewController.file = file;
-	[self.fileViewController displayFileViewWithKind:file.kind animated:animated];
+
 	
 	[self.fileViewController.paginateLeftBarButtonItem setEnabled:[self indexPathForPaginationToNextFile:NO] >= 0 ? YES : NO];
 	[self.fileViewController.paginateRightBarButtonItem setEnabled:[self indexPathForPaginationToNextFile:YES] >= 0 ? YES : NO];
+
+	[self.fileViewController displayFileViewWithKind:file.kind animated:animated];
+	
 }
 
 
@@ -691,7 +694,7 @@
 	
 		// Is this a folder that's deleted, and is this the visible view controller?
 		if (self.navigationController.visibleViewController == self && rmFile.kind == FILE_KIND_DIRECTORY) {
-	
+			
 			// Does our folder still exist?
 			if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
 			
@@ -727,6 +730,15 @@
 			
 				// Is the file been deleted in this tableView?
 				if ([f.absolutePath isEqualToString:rmFile.absolutePath]) {
+					
+					if ([self.fileViewController.file.absolutePath isEqualToString:rmFile.absolutePath]) {
+						UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"The file you were viewing has been deleted." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+						[alert show];
+						[alert release];
+							
+						[self fileViewControllerDidFinish:fileViewController];
+					}
+					
 				
 					// Remove from datasource and tableView.
 					[fileList removeObjectAtIndex:i];
@@ -735,6 +747,10 @@
 					[finderTableView endUpdates];
 					break;
 				}
+				
+				
+				
+				
 				i += 1;
 			}
 		}

@@ -30,6 +30,24 @@
 
 
 
+- (NSString *)stringFromFileSize:(int)theSize
+{
+	float floatSize = theSize;
+	if (theSize<1023)
+		return([NSString stringWithFormat:@"%i bytes",theSize]);
+	floatSize = floatSize / 1024;
+	if (floatSize<1023)
+		return([NSString stringWithFormat:@"%1.1f KB",floatSize]);
+	floatSize = floatSize / 1024;
+	if (floatSize<1023)
+		return([NSString stringWithFormat:@"%1.1f MB",floatSize]);
+	floatSize = floatSize / 1024;
+	
+	// Add as many as you like
+	
+	return([NSString stringWithFormat:@"%1.1f GB",floatSize]);
+}
+
 
 - (id)initWithName:(NSString *)fileName atPath:(NSString *)filePath;
 {
@@ -44,13 +62,14 @@
 	self.date = [dateFormat stringFromDate:[attributes fileModificationDate]];
 	[dateFormat release];
 	
-	// SIZE
-	self.size = @"--";
 	
 	// KIND
 	self.kind = [self kindByExtension];
 	if (kind == FILE_KIND_UNKNOWN && [[attributes fileType] isEqualToString:NSFileTypeDirectory]) {
 		kind = FILE_KIND_DIRECTORY;
+		self.size = @"--";
+	} else {
+		self.size = [self stringFromFileSize:[attributes fileSize]];
 	}
 	
 	return self;

@@ -11,7 +11,8 @@
 
 #import "FinderViewController.h"
 #import "SpotlightViewController.h"
-#import "SharingTableViewController.h"
+#import "SharingViewController.h"
+//#import "SharingTableViewController.h"
 
 
 
@@ -57,10 +58,9 @@
 	UINavigationController *spotlightNavigationController = [[UINavigationController alloc] initWithRootViewController:spotlight];
 	[spotlight release];
 
-	// Sharing view controller
-	SharingTableViewController *sharingTableViewController = [[SharingTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
-	UINavigationController *sharingNavigationController = [[UINavigationController alloc] initWithRootViewController:sharingTableViewController];
-	[sharingTableViewController release];
+	SharingViewController *sharingViewController = [[SharingViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
+	UINavigationController *sharingNavigationController = [[UINavigationController alloc] initWithRootViewController:sharingViewController];
+	[sharingViewController release];
 	
 	
 

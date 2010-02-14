@@ -35,6 +35,8 @@
 
 - (void)dealloc;
 {
+	
+	NSLog(@"I don't come here?");
 	self.audioPlayer = nil;
 	
 	self.levelMeter = nil;
@@ -223,6 +225,17 @@
 
 - (void)loadFileAtPath:(NSString *)path;
 {
+	
+	// if the audio play is not null? That means that something very bad has happened....
+	// Should we pause for a second and try again later?
+	NSLog(@"%@", self.audioPlayer);
+
+	if (self.audioPlayer != nil) {
+		[self.audioPlayer stop];
+		self.audioPlayer = nil;
+	}
+	
+	NSLog(@"%@", self.audioPlayer);
 		// Create the audio player
 		self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:nil];
 		audioPlayer.delegate = self;
@@ -251,8 +264,11 @@
 
 - (void)removeFromSuperview;
 {
-	[audioPlayer stop];
+	NSLog(@"I should come here all the time.");
+	[audioPlayer pause];
 	[levelMeter setPlayer:nil];
+	[audioPlayer stop];
+	
 	
 	[updateTimeTimer invalidate];
 	updateTimeTimer = nil;

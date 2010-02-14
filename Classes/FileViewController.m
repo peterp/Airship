@@ -153,7 +153,6 @@
 	
 	[self.view addSubview:toolbar];
 	[toolbar release];
-	
 }
 
 - (void)didReceiveMemoryWarning;
@@ -213,9 +212,6 @@
 
 - (void)unloadViewController;
 {
-
-	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideBarsAfterDelay) object:nil];
-	
 	if ([self.delegate respondsToSelector:@selector(fileViewControllerDidFinish:)]) {
 		[self.delegate fileViewControllerDidFinish:self];
 	}
@@ -272,6 +268,10 @@
 {
 	
 	if (animated == YES) {
+		
+	
+		
+		// disable the toolbar buttons during animation...
 
 		// capture fileView
 		self.capturedFileViewImage = [[UIImageView alloc] initWithImage:[self captureView:self.fileView]];
@@ -314,11 +314,8 @@
 		
 		// Reposition Captured FileView.
 		CGRect capturedFileViewImageRect = capturedFileViewImage.frame;
-//		capturedFileViewImageRect.origin.y = (fileViewAnimationDown) ? self.view.frame.size.height * -1 : self.view.frame.size.height;
-		capturedFileViewImageRect.origin.x = (fileViewAnimationLeft) ? self.view.frame.size.width * -1 : self.view.frame.size.width;
-
+		capturedFileViewImageRect.origin.x = (fileViewAnimationLeft) ? self.view.bounds.size.width * -1 : self.view.bounds.size.width;
 		capturedFileViewImage.frame = capturedFileViewImageRect;
-		
 		fileView.frame = self.view.bounds;
 		
 		[UIView commitAnimations];
@@ -466,20 +463,22 @@
 	[self showModalToolbar];
 	
 	UIButton *deleteFileButton = [UIButton buttonWithType:UIButtonTypeCustom];	
-	deleteFileButton.frame = CGRectMake(20, 20, self.view.frame.size.width - 40, 46);
-	//	[sampleButton setBackgroundImage:[[UIImage imageNamed:@"redButton.png"] stretchableImageWithLeftCapWidth:10.0 topCapHeight:0.0] forState:UIControlStateNormal];
+	deleteFileButton.frame = CGRectMake(20, 20, self.view.bounds.size.width - 40, 46);
+	[deleteFileButton setBackgroundImage:[[UIImage imageNamed:@"ui_buttonBigRed.png"] stretchableImageWithLeftCapWidth:150.0 topCapHeight:0.0] forState:UIControlStateNormal];
+	deleteFileButton.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 	[deleteFileButton setTitle:@"Delete" forState:UIControlStateNormal];
 	deleteFileButton.titleLabel.font = [UIFont boldSystemFontOfSize:20];
-	deleteFileButton.backgroundColor = [UIColor redColor];
+	deleteFileButton.backgroundColor = [UIColor clearColor];
 	[deleteFileButton addTarget:self action:@selector(deleteFile) forControlEvents:UIControlEventTouchUpInside];
 	[modalToolbar addSubview:deleteFileButton];
 	
 	UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	cancelButton.frame = CGRectMake(20, 90, self.view.frame.size.width - 40, 46);
-	//	[sampleButton setBackgroundImage:[[UIImage imageNamed:@"redButton.png"] stretchableImageWithLeftCapWidth:10.0 topCapHeight:0.0] forState:UIControlStateNormal];
+	cancelButton.frame = CGRectMake(20, 90, self.view.bounds.size.width - 40, 46);
+	[cancelButton setBackgroundImage:[[UIImage imageNamed:@"ui_buttonBigBlack.png"] stretchableImageWithLeftCapWidth:150.0 topCapHeight:0.0] forState:UIControlStateNormal];
 	[cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
 	cancelButton.titleLabel.font = [UIFont boldSystemFontOfSize:20];
-	cancelButton.backgroundColor = [UIColor darkGrayColor];
+	cancelButton.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+	cancelButton.backgroundColor = [UIColor clearColor];
 	[cancelButton addTarget:self action:@selector(hideModalToolbar) forControlEvents:UIControlEventTouchUpInside];
 	[modalToolbar addSubview:cancelButton];
 }
@@ -487,24 +486,10 @@
 
 - (void)deleteFile;
 {
-//	// Store the "file" that has to be removed
-//	// Remove the file from the device.
-//	NSMutableArray *removedFile = [NSArray arrayWithObject:file];
-////	[file delete];
-//	
-//	
-//
 	// use this method to "shift" to the next file.
 	if ([self.delegate respondsToSelector:@selector(fileViewControllerDidDeleteFile:)]) {
 		[self.delegate fileViewControllerDidDeleteFile:self];
 	}
-//	
-//	// Post the notification, removing the file from the tableview below.
-//	// Update the controls again based on the new "tableview" information/.
-//	[[NSNotificationCenter defaultCenter] postNotificationName:@"removedFileNotification" object:self userInfo:
-//	 [NSDictionary dictionaryWithObjectsAndKeys:removedFile, @"removedFiles", nil]];
-//	
-	
 	// hide the toolbar, cleanup time.
 	[self hideModalToolbar];
 }
@@ -514,14 +499,15 @@
 {
 	
 	// interstitial.
-	modalBackground = [[UIView alloc] initWithFrame:self.view.frame];
+	modalBackground = [[UIView alloc] initWithFrame:self.view.bounds];
 	modalBackground.backgroundColor = [UIColor blackColor];
+	modalBackground.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 	modalBackground.alpha = 0;
 	[self.view addSubview:modalBackground];
 	[modalBackground release];
 	
-	modalToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 154)];
-	modalToolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin;
+	modalToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height, self.view.bounds.size.width, 154)];
+	modalToolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
 	modalToolbar.barStyle = UIBarStyleBlackTranslucent;
 	[self.view addSubview:modalToolbar];
 	[modalToolbar release];
@@ -531,7 +517,7 @@
 	[UIView beginAnimations:nil context:nil];
 	[UIView setAnimationDuration:0.3];
 	
-	modalToolbar.frame = CGRectMake(0, self.view.frame.size.height - 154, self.view.frame.size.width, 154);
+	modalToolbar.frame = CGRectMake(0, self.view.bounds.size.height - 154, self.view.bounds.size.width, 154);
 	toolbar.alpha = 0;
 	modalBackground.alpha = 0.4;
 	
@@ -558,6 +544,8 @@
 	
 	[UIView commitAnimations];	
 }
+
+
 
 
 

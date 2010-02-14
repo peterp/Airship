@@ -10,12 +10,13 @@
 		1D3623260D0F684500981E51 /* HumboldtAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* HumboldtAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
-		CE0056EC10BAF44300F4D6A0 /* SharingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0056EA10BAF44300F4D6A0 /* SharingTableViewController.m */; };
 		CE0E6BC9111B8480002F11C1 /* ui_tableViewCellNotSelectedBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0E6BC8111B8480002F11C1 /* ui_tableViewCellNotSelectedBackground.png */; };
 		CE0E6BDF111B88C6002F11C1 /* dock_finder.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0E6BDC111B88C6002F11C1 /* dock_finder.png */; };
 		CE0E6BE0111B88C6002F11C1 /* dock_sharing.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0E6BDD111B88C6002F11C1 /* dock_sharing.png */; };
 		CE0E6BE1111B88C6002F11C1 /* dock_spotlight.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0E6BDE111B88C6002F11C1 /* dock_spotlight.png */; };
 		CE0F139F10A21080002569B6 /* TapDetectingWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0F139E10A21080002569B6 /* TapDetectingWebView.m */; };
+		CE15393D1127383600AE924D /* ui_buttonBigRed.png in Resources */ = {isa = PBXBuildFile; fileRef = CE15393B1127383600AE924D /* ui_buttonBigRed.png */; };
+		CE15393E1127383600AE924D /* ui_buttonBigBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = CE15393C1127383600AE924D /* ui_buttonBigBlack.png */; };
 		CE1A94361117729B004F4EC2 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1A94351117729B004F4EC2 /* Reachability.m */; };
 		CE2B3B0F0F3CD72B0039B355 /* StorageHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2B3B0E0F3CD72B0039B355 /* StorageHTTPConnection.m */; };
 		CE38120E110CEC3800DF7200 /* ui_fileViewBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = CE38120D110CEC3800DF7200 /* ui_fileViewBackground.png */; };
@@ -97,6 +98,8 @@
 		CEEFAC3010B4A15200B8D906 /* FileImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEFAC2F10B4A15200B8D906 /* FileImageView.m */; };
 		CEEFACBB10B4A60800B8D906 /* FileView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEFACBA10B4A60800B8D906 /* FileView.m */; };
 		CEEFAE5B10B5F97C00B8D906 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEEFAE5A10B5F97C00B8D906 /* QuartzCore.framework */; };
+		CEF0AC0D1127FE3300666B3E /* SharingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF0AC0C1127FE3300666B3E /* SharingViewController.m */; };
+		CEF0AC2C1128037800666B3E /* ui_sharingBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = CEF0AC2B1128037800666B3E /* ui_sharingBackground.png */; };
 		CEF1198F111F1EC100C66D0E /* ui_barButtonBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = CEF1198D111F1EC100C66D0E /* ui_barButtonBlue.png */; };
 		CEF11990111F1EC100C66D0E /* ui_barButtonSilver.png in Resources */ = {isa = PBXBuildFile; fileRef = CEF1198E111F1EC100C66D0E /* ui_barButtonSilver.png */; };
 		CEF119E8111F224100C66D0E /* ui_iconTrash.png in Resources */ = {isa = PBXBuildFile; fileRef = CEF119E7111F224100C66D0E /* ui_iconTrash.png */; };
@@ -112,14 +115,14 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* Humboldt_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Humboldt_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CE0056EA10BAF44300F4D6A0 /* SharingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharingTableViewController.m; sourceTree = "<group>"; };
-		CE0056EB10BAF44300F4D6A0 /* SharingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharingTableViewController.h; sourceTree = "<group>"; };
 		CE0E6BC8111B8480002F11C1 /* ui_tableViewCellNotSelectedBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ui_tableViewCellNotSelectedBackground.png; sourceTree = "<group>"; };
 		CE0E6BDC111B88C6002F11C1 /* dock_finder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dock_finder.png; sourceTree = "<group>"; };
 		CE0E6BDD111B88C6002F11C1 /* dock_sharing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dock_sharing.png; sourceTree = "<group>"; };
 		CE0E6BDE111B88C6002F11C1 /* dock_spotlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dock_spotlight.png; sourceTree = "<group>"; };
 		CE0F139D10A21080002569B6 /* TapDetectingWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapDetectingWebView.h; sourceTree = "<group>"; };
 		CE0F139E10A21080002569B6 /* TapDetectingWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapDetectingWebView.m; sourceTree = "<group>"; };
+		CE15393B1127383600AE924D /* ui_buttonBigRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ui_buttonBigRed.png; sourceTree = "<group>"; };
+		CE15393C1127383600AE924D /* ui_buttonBigBlack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ui_buttonBigBlack.png; sourceTree = "<group>"; };
 		CE1A94341117729B004F4EC2 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		CE1A94351117729B004F4EC2 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		CE1F417A109A28AD0067DB73 /* FileViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileViewControllerDelegate.h; sourceTree = "<group>"; };
@@ -237,6 +240,9 @@
 		CEEFACB910B4A60800B8D906 /* FileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileView.h; sourceTree = "<group>"; };
 		CEEFACBA10B4A60800B8D906 /* FileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileView.m; sourceTree = "<group>"; };
 		CEEFAE5A10B5F97C00B8D906 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		CEF0AC0B1127FE3300666B3E /* SharingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharingViewController.h; sourceTree = "<group>"; };
+		CEF0AC0C1127FE3300666B3E /* SharingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharingViewController.m; sourceTree = "<group>"; };
+		CEF0AC2B1128037800666B3E /* ui_sharingBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ui_sharingBackground.png; sourceTree = "<group>"; };
 		CEF1198D111F1EC100C66D0E /* ui_barButtonBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ui_barButtonBlue.png; sourceTree = "<group>"; };
 		CEF1198E111F1EC100C66D0E /* ui_barButtonSilver.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ui_barButtonSilver.png; sourceTree = "<group>"; };
 		CEF119E7111F224100C66D0E /* ui_iconTrash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ui_iconTrash.png; sourceTree = "<group>"; };
@@ -278,8 +284,8 @@
 				CE48848110B9B72D003E8631 /* FinderViewController.m */,
 				CE48848410B9B733003E8631 /* SpotlightViewController.h */,
 				CE48848310B9B733003E8631 /* SpotlightViewController.m */,
-				CE0056EB10BAF44300F4D6A0 /* SharingTableViewController.h */,
-				CE0056EA10BAF44300F4D6A0 /* SharingTableViewController.m */,
+				CEF0AC0B1127FE3300666B3E /* SharingViewController.h */,
+				CEF0AC0C1127FE3300666B3E /* SharingViewController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -458,6 +464,7 @@
 				CED77EF7110CA5EC0029273A /* ui_tableViewCellSelected.png */,
 				CEF212D3110B957B00378C6C /* ui_tableViewFooter.png */,
 				CE47AB0B111EFCE900DD2482 /* ui_tableViewToolbarBackground.png */,
+				CEF0AC2B1128037800666B3E /* ui_sharingBackground.png */,
 			);
 			name = TableViews;
 			sourceTree = "<group>";
@@ -494,6 +501,8 @@
 		CEE3A288111A0BF200D75332 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				CE15393B1127383600AE924D /* ui_buttonBigRed.png */,
+				CE15393C1127383600AE924D /* ui_buttonBigBlack.png */,
 				CEE6FEE2110E314B00E2CCE1 /* ui_buttonPause.png */,
 				CEE3A282111A08C100D75332 /* ui_buttonPauseHighlight.png */,
 				CEE6FEE3110E314B00E2CCE1 /* ui_buttonPlay.png */,
@@ -692,6 +701,9 @@
 				CEEAF19411209C91004F067E /* ui_buttonImageHighlight.png in Resources */,
 				CEEAF19611209C95004F067E /* ui_buttonVideoHighlight.png in Resources */,
 				CED36F4011234D26006091CB /* ui_navigationSearchBar.png in Resources */,
+				CE15393D1127383600AE924D /* ui_buttonBigRed.png in Resources */,
+				CE15393E1127383600AE924D /* ui_buttonBigBlack.png in Resources */,
+				CEF0AC2C1128037800666B3E /* ui_sharingBackground.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -738,9 +750,9 @@
 				CEE4A6DE10B88C2200CEDC3C /* MeterTable.cpp in Sources */,
 				CE48848210B9B72D003E8631 /* FinderViewController.m in Sources */,
 				CE48848510B9B733003E8631 /* SpotlightViewController.m in Sources */,
-				CE0056EC10BAF44300F4D6A0 /* SharingTableViewController.m in Sources */,
 				CED4D9FD10BDC0FD00716F62 /* FileVideoView.m in Sources */,
 				CE1A94361117729B004F4EC2 /* Reachability.m in Sources */,
+				CEF0AC0D1127FE3300666B3E /* SharingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

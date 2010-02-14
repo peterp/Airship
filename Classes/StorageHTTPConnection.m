@@ -286,7 +286,6 @@
 
 - (NSData *)deleteFiles:(NSMutableArray *)files;
 {
-	NSLog(@"%@", files);
 	
 	NSMutableArray *removedFiles = [NSMutableArray arrayWithCapacity:[files count]];
 	for (NSString *filepath in files) {
