@@ -491,6 +491,9 @@
 }
 
 
+
+
+
 - (void)fileViewControllerDidDeleteFile:(FileViewController *)controller;
 {
 	
@@ -501,7 +504,7 @@
 
 	// remove the file... from the tableview.
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"removedFileNotification" object:self userInfo:
-	 [NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObject:file], @"removedFiles", nil]];
+	 [NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObject:file], @"removedFiles", @"fileViewController", @"removedBy", nil]];
 	
 	
 	
@@ -689,6 +692,7 @@
 
 - (void)updateTableViewForRemovedFile:(NSNotification *)notification;
 {
+	NSString *removedBy = [notification.userInfo objectForKey:@"removedBy"];
 	NSMutableArray *removedFiles = [notification.userInfo objectForKey:@"removedFiles"];
 	for (File *rmFile in removedFiles) {
 	
@@ -731,7 +735,9 @@
 				// Is the file been deleted in this tableView?
 				if ([f.absolutePath isEqualToString:rmFile.absolutePath]) {
 					
-					if ([self.fileViewController.file.absolutePath isEqualToString:rmFile.absolutePath]) {
+					
+					//fileViewController
+					if ([self.fileViewController.file.absolutePath isEqualToString:rmFile.absolutePath] && ![removedBy isEqualToString:@"fileViewController"]) {
 						UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"The file you were viewing has been deleted." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
 						[alert show];
 						[alert release];

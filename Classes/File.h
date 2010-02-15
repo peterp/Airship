@@ -38,6 +38,7 @@
 - (id)initWithName:(NSString *)fileName atPath:(NSString *)filePath;
 - (int)kindByExtension;
 - (NSString *)kindDescription;
+- (NSString *)mimeType;
 
 - (BOOL)delete;
 

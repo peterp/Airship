@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
+
 #import "FileViewControllerDelegate.h"
 #import "FileView.h";
 
@@ -14,7 +16,7 @@
 
 
 
-@interface FileViewController : UIViewController <FileViewDelegate> {
+@interface FileViewController : UIViewController <FileViewDelegate, MFMailComposeViewControllerDelegate> {
 
 	id <FileViewControllerDelegate> delegate;
 	File *file;
@@ -67,6 +69,7 @@
 
 // Delete file.
 - (void)showDeleteModalToolbar;
+- (void)showMailComposeViewController;
 - (void)deleteFile;
 
 - (void)showModalToolbar;

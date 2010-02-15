@@ -16,7 +16,6 @@
 		CE0E6BE1111B88C6002F11C1 /* dock_spotlight.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0E6BDE111B88C6002F11C1 /* dock_spotlight.png */; };
 		CE0F139F10A21080002569B6 /* TapDetectingWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0F139E10A21080002569B6 /* TapDetectingWebView.m */; };
 		CE15393D1127383600AE924D /* ui_buttonBigRed.png in Resources */ = {isa = PBXBuildFile; fileRef = CE15393B1127383600AE924D /* ui_buttonBigRed.png */; };
-		CE15393E1127383600AE924D /* ui_buttonBigBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = CE15393C1127383600AE924D /* ui_buttonBigBlack.png */; };
 		CE1A94361117729B004F4EC2 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1A94351117729B004F4EC2 /* Reachability.m */; };
 		CE2B3B0F0F3CD72B0039B355 /* StorageHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2B3B0E0F3CD72B0039B355 /* StorageHTTPConnection.m */; };
 		CE38120E110CEC3800DF7200 /* ui_fileViewBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = CE38120D110CEC3800DF7200 /* ui_fileViewBackground.png */; };
@@ -105,6 +104,9 @@
 		CEF119E8111F224100C66D0E /* ui_iconTrash.png in Resources */ = {isa = PBXBuildFile; fileRef = CEF119E7111F224100C66D0E /* ui_iconTrash.png */; };
 		CEF212D4110B957B00378C6C /* ui_tableViewFooter.png in Resources */ = {isa = PBXBuildFile; fileRef = CEF212D3110B957B00378C6C /* ui_tableViewFooter.png */; };
 		CEF212E3110B975800378C6C /* ui_tableViewBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = CEF212E2110B975800378C6C /* ui_tableViewBackground.png */; };
+		CEF2BAF81129D16F007A7AFB /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEF2BAF71129D16F007A7AFB /* MessageUI.framework */; };
+		CEF2BBCF112A01DB007A7AFB /* ui_buttonBigBlack.png in Resources */ = {isa = PBXBuildFile; fileRef = CEF2BBCD112A01DB007A7AFB /* ui_buttonBigBlack.png */; };
+		CEF2BBD0112A01DB007A7AFB /* ui_buttonBigWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = CEF2BBCE112A01DB007A7AFB /* ui_buttonBigWhite.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -122,7 +124,6 @@
 		CE0F139D10A21080002569B6 /* TapDetectingWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapDetectingWebView.h; sourceTree = "<group>"; };
 		CE0F139E10A21080002569B6 /* TapDetectingWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapDetectingWebView.m; sourceTree = "<group>"; };
 		CE15393B1127383600AE924D /* ui_buttonBigRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ui_buttonBigRed.png; sourceTree = "<group>"; };
-		CE15393C1127383600AE924D /* ui_buttonBigBlack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ui_buttonBigBlack.png; sourceTree = "<group>"; };
 		CE1A94341117729B004F4EC2 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		CE1A94351117729B004F4EC2 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		CE1F417A109A28AD0067DB73 /* FileViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileViewControllerDelegate.h; sourceTree = "<group>"; };
@@ -248,6 +249,9 @@
 		CEF119E7111F224100C66D0E /* ui_iconTrash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ui_iconTrash.png; sourceTree = "<group>"; };
 		CEF212D3110B957B00378C6C /* ui_tableViewFooter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ui_tableViewFooter.png; sourceTree = "<group>"; };
 		CEF212E2110B975800378C6C /* ui_tableViewBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ui_tableViewBackground.png; sourceTree = "<group>"; };
+		CEF2BAF71129D16F007A7AFB /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		CEF2BBCD112A01DB007A7AFB /* ui_buttonBigBlack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ui_buttonBigBlack.png; sourceTree = "<group>"; };
+		CEF2BBCE112A01DB007A7AFB /* ui_buttonBigWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ui_buttonBigWhite.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -265,6 +269,7 @@
 				CECE390910680DD4000EE1F6 /* SystemConfiguration.framework in Frameworks */,
 				CEEFAE5B10B5F97C00B8D906 /* QuartzCore.framework in Frameworks */,
 				CEE4A6BC10B88ACA00CEDC3C /* OpenGLES.framework in Frameworks */,
+				CEF2BAF81129D16F007A7AFB /* MessageUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,6 +349,7 @@
 				CE9A6D84105EF74E00E25682 /* AudioToolbox.framework */,
 				CECE390810680DD4000EE1F6 /* SystemConfiguration.framework */,
 				CEE4A6BB10B88ACA00CEDC3C /* OpenGLES.framework */,
+				CEF2BAF71129D16F007A7AFB /* MessageUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -501,8 +507,9 @@
 		CEE3A288111A0BF200D75332 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				CEF2BBCD112A01DB007A7AFB /* ui_buttonBigBlack.png */,
+				CEF2BBCE112A01DB007A7AFB /* ui_buttonBigWhite.png */,
 				CE15393B1127383600AE924D /* ui_buttonBigRed.png */,
-				CE15393C1127383600AE924D /* ui_buttonBigBlack.png */,
 				CEE6FEE2110E314B00E2CCE1 /* ui_buttonPause.png */,
 				CEE3A282111A08C100D75332 /* ui_buttonPauseHighlight.png */,
 				CEE6FEE3110E314B00E2CCE1 /* ui_buttonPlay.png */,
@@ -702,8 +709,9 @@
 				CEEAF19611209C95004F067E /* ui_buttonVideoHighlight.png in Resources */,
 				CED36F4011234D26006091CB /* ui_navigationSearchBar.png in Resources */,
 				CE15393D1127383600AE924D /* ui_buttonBigRed.png in Resources */,
-				CE15393E1127383600AE924D /* ui_buttonBigBlack.png in Resources */,
 				CEF0AC2C1128037800666B3E /* ui_sharingBackground.png in Resources */,
+				CEF2BBCF112A01DB007A7AFB /* ui_buttonBigBlack.png in Resources */,
+				CEF2BBD0112A01DB007A7AFB /* ui_buttonBigWhite.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -19,6 +19,7 @@
 
 
 
+
 @implementation FileViewController
 
 @synthesize delegate;
@@ -136,7 +137,7 @@
 	toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin;
 	toolbar.barStyle = UIBarStyleBlackTranslucent;
 	
-	self.systemActionBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:nil action:nil];
+	self.systemActionBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showEmailModalToolbar)];
 	self.paginateLeftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRewind target:self action:@selector(paginationWasPushed:)];
 	paginateLeftBarButtonItem.tag = 2001;
 	self.paginateRightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFastForward target:self action:@selector(paginationWasPushed:)];
@@ -161,10 +162,14 @@
 }
 
 
-- (void)viewWillDisappear:(BOOL)animated;
-{
-	[fileView removeFromSuperview];
-}
+
+
+//- (void)viewWillDisappear:(BOOL)animated;
+//{
+//	I moved this to unloadViewController; hopefull it doesn't cause any memory leaks.
+// I had to remove it because it was messing about with email attachments.
+//	[fileView removeFromSuperview];
+//}
 
 
 
@@ -213,6 +218,7 @@
 - (void)unloadViewController;
 {
 	if ([self.delegate respondsToSelector:@selector(fileViewControllerDidFinish:)]) {
+		[fileView removeFromSuperview];
 		[self.delegate fileViewControllerDidFinish:self];
 	}
 }
@@ -456,7 +462,38 @@
 
 
 #pragma mark -
-#pragma mark DELETE
+#pragma mark Toolbar methods
+
+- (void)showEmailModalToolbar;
+{
+	[self showModalToolbar];
+	
+	
+	UIButton *emailButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	emailButton.frame = CGRectMake(20, 20, self.view.bounds.size.width - 40, 46);
+	[emailButton setBackgroundImage:[[UIImage imageNamed:@"ui_buttonBigWhite.png"] stretchableImageWithLeftCapWidth:150.0 topCapHeight:0.0] forState:UIControlStateNormal];
+	[emailButton setTitle:@"Email File" forState:UIControlStateNormal];
+	emailButton.titleLabel.font = [UIFont boldSystemFontOfSize:20];
+	emailButton.titleLabel.textColor = [UIColor blackColor];
+	emailButton.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+	emailButton.backgroundColor = [UIColor clearColor];
+	[emailButton addTarget:self action:@selector(showMailComposeViewController) forControlEvents:UIControlEventTouchUpInside];
+	[modalToolbar addSubview:emailButton];
+	
+	
+	UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	cancelButton.frame = CGRectMake(20, 90, self.view.bounds.size.width - 40, 46);
+	[cancelButton setBackgroundImage:[[UIImage imageNamed:@"ui_buttonBigBlack.png"] stretchableImageWithLeftCapWidth:150.0 topCapHeight:0.0] forState:UIControlStateNormal];
+	[cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
+	cancelButton.titleLabel.font = [UIFont boldSystemFontOfSize:20];
+	cancelButton.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+	cancelButton.backgroundColor = [UIColor clearColor];
+	[cancelButton addTarget:self action:@selector(hideModalToolbar) forControlEvents:UIControlEventTouchUpInside];
+	[modalToolbar addSubview:cancelButton];
+	
+	
+	
+}
 
 - (void)showDeleteModalToolbar;
 {
@@ -545,6 +582,27 @@
 	[UIView commitAnimations];	
 }
 
+
+- (void)showMailComposeViewController;
+{
+	[self hideModalToolbar];
+	
+	
+	MFMailComposeViewController *mailComposeViewController = [[MFMailComposeViewController alloc] init];
+	mailComposeViewController.mailComposeDelegate = self;
+	mailComposeViewController.navigationBar.tintColor = [UIColor colorWithRed:46/255.0 green:46/255.0 blue:58/255.0 alpha:1];
+	[mailComposeViewController addAttachmentData:[NSData dataWithContentsOfFile:file.absolutePath] mimeType:[file mimeType] fileName:file.name];
+	[self presentModalViewController:mailComposeViewController animated:YES];
+	[mailComposeViewController release];
+	
+
+}
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error;
+{
+	[self becomeFirstResponder];
+	[self dismissModalViewControllerAnimated:YES];
+}
 
 
 

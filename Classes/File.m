@@ -100,6 +100,21 @@
 	return FILE_KIND_UNKNOWN;
 }
 
+- (NSString *)mimeType;
+{
+	NSString *ext = [[self.name pathExtension] lowercaseString];
+	
+	if (self.kind == FILE_KIND_IMAGE) {
+		
+		if ([ext isEqualToString:@"jpg"]) {
+			ext = @"jpeg";
+		}
+		
+		return [NSString stringWithFormat:@"image/%@", ext];
+	}
+
+	return @"application/octet-stream";
+}
 
 
 - (NSString *)kindDescription;
