@@ -49,7 +49,10 @@
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application 
 {
-	FinderViewController *finder = [FinderViewController finderWithPath:[NSHomeDirectory() stringByAppendingPathComponent:@"Documents/Files/"]];
+	
+	
+	NSLog(@"%@", [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches/Files/"]);
+	FinderViewController *finder = [FinderViewController finderWithPath:[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches/Files/"]];
 	UINavigationController *finderNavigationController = [[UINavigationController alloc] initWithRootViewController:finder];
 	[finder release];
 	

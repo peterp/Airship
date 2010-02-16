@@ -222,21 +222,6 @@ span.size { width:121px; }
 
 
 
-/*
-
-
-ul.selected, ul.selected li { background-color:#999bb7; }
-ul.selected li { border-bottom:1px #fff dotted; }
-ul.selected .mark {	shift background  }
-
-
-
-*/
-
-
-
-
-
 
 
 
@@ -276,16 +261,19 @@ ul.selected .mark {	shift background  }
 	height:360px;
 	margin:18px 0;
 	background:#fff;
+	border:1px #afb1bf solid;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
 }
 #queue .item {
+	border-top:1px #eee solid;
 	border-bottom:1px #ccc solid;
 	padding:9px;
 	background:#eee;
-	color:#444;
+	color:#999;
 	overflow:auto;
 }
 
-.item .file { color:#000; }
 .item .progress {
 	float:left;
 	border:1px #ccc solid;
@@ -294,15 +282,15 @@ ul.selected .mark {	shift background  }
 	margin:9px 0;
 }
 .item .percentage {
-	background:#a5abba;
+	background:#d6d8e4;
 	width:0px;
 	height:10px;
 }
 .item .cancel {
 	float:right;
-	height:16px;
-	width:16px;
-	background:#999;
+	height:25px;
+	width:25px;
+	background:transparent url(/media/js/uploadify/cancel.png) no-repeat 50% 50%; 
 	margin:7px 0;
 	cursor:pointer;
 }
@@ -317,11 +305,17 @@ ul.selected .mark {	shift background  }
 
 #queue .active { 
 	background:#fff;
+	color:#000;
+	border-top:1px #fff solid;
+	border-bottom:1px #666 solid;
 }
 #queue .complete {
 	background:#999;
 }
-.active .cancel, .complete .cancel { display:none; }
+.complete .cancel {
+	display:block;
+	background:transparent url(/media/js/uploadify/complete.png) no-repeat 50% 50%;
+}
 
 
 
@@ -359,96 +353,3 @@ ul.selected .mark {	shift background  }
 	background:#ddd;
 	cursor:pointer;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.jScrollPaneContainer {
-	position: relative;
-	overflow: hidden;
-	z-index: 1;
-}
-
-.jScrollPaneTrack {
-	position: absolute;
-	cursor: pointer;
-	right: 0;
-	top: 0;
-	height: 100%;
-	background: #000;
-}
-.jScrollPaneDrag {
-	position: absolute;
-	background: #666;
-	cursor: pointer;
-	overflow: hidden;
-}
-.jScrollPaneDragTop {
-	position: absolute;
-	top: 0;
-	left: 0;
-	overflow: hidden;
-}
-.jScrollPaneDragBottom {
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	overflow: hidden;
-}
-a.jScrollArrowUp {
-	display: block;
-	position: absolute;
-	z-index: 1;
-	top: 0;
-	right: 0;
-	text-indent: -2000px;
-	overflow: hidden;
-	/*background-color: #666;*/
-	height: 9px;
-}
-a.jScrollArrowUp:hover {
-	/*background-color: #f60;*/
-}
-
-a.jScrollArrowDown {
-	display: block;
-	position: absolute;
-	z-index: 1;
-	bottom: 0;
-	right: 0;
-	text-indent: -2000px;
-	overflow: hidden;
-	/*background-color: #666;*/
-	height: 9px;
-}
-a.jScrollArrowDown:hover {
-	/*background-color: #f60;*/
-}
-a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
-	/*background-color: #f00;*/
-}
-
-
-
-

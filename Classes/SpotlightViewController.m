@@ -74,7 +74,7 @@
 	self.navigationController.view.backgroundColor = [UIColor clearColor];
 
 	// Data Store
-	self.path = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/Files/"];
+	self.path = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches/Files/"];
 	self.fileList = [NSMutableArray array];
 	// hide the edit button, this will become the cancel button.
 	editButton.alpha = 0;

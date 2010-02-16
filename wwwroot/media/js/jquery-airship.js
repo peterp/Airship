@@ -188,6 +188,7 @@
 		
 		// upload
 		$('a[href=#upload]').mouseup(function() {
+			
 		    
 			// suppose I need to test if the window exists?
             var w = window.open('/upload.html', 'upload' + currentRelativePath.replace(/[^\w0-9]+/g, '_'), 'height=600,width=505,location=false,resizable=false');
@@ -210,11 +211,11 @@
 		
 		$(document).keydown(function(e) {
 		    
-		    console.log(e.keyCode)
+		    //console.log(e.keyCode)
 		    
 		    if (e.target.tagName != 'INPUT') {
 		        
-		        console.log(e.keyCode);
+		        //console.log(e.keyCode);
 
 		        switch (e.keyCode) {
 		            
@@ -493,7 +494,7 @@
         var selected = $('.selected').length > 0 ? true : false;
         var multiple = e.shiftKey;
         
-        console.log(multiple);
+        //console.log(multiple);
         
         if (!selected) {
             if (goUp) {

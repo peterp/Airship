@@ -6,8 +6,12 @@
 		<link rel="stylesheet" href="/media/base.css" type="text/css" media="screen" title="" charset="utf-8">
 		<style type="text/css" media="screen">
 		    body {
-		        background:#eee;
+		        background:#d6d8e4;
 		    }
+			a:link {
+				text-decoration:underline;
+				color:#233ee4;
+			}
     		#path-tree { padding:0; }
     		#path-tree span { 
                 color:#666;
@@ -22,6 +26,8 @@
 		
 		<script type="text/javascript" charset="utf-8">
 		
+			var uploadRelativePath;
+		
 			var humanize_bytes = function(b) 
 			{
 				var d = [' B', ' KB', ' MB', ' GB'];
@@ -30,11 +36,17 @@
 			    }
 				return Math.round(b * 100) / 100 + d[i];
 			};
+			
+			
 		
 		
 			$(function() {
-			    
-			    var uploadRelativePath = '/Files/Images'
+				
+				
+			
+				if (!uploadRelativePath) {
+					uploadRelativePath = '/Files';
+				}
 			    
 			    // files are uploading here...
 			    $('#relativePath').val(uploadRelativePath);
@@ -67,12 +79,14 @@
                     checkScript: '/__/file/exists/',
                     scriptData: {'relativePath': uploadRelativePath}, // additional post vars
                     cancelImg: '/media/js/uploadify/cancel.png',
+					buttonImg: '/media/js/uploadify/upload.png',
                     fileDataName: 'Filedata', // post name
                     folder: uploadRelativePath.substr(1),
                     multi: true,
                     auto: true,
                     buttonText: 'Choose files to upload...',
-                    width: '120',
+                    width: '137',
+					height: '36',
                     
                     
                     onInit: function() {
@@ -170,13 +184,13 @@
 		<div id="upload-container">
 
 			<h2>Upload your files</h2>
-			<p>You're uploading to <span id="path-tree"></span></p>
+			<p>Your upload destination: <span id="path-tree"></span></p>
 
 			<form action="/__/file/upload/" method="post" enctype="multipart/form-data" id="basic">
 				
 				<p>
 					<input type="file" name="Filedata"><br>
-					<span class="small">Problems? Try the <a href="#toggle">advanced uploader</a>.</span>
+					<span class="small">Problems? Try the <a href="#toggle">Advanced Uploader.</a></span>
 				</p>
 				
 				<p>
@@ -191,7 +205,7 @@
 				
 				<div id="uploader"></div>
 				
-				<p class="small">Problems? Try the <a href="#toggle">basic uploader</a>.</p>
+				<p class="small">Problems? Try the <a href="#toggle">Basic Uploader.</a></p>
 				
 				<div id="queue">
 				</div>

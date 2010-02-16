@@ -171,7 +171,7 @@
 - (void)configureWebSharing;
 {
 	// Copy WWWRoot Docs
-	NSString *documentRoot = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+	NSString *documentRoot = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches/"];
 	[self installWebSharingDocuments:documentRoot];
 	
 	httpServerIsRunning = NO;
