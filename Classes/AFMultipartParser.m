@@ -128,6 +128,12 @@
 				} else {
 					//NSLog(@"... header PARSE");
 					
+					
+					// I added this here... THIS MIGHT BREAK EVERYTHING. PLEASE TEST IT.
+					if (lineStartIndex >= i) {
+						lineStartIndex = 0;
+					}
+					
 					NSData *lineData = [postDataChunk subdataWithRange:NSMakeRange(lineStartIndex, i - lineStartIndex)];
 					NSString *line = [self stringFromData:lineData];
 					
@@ -145,7 +151,6 @@
 								// replacing \ with / because windows uploads the entire file path... Can you imagine the fail.
 								NSString *filename = [[[bits objectAtIndex:3] stringByReplacingOccurrencesOfString:@"\\" withString:@"//"] lastPathComponent];
 								[part setObject:filename forKey:@"filename"];
-								
 								
 							}
 						}

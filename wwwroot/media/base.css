@@ -191,7 +191,7 @@ body {
 	text-indent:9px;
 }
 
-
+span.checkbox_actions { width:74px; }
 span.mark { width:31px; }
 #files span.mark {
 	background:transparent url(/media/gfx/icons.png) no-repeat;
@@ -199,7 +199,7 @@ span.mark { width:31px; }
 }
 #files .selected .mark { background-position:-90px -37px; }
 span.icon { width:45px; }
-span.name { width:374px; }
+span.name { width:374px; overflow:hidden; }
 span.date { width:181px; }
 span.size { width:121px; }
 
@@ -265,18 +265,22 @@ span.size { width:121px; }
 	-moz-border-radius:3px;
 	-webkit-border-radius:3px;
 }
+
+
+
 #queue .item {
-	border-top:1px #eee solid;
-	border-bottom:1px #ccc solid;
+	border-bottom:1px #d8d8d8 solid;
 	padding:9px;
-	background:#eee;
+	background:#eaeaea;
 	color:#999;
 	overflow:auto;
 }
 
+
+
 .item .progress {
 	float:left;
-	border:1px #ccc solid;
+	border:1px #d8d8d8 solid;
 	height:10px;
 	width:400px;
 	margin:9px 0;
@@ -288,8 +292,8 @@ span.size { width:121px; }
 }
 .item .cancel {
 	float:right;
-	height:25px;
-	width:25px;
+	height:16px;
+	width:16px;
 	background:transparent url(/media/js/uploadify/cancel.png) no-repeat 50% 50%; 
 	margin:7px 0;
 	cursor:pointer;
@@ -303,19 +307,16 @@ span.size { width:121px; }
 	margin-right:50px;
 }
 
-#queue .active { 
+
+
+#queue .active, #queue .complete { 
 	background:#fff;
-	color:#000;
-	border-top:1px #fff solid;
-	border-bottom:1px #666 solid;
+	color:#484848;
 }
-#queue .complete {
-	background:#999;
-}
-.complete .cancel {
-	display:block;
-	background:transparent url(/media/js/uploadify/complete.png) no-repeat 50% 50%;
-}
+
+#queue .active .percentage { background:#3875d7; }
+#queue .complete .percentage { background:#d6d8e4; }
+#queue .complete .cancel { display:none; }
 
 
 

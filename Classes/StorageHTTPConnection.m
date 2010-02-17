@@ -65,7 +65,7 @@
 	
 	
 	
-	NSLog(@"URL: %@", URL.path);
+//	NSLog(@"URL: %@", URL.path);
 	
 	// Normal Response
 	if ([method isEqualToString:@"GET"]) {

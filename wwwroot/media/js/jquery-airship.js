@@ -57,7 +57,6 @@
         relativePath = atPath;
         this.ls = ls;
         this.rm = rm;
-        this.mv = mv;
         this.mkdir = mkdir;
         return this;
     };
@@ -84,12 +83,6 @@
     };
     
     
-    function mv(oldName, newName)
-    {
-    };
-    // delete
-    // rename
-    // move (should be the same as rename)
     
 }(jQuery));
 
@@ -103,6 +96,22 @@
     var fileManager;
     
     $.fn.airshipUI = function() {
+	
+		// select all
+		$('a[href=#select-all]').mouseup(function() {
+			$('#files .overflow a').addClass('selected')
+			return false;
+		}).click(function() {
+			return false;
+		});
+		
+		$('a[href=#select-none]').mouseup(function() {
+			$('#files .overflow a').removeClass('selected')
+			return false;
+		}).click(function() {
+			return false;
+		});
+		
         
         //create folder
         $('a[href=#new-folder]').mouseup(function() {
@@ -189,13 +198,14 @@
 		// upload
 		$('a[href=#upload]').mouseup(function() {
 			
+			
+			var get = '?uploadRelativePath=' + encodeURI(currentRelativePath);
+			
 		    
 			// suppose I need to test if the window exists?
-            var w = window.open('/upload.html', 'upload' + currentRelativePath.replace(/[^\w0-9]+/g, '_'), 'height=600,width=505,location=false,resizable=false');
-            w.uploadRelativePath = currentRelativePath;
-			
+          	var nw = window.open('/upload.html' + get, 'upload', 'height=600,width=505,location=false,resizable=false');
             if (window.focus) {
-                w.focus();
+                nw.focus();
             }
                
             
@@ -391,6 +401,8 @@
         var row = createItemRow(kind, name, 'Today, ' + d.getHours() + ':' + d.getMinutes(), size)
         
         insertItemRowAlphabetically(row, name);
+
+		row.focus();
     };
     
     
@@ -486,6 +498,7 @@
         nameColumn.html(name);
         row.removeClass('pseudo');
         insertItemRowAlphabetically(row, name);
+		row.focus();
     };
     
     function selectRowWithKeyBoard(e) 

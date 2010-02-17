@@ -8,21 +8,22 @@
 		    body {
 		        background:#d6d8e4;
 		    }
-			a:link {
+			a:link, a:visited, a {
 				text-decoration:underline;
-				color:#233ee4;
+				color:#4183c4;
 			}
     		#path-tree { padding:0; }
     		#path-tree span { 
                 color:#666;
                 padding:0;
             }
+			.alt { color:#666; }
 		</style>
 		
 		<script src="/media/js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/media/js/uploadify/swfobject.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/media/js/uploadify/jquery.uploadify.v2.1.0.min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="/media/js/jquery-airship.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/media/js/ajaxupload.js" type="text/javascript" charset="utf-8"></script>
 		
 		<script type="text/javascript" charset="utf-8">
 		
@@ -38,18 +39,70 @@
 			};
 			
 			
+			
+			
 		
-		
+			
 			$(function() {
 				
 				
-			
-				if (!uploadRelativePath) {
+				var uploadRelativePath = decodeURI(window.location.search.split('=')[1]);
+				if (uploadRelativePath == "undefined") {
 					uploadRelativePath = '/Files';
 				}
-			    
-			    // files are uploading here...
-			    $('#relativePath').val(uploadRelativePath);
+
+				
+				
+				// basic uploader
+				
+				new AjaxUpload('ajaxupload', {
+					action: '/__/file/upload/',
+					name: 'Filedata',
+					data: {
+						relativePath: uploadRelativePath
+					},
+					autoSubmit: true,
+					onSubmit: function(file, extension) {
+						
+						
+						var item = $('<div class="item active">')
+                        
+                        
+                        item.append(
+                            $('<div />').addClass('file').text(file)
+                        );
+                        
+                        item.append(
+                            $('<div />').addClass('progress').append(
+                                $('<div />').addClass('percentage')
+                            )
+                        );
+                        
+                        
+                        item.append(
+                            $('<div />').addClass('status').append(
+                                $('<span class="mode">Uploading...</span>'))
+                        );
+                        
+                        $('#queue').append(item);
+                        $('#upload-count').html($('#queue .item').length);
+						
+					},
+					onComplete: function(file, response) {
+						
+						
+						var item = $('.item .file:contains(' + file + ')').parent();
+						item.addClass('complete').find('.percentage').css('width', '100%');
+						item.find('.mode').html('Upload complete');
+						
+						$('#upload-count-completed').html($('#queue .complete').length);
+					}
+				});
+				
+				
+			
+				
+			
 			    // display destination
 			    var pt = uploadRelativePath.split('/')
 			    for (i = 1; i < pt.length; i++) {
@@ -76,9 +129,9 @@
                 $('#uploader').uploadify({
                     uploader: '/media/js/uploadify/uploadify.swf',
                     script: '/__/file/upload/',
-                    checkScript: '/__/file/exists/',
+                    checkScript: '',//'/__/file/exists/',
                     scriptData: {'relativePath': uploadRelativePath}, // additional post vars
-                    cancelImg: '/media/js/uploadify/cancel.png',
+                    cancelImg: '',
 					buttonImg: '/media/js/uploadify/upload.png',
                     fileDataName: 'Filedata', // post name
                     folder: uploadRelativePath.substr(1),
@@ -135,8 +188,8 @@
              
                      onProgress: function(event, queueID, fileObj, data) {
                          
-                     
-                        $('#' + queueID).addClass('active').find('.percentage').css('width', (data.percentage * 4) + 'px');
+                     	$('#' + queueID)[0].scrollIntoView();
+                        $('#' + queueID).addClass('active').find('.percentage').css('width', (data.percentage * 4) + 'px')
                         $('#' + queueID).find('.status span').eq(0).html(humanize_bytes(data.bytesLoaded));
                         $('#' + queueID).find('.status .mode').html('Uploading...');
                      },
@@ -152,25 +205,10 @@
                              
                              var pw = window.opener.a;
                              if (pw.currentRelativePath() == uploadRelativePath) {
-                                 
-                                //
                                  pw.determineKindCreateAndInsertItemRow(fileObj.name, humanize_bytes(fileObj.size));
                              }
                          }
                          
-                     },
-                     
-                     onAllComplete: function(filesUploaded, errors, allBytesLoaded, speed)
-                     {
-                         // filesUploaded – The total number of files uploaded
-                         // errors – The total number of errors while uploading
-                         // allBytesLoaded – The total number of bytes uploaded
-                         // speed – The average speed of all uploaded files
-                         
-                     },
-                     
-                     onCheck: function(event, checkScript, fileQueueObj, folder, single)
-                     {
                      }
                  });
 
@@ -185,34 +223,30 @@
 
 			<h2>Upload your files</h2>
 			<p>Your upload destination: <span id="path-tree"></span></p>
-
-			<form action="/__/file/upload/" method="post" enctype="multipart/form-data" id="basic">
-				
-				<p>
-					<input type="file" name="Filedata"><br>
-					<span class="small">Problems? Try the <a href="#toggle">Advanced Uploader.</a></span>
-				</p>
-				
-				<p>
-					<input type="submit" value="Upload">
-					<input type="hidden" name="relativePath" id="relativePath" value="Files">
-				</p>
-			</form>
+			
+			
+			
+			<div id="basic">
+				<div id="ajaxupload"><input type="button" value="Choose file"></div>
+				<span class="alt">Problems? Try the <a href="#toggle">Advanced Flash Uploader</a></span>
+			</div>
+			
 
 				
 				
 			<div id="advanced">
 				
-				<div id="uploader"></div>
+				<div id="uploader">Loading... (Flash is required).</div>
 				
-				<p class="small">Problems? Try the <a href="#toggle">Basic Uploader.</a></p>
-				
-				<div id="queue">
-				</div>
-				
-				<p><span id="upload-count-completed">0</span> of <span id="upload-count">0</span> files uploaded.</p>
-				
+				<p class="alt">Problems? Try using the <a href="#toggle">Basic File Uploader</a></p>
 			</div>
+			
+			
+			<div id="queue">
+			</div>
+			
+			<p><span id="upload-count-completed">0</span> of <span id="upload-count">0</span> files uploaded.</p>
+			
 				
 				
 				
