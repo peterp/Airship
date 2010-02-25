@@ -113,6 +113,7 @@
 		if (httpServerIsRunning) {
 			NSLog(@"stopping HTTP server.");
 			[httpServer stop];
+			httpServerIsRunning = NO;
 		}
 	}
 	

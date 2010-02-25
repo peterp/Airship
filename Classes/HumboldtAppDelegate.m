@@ -91,6 +91,10 @@
 	[UIApplication sharedApplication].idleTimerDisabled = YES;
 }
 
+- (void)applicationWillTerminate:(UIApplication *)application;
+{
+}
+
 
 
 

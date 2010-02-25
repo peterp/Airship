@@ -10,7 +10,12 @@ a img {border:none;}
 
 
 /* typography.css */
-html {font-size:100.01%;}
+html {
+	font-size:100.01%;
+	height:100%;
+	width:100%;
+}
+
 h1, h2, h3, h4, h5, h6 {font-weight:normal;}
 h1 {font-size:3em;line-height:1;margin-bottom:0.5em;}
 h2 {font-size:2em;margin-bottom:0.75em;}
@@ -36,6 +41,8 @@ body {
 	background:#d6d6df url(/media/gfx/bg.png) repeat-x;
 	text-align:center;
 	color:#232430;
+	height:100%;
+	width:100%;
 }
 
 
@@ -93,10 +100,14 @@ body {
 
 #footer {
     clear:both;
-    padding:18px 0 5px 0;
+    padding:36px 0 18px 0;
     margin: 0 18px;
-    text-align:right;
-    font-size:0.8em;
+	text-align:right;
+	color:#555;
+	text-shadow:#fff 1px 0px 0px;
+}
+#footer a {
+	color:#333;
 }
 
 
@@ -329,28 +340,52 @@ span.size { width:121px; }
     background:#000;
 }
 
+* html #dialogBG {
+	position:absolute;
+}
+
 
 #dialog {
 	position:fixed;
 	top:120px;
 	left:50%;
-	width:370px;
+	width:374px;
+	height:104px;
 	margin:0 0 0 -195px;
-	background:#fff;
+	background:transparent url(/media/gfx/bg_dialog.png) no-repeat;
+}
+
+* html #dialog {
+	position:absolute;
 }
 
 #dialog .message {
-	padding:10px 10px 25px 10px;
-	margin:10px;
+	padding:10px 10px 0px 10px;
+	margin:10px 10px 5px 10px;
+	height:40px;
 	border-bottom:1px #ddd solid;
 }
 #dialog .actions {
 	text-align:right;
-	margin:10px;
+	margin:0 10px 10px 10px;
 }
 #dialog .actions a {
-	padding:5px;
+	height:32px;
+	width:85px;
 	margin: 0 0 0 20px;
-	background:#ddd;
+	background:#333 url(/media/gfx/sprites.png) 0 0;
 	cursor:pointer;
+	display:block;
+	float:right;
+}
+#dialog .actions a.Cancel {
+	width:53px;
+	background-position:0 -235px;
+}
+#dialog .actions a.Ok {
+	width:53px;
+	background-position:0 -202px;
+}
+#dialog .actions a.Delete {
+	background-position:0 -268px;
 }

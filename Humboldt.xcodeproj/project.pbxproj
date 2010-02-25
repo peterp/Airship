@@ -45,6 +45,7 @@
 		CE5B301810539CBC00B6A834 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE5B301710539CBC00B6A834 /* MediaPlayer.framework */; };
 		CE5B301A10539CBC00B6A834 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE5B301910539CBC00B6A834 /* UIKit.framework */; };
 		CE5B30DE10539DD100B6A834 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE5B30DD10539DD100B6A834 /* CoreGraphics.framework */; };
+		CE66B6E41135B6CE00FF21E6 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = CE66B6E31135B6CE00FF21E6 /* Default.png */; };
 		CE7A06C5107BC98700CFCCED /* File.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7A06C4107BC98700CFCCED /* File.m */; };
 		CE8627E910013D400063F8F6 /* wwwroot in Resources */ = {isa = PBXBuildFile; fileRef = CE8627E510013D400063F8F6 /* wwwroot */; };
 		CE8CB8D0109CD62A008B3FAE /* TapDetectingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8CB8CF109CD62A008B3FAE /* TapDetectingScrollView.m */; };
@@ -175,6 +176,7 @@
 		CE5B301710539CBC00B6A834 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.sdk/System/Library/Frameworks/MediaPlayer.framework; sourceTree = "<absolute>"; };
 		CE5B301910539CBC00B6A834 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = "<absolute>"; };
 		CE5B30DD10539DD100B6A834 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
+		CE66B6E31135B6CE00FF21E6 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		CE70DA090FFABC0400D606B3 /* AFMultipartParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFMultipartParser.h; sourceTree = "<group>"; };
 		CE7A06C3107BC98700CFCCED /* File.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = File.h; sourceTree = "<group>"; };
 		CE7A06C4107BC98700CFCCED /* File.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = File.m; sourceTree = "<group>"; };
@@ -328,6 +330,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CE66B6E31135B6CE00FF21E6 /* Default.png */,
 				CE530F5410AD8F7A00A16550 /* UI */,
 				CE8627E510013D400063F8F6 /* wwwroot */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
@@ -712,6 +715,7 @@
 				CEF0AC2C1128037800666B3E /* ui_sharingBackground.png in Resources */,
 				CEF2BBCF112A01DB007A7AFB /* ui_buttonBigBlack.png in Resources */,
 				CEF2BBD0112A01DB007A7AFB /* ui_buttonBigWhite.png in Resources */,
+				CE66B6E41135B6CE00FF21E6 /* Default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -772,17 +776,22 @@
 			buildSettings = {
 				ADDITIONAL_SDKS = "";
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
 				CODE_SIGN_ENTITLEMENTS = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Humboldt_Prefix.pch;
+				GCC_THUMB_SUPPORT = YES;
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				OTHER_LDFLAGS = "";
@@ -806,11 +815,14 @@
 					"\"$(DEVELOPER_DIR)/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.0.sdk/System/Library/Frameworks\"",
 					"\"$(DEVELOPER_DIR)/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS3.1.sdk/System/Library/Frameworks\"",
 				);
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Humboldt_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				PRODUCT_NAME = airship;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D8BE66A0-F9E7-4AE9-86F1-04763611A0B9";
+				SDKROOT = iphoneos3.0;
 			};
 			name = Release;
 		};

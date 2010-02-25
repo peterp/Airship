@@ -13,6 +13,7 @@
 
 	function show(message, actions)
 	{
+		
         var o = $('<div />').css({
             opacity:0
         }).attr('id', 'dialogBG').appendTo('body').animate({opacity:.4}, 400);
@@ -27,7 +28,15 @@
        
         for (i = 0; i < actions.length; i++) {
             var action = actions[i];
-            var a = $('<a/>').text(action.title).click(action.event);
+
+			var a = $('<a>')
+				.addClass(action.title.split(' ')[0])
+				.click(action.event);
+			
+			
+			
+			
+            //var a = $('<img>').attr('alt', action.title).attr('src', action.title + '.png').text(action.title).click(action.event);
             d.find('.actions').append(a);
         }
 	};
@@ -159,15 +168,10 @@
             if (rmFiles.length <= 0) {
                 return;
             }
+
+		
             
            	$().airshipDialog().show('Are you sure you want to delete the selected items?', [
-				{
-					title: 'Cancel',
-					event: function() {
-						// close the dialog.
-						$().airshipDialog().close();
-					}
-				},
 				{
 					title: 'Delete items',
 					event: function() {
@@ -178,13 +182,16 @@
 						// delete these rows.
 			            fileManager.rm(rmFiles, function(r) {
 
-			                if (r == '1') {
-			                    $('.selected').remove();
-			                } else {
-			                    // error message.
-			                }
+							$('.selected').remove();
 			            });
 					
+					}
+				},
+				{
+					title: 'Cancel',
+					event: function() {
+						// close the dialog.
+						$().airshipDialog().close();
 					}
 				}
 			]);
@@ -221,15 +228,20 @@
 		
 		$(document).keydown(function(e) {
 		    
-		    //console.log(e.keyCode)
-		    
 		    if (e.target.tagName != 'INPUT') {
 		        
-		        //console.log(e.keyCode);
-
 		        switch (e.keyCode) {
 		            
 		            case 27:
+						// If we have a dialog; then close it.
+						if ($('#dialog').length > 0) {
+							$().airshipDialog().close();
+							$('#dialog .Ok').click();
+							$('#dialog .Cancel').click();
+							
+							return false;
+						}
+						
 		                $('.selected').removeClass('selected');
 		                break;
 		            
@@ -393,7 +405,7 @@
             kind = 'Audio';
         } else if (ext == 'doc' || ext == 'docx' || ext == 'htm' || ext == 'html' || ext == 'key' || ext == 'numbers' || ext == 'pages' || ext == 'pdf' || ext == 'ppt' || ext == 'pptx' || ext == 'txt' || ext == 'rtf' || ext == 'xls' || ext == 'xlsx') {
             kind = 'Document';
-        } else if (ext == 'm4v', ext == 'mp4', ext == 'mov') {
+        } else if (ext == 'm4v' || ext == 'mp4' || ext == 'mov') {
             kind = 'Video';
         }
         
@@ -439,7 +451,9 @@
             .blur(function() {
 
                 if (pseudoMode) {
-
+					
+					
+					var inp = $(this);
                     var val = $(this).val();
 
                     fileManager.mkdir(val, function(r) {
@@ -455,22 +469,42 @@
 
 
                         } else {
-                            // error
+							var errmsg;
 
                             switch(c) {
                                 case -1:
+									errmsg = 'You have to give your folder a name.';
                                     //You have to give your folder a name.
                                     break;
                                 case -2:
+									errmsg = 'You cannot use a name that begins with a "." because those names are reserved for the system.';
                                     //You cannot use a name that begins with a \".,\" because those names are reserved for the system.
                                     break;
                                 case -10:
+									errmsg = '"' + val + '" could not be created, because its parent has been deleted.';
                                     //\"%@\" corowd not be created, because its parent folder doesn't exist.
                                     break;
                                 case -11:
+									errmsg = 'The name "' + val + '" is already taken. Please choose a different name';
                                     //The name \"%@\" is already taken. Please choose a different name.
                                     break;
                             }
+
+
+							
+				           	$().airshipDialog().show(errmsg, [
+								{
+									title: 'Ok',
+									event: function() {
+
+										$().airshipDialog().close();
+										inp.focus().select();
+									}
+								}
+							]);
+
+
+							
                         }
                     });
 
@@ -506,8 +540,6 @@
         var goUp = e.keyCode == 38 ? true : false;
         var selected = $('.selected').length > 0 ? true : false;
         var multiple = e.shiftKey;
-        
-        //console.log(multiple);
         
         if (!selected) {
             if (goUp) {

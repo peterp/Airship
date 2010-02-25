@@ -68,10 +68,9 @@
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
 	[self didStopLoading];
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[NSString stringWithFormat:@"A problem occured whilst trying to open the document \"%@.\"", [path lastPathComponent]] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[NSString stringWithFormat:@"A problem occured whilst trying to open the document \"%@\"", [path lastPathComponent]] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
 	[alert show];
-	[alert release];
-	
+	[alert release];	
 }
 
 
