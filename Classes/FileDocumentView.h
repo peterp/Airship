@@ -14,7 +14,7 @@
 
 @interface FileDocumentView : FileView <UIWebViewDelegate> {
 
-
+	int scrollTo;
 	TapDetectingWebView *webView;
 	NSString *path;
 }

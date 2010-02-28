@@ -328,9 +328,11 @@
 		
 		
 	} else {
-	
-		[fileView removeFromSuperview];
-		self.fileView = nil;
+
+		if (fileView != nil) {
+			[fileView removeFromSuperview];
+			self.fileView = nil;
+		}
 		
 		[self setFileViewWithKind:kind];
 		[fileView loadFileAtPath:file.absolutePath];

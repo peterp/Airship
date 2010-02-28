@@ -403,11 +403,14 @@
 
 - (void)changeAudioPlayerCurrentTime;
 {
-
+	BOOL wasPlaying  = audioPlayer.playing;
 	[audioPlayer pause];
 	[audioPlayer setCurrentTime:songSeekSlider.value];
 	[audioPlayer prepareToPlay];
-	[audioPlayer play];
+	
+	if (wasPlaying) {
+		[audioPlayer play];
+	}
 }
 
 
@@ -430,6 +433,22 @@
 
 	return [formattedTime stringByAppendingFormat:@"%0.2d:%0.2d", minutes, seconds];
 }
+
+- (void)restoreFromPreviousSessionWithPosition:(int)position;
+{
+	[audioPlayer pause];
+	[audioPlayer setCurrentTime:position];
+	// Should not be called.
+	[self updateViewForTimeState];
+	[self updateViewForAudioPlayerState];
+}
+
+- (int)getPosition;
+{
+	return self.audioPlayer.currentTime;
+}
+
+
 
 
 

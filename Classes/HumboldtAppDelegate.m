@@ -12,7 +12,8 @@
 #import "FinderViewController.h"
 #import "SpotlightViewController.h"
 #import "SharingViewController.h"
-//#import "SharingTableViewController.h"
+#import "FileViewController.h"
+#import "File.h"
 
 
 
@@ -53,11 +54,15 @@
 	int tabBarControllerSelectedIndex = 3;
 	NSArray *finderViewControllerPaths;
 	NSArray *spotlightViewControllerPaths;
+	NSString *openFilePath;
+	int openFilePosition = -1;
 	if (standardUserDefaults) {
 
 		tabBarControllerSelectedIndex = [[standardUserDefaults objectForKey:@"tabBarControllerSelectedIndex"] intValue];
 		finderViewControllerPaths = [standardUserDefaults objectForKey:@"finderViewControllerPaths"];
 		spotlightViewControllerPaths = [standardUserDefaults objectForKey:@"spotlightViewControllerPaths"];
+		openFilePath = [standardUserDefaults objectForKey:@"openFilePath"];
+		openFilePosition = [[standardUserDefaults objectForKey:@"openFilePosition"] intValue];
 	}
 	
 	
@@ -93,6 +98,8 @@
 	}
 	[spotlightNavigationController setViewControllers:spotlightViewControllers animated:NO];
 	
+	
+	
 
 	
 	
@@ -110,14 +117,24 @@
 	self.tabBarController = [[UITabBarController alloc] init];
 	tabBarController.viewControllers  = [NSArray arrayWithObjects:finderNavigationController, spotlightNavigationController, sharingNavigationController, nil];
 	tabBarController.selectedIndex = tabBarControllerSelectedIndex;
+	
+	
+		 
+		 
+		 
+
 
 	[finderNavigationController release];
 	[spotlightNavigationController release];
 	[sharingNavigationController release];
+	
+	
+	
+		
+	
 
 
 	// window background
-	
 	UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ui_tableViewBackground.png"]];
 	backgroundImageView.frame = CGRectMake(0, 44, 320, 392);
 	[window addSubview:backgroundImageView];
@@ -125,6 +142,31 @@
 	window.backgroundColor = [UIColor blackColor];
 	[window addSubview:tabBarController.view];
 	[window makeKeyAndVisible];
+	
+	// Determine if the user had a file open.
+	if (openFilePath) {
+		
+		FinderViewController *finder = [[[tabBarController.viewControllers objectAtIndex:tabBarControllerSelectedIndex] viewControllers] lastObject];
+
+		
+		File *file = [[File alloc] initWithName:[openFilePath lastPathComponent] atPath:finder.path];
+		
+		finder.fileViewController = [[FileViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
+		finder.fileViewController.delegate = finder;
+		[finder presentModalViewController:finder.fileViewController animated:NO];
+		[finder.fileViewController release];
+		finder.fileViewController.file = file;
+		[finder.fileViewController displayFileViewWithKind:file.kind animated:NO];
+
+		// pagination
+//		[finder.fileViewController.paginateLeftBarButtonItem setEnabled:[finder indexPathForPaginationToNextFile:NO] >= 0 ? YES : NO];
+//		[finder.fileViewController.paginateRightBarButtonItem setEnabled:[finder indexPathForPaginationToNextFile:YES] >= 0 ? YES : NO];
+		
+		[finder.fileViewController.fileView restoreFromPreviousSessionWithPosition:openFilePosition];
+
+	}
+	
+	
 
 	
 	
@@ -172,6 +214,26 @@
 			}
 		}
 		[standardUserDefaults setObject:spotlightViewControllerPaths forKey:@"spotlightViewControllerPaths"];
+		
+		
+		// FINDER + FILE VIEW CONTROLLER
+		FileViewController *fileViewController = (FileViewController *)[[tabBarController selectedViewController] modalViewController];
+		if (fileViewController != nil) {
+			// we're just going to save the path to the file... and if it's a special king then we'll save some meta information.
+			// for the song it'll be the position
+			// for a document also the position.
+			[standardUserDefaults setObject:fileViewController.file.absolutePath forKey:@"openFilePath"];
+			[standardUserDefaults setObject:[NSNumber numberWithInt:[fileViewController.fileView getPosition]] forKey:@"openFilePosition"];
+			
+			// Now we just need to get the current position as well.
+			
+		} else {
+			[standardUserDefaults removeObjectForKey:@"openFilePath"];
+			[standardUserDefaults removeObjectForKey:@"openFilePosition"];
+		}
+		
+		
+		
 		
 		[standardUserDefaults synchronize];
 	}

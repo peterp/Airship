@@ -30,6 +30,7 @@
 		webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		webView.scalesPageToFit = YES;
 		webView.delegate = self;
+		scrollTo = 0;
 		
 		
 		[self addSubview:webView];
@@ -63,6 +64,9 @@
 - (void)webViewDidFinishLoad:(UIWebView *)aWebView;
 {
 	[self didStopLoading];
+	NSLog(@"%d", scrollTo);
+	[webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.scrollTo(0, %d);", scrollTo]];
+
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
@@ -72,6 +76,20 @@
 	[alert show];
 	[alert release];	
 }
+
+- (void)restoreFromPreviousSessionWithPosition:(int)position;
+{
+	if (position > 0) {
+		scrollTo = position;
+	}
+}
+
+- (int)getPosition;
+{
+	return [[webView stringByEvaluatingJavaScriptFromString:@"window.pageYOffset"] intValue];
+}
+
+
 
 
 

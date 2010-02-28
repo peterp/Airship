@@ -59,6 +59,16 @@
 	}
 }
 
+- (void)restoreFromPreviousSessionWithPosition:(int)position;
+{
+	// Should not be called.
+}
+
+- (int)getPosition;
+{
+	return -1;
+}
+
 
 
 @end

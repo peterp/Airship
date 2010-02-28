@@ -38,7 +38,8 @@
 - (void)didStartLoading;
 - (void)didStopLoading;
 
-
+- (void)restoreFromPreviousSessionWithPosition:(int)position;
+- (int)getPosition;
 
 
 @end
