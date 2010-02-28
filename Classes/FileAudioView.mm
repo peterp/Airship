@@ -17,7 +17,7 @@
 
 @synthesize levelMeterBackground;
 @synthesize levelMeter;
-@synthesize levelMeterGlare;
+//@synthesize levelMeterGlare;
 
 @synthesize playPauseButton;
 @synthesize songSeekSlider;
@@ -35,13 +35,11 @@
 
 - (void)dealloc;
 {
-	
-	NSLog(@"I don't come here?");
 	self.audioPlayer = nil;
 	
 	self.levelMeter = nil;
 	self.levelMeterBackground = nil;
-	self.levelMeterGlare = nil;
+//	self.levelMeterGlare = nil;
 	
 	self.playPauseButton = nil;
 
@@ -78,9 +76,9 @@
 		[self addSubview:levelMeterBackground];
 		[levelMeterBackground release];
 
-		self.levelMeterGlare = [[UIImageView alloc] initWithFrame:CGRectZero];
-		[levelMeterBackground addSubview:levelMeterGlare];
-		[levelMeterGlare release];
+//		self.levelMeterGlare = [[UIImageView alloc] initWithFrame:CGRectZero];
+//		[levelMeterBackground addSubview:levelMeterGlare];
+//		[levelMeterGlare release];
 		
 		
 		
@@ -185,8 +183,8 @@
 		
 		levelMeterBackground.frame = CGRectMake(15, 89, 290, 50);
 		levelMeterBackground.image = [UIImage imageNamed:@"ui_levelMeter290.png"];
-		levelMeterGlare.frame = CGRectMake(3, 3, 284, 44);
-		levelMeterGlare.image = [UIImage imageNamed:@"ui_levelMeter290Glare.png"];
+//		levelMeterGlare.frame = CGRectMake(3, 3, 284, 44);
+//		levelMeterGlare.image = [UIImage imageNamed:@"ui_levelMeter290Glare.png"];
 		levelMeterRect = CGRectMake(5, 5, 280, 40);
 		
 		songSeekSlider.frame = CGRectMake(60, 170, 200, 20);
@@ -201,8 +199,8 @@
 		
 		levelMeterBackground.frame = CGRectMake(20, 64, 440, 50);
 		levelMeterBackground.image = [UIImage imageNamed:@"ui_levelMeter440.png"];
-		levelMeterGlare.frame = CGRectMake(3, 3, 434, 44);
-		levelMeterGlare.image = [UIImage imageNamed:@"ui_levelMeter440Glare.png"];
+//		levelMeterGlare.frame = CGRectMake(3, 3, 434, 44);
+//		levelMeterGlare.image = [UIImage imageNamed:@"ui_levelMeter440Glare.png"];
 		levelMeterRect = CGRectMake(5, 5, 430, 40);
 		
 		songSeekSlider.frame = CGRectMake(60, 140, 360, 20);
@@ -218,9 +216,14 @@
 	
 	self.levelMeter = [[CALevelMeter alloc] initWithFrame:levelMeterRect];
 	[levelMeter setPlayer:audioPlayer];
-	[levelMeterBackground insertSubview:levelMeter belowSubview:levelMeterGlare];
+	[levelMeterBackground addSubview:levelMeter];
+//	[levelMeterBackground insertSubview:levelMeter belowSubview:levelMeterGlare];
 	[levelMeter release];
 }
+
+
+
+
 
 
 - (void)loadFileAtPath:(NSString *)path;
@@ -228,14 +231,12 @@
 	
 	// if the audio play is not null? That means that something very bad has happened....
 	// Should we pause for a second and try again later?
-	NSLog(@"%@", self.audioPlayer);
 
 	if (self.audioPlayer != nil) {
 		[self.audioPlayer stop];
 		self.audioPlayer = nil;
 	}
 	
-	NSLog(@"%@", self.audioPlayer);
 		// Create the audio player
 		self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:nil];
 		audioPlayer.delegate = self;
@@ -264,7 +265,6 @@
 
 - (void)removeFromSuperview;
 {
-	NSLog(@"I should come here all the time.");
 	[audioPlayer pause];
 	[levelMeter setPlayer:nil];
 	[audioPlayer stop];

@@ -25,7 +25,7 @@
 	
 	UIImageView *levelMeterBackground;
 	CALevelMeter *levelMeter;
-	UIImageView *levelMeterGlare;
+//	UIImageView *levelMeterGlare;
 
 	UISlider *songSeekSlider;
 	NSTimer *updateTimeTimer;
@@ -51,7 +51,7 @@
 
 @property (nonatomic, retain) UIImageView *levelMeterBackground;
 @property (nonatomic, retain) CALevelMeter *levelMeter;
-@property (nonatomic, retain) UIImageView *levelMeterGlare;
+//@property (nonatomic, retain) UIImageView *levelMeterGlare;
 
 @property (nonatomic, retain) UISlider *songSeekSlider;
 @property (nonatomic, retain) UILabel *timePlayedLabel;

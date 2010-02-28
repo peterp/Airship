@@ -64,7 +64,7 @@ Copyright (C) 2009 Apple Inc. All Rights Reserved.
 
 - (id)initWithFrame:(CGRect)frame {
 	if (self = [super initWithFrame:frame]) {
-		_refreshHz = 1. / 28.;
+		_refreshHz = 1. / 60.;
 		_showsPeaks = YES;
 		_channelNumbers = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:0], nil];
 		_vertical = NO;

@@ -89,7 +89,7 @@
 	
 	// Search TextField.
 	self.searchTextField = [[UITextField alloc] init];
-	searchTextField.frame = CGRectMake(0, 0, 222, 31);
+	searchTextField.frame = CGRectMake(23, 6, 222, 31);
 	searchTextField.delegate = self;
 	searchTextField.placeholder = @"Search";
 	searchTextField.backgroundColor = [UIColor clearColor];
@@ -101,9 +101,10 @@
 	searchTextField.keyboardAppearance = UIKeyboardTypeDefault;
 	searchTextField.returnKeyType = UIReturnKeySearch;
 	searchTextField.enablesReturnKeyAutomatically = YES;
-
-	self.navigationController.navigationBar.topItem.titleView = searchTextField;
+	searchTextField.alpha = 0;
+	[self.navigationController.navigationBar addSubview:searchTextField];
 	[searchTextField release];
+	
 
 	// Search Interstitial
 	self.searchInterstitial = [[UIControl alloc] initWithFrame:CGRectZero];
@@ -125,6 +126,19 @@
 	searchResultsEmptyLabel.textColor = [UIColor darkTextColor];
 	[self.navigationController.view insertSubview:searchResultsEmptyLabel belowSubview:self.navigationController.navigationBar];
 	[searchResultsEmptyLabel release];
+	
+	
+	NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+	NSString *spotlightSearchText;
+	if (standardUserDefaults) {
+		spotlightSearchText = [standardUserDefaults objectForKey:@"spotlightSearchText"];
+		
+		if ([spotlightSearchText length]) {
+			searchTextField.text = spotlightSearchText;
+			[self textFieldDidBeginEditing:searchTextField];
+			[self filterContentForSearchText:spotlightSearchText];
+		}
+	}
 }
 
 
@@ -132,9 +146,22 @@
 {
 	self.searchInterstitial.frame = self.finderTableView.frame;
 	self.searchResultsEmptyLabel.frame = CGRectMake(0, self.view.frame.size.height / 3, self.view.frame.size.width, 44);
-	
 	[finderTableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:[self indexPathForActiveTableView] inSection:0] animated:animated];
+	self.navigationController.navigationBar.topItem.title = @"";
+	searchTextField.alpha = 1;
 }
+
+- (void)viewDidAppear:(BOOL)animated;
+{
+	self.navigationController.navigationBar.topItem.title = @"";
+}
+
+- (void)viewWillDisappear:(BOOL)animated;
+{
+	searchTextField.alpha = 0;
+	self.navigationController.navigationBar.topItem.title = @"Search";
+}
+
 
 
 #pragma mark -
