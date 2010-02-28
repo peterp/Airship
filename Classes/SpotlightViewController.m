@@ -274,7 +274,7 @@
 	}
 		
 	if ([fileList count] > 0) {
-		NSSortDescriptor *storageItemSortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:NO];
+		NSSortDescriptor *storageItemSortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
 		[fileList sortUsingDescriptors:[NSArray arrayWithObject:storageItemSortDescriptor]];
 		[storageItemSortDescriptor release];
 		self.finderTableView.hidden = NO;
@@ -302,10 +302,13 @@
 	NSMutableArray *removedFiles = [notification.userInfo objectForKey:@"removedFiles"];
 	for (File *rmFile in removedFiles) {
 		
+		
 		// Loop, and check through, FileList
 		int i = 0;
 		for (File *f in fileList) {
 		
+			
+			
 			// Is the file been deleted in this tableView?
 			if ([f.absolutePath isEqualToString:rmFile.absolutePath]) {
 			
