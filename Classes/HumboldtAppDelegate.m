@@ -146,34 +146,35 @@
 	// Determine if the user had a file open.
 	if (openFilePath) {
 		
-		FinderViewController *finder = [[[tabBarController.viewControllers objectAtIndex:tabBarControllerSelectedIndex] viewControllers] lastObject];
-
+		NSLog(@"restoring files is very broken");
 		
-		File *file = [[File alloc] initWithName:[openFilePath lastPathComponent] atPath:finder.path];
-		
-		finder.fileViewController = [[FileViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
-		finder.fileViewController.delegate = finder;
-		[finder presentModalViewController:finder.fileViewController animated:NO];
-		[finder.fileViewController release];
-		finder.fileViewController.file = file;
-		[finder.fileViewController displayFileViewWithKind:file.kind animated:NO];
-
-		// pagination
-//		[finder.fileViewController.paginateLeftBarButtonItem setEnabled:[finder indexPathForPaginationToNextFile:NO] >= 0 ? YES : NO];
-//		[finder.fileViewController.paginateRightBarButtonItem setEnabled:[finder indexPathForPaginationToNextFile:YES] >= 0 ? YES : NO];
-		
-		[finder.fileViewController.fileView restoreFromPreviousSessionWithPosition:openFilePosition];
-
+//		FinderViewController *finder = [[[tabBarController.viewControllers objectAtIndex:tabBarControllerSelectedIndex] viewControllers] lastObject];
+//		File *file = [[File alloc] initWithName:[openFilePath lastPathComponent] atPath:finder.path];
+//		
+//		finder.fileViewController = [[FileViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
+//		finder.fileViewController.delegate = finder;
+//		[finder presentModalViewController:finder.fileViewController animated:NO];
+//		[finder.fileViewController release];
+//		finder.fileViewController.file = file;
+//		[finder.fileViewController displayFileViewWithKind:file.kind animated:NO];
+//
+//		// pagination
+//		for (UIBarButtonItem *item in finder.fileViewController.toolbar.items) {
+//			item.enabled = NO;
+//		}
+//		[finder.fileViewController.fileView restoreFromPreviousSessionWithPosition:openFilePosition];
+//		
+//		[file release];
+//
 	}
-	
-	
-
-	
 	
 	
 	// Prevent sleep
 	[UIApplication sharedApplication].idleTimerDisabled = YES;
 }
+
+
+
 
 
 

@@ -103,12 +103,12 @@ body {
     padding:36px 0 18px 0;
     margin: 0 18px;
 	text-align:right;
-	color:#555;
-	text-shadow:#fff 1px 0px 0px;
+	color:#999;
 }
 #footer a {
-	color:#333;
+	color:#999;
 }
+
 
 
 
@@ -203,6 +203,23 @@ body {
 }
 
 span.checkbox_actions { width:74px; }
+span.checkbox_actions a {
+	margin:5px 0 0 0;
+	width:18px;
+	height:24px;
+	background:transparent url(/media/gfx/sprites.png) no-repeat;
+	display:block;
+	float:left;
+}
+.checkbox_actions .select-all { 
+	background-position:0 -334px;
+}
+
+.checkbox_actions .select-none { 
+	background-position:-24px -334px;
+}
+
+
 span.mark { width:31px; }
 #files span.mark {
 	background:transparent url(/media/gfx/icons.png) no-repeat;
