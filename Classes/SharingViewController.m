@@ -18,6 +18,8 @@
 #import "HTTPServer.h"
 #import "StorageHTTPConnection.h"
 
+#import "HelpViewController.h"
+
 
 
 @implementation SharingViewController
@@ -34,8 +36,6 @@
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
 			self.title = @"Web Sharing";
 			self.tabBarItem.image = [UIImage imageNamed:@"dock_sharing.png"];
-			
-			
 			// Configure and start the webserver, check every 30 seconds to see if the
 			// connection is still active.
 			[self configureWebSharing];
@@ -46,11 +46,39 @@
 }
 
 
+- (void)showHelpModal:(id)sender;
+{
+	HelpViewController *helpViewController = [[HelpViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
+	[self.navigationController pushViewController:helpViewController animated:YES];
+	[helpViewController release];
+}
+
+
 - (void)viewDidLoad 
 {
+	self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:46/255.0 green:46/255.0 blue:58/255.0 alpha:1];
+
+	
+	
 	UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ui_sharingBackground.png"]];
 	[self.view addSubview:backgroundImageView];
 	[backgroundImageView release];
+	
+	
+	UIButton *helpButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 57, 32)];
+	[helpButton setBackgroundImage:[[UIImage imageNamed: @"ui_barButtonBlue.png"] stretchableImageWithLeftCapWidth:25.5 topCapHeight:0.0]  forState:UIControlStateNormal];
+	[helpButton setTitle:@"Help" forState:UIControlStateNormal];
+	[helpButton setTitleColor:[UIColor colorWithRed:168/255.0 green:169/255.0 blue:183/255.0 alpha:1] forState:UIControlStateNormal];
+	[helpButton setTitleShadowColor:[UIColor blackColor] forState:UIControlStateNormal];
+	[helpButton addTarget:self action:@selector(showHelpModal:) forControlEvents:UIControlEventTouchUpInside];
+	helpButton.titleLabel.font = [UIFont systemFontOfSize:12.6];
+	helpButton.titleLabel.shadowOffset = CGSizeMake(0, -1);
+	UIBarButtonItem *helpBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:helpButton];
+	self.navigationItem.rightBarButtonItem = helpBarButtonItem;
+	[helpBarButtonItem release];
+	
+	
+	
 	
 	sharingStatus = [[UILabel alloc] initWithFrame:CGRectMake(10, 240, 300, 94)];
 	sharingStatus.textAlignment = UITextAlignmentCenter;
@@ -96,7 +124,7 @@
 	if ([localWiFiReachable isReachable]) {
 	
 		self.tabBarItem.badgeValue = nil;
-		sharingStatus.text = @"Use the address above to access your airship website";
+		sharingStatus.text = @"Use the above address to access your Airship webpage";
 		ipAddress.text = [NSString stringWithFormat:@"http://%@:8080", [self WiFiIPAddress]];
 		
 		if (httpServerIsRunning == NO) {
@@ -107,7 +135,7 @@
 	} else {
 		
 		self.tabBarItem.badgeValue = @"!";
-		sharingStatus.text = @"You must connect to your Wi-Fi network to copy and access files on airship";
+		sharingStatus.text = @"You must connect to your Wi-Fi network to upload and download files on your Airship webpage";
 		ipAddress.text = @"";
 		
 		if (httpServerIsRunning) {

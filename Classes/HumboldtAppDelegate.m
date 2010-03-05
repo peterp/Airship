@@ -12,6 +12,8 @@
 #import "FinderViewController.h"
 #import "SpotlightViewController.h"
 #import "SharingViewController.h"
+
+
 #import "FileViewController.h"
 #import "File.h"
 
@@ -51,18 +53,18 @@
 - (void)applicationDidFinishLaunching:(UIApplication *)application 
 {
 	NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
-	int tabBarControllerSelectedIndex = 3;
+	int tabBarControllerSelectedIndex = 2;
 	NSArray *finderViewControllerPaths;
 	NSArray *spotlightViewControllerPaths;
 	NSString *openFilePath;
-	int openFilePosition = -1;
 	if (standardUserDefaults) {
-
-		tabBarControllerSelectedIndex = [[standardUserDefaults objectForKey:@"tabBarControllerSelectedIndex"] intValue];
+		
+		if ([standardUserDefaults objectForKey:@"tabBarControllerSelectedIndex"] != nil) {
+			tabBarControllerSelectedIndex = [[standardUserDefaults objectForKey:@"tabBarControllerSelectedIndex"] intValue];
+		}
 		finderViewControllerPaths = [standardUserDefaults objectForKey:@"finderViewControllerPaths"];
 		spotlightViewControllerPaths = [standardUserDefaults objectForKey:@"spotlightViewControllerPaths"];
 		openFilePath = [standardUserDefaults objectForKey:@"openFilePath"];
-		openFilePosition = [[standardUserDefaults objectForKey:@"openFilePosition"] intValue];
 	}
 	
 	
@@ -99,12 +101,6 @@
 	[spotlightNavigationController setViewControllers:spotlightViewControllers animated:NO];
 	
 	
-	
-
-	
-	
-	
-	
 
 	
 	SharingViewController *sharingViewController = [[SharingViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
@@ -117,13 +113,6 @@
 	self.tabBarController = [[UITabBarController alloc] init];
 	tabBarController.viewControllers  = [NSArray arrayWithObjects:finderNavigationController, spotlightNavigationController, sharingNavigationController, nil];
 	tabBarController.selectedIndex = tabBarControllerSelectedIndex;
-	
-	
-		 
-		 
-		 
-
-
 	[finderNavigationController release];
 	[spotlightNavigationController release];
 	[sharingNavigationController release];
@@ -145,29 +134,9 @@
 	
 	// Determine if the user had a file open.
 	if (openFilePath) {
-		
-		NSLog(@"restoring files is very broken");
-		
-//		FinderViewController *finder = [[[tabBarController.viewControllers objectAtIndex:tabBarControllerSelectedIndex] viewControllers] lastObject];
-//		File *file = [[File alloc] initWithName:[openFilePath lastPathComponent] atPath:finder.path];
-//		
-//		finder.fileViewController = [[FileViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
-//		finder.fileViewController.delegate = finder;
-//		[finder presentModalViewController:finder.fileViewController animated:NO];
-//		[finder.fileViewController release];
-//		finder.fileViewController.file = file;
-//		[finder.fileViewController displayFileViewWithKind:file.kind animated:NO];
-//
-//		// pagination
-//		for (UIBarButtonItem *item in finder.fileViewController.toolbar.items) {
-//			item.enabled = NO;
-//		}
-//		[finder.fileViewController.fileView restoreFromPreviousSessionWithPosition:openFilePosition];
-//		
-//		[file release];
-//
+		FinderViewController *finderViewController = [[[tabBarController.viewControllers objectAtIndex:tabBarControllerSelectedIndex] viewControllers] lastObject];
+		[finderViewController setRestorePreviousOpenedFile:YES];
 	}
-	
 	
 	// Prevent sleep
 	[UIApplication sharedApplication].idleTimerDisabled = YES;

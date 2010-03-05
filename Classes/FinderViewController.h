@@ -35,6 +35,10 @@
 	NSMutableDictionary *selectedFileList;
 	BOOL isEditing;
 	
+	
+	
+	BOOL restorePreviousOpenedFile;
+	
 }
 
 @property (nonatomic, copy) NSString *path;
@@ -52,8 +56,6 @@
 @property (nonatomic, retain) UIToolbar *toolbar;
 @property (nonatomic, retain) UIButton *deleteButton;
 @property (nonatomic, retain) NSMutableDictionary *selectedFileList;
-
-
 
 
 
@@ -78,6 +80,9 @@
 // Notifications
 - (void)updateTableViewForRemovedFile:(NSNotification *)notification;
 - (void)updateFileListForAddedFile:(NSNotification *)notification;
+
+- (void)setRestorePreviousOpenedFile:(BOOL)yesOrNo;
+
 
 
 

@@ -18,6 +18,8 @@
                 padding:0;
             }
 			.alt { color:#666; }
+			.ff { font-size:0.9em; color:#999; }
+			
 		</style>
 		
 		<script src="/media/js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
@@ -131,13 +133,14 @@
                     script: '/__/file/upload/',
                     checkScript: '/__/file/exists/',
                     scriptData: {'relativePath': uploadRelativePath}, // additional post vars
-                    cancelImg: '',
+//                    cancelImg: '',
 					buttonImg: '/media/js/uploadify/upload.png',
                     fileDataName: 'Filedata', // post name
+//					expressInstall:'/media/js/uploadify/expressInstall.swf',
                     folder: uploadRelativePath.substr(1),
                     multi: true,
                     auto: true,
-                    buttonText: 'Choose files to upload...',
+//                    buttonText: 'Choose files to upload...',
                     width: '137',
 					height: '36',
                     
@@ -241,7 +244,6 @@
 				<p class="alt">Problems? Try using the <a href="#toggle">Basic File Uploader</a></p>
 			</div>
 			
-			
 			<div id="queue">
 			</div>
 			
@@ -250,6 +252,7 @@
 				
 				
 				
+			<p class="ff">Flash Uploader requires <a href="http://www.adobe.com/products/flashplayer/" target="_blank">Flash Player v9.0.24 or greater</a> | <a href="/files.html" target="_blank">Supported file formats</a></p>
 			
 			
 		</div>

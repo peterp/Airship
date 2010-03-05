@@ -210,7 +210,7 @@
 			
 		    
 			// suppose I need to test if the window exists?
-          	var nw = window.open('/upload.html' + get, 'upload', 'height=600,width=505,location=false,resizable=false');
+          	var nw = window.open('/upload.html' + get, 'upload', 'height=670,width=505,location=false,resizable=false');
             if (window.focus) {
                 nw.focus();
             }
@@ -397,7 +397,8 @@
     {
         
         var ext = name.split('.')
-        ext = ext[ext.length - 1];
+        ext = ext[ext.length - 1].toLowerCase();
+		
         var kind = 'Unknown';
         if (ext == 'jpg' || ext == 'jpeg' || ext == 'gif' || ext == 'tiff' || ext == 'png') {
             kind = 'Image';

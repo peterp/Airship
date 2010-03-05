@@ -89,7 +89,7 @@
 	
 	// Search TextField.
 	self.searchTextField = [[UITextField alloc] init];
-	searchTextField.frame = CGRectMake(23, 6, 222, 31);
+	searchTextField.frame = CGRectMake(34, 6, 222, 31);
 	searchTextField.delegate = self;
 	searchTextField.placeholder = @"Search";
 	searchTextField.backgroundColor = [UIColor clearColor];
@@ -119,7 +119,7 @@
 	self.searchResultsEmptyLabel = [[UILabel alloc] initWithFrame:CGRectZero];
 	searchResultsEmptyLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
 	searchResultsEmptyLabel.hidden = YES;
-	searchResultsEmptyLabel.text = @"No Results Found";
+	searchResultsEmptyLabel.text = @"No Results";
 	searchResultsEmptyLabel.textAlignment = UITextAlignmentCenter;
 	searchResultsEmptyLabel.font = [UIFont boldSystemFontOfSize:[UIFont labelFontSize]];
 	searchResultsEmptyLabel.backgroundColor = [UIColor clearColor];

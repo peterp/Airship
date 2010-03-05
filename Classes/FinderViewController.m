@@ -17,9 +17,10 @@
 
 @implementation FinderViewController
 
+
+
+
 @synthesize path;
-
-
 @synthesize fileList;
 @synthesize filteredFileList;
 
@@ -88,6 +89,8 @@
 	
 	
 	self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:46/255.0 green:46/255.0 blue:58/255.0 alpha:1];
+	
+	
 
 	// NavigationBar + titleView;
 //	UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(100, 0, self.view.frame.size.width - 200, 43)];
@@ -190,10 +193,40 @@
 	[self.view addSubview:toolbar];
 	[toolbar release];
 	
-		
 	// Notifications
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTableViewForRemovedFile:) name:@"removedFileNotification" object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFileListForAddedFile:) name:@"addedFileNotification" object:nil];
+	
+
+	if (restorePreviousOpenedFile) {
+		
+		
+		NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+		NSString *openFilePath;
+		int openFilePosition = -1;
+		if (standardUserDefaults) {
+			openFilePath = [standardUserDefaults objectForKey:@"openFilePath"];
+			openFilePosition = [[standardUserDefaults objectForKey:@"openFilePosition"] intValue];
+		}
+		
+		int index = 0;
+		for (File *f in self.fileList) {
+			
+			if ([[openFilePath lastPathComponent] isEqualToString:f.name]) {
+				
+				[finderTableView reloadData];
+				[finderTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] animated:NO scrollPosition:UITableViewScrollPositionMiddle];
+				[self presentFileViewControllerWithFile:f];
+				[self.fileViewController.fileView restoreFromPreviousSessionWithPosition:openFilePosition];
+				
+				// remember to set the position.
+				return;
+			}
+			index++;
+		}
+	}
+	
+
 }
 
 - (void)viewWillAppear:(BOOL)animated;
@@ -204,6 +237,7 @@
 		[finderTableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:[self indexPathForActiveTableView] inSection:0] animated:animated];
 	}
 }
+
 
 
 
@@ -797,6 +831,11 @@
 			[finderTableView endUpdates];
 		}
 	}
+}
+
+- (void)setRestorePreviousOpenedFile:(BOOL)yesOrNo;
+{
+	restorePreviousOpenedFile = yesOrNo;
 }
 
 

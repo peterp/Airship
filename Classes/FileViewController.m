@@ -137,10 +137,12 @@
 	toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin;
 	toolbar.barStyle = UIBarStyleBlackTranslucent;
 	
+	
+	
 	self.systemActionBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showEmailModalToolbar)];
-	self.paginateLeftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRewind target:self action:@selector(paginationWasPushed:)];
+	self.paginateLeftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ui_toolbarLeftArrow.png"] style:UIBarButtonItemStylePlain target:self action:@selector(paginationWasPushed:)];
 	paginateLeftBarButtonItem.tag = 2001;
-	self.paginateRightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFastForward target:self action:@selector(paginationWasPushed:)];
+	self.paginateRightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ui_toolbarRightArrow.png"] style:UIBarButtonItemStylePlain target:self action:@selector(paginationWasPushed:)];
 	paginateRightBarButtonItem.tag = 2002;
 	self.deleteBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(showDeleteModalToolbar)];
 	

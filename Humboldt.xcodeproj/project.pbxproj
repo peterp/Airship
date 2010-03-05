@@ -10,6 +10,11 @@
 		1D3623260D0F684500981E51 /* HumboldtAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* HumboldtAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
+		CE07B13A113DB11B00633BA6 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE07B139113DB11B00633BA6 /* HelpViewController.m */; };
+		CE07B16D113DB5B500633BA6 /* ui_helpBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = CE07B16C113DB5B500633BA6 /* ui_helpBackground.png */; };
+		CE07B18C113DB84400633BA6 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = CE07B18B113DB84400633BA6 /* Default.png */; };
+		CE07B1AD113DB8DF00633BA6 /* ui_toolbarLeftArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = CE07B1AB113DB8DF00633BA6 /* ui_toolbarLeftArrow.png */; };
+		CE07B1AE113DB8DF00633BA6 /* ui_toolbarRightArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = CE07B1AC113DB8DF00633BA6 /* ui_toolbarRightArrow.png */; };
 		CE0E6BC9111B8480002F11C1 /* ui_tableViewCellNotSelectedBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0E6BC8111B8480002F11C1 /* ui_tableViewCellNotSelectedBackground.png */; };
 		CE0E6BDF111B88C6002F11C1 /* dock_finder.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0E6BDC111B88C6002F11C1 /* dock_finder.png */; };
 		CE0E6BE0111B88C6002F11C1 /* dock_sharing.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0E6BDD111B88C6002F11C1 /* dock_sharing.png */; };
@@ -88,7 +93,6 @@
 		CEEAF19411209C91004F067E /* ui_buttonImageHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = CEEAF19311209C91004F067E /* ui_buttonImageHighlight.png */; };
 		CEEAF19611209C95004F067E /* ui_buttonVideoHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = CEEAF19511209C95004F067E /* ui_buttonVideoHighlight.png */; };
 		CEEEACFD113C6035008382D4 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CEEEACFC113C6035008382D4 /* Icon.png */; };
-		CEEEAD04113C6126008382D4 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = CEEEAD03113C6126008382D4 /* Default.png */; };
 		CEEF2ABA111B76E0001A758B /* file_kind_0.png in Resources */ = {isa = PBXBuildFile; fileRef = CEEF2AB4111B76E0001A758B /* file_kind_0.png */; };
 		CEEF2ABB111B76E0001A758B /* file_kind_1.png in Resources */ = {isa = PBXBuildFile; fileRef = CEEF2AB5111B76E0001A758B /* file_kind_1.png */; };
 		CEEF2ABC111B76E0001A758B /* file_kind_2.png in Resources */ = {isa = PBXBuildFile; fileRef = CEEF2AB6111B76E0001A758B /* file_kind_2.png */; };
@@ -114,11 +118,17 @@
 /* Begin PBXFileReference section */
 		1D3623240D0F684500981E51 /* HumboldtAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumboldtAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* HumboldtAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumboldtAppDelegate.m; sourceTree = "<group>"; };
-		1D6058910D05DD3D006BFB54 /* airship.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = airship.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6058910D05DD3D006BFB54 /* Airship.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Airship.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		28AD733E0D9D9553002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* Humboldt_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Humboldt_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CE07B138113DB11B00633BA6 /* HelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpViewController.h; sourceTree = "<group>"; };
+		CE07B139113DB11B00633BA6 /* HelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
+		CE07B16C113DB5B500633BA6 /* ui_helpBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ui_helpBackground.png; sourceTree = "<group>"; };
+		CE07B18B113DB84400633BA6 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		CE07B1AB113DB8DF00633BA6 /* ui_toolbarLeftArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ui_toolbarLeftArrow.png; sourceTree = "<group>"; };
+		CE07B1AC113DB8DF00633BA6 /* ui_toolbarRightArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ui_toolbarRightArrow.png; sourceTree = "<group>"; };
 		CE0E6BC8111B8480002F11C1 /* ui_tableViewCellNotSelectedBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ui_tableViewCellNotSelectedBackground.png; sourceTree = "<group>"; };
 		CE0E6BDC111B88C6002F11C1 /* dock_finder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dock_finder.png; sourceTree = "<group>"; };
 		CE0E6BDD111B88C6002F11C1 /* dock_sharing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dock_sharing.png; sourceTree = "<group>"; };
@@ -231,7 +241,6 @@
 		CEEAF19311209C91004F067E /* ui_buttonImageHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ui_buttonImageHighlight.png; sourceTree = "<group>"; };
 		CEEAF19511209C95004F067E /* ui_buttonVideoHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ui_buttonVideoHighlight.png; sourceTree = "<group>"; };
 		CEEEACFC113C6035008382D4 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
-		CEEEAD03113C6126008382D4 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		CEEF2AB4111B76E0001A758B /* file_kind_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = file_kind_0.png; sourceTree = "<group>"; };
 		CEEF2AB5111B76E0001A758B /* file_kind_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = file_kind_1.png; sourceTree = "<group>"; };
 		CEEF2AB6111B76E0001A758B /* file_kind_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = file_kind_2.png; sourceTree = "<group>"; };
@@ -295,6 +304,8 @@
 				CE48848310B9B733003E8631 /* SpotlightViewController.m */,
 				CEF0AC0B1127FE3300666B3E /* SharingViewController.h */,
 				CEF0AC0C1127FE3300666B3E /* SharingViewController.m */,
+				CE07B138113DB11B00633BA6 /* HelpViewController.h */,
+				CE07B139113DB11B00633BA6 /* HelpViewController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -302,7 +313,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1D6058910D05DD3D006BFB54 /* airship.app */,
+				1D6058910D05DD3D006BFB54 /* Airship.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -332,7 +343,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				CEEEAD03113C6126008382D4 /* Default.png */,
+				CE07B18B113DB84400633BA6 /* Default.png */,
 				CEEEACFC113C6035008382D4 /* Icon.png */,
 				CE530F5410AD8F7A00A16550 /* UI */,
 				CE8627E510013D400063F8F6 /* wwwroot */,
@@ -477,6 +488,7 @@
 				CEF212D3110B957B00378C6C /* ui_tableViewFooter.png */,
 				CE47AB0B111EFCE900DD2482 /* ui_tableViewToolbarBackground.png */,
 				CEF0AC2B1128037800666B3E /* ui_sharingBackground.png */,
+				CE07B16C113DB5B500633BA6 /* ui_helpBackground.png */,
 			);
 			name = TableViews;
 			sourceTree = "<group>";
@@ -513,6 +525,8 @@
 		CEE3A288111A0BF200D75332 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				CE07B1AB113DB8DF00633BA6 /* ui_toolbarLeftArrow.png */,
+				CE07B1AC113DB8DF00633BA6 /* ui_toolbarRightArrow.png */,
 				CEF2BBCD112A01DB007A7AFB /* ui_buttonBigBlack.png */,
 				CEF2BBCE112A01DB007A7AFB /* ui_buttonBigWhite.png */,
 				CE15393B1127383600AE924D /* ui_buttonBigRed.png */,
@@ -640,7 +654,7 @@
 			);
 			name = Humboldt;
 			productName = Humboldt;
-			productReference = 1D6058910D05DD3D006BFB54 /* airship.app */;
+			productReference = 1D6058910D05DD3D006BFB54 /* Airship.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -719,7 +733,10 @@
 				CEF2BBCF112A01DB007A7AFB /* ui_buttonBigBlack.png in Resources */,
 				CEF2BBD0112A01DB007A7AFB /* ui_buttonBigWhite.png in Resources */,
 				CEEEACFD113C6035008382D4 /* Icon.png in Resources */,
-				CEEEAD04113C6126008382D4 /* Default.png in Resources */,
+				CE07B16D113DB5B500633BA6 /* ui_helpBackground.png in Resources */,
+				CE07B18C113DB84400633BA6 /* Default.png in Resources */,
+				CE07B1AD113DB8DF00633BA6 /* ui_toolbarLeftArrow.png in Resources */,
+				CE07B1AE113DB8DF00633BA6 /* ui_toolbarRightArrow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -769,6 +786,7 @@
 				CED4D9FD10BDC0FD00716F62 /* FileVideoView.m in Sources */,
 				CE1A94361117729B004F4EC2 /* Reachability.m in Sources */,
 				CEF0AC0D1127FE3300666B3E /* SharingViewController.m in Sources */,
+				CE07B13A113DB11B00633BA6 /* HelpViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -799,7 +817,7 @@
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = airship;
+				PRODUCT_NAME = Airship;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos3.0;
 				VALID_ARCHS = "armv7 armv6";
@@ -824,7 +842,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Humboldt_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
-				PRODUCT_NAME = airship;
+				PRODUCT_NAME = Airship;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D8BE66A0-F9E7-4AE9-86F1-04763611A0B9";
 				SDKROOT = iphoneos3.0;
 			};
