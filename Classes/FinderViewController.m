@@ -180,7 +180,7 @@
 	
 	
 	
-	self.deleteButton = [[UIButton alloc] initWithFrame:CGRectMake(5, 5, 122, 32)];
+	self.deleteButton = [[UIButton alloc] initWithFrame:CGRectMake(193, 5, 122, 32)];
 	[deleteButton addTarget:self action:@selector(deleteSelection) forControlEvents:UIControlEventTouchUpInside];
 	[deleteButton setBackgroundImage:[[UIImage imageNamed:@"ui_barButtonSilver.png"] stretchableImageWithLeftCapWidth:25.5 topCapHeight:0.0] forState:UIControlStateNormal];
 	[deleteButton setTitleColor:[UIColor colorWithRed:25/255.0 green:25/255.0 blue:46/255.0 alpha:1] forState:UIControlStateNormal];

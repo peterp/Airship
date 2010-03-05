@@ -95,6 +95,17 @@
 		return FILE_KIND_IMAGE;
 	} else if ([vid containsObject:ext]) {
 		return FILE_KIND_VIDEO;
+	} else if ([ext isEqualToString:@"zip"]) {
+		
+		// split the filename; get the 2nd last part...
+		NSArray *docPackage = [NSArray arrayWithObjects:@"key", @"numbers", @"pages", @"rtfd", nil];
+		NSArray *exts = [self.name componentsSeparatedByString:@"."];
+		if ([exts count] > 2) {
+			ext = [exts objectAtIndex:[exts count] - 2];
+		}
+		if ([docPackage containsObject:ext]) {
+			return FILE_KIND_DOCUMENT;
+		}
 	}
 	
 	return FILE_KIND_UNKNOWN;
