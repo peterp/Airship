@@ -447,6 +447,7 @@
                 } else if (e.keyCode == 13) {
                     // Blur is save...
                     $(this).blur();
+					
                 }
             })
             .blur(function() {
@@ -511,11 +512,12 @@
 
 
 
-
+					
 
                 } else { // Rename directory.
                     // move...
                 }
+				return false;
             });
 
         row.find('.name').html('').append(input);

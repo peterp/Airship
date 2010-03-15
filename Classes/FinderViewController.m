@@ -775,6 +775,8 @@
 						UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"The file you were viewing has been deleted." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
 						[alert show];
 						[alert release];
+						
+						[self.fileViewController.fileView removeFromSuperview];
 							
 						[self fileViewControllerDidFinish:fileViewController];
 					}

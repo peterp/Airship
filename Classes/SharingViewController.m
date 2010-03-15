@@ -40,7 +40,7 @@
 			// connection is still active.
 			[self configureWebSharing];
 			[self performSelector:@selector(checkConnectionAndUpdateInterface) withObject:nil afterDelay:2.5];
-			checkConnectionInterval = 30;
+			checkConnectionInterval = 45;
     }
     return self;
 }
@@ -65,7 +65,7 @@
 	[backgroundImageView release];
 	
 	
-	UIButton *helpButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 57, 32)];
+	UIButton *helpButton = [[UIButton alloc] initWithFrame:CGRectMake(130, 330, 60, 32)];
 	[helpButton setBackgroundImage:[[UIImage imageNamed: @"ui_barButtonBlue.png"] stretchableImageWithLeftCapWidth:25.5 topCapHeight:0.0]  forState:UIControlStateNormal];
 	[helpButton setTitle:@"Help" forState:UIControlStateNormal];
 	[helpButton setTitleColor:[UIColor colorWithRed:168/255.0 green:169/255.0 blue:183/255.0 alpha:1] forState:UIControlStateNormal];
@@ -73,10 +73,8 @@
 	[helpButton addTarget:self action:@selector(showHelpModal:) forControlEvents:UIControlEventTouchUpInside];
 	helpButton.titleLabel.font = [UIFont systemFontOfSize:12.6];
 	helpButton.titleLabel.shadowOffset = CGSizeMake(0, -1);
-	UIBarButtonItem *helpBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:helpButton];
-	self.navigationItem.rightBarButtonItem = helpBarButtonItem;
-	[helpBarButtonItem release];
-	
+	[self.view addSubview:helpButton];
+	[helpButton release];
 	
 	
 	
@@ -110,7 +108,7 @@
 
 - (void)viewDidDisappear:(BOOL)animated;
 {
-	checkConnectionInterval = 30;
+	checkConnectionInterval = 45;
 }
 
 
