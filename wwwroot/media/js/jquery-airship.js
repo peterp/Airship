@@ -107,20 +107,30 @@
     $.fn.airshipUI = function() {
 	
 		// select all
-		$('a[href=#select-all]').mouseup(function() {
-			$('#files .overflow a').addClass('selected')
-			return false;
-		}).click(function() {
+		$('a[href=#select-all]').click(function() {
+			$('#files .overflow a').addClass('selected');
 			return false;
 		});
-		
-		$('a[href=#select-none]').mouseup(function() {
-			$('#files .overflow a').removeClass('selected')
-			return false;
-		}).click(function() {
+		$('a[href=#select-none]').click(function() {
+			$('#files .overflow a').removeClass('selected');
 			return false;
 		});
-		
+		$('a[href=#select-audio]').click(function() {
+			$('#files .overflow a.Audio').addClass('selected');
+			return false;
+		});
+		$('a[href=#select-documents]').click(function() {
+			$('#files .overflow a.Document').addClass('selected');
+			return false;
+		});
+		$('a[href=#select-images]').click(function() {
+			$('#files .overflow a.Image').addClass('selected');
+			return false;
+		});
+		$('a[href=#select-videos]').click(function() {
+			$('#files .overflow a.Video').addClass('selected');
+			return false;
+		});
         
         //create folder
         $('a[href=#new-folder]').mouseup(function() {
@@ -325,7 +335,7 @@
     function createItemRow(kind, name, date, size, mode)
     {
 		var a = $('<a />')
-			.addClass(mode)
+			.addClass(mode).addClass(kind)
 			.attr('href', kind == 'Directory' ? '#' + currentRelativePath + '/' + name : currentRelativePath + '/' + name);
 		
 		$('<span class="mark" />').appendTo(a);
@@ -333,15 +343,9 @@
 		$('<span class="name" />').appendTo(a).html(name);
 		$('<span class="date" />').appendTo(a).html(date);
 		$('<span class="size" />').appendTo(a).html(size);
+		$('<span class="copy" />').appendTo(a);
 		
-		a.mousedown(function() {
-//			$(this).addClass('selected');
-		})
-		.mouseup(function() {
-			
-//			$(this).removeClass('selected');
-		})
-		.find('.mark').click(function(e) {
+		a.find('.mark').click(function(e) {
 
 			var row = $(this).parent();
 			if (row.hasClass('selected')) {
@@ -349,9 +353,15 @@
 			} else {
 				row.addClass('selected');
 			}
-			
 			return false;
 		});
+		
+		a.find('.copy').click(function(e) {
+			
+			$('#download').attr('src', '/__/download/?filename=' + $(this).parent().attr('href'));
+			return false;
+		});
+		
         
         return a;
     };

@@ -108,6 +108,7 @@ body {
 #footer a {
 	color:#999;
 }
+#download {	display:none;}
 
 
 
@@ -152,6 +153,17 @@ body {
     color:#eee;
 }
 
+.selections {
+	background:#a19fa8;
+	padding:4px 9px;
+	color:#555;
+	text-indent:31px;
+}
+.selections a {
+	color:#444;
+	padding:0 3px;
+}
+
 
 
 
@@ -177,24 +189,21 @@ body {
 
 
 
-#files a {
+.scroll a {
 	width:100%;
 	height:37px;
 	border-bottom:1px #a0a1ac dotted;
 	display:block;
-	cursor:default;
+	cursor:pointer;
 	outline:none;
 }
-#files a:hover .name {
-	text-decoration:underline;
-}
 
-#files a.selected {
+.scroll a.selected {
 	background-color:#999bb7; 
-	border-bottom:1px #fff dotted;
+	border-color:#fff;
 }
 
-#files span {
+.scroll span {
 	display:inline;
 	float:left;
 	height:37px;
@@ -211,41 +220,50 @@ span.checkbox_actions a {
 	display:block;
 	float:left;
 }
-.checkbox_actions .select-all { 
-	background-position:0 -334px;
-}
+.checkbox_actions .select-all { background-position:0 -334px;}
 
-.checkbox_actions .select-none { 
-	background-position:-24px -334px;
-}
+.checkbox_actions .select-none { background-position:-24px -334px; }
 
 
 span.mark { width:31px; }
-#files span.mark {
+.scroll span.mark {
 	background:transparent url(/media/gfx/icons.png) no-repeat;
 	background-position:-90px 0;
 }
-#files .selected .mark { background-position:-90px -37px; }
+.scroll .selected .mark { background-position:-90px -37px; }
 span.icon { width:45px; }
 span.name { width:374px; overflow:hidden; }
 span.date { width:181px; }
-span.size { width:121px; }
+span.size { width:110px; }
+span.copy { 
+	width:27px;
+	background:transparent url(/media/gfx/icons.png?v=101) no-repeat -95px -115px;
+}
+span.copy a {
+	background:#333;
+	display:block;
+	width:27px;
+}
 
 
 
 
-.Directory, .Unknown, .Audio, .Document, .Image, .Video { background:transparent url(/media/gfx/icons.png) no-repeat; }
+
+.Directory .icon, .Unknown .icon, .Audio .icon, .Document .icon, .Image .icon, .Video .icon { background:transparent url(/media/gfx/icons.png) no-repeat; }
 .selected .Directory { background-position:-45px 0; }
-.Unknown { background-position:0 -38px; }
+.Unknown .icon { background-position:0 -38px; }
 .selected .Unknown { background-position:-45px -38px; }
-.Audio { background-position:0 -76px; }
+.Audio .icon { background-position:0 -76px; }
 .selected .Audio { background-position:-45px -76px; }
-.Document {  background-position:0 -114px;  }
+.Document .icon {  background-position:0 -114px;  }
 .selected .Document { background-position:-45px -114px; }
-.Image {  background-position:0 -152px;  }
+.Image .icon {  background-position:0 -152px;  }
 .selected .Image { background-position:-45px -152px;  }
-.Video {  background-position:0 -190px;  }
+.Video .icon {  background-position:0 -190px;  }
 .selected .Video { background-position:-45px -190px;  }
+
+.selected .copy {background-position:-95px -153px; }
+.Directory .copy { background-image:none; }
 
 
 

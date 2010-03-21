@@ -77,6 +77,24 @@
 
 @end
 
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark -
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+@interface HTTPForceDownloadFileResponse : NSObject <HTTPResponse>
+{
+	NSString *filePath;
+	NSFileHandle *fileHandle;
+	
+	UInt64 fileLength;
+}
+
+- (id)initWithFilePath:(NSString *)filePath;
+- (NSString *)filePath;
+
+@end
+
 // Important notice to those implementing custom asynchronous and/or chunked responses:
 // 
 // HTTPConnection supports asynchronous responses.  All you have to do in your custom response class is

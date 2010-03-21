@@ -4,10 +4,10 @@
 	<head>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 		<title>Airship</title>
-		<link rel="stylesheet" href="/media/base.css" type="text/css" media="screen" title="" charset="utf-8">
+		<link rel="stylesheet" href="/media/base.css?v=101" type="text/css" media="screen" title="" charset="utf-8">
 
 		<script src="/media/js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="/media/js/jquery-airship.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/media/js/jquery-airship.js?v=101" type="text/javascript" charset="utf-8"></script>
 		<script src="/media/js/jquery.address-1.0.min.js" type="text/javascript" charset="utf-8"></script>
 
 		<script type="text/javascript" charset="utf-8">
@@ -48,10 +48,7 @@
 			<div id="finder">
                 <div class="toolbar">
                     <div>
-                        <span class="checkbox_actions">
-							<a href="#select-all" class="select-all" title="Select All"></a>
-							<a href="#select-none" class="select-none" title="Select None"></a>
-						</span>
+						<span class="mark"></span>
                         <span class="name">Name</span>
                         <span class="date">Date</span>
                         <span class="size">Size</span>
@@ -59,6 +56,16 @@
                 </div>
                 
                 <div id="files">
+					<div class="selections">
+						Select:
+						<a href="#select-all">All,</a>
+						<a href="#select-none">None</a>
+						<a href="#select-audio">Audio,</a>
+						<a href="#select-documents">Documents,</a>
+						<a href="#select-images">Images,</a>
+						<a href="#select-videos">Videos</a>
+					</div>
+	
                     <div class="scroll">
                         <div class="overflow">
                         </div>
@@ -72,6 +79,10 @@
 			
 			<div id="footer">
 			</div>
+			
+			<iframe src="about:blank" width="0" height="0" id="download">
+			</iframe>
+			
 
 		</div>
 	</body>

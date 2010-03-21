@@ -80,8 +80,14 @@
 		} else	if ([URLpath isEqualToString:@"/"]) {
 		
 			URLpath = @"index.html";
+		} else if ([URLpath isEqualToString:@"/__/download"]) {
+			NSArray *keyValuePair = [URL.query componentsSeparatedByString:@"="];
+			NSString *value = [[[keyValuePair objectAtIndex:1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByReplacingOccurrencesOfString:@"+" withString:@" "];
+			NSString *filename = [server.documentRoot.path stringByAppendingPathComponent:value];
+			if ([[NSFileManager defaultManager] fileExistsAtPath:filename]) {
+				return [[[HTTPForceDownloadFileResponse alloc] initWithFilePath:filename] autorelease];
+			}
 		}
-		
 		
 		return [[[HTTPFileResponse alloc] initWithFilePath:[[server.documentRoot.path stringByAppendingPathComponent:@"wwwroot"] stringByAppendingPathComponent:URLpath]] autorelease];
 	
@@ -139,6 +145,8 @@
 			[[NSFileManager defaultManager] moveItemAtPath:[[multipartParser.parts valueForKey:@"Filedata"] valueForKey:@"tmpFilePath"] toPath:[[server.documentRoot.path stringByAppendingPathComponent:relativePath] stringByAppendingPathComponent:filename] error:&error];
 			
 			
+			
+			
 			// Create file.
 			File *file = [[File alloc] initWithName:filename atPath:[server.documentRoot.path stringByAppendingPathComponent:relativePath]]; 
 			// Post notification.
@@ -151,6 +159,8 @@
 			requestIsMultipart = NO;
 			
 			return [[[HTTPDataResponse alloc] initWithData:[@"1" dataUsingEncoding:NSUTF8StringEncoding]] autorelease];
+			
+			
 		}
 	}
 	

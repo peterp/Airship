@@ -118,3 +118,78 @@
 }
 
 @end
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark -
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+@implementation HTTPForceDownloadFileResponse
+
+- (id)initWithFilePath:(NSString *)filePathParam
+{
+	if((self = [super init]))
+	{
+		filePath = [filePathParam copy];
+		fileHandle = [[NSFileHandle fileHandleForReadingAtPath:filePath] retain];
+		
+		if(fileHandle == nil)
+		{
+			[self release];
+			return nil;
+		}
+		
+		NSDictionary *fileAttributes = [[NSFileManager defaultManager] fileAttributesAtPath:filePath traverseLink:NO];
+		NSNumber *fileSize = [fileAttributes objectForKey:NSFileSize];
+		fileLength = (UInt64)[fileSize unsignedLongLongValue];
+	}
+	return self;
+}
+
+- (void)dealloc
+{
+	[filePath release];
+	[fileHandle closeFile];
+	[fileHandle release];
+	[super dealloc];
+}
+
+- (UInt64)contentLength
+{
+	return fileLength;
+}
+
+- (UInt64)offset
+{
+	return (UInt64)[fileHandle offsetInFile];
+}
+
+- (void)setOffset:(UInt64)offset
+{
+	[fileHandle seekToFileOffset:offset];
+}
+
+- (NSData *)readDataOfLength:(unsigned int)length
+{
+	return [fileHandle readDataOfLength:length];
+}
+
+- (BOOL)isDone
+{
+	return ([fileHandle offsetInFile] == fileLength);
+}
+
+- (NSString *)filePath
+{
+	return filePath;
+}
+
+- (NSDictionary *)httpHeaders;
+{
+	return [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:[NSString stringWithFormat:@"attachment; filename=\"%@\"", [[filePath lastPathComponent] stringByReplacingOccurrencesOfString:@" " withString:@" "]], @"application/force-download", nil] 
+																		 forKeys:[NSArray arrayWithObjects:@"Content-Disposition", @"Content-Type", nil]];
+
+}
+
+@end
