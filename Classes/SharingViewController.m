@@ -40,7 +40,7 @@
 			// connection is still active.
 			[self configureWebSharing];
 			[self performSelector:@selector(checkConnectionAndUpdateInterface) withObject:nil afterDelay:2.5];
-			checkConnectionInterval = 45;
+			checkConnectionInterval = 90;
     }
     return self;
 }
@@ -108,7 +108,7 @@
 
 - (void)viewDidDisappear:(BOOL)animated;
 {
-	checkConnectionInterval = 45;
+	checkConnectionInterval = 90;
 }
 
 
@@ -216,11 +216,13 @@
 	
 	NSFileManager *fileManager = [NSFileManager defaultManager];
 	NSString *fromPath = [[NSBundle mainBundle] resourcePath];
-	
-	if (![fileManager fileExistsAtPath:[toPath stringByAppendingPathComponent:@"wwwroot"]]) {
-		NSError *error;
-		[fileManager copyItemAtPath:[fromPath stringByAppendingPathComponent:@"wwwroot"] toPath:[toPath stringByAppendingPathComponent:@"wwwroot"] error:&error];
+
+	// overwrite files everytime.
+	NSError *error;	
+	if ([fileManager fileExistsAtPath:[toPath stringByAppendingPathComponent:@"wwwroot"]]) {
+		[[NSFileManager defaultManager] removeItemAtPath:[toPath stringByAppendingPathComponent:@"wwwroot"] error:&error];
 	}
+	[fileManager copyItemAtPath:[fromPath stringByAppendingPathComponent:@"wwwroot"] toPath:[toPath stringByAppendingPathComponent:@"wwwroot"] error:&error];
 	
 	if (![fileManager fileExistsAtPath:[toPath stringByAppendingPathComponent:@"Files"]]) {
 		[fileManager createDirectoryAtPath:[toPath stringByAppendingPathComponent:@"Files"] attributes:nil];

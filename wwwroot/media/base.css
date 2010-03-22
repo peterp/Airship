@@ -234,7 +234,7 @@ span.mark { width:31px; }
 span.icon { width:45px; }
 span.name { width:374px; overflow:hidden; }
 span.date { width:181px; }
-span.size { width:110px; }
+span.size { width:100px; }
 span.copy { 
 	width:27px;
 	background:transparent url(/media/gfx/icons.png?v=101) no-repeat -95px -115px;
