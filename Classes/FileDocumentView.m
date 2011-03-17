@@ -7,6 +7,7 @@
 //
 
 #import "FileDocumentView.h"
+#import "TapDetectingWebView.h"
 
 
 
@@ -14,26 +15,48 @@
 
 
 @synthesize webView;
+@synthesize singleTapGestureRecognizer;
 
 - (void)dealloc;
 {
 	self.webView = nil;
-
+	self.singleTapGestureRecognizer = nil;
 	[super dealloc];
 }
 
 
 - (id)initWithFrame:(CGRect)frame {
 	if (self = [super initWithFrame:frame]) {
-	
-		self.webView = [[TapDetectingWebView alloc] initWithFrame:frame];
+		
+		
+		self.webView = nil;
+		
+		
+		
+		if ([[[UIDevice currentDevice] systemVersion] isEqualToString:@"3.1.3"]) {
+			
+			self.webView = [[TapDetectingWebView alloc] initWithFrame:frame];			
+			
+		} else {
+			self.webView = [[UIWebView alloc] initWithFrame:frame];
+			self.singleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
+			singleTapGestureRecognizer.numberOfTapsRequired = 1;
+			singleTapGestureRecognizer.delegate = self;
+			[webView addGestureRecognizer:singleTapGestureRecognizer];		
+			[singleTapGestureRecognizer release];
+		}
+		
+
+		
 		webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		webView.scalesPageToFit = YES;
 		webView.delegate = self;
 		scrollTo = 0;
-		
-		
 		[self addSubview:webView];
+		
+		
+		
+		
 		[webView release];
 	}
   return self;
@@ -47,6 +70,13 @@
 
 #pragma mark -
 #pragma mark delegate
+
+- (void)handleSingleTap:(UITapGestureRecognizer*)sender;
+{
+	if ([self.delegate respondsToSelector:@selector(fileViewDidToggleToolbars)]) {
+		[self.delegate fileViewDidToggleToolbars];
+	}
+}
 
 - (void)tapDetectingWebViewGotSingleTap:(TapDetectingWebView *)aWebView;
 {
@@ -64,7 +94,7 @@
 - (void)webViewDidFinishLoad:(UIWebView *)aWebView;
 {
 	[self didStopLoading];
-	NSLog(@"%d", scrollTo);
+//	NSLog(@"%d", scrollTo);
 	[webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.scrollTo(0, %d);", scrollTo]];
 
 }
@@ -88,6 +118,13 @@
 {
 	return [[webView stringByEvaluatingJavaScriptFromString:@"window.pageYOffset"] intValue];
 }
+
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+	return YES;
+}
+
 
 
 

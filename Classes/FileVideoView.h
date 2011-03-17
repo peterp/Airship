@@ -15,16 +15,20 @@
 @interface FileVideoView : FileView {
 	UIButton *playButton;
 	MPMoviePlayerController *moviePlayerController;
+	UIView *moviePlayerView;
 	NSString *moviePath;
 	UILabel *playLabel;
 	
 	UIImageView *explinationBackground;
 	UILabel *explinationLabel;
+	
+	
 }
 
 @property (nonatomic, retain) UIButton *playButton;
 @property (nonatomic, retain) UILabel *playLabel;
 @property (nonatomic, retain) MPMoviePlayerController *moviePlayerController;
+@property (nonatomic, retain) UIView *moviePlayerView;
 @property (nonatomic, copy) NSString *moviePath;
 
 - (void)playVideo:(UIButton *)sender;

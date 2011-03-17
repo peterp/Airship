@@ -43,8 +43,8 @@
 	
 	id webView = [[self superview] superview];
 	UITouch *touch = [touches anyObject];
- 
- 
+	
+	
 	if ([touch tapCount] == 1) {
 		// Single tap... pass on
 		[webView performSelector:@selector(handleSingleTap) withObject:nil afterDelay:DOUBLE_TAP_DELAY];
@@ -55,14 +55,14 @@
 	
 	// uiscroll doesn't have a dragging method.
 	
-//	- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event;
-//	{
-//	if (!self.dragging) {
-//		[self.nextResponder touchesEnded:touches withEvent:event]; 
-//	} else {
-//		[super touchesEnded:touches withEvent:event];
-//	}
-//	}
+	//	- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event;
+	//	{
+	//	if (!self.dragging) {
+	//		[self.nextResponder touchesEnded:touches withEvent:event]; 
+	//	} else {
+	//		[super touchesEnded:touches withEvent:event];
+	//	}
+	//	}
 	
 	
 }
@@ -91,18 +91,18 @@ static void installHook()
 
 - (id)initWithCoder:(NSCoder*)coder
 {
-    if (self = [super initWithCoder:coder]) {
+	if (self = [super initWithCoder:coder]) {
 		installHook();
-    }
-    return self;
+	}
+	return self;
 }
 
 - (id)initWithFrame:(CGRect)frame
 {
-    if (self = [super initWithFrame:frame]) {
+	if (self = [super initWithFrame:frame]) {
 		installHook();
-    }
-    return self;
+	}
+	return self;
 }
 
 
@@ -117,9 +117,9 @@ static void installHook()
 
 - (void)handleDoubleTap
 {
-//	if ([self.delegate respondsToSelector:@selector(tapDetectingWebViewGotDoubleTap:)]) {
-//		[(NSObject *)self.delegate tapDetectingWebViewGotDoubleTap:self];
-//	}
+	//	if ([self.delegate respondsToSelector:@selector(tapDetectingWebViewGotDoubleTap:)]) {
+	//		[(NSObject *)self.delegate tapDetectingWebViewGotDoubleTap:self];
+	//	}
 }
 
 @end

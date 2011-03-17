@@ -72,13 +72,13 @@
 	NSMutableArray *finderViewControllers = [NSMutableArray array];
 	FinderViewController *finder = [FinderViewController finderWithPath:[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches/Files/"]];
 	[finderViewControllers addObject:finder];
-	[finder release];
+	//[finder release]; apparently I shouldn't decrement here.
 	if ([finderViewControllerPaths count] > 0) {
 		// create all the finderView Controllers
 		for (NSString *path in finderViewControllerPaths) {		
 			FinderViewController *finder = [FinderViewController finderWithPath:[NSHomeDirectory() stringByAppendingPathComponent:[@"Library/Caches/Files/" stringByAppendingPathComponent:path]]];
 			[finderViewControllers addObject:finder];
-			[finder release];
+		//	[finder release]; !!!
 		}
 	}
 	[finderNavigationController setViewControllers:finderViewControllers animated:NO];
@@ -95,7 +95,7 @@
 		for (NSString *path in spotlightViewControllerPaths) {		
 			FinderViewController *finder = [FinderViewController finderWithPath:[NSHomeDirectory() stringByAppendingPathComponent:[@"Library/Caches/Files/" stringByAppendingPathComponent:path]]];
 			[spotlightViewControllers addObject:finder];
-			[finder release];
+			//[finder release]; !!!
 		}
 	}
 	[spotlightNavigationController setViewControllers:spotlightViewControllers animated:NO];

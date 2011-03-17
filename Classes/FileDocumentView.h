@@ -9,17 +9,20 @@
 #import <UIKit/UIKit.h>
 #import "FileView.h"
 
-#import "TapDetectingWebView.h"
+//#import "TapDetectingWebView.h"
 
 
-@interface FileDocumentView : FileView <UIWebViewDelegate> {
+@interface FileDocumentView : FileView <UIWebViewDelegate, UIGestureRecognizerDelegate> {
 
 	int scrollTo;
-	TapDetectingWebView *webView;
+	UIWebView *webView;
 	NSString *path;
+	
+	UITapGestureRecognizer *singleTapGestureRecognizer;
 }
 
-@property (nonatomic, retain) TapDetectingWebView *webView;
+@property (nonatomic, retain) UIWebView *webView;
+@property (nonatomic, retain) UITapGestureRecognizer *singleTapGestureRecognizer;
 
 
 

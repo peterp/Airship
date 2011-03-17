@@ -225,9 +225,8 @@
 	[fileManager copyItemAtPath:[fromPath stringByAppendingPathComponent:@"wwwroot"] toPath:[toPath stringByAppendingPathComponent:@"wwwroot"] error:&error];
 	
 	if (![fileManager fileExistsAtPath:[toPath stringByAppendingPathComponent:@"Files"]]) {
-		[fileManager createDirectoryAtPath:[toPath stringByAppendingPathComponent:@"Files"] attributes:nil];
-	}
-	
+		[fileManager createDirectoryAtPath:[toPath stringByAppendingPathComponent:@"Files"] withIntermediateDirectories:YES attributes:nil error:nil];
+	}	
 }
 
 

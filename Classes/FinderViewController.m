@@ -90,23 +90,6 @@
 	
 	self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:46/255.0 green:46/255.0 blue:58/255.0 alpha:1];
 	
-	
-
-	// NavigationBar + titleView;
-//	UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(100, 0, self.view.frame.size.width - 200, 43)];
-//	UILabel *titleViewLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, titleView.frame.size.width, 43)];
-//	titleViewLabel.backgroundColor = [UIColor clearColor];
-//	titleViewLabel.textAlignment = UITextAlignmentCenter;
-//	titleViewLabel.text = @"margle";
-//	titleViewLabel.font = [UIFont systemFontOfSize:18];
-//	titleViewLabel.textColor = [UIColor whiteColor];
-//	[titleView addSubview:titleViewLabel];
-//	[titleViewLabel release];
-//	self.navigationItem.titleView = titleView;
-//	[titleView release];
-
-	
-		
 	self.finderTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
 	finderTableView.frame = CGRectMake(0, 0, 320, 367);
 	finderTableView.delegate = self;
@@ -128,7 +111,7 @@
 	if (self.path != nil) {
 		
 	  // DATA SOURCE
-		NSArray *directoryContents = [[NSFileManager defaultManager] directoryContentsAtPath:self.path];
+		NSArray *directoryContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.path error:nil];
 		self.fileList = [NSMutableArray arrayWithCapacity:[directoryContents count]];
 		for (NSString *name in directoryContents) {
 			File *file = [[File alloc] initWithName:name atPath:self.path]; 
@@ -275,9 +258,7 @@
 	
 	UIImageView *pickImageView;
 	UIImageView *iconImageView;
-	UILabel *nameLabel;
-	UILabel *metaLabel;
-	
+	w	
     
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
   if (cell == nil) {
@@ -397,9 +378,6 @@
 		
 			FinderViewController *finderViewController = [FinderViewController finderWithPath:file.absolutePath];
 			[self.navigationController pushViewController:finderViewController animated:YES];
-			
-			
-			
 			[finderViewController release];
 
 		} else {
@@ -502,6 +480,7 @@
 
 - (void)fileViewControllerDidFinish:(FileViewController *)controller;
 {
+//	[[UIApplication sharedApplication] setStatusBarHidden:NO animated:YES];
 	[[UIApplication sharedApplication] setStatusBarHidden:NO animated:YES];
 	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:YES];
 	[self.navigationController dismissModalViewControllerAnimated:YES];
@@ -669,6 +648,8 @@
 	[UIView beginAnimations:nil context:nil];
 	if (show) {
 		if ([fileList count] > 7) {
+			
+			
 			finderTableView.contentInset = UIEdgeInsetsMake(0, 0, -4, 0);
 		}
 		toolbar.frame = CGRectMake(0, 327, 320, 40);

@@ -449,6 +449,7 @@
 	} else {
 		// HIDE
 		[[UIApplication sharedApplication] setStatusBarHidden:YES animated:YES];
+
 		self.navigationBar.frame = CGRectMake(0, (self.navigationBar.frame.size.height + 20) * -1, self.navigationBar.frame.size.width, self.navigationBar.frame.size.height);
 		self.toolbar.frame = CGRectMake(0, self.view.bounds.size.height + self.toolbar.frame.size.height, self.toolbar.frame.size.width, self.toolbar.frame.size.height);
 		[UIView setAnimationDidStopSelector:@selector(setBarsHidden)];

@@ -16,6 +16,7 @@
 @synthesize playButton;
 @synthesize playLabel;
 @synthesize moviePlayerController;
+@synthesize moviePlayerView;
 @synthesize moviePath;
 
 
@@ -24,6 +25,7 @@
 	self.playButton = nil;
 	self.playLabel = nil;
 	self.moviePlayerController = nil;
+	self.moviePlayerView = nil;
 	self.moviePath = nil;
 
 	[super dealloc];
@@ -131,16 +133,27 @@
 
 - (void)playVideo:(UIButton *)sender;
 {
+	
+	
 	self.moviePlayerController = [[MPMoviePlayerController alloc] initWithContentURL:[NSURL fileURLWithPath:moviePath]];
 	moviePlayerController.scalingMode = MPMovieScalingModeAspectFill;
-	moviePlayerController.backgroundColor = [UIColor clearColor];
-	moviePlayerController.movieControlMode = MPMovieControlModeDefault;
-	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayerFinishedCallback:) name:MPMoviePlayerPlaybackDidFinishNotification object:moviePlayerController];
-
+	
+	
+	
+	if ([[[UIDevice currentDevice] systemVersion] isEqualToString:@"3.1.3"]) {
+	} else {
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayerFinishedCallback:) name:MPMoviePlayerWillExitFullscreenNotification object:moviePlayerController];
+		[moviePlayerController.view setFrame:self.frame];
+		moviePlayerController.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+		[self addSubview:moviePlayerController.view];	
+		[moviePlayerController setFullscreen:YES animated:YES];
+	}
+	
 	
 	
 	[moviePlayerController play];
+	
 }
 
 - (void)moviePlayerFinishedCallback:(NSNotification*)notification;
@@ -154,14 +167,15 @@
 	}
 
 	
-	
-	
-	
-
-	
-	
 	[[NSNotificationCenter defaultCenter] removeObserver:notification];
 	[moviePlayerController stop];
+	
+	if ([[[UIDevice currentDevice] systemVersion] isEqualToString:@"3.1.3"]) {
+	} else {
+		[moviePlayerController.view removeFromSuperview];
+	}
+	
+	
 	self.moviePlayerController = nil;
 }
 

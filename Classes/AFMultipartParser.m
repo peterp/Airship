@@ -25,11 +25,17 @@
 		// We search for boundaries, cache the length.
 		nextBoundaryLength = boundary.length + 2;
 		nextBoundaryBytes = (Byte *)malloc(nextBoundaryLength);
-		memcpy(nextBoundaryBytes, [[[NSString stringWithFormat:@"--%@", boundary] dataUsingEncoding:NSUTF8StringEncoding] bytes], nextBoundaryLength);
 		
+		
+		const void *p1 = [[[NSString stringWithFormat:@"--%@", boundary] dataUsingEncoding:NSUTF8StringEncoding] bytes];
+		memcpy(nextBoundaryBytes, p1, nextBoundaryLength);
 		lastBoundaryLength = boundary.length + 4;
 		lastBoundaryBytes = (Byte *)malloc(lastBoundaryLength);
-		memcpy(lastBoundaryBytes, [[[NSString stringWithFormat:@"--%@--", boundary] dataUsingEncoding:NSUTF8StringEncoding] bytes], lastBoundaryLength);
+		
+		const void *p2 = [[[NSString stringWithFormat:@"--%@--", boundary] dataUsingEncoding:NSUTF8StringEncoding] bytes];
+		memcpy(lastBoundaryBytes, p2, lastBoundaryLength);
+		
+		
 		
 		// These index are used to mark the start of data that we are going to slice.
 		lineStartIndex = -1;
@@ -159,7 +165,7 @@
 						[parts setObject:part forKey:lastPartName];
 					}
 					
-					[line release];
+					//[line release]; 
 				}
 				lineStartIndex = i + 2;
 			}
@@ -227,7 +233,7 @@
 		// Exctract and place this value in the part dictionary
 		NSString *value = [self stringFromData:[data subdataWithRange:range]];
 		[part setValue:value forKey:@"value"];
-		[value release];	
+	//	[value release];	!!!
 	}
 }
 

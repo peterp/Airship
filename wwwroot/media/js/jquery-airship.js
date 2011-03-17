@@ -36,7 +36,6 @@
 			
 			
 			
-            //var a = $('<img>').attr('alt', action.title).attr('src', action.title + '.png').text(action.title).click(action.event);
             d.find('.actions').append(a);
         }
 	};

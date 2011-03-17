@@ -221,7 +221,7 @@
 	} else {
 	 searchInterstitial.hidden = hidden;
 	 
-	 if (hidden = YES) {
+	 if (hidden == YES) {
 		// reset 
 		self.finderTableView.hidden = YES;
 		[fileList removeAllObjects];

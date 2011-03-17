@@ -260,9 +260,8 @@
 	
 
 	// Create
-	if ([[NSFileManager defaultManager] createDirectoryAtPath:[path stringByAppendingPathComponent:name] attributes:nil]) {
+	if ([[NSFileManager defaultManager] createDirectoryAtPath:[path stringByAppendingPathComponent:name] withIntermediateDirectories:YES attributes:nil error:nil]) {
 		// Notify.
-		
 		
 		File *newFile = [[File alloc] initWithName:name atPath:path];
 		[[NSNotificationCenter defaultCenter] postNotificationName:@"addedFileNotification" object:self userInfo:
@@ -281,7 +280,8 @@
 - (NSData *)JSONForDirectoryContentsAtPath:(NSString *)path;
 {
 	// DataSource
-	NSArray *directoryContents = [[[NSFileManager defaultManager] directoryContentsAtPath:[server.documentRoot.path stringByAppendingPathComponent:path]] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+	
+	NSArray *directoryContents = [[[NSFileManager defaultManager] contentsOfDirectoryAtPath:[server.documentRoot.path stringByAppendingPathComponent:path] error:nil] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 	NSMutableArray *storageItemList = [NSMutableArray arrayWithCapacity:[directoryContents count]];
 	for (NSString *itemName in directoryContents) {
 		File *storageItem = [[File alloc] initWithName:itemName atPath:[server.documentRoot.path stringByAppendingPathComponent:path]];
