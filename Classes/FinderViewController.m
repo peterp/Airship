@@ -8,7 +8,7 @@
 
 #import "FinderViewController.h"
 #import "FileViewController.h"
-#import "File.h";
+#import "File.h"
 
 
 
@@ -72,7 +72,7 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
 {
-	if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+	if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
 		self.tabBarItem.image = [UIImage imageNamed:@"dock_finder.png"];
 	}
   return self;
@@ -256,9 +256,10 @@
 	const int NAME_TAG = 1003;
 	const int META_TAG = 1004;
 	
+  UILabel *nameLabel;
+  UILabel *metaLabel;
 	UIImageView *pickImageView;
 	UIImageView *iconImageView;
-	w	
     
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
   if (cell == nil) {
